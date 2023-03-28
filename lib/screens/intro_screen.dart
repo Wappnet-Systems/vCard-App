@@ -12,7 +12,7 @@ class IntroductionScreens extends StatelessWidget {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
       body: IntroductionScreen(
-          globalBackgroundColor: BACKGROUND_COLOR,
+          globalBackgroundColor: PRIMARY_COLOR,
           pages: [
             PageViewModel(
               title: 'Create A Degital Card',
@@ -52,8 +52,8 @@ class IntroductionScreens extends StatelessWidget {
           isBottomSafeArea: true,
           skip: const Text("Skip",
               style:
-                  TextStyle(fontWeight: FontWeight.w600, color: PRIMARY_COLOR)),
-          next: const Icon(Icons.forward, color: PRIMARY_COLOR),
+                  TextStyle(fontWeight: FontWeight.w600, color: WHITE_COLOR)),
+          next: const Icon(Icons.forward, color: WHITE_COLOR),
           done: GestureDetector(
               onTap: () {
                 Navigator.push(context,
@@ -61,7 +61,7 @@ class IntroductionScreens extends StatelessWidget {
               },
               child: const Text("Get Started",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold, color: PRIMARY_COLOR))),
+                      fontWeight: FontWeight.bold, color: WHITE_COLOR))),
           dotsDecorator: getDotsDecorator()),
     );
   }
@@ -93,7 +93,7 @@ class IntroductionScreens extends StatelessWidget {
     return const DotsDecorator(
       spacing: EdgeInsets.symmetric(horizontal: 2),
       activeColor: Colors.black,
-      color: PRIMARY_COLOR,
+      color: WHITE_COLOR,
       activeSize: Size(12, 5),
       activeShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(25.0)),
