@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/scanner_screen.dart';
 import '../utils/constants_color.dart';
 
 class CustomButtomBar extends StatelessWidget with PreferredSizeWidget {
@@ -38,7 +39,12 @@ class CustomButtomBar extends StatelessWidget with PreferredSizeWidget {
               children: [
                 IconButton(
                     icon: Icon(Icons.photo_camera, color: WHITE_COLOR),
-                    onPressed: () {}),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Scannerscreen()));
+                    }),
                 Text(
                   "scan",
                   style: TextStyle(color: WHITE_COLOR),

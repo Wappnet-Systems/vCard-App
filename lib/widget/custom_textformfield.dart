@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:vcard/utils/constants_color.dart';
+
+class CustomTextFormField extends StatelessWidget {
+  final TextInputType textInputType;
+  final TextEditingController textEditingController;
+  final String texteditinghinttext;
+  final bool customobscuretext;
+  // final String? Function(String? value)? validationfunction;
+  final InkWell? custominkwell;
+  CustomTextFormField(
+      {required this.textInputType,
+      required this.textEditingController,
+      required this.texteditinghinttext,
+      required this.customobscuretext,
+      // required this.validationfunction,
+      required this.custominkwell});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      keyboardType: textInputType,
+      style: TextStyle(color: Color(0xff000000)),
+      obscureText: !customobscuretext,
+      cursorColor: PRIMARY_COLOR,
+      controller: textEditingController,
+      decoration: InputDecoration(
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: PRIMARY_COLOR),
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+        hintText: texteditinghinttext,
+        hintStyle: TextStyle(
+          color: Color(0xff000000),
+          fontWeight: FontWeight.w400,
+          fontSize: 12,
+        ),
+        suffixIcon: custominkwell,
+      ),
+      // validator: validationfunction,
+    );
+  }
+}

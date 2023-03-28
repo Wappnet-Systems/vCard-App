@@ -20,7 +20,7 @@ class _SplashscreenState extends State<Splashscreen> {
       home: AnimatedSplashScreen(
         duration: 1500,
         splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: BACKGROUND_COLOR,
+        backgroundColor: PRIMARY_COLOR,
         splashIconSize: 250,
         animationDuration: Duration(milliseconds: 1500),
         splash: Center(
@@ -38,7 +38,7 @@ class _SplashscreenState extends State<Splashscreen> {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: PRIMARY_COLOR,
+                    color: BACKGROUND_COLOR,
                   ))
             ],
           ),

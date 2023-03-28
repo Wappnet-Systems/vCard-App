@@ -2,9 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
-
 import 'auth_modual.dart';
-import 'dashboard_screen.dart';
 
 class IntroductionScreens extends StatelessWidget {
   const IntroductionScreens({Key? key}) : super(key: key);
@@ -14,25 +12,29 @@ class IntroductionScreens extends StatelessWidget {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
       body: IntroductionScreen(
+          globalBackgroundColor: BACKGROUND_COLOR,
           pages: [
             PageViewModel(
-              title: 'Title of 1st Page',
-              body: 'Body of 1st Page',
-              image: Image.asset("assets/images/V-logo-new.png"),
+              title: 'Create A Degital Card',
+              body:
+                  'A digital card offers convenience as well as data security',
+              image: Image.asset("assets/images/intro1.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Title of 2nd Page',
-              body: 'Body of 2nd Page',
-              image: Image.asset("assets/images/png.png"),
+              title: 'Send your card easily',
+              body:
+                  'This allows them to send you a visiting card instantly via QR code.',
+              image: Image.asset("assets/images/intro2.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
             ),
             PageViewModel(
-              title: 'Title of 3rd Page',
-              body: 'Body of 3rd Page',
-              image: Image.asset("assets/images/splash1.png"),
+              title: 'Easy to scan other card codes',
+              body:
+                  'This allows them to send you a visiting card instantly via QR code.',
+              image: Image.asset("assets/images/intro3.png"),
               //getPageDecoration, a method to customise the page style
               decoration: getPageDecoration(),
             ),
@@ -51,7 +53,7 @@ class IntroductionScreens extends StatelessWidget {
           skip: const Text("Skip",
               style:
                   TextStyle(fontWeight: FontWeight.w600, color: PRIMARY_COLOR)),
-          next: const Icon(Icons.forward),
+          next: const Icon(Icons.forward, color: PRIMARY_COLOR),
           done: GestureDetector(
               onTap: () {
                 Navigator.push(context,
@@ -69,19 +71,20 @@ class IntroductionScreens extends StatelessWidget {
     return Center(
         child: Image.asset(
       imagePath,
-      width: 450,
-      height: 200,
+      width: 550,
+      height: 400,
     ));
   }
 
   //method to customise the page style
   PageDecoration getPageDecoration() {
     return const PageDecoration(
-      imagePadding: EdgeInsets.only(top: 120),
-      pageColor: Colors.white,
-      bodyPadding: EdgeInsets.only(top: 8, left: 20, right: 20),
-      titlePadding: EdgeInsets.only(top: 50),
-      bodyTextStyle: TextStyle(color: Colors.black54, fontSize: 15),
+      imagePadding: EdgeInsets.only(top: 50),
+      pageColor: PRIMARY_COLOR,
+      bodyPadding: EdgeInsets.only(top: 40, left: 20, right: 20),
+      titlePadding: EdgeInsets.only(top: 100, left: 20, right: 20),
+      titleTextStyle: TextStyle(color: WHITE_COLOR, fontSize: 30),
+      bodyTextStyle: TextStyle(color: WHITE_COLOR, fontSize: 20),
     );
   }
 
@@ -89,8 +92,8 @@ class IntroductionScreens extends StatelessWidget {
   DotsDecorator getDotsDecorator() {
     return const DotsDecorator(
       spacing: EdgeInsets.symmetric(horizontal: 2),
-      activeColor: Colors.indigo,
-      color: Colors.grey,
+      activeColor: Colors.black,
+      color: PRIMARY_COLOR,
       activeSize: Size(12, 5),
       activeShape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(25.0)),

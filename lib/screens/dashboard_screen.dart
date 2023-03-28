@@ -35,7 +35,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       bottomNavigationBar: CustomButtomBar(""),
-      floatingActionButton: Customfloatingbuttom(''),
+      floatingActionButton: Customfloatingbuttom(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }

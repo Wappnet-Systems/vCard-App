@@ -1,115 +1,142 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'dart:developer';
 
-import '../utils/constants_color.dart';
-import 'dashboard_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:vcard/utils/constants_color.dart';
+import 'otp_screen.dart';
 
 class Authmodual extends StatefulWidget {
-  const Authmodual({super.key});
+  const Authmodual({Key? key}) : super(key: key);
+
+  static String verify = "";
 
   @override
   State<Authmodual> createState() => _AuthmodualState();
 }
 
 class _AuthmodualState extends State<Authmodual> {
-  TextEditingController _reminderNameController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  var phone = "";
+
+  @override
+  void initState() {
+    countryController.text = "+91";
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: BACKGROUND_COLOR,
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Get Started"),
-          backgroundColor: PRIMARY_COLOR,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage("assets/images/splash.png"),
-            ),
-          ),
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-        ),
-        body: GestureDetector(
-          onTap: () {
-            FocusScopeNode focusScopeNode = FocusScope.of(context);
-            if (!focusScopeNode.hasPrimaryFocus) {
-              focusScopeNode.unfocus();
-            }
-          },
-          child: Container(
-            padding: EdgeInsets.all(15.0),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 120,
+      backgroundColor: BACKGROUND_COLOR,
+      body: Container(
+        margin: EdgeInsets.only(left: 25, right: 25),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/Auth_modual.png',
+                width: 150,
+                height: 150,
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Text(
+                "Add your Phone Number",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "We need to register your phone without getting started!",
+                style: TextStyle(
+                  fontSize: 16,
                 ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(25.0),
-                    child: Text(
-                      "Please enter your mobile number to proceed further",
-                      style: TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 55,
+                decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.grey),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 10,
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                TextFormField(
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp("[0-9]"))
-                  ],
-                  validator: textformfieldvalidator,
-                  controller: _reminderNameController,
-                  cursorColor: PRIMARY_COLOR,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: PRIMARY_COLOR),
-                      borderRadius: BorderRadius.vertical(),
-                    ),
-                    labelText: 'Enter Mobile Number',
-                    labelStyle: TextStyle(color: Colors.black),
-                    hintText: 'Enter Mobile Number',
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(1.0),
-                  child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: PRIMARY_COLOR,
-                        borderRadius: BorderRadius.circular(3),
+                    SizedBox(
+                      width: 40,
+                      child: TextField(
+                        cursorColor: PRIMARY_COLOR,
+                        controller: countryController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
                       ),
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Dashboardscreen()));
-                          },
-                          child: Text("Submit",
-                              style: TextStyle(
-                                color: Color(0xfffefefd),
-                                fontSize: 17,
-                              )))),
+                    ),
+                    Text(
+                      "|",
+                      style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        child: TextField(
+                      onChanged: (value) {
+                        phone = value;
+                      },
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Phone",
+                      ),
+                    ))
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: PRIMARY_COLOR,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: '${countryController.text + phone}',
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
+                        codeSent: (String verificationId, int? resendToken) {
+                          Authmodual.verify = verificationId;
+                          log("VerificationId:${Authmodual.verify}");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OTPscreen()));
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+                    },
+                    child: Text("Send the code")),
+              )
+            ],
           ),
-        ));
-  }
-
-  String? textformfieldvalidator(String? value) {
-    if (value!.isEmpty) {
-      return 'Please this field must be filled';
-    }
-    return null;
+        ),
+      ),
+    );
   }
 }
