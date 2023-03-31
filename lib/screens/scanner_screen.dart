@@ -1,7 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+
+import '../utils/constants_color.dart';
 
 class Scannerscreen extends StatefulWidget {
   const Scannerscreen({super.key});
@@ -11,56 +12,63 @@ class Scannerscreen extends StatefulWidget {
 }
 
 class _ScannerscreenState extends State<Scannerscreen> {
-  Barcode? result;
-  QRViewController? controller;
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() => this.controller = controller);
-    controller.scannedDataStream.listen((scanData) {
-      setState(() => result = scanData);
-    });
-  }
-
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    } else if (Platform.isIOS) {
-      controller!.resumeCamera();
-    }
-  }
-
-  void readQr() async {
-    if (result != null) {
-      controller!.pauseCamera();
-      print(result!.code);
-      controller!.dispose();
-    }
-  }
+  var getResult = 'QR Code Result';
 
   @override
   Widget build(BuildContext context) {
-    readQr();
     return Scaffold(
-      body: QRView(
-        key: qrKey,
-        onQRViewCreated: _onQRViewCreated,
-        overlay: QrScannerOverlayShape(
-          borderColor: PRIMARY_COLOR,
-          borderRadius: 10,
-          borderLength: 30,
-          borderWidth: 10,
-          cutOutSize: 250,
-        ),
+      backgroundColor: BACKGROUND_COLOR,
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("QR Scanner"),
+        backgroundColor: PRIMARY_COLOR,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
+      body: Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 20.0,
+          ),
+          Text(getResult),
+          SizedBox(
+            height: 100.0,
+          ),
+          Container(
+            decoration: BoxDecoration(
+              color: PRIMARY_COLOR,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: TextButton(
+              onPressed: () {
+                scanQRCode();
+              },
+              child: Text(
+                'Scan QR',
+                style: TextStyle(color: WHITE_COLOR),
+              ),
+            ),
+          ),
+        ],
+      )),
     );
   }
 
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        getResult = qrCode;
+      });
+      print("QRCode_Result:--");
+      print(qrCode);
+    } on PlatformException {
+      getResult = 'Failed to scan QR Code.';
+    }
   }
 }

@@ -3,17 +3,19 @@ import 'package:vcard/utils/constants_color.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
+  final Icon? customprefixicon;
   final TextEditingController textEditingController;
   final String texteditinghinttext;
   final bool customobscuretext;
-  // final String? Function(String? value)? validationfunction;
+  final String? Function(String? value)? validationfunction;
   final InkWell? custominkwell;
   CustomTextFormField(
       {required this.textInputType,
+      required this.customprefixicon,
       required this.textEditingController,
       required this.texteditinghinttext,
       required this.customobscuretext,
-      // required this.validationfunction,
+      required this.validationfunction,
       required this.custominkwell});
 
   @override
@@ -35,9 +37,10 @@ class CustomTextFormField extends StatelessWidget {
           fontWeight: FontWeight.w400,
           fontSize: 12,
         ),
+        prefixIcon: customprefixicon,
         suffixIcon: custominkwell,
       ),
-      // validator: validationfunction,
+      validator: validationfunction,
     );
   }
 }

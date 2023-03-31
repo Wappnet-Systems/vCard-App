@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/splash_screen.dart';
 import 'screens/create_card_screen.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              home: Splashscreen(),
+              home: Dashboardscreen(),
             );
           }
           return CircularProgressIndicator();

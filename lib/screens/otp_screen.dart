@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
@@ -16,23 +17,28 @@ class OTPscreen extends StatefulWidget {
 class _OTPscreenState extends State<OTPscreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   var code = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _listenOtp();
+  }
+
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
       width: 56,
       height: 56,
       textStyle: TextStyle(
-          fontSize: 20,
-          color: Color.fromRGBO(30, 60, 87, 1),
-          fontWeight: FontWeight.w600),
+          fontSize: 20, color: PRIMARY_COLOR, fontWeight: FontWeight.w600),
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        border: Border.all(color: PRIMARY_COLOR),
         borderRadius: BorderRadius.circular(20),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      border: Border.all(color: PRIMARY_COLOR),
       borderRadius: BorderRadius.circular(8),
     );
 
@@ -90,13 +96,13 @@ class _OTPscreenState extends State<OTPscreen> {
               SizedBox(
                 height: 30,
               ),
-              Pinput(
-                length: 6,
-                onChanged: (value) {
-                  code = value;
+              PinFieldAutoFill(
+                codeLength: 6,
+                onCodeChanged: (value) {
+                  code = value!;
                 },
-                showCursor: true,
-                onCompleted: (pin) => print(pin),
+                // showCursor: true,
+                // onCompleted: (pin) => print(pin),
               ),
               SizedBox(
                 height: 20,
@@ -150,5 +156,9 @@ class _OTPscreenState extends State<OTPscreen> {
         ),
       ),
     );
+  }
+
+  void _listenOtp() async {
+    await SmsAutoFill().listenForCode;
   }
 }

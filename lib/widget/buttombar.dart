@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
 import '../screens/scanner_screen.dart';
 import '../utils/constants_color.dart';
 
@@ -14,72 +15,77 @@ class CustomButtomBar extends StatelessWidget with PreferredSizeWidget {
       color: PRIMARY_COLOR,
       child: Row(
         children: [
-          SizedBox(width: 15),
+          SizedBox(width: 20),
           Container(
-            height: MediaQuery.of(context).size.height * .09,
-            child: Column(
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.add_card,
-                      color: WHITE_COLOR,
-                    ),
-                    onPressed: () {}),
-                Text(
-                  "Card",
-                  style: TextStyle(color: WHITE_COLOR),
-                ),
-              ],
+            height: MediaQuery.of(context).size.height * .07,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Dashboardscreen()));
+              },
+              child: Column(
+                children: [
+                  Icon(
+                    Icons.add_card,
+                    color: WHITE_COLOR,
+                  ),
+                  Text(
+                    "Card",
+                    style: TextStyle(color: WHITE_COLOR),
+                  ),
+                ],
+              ),
             ),
           ),
-          SizedBox(width: 30),
+          SizedBox(width: 45),
           Container(
-            height: MediaQuery.of(context).size.height * .09,
-            child: Column(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.photo_camera, color: WHITE_COLOR),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Scannerscreen()));
-                    }),
-                Text(
-                  "scan",
-                  style: TextStyle(color: WHITE_COLOR),
-                ),
-              ],
+            height: MediaQuery.of(context).size.height * .07,
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Scannerscreen()));
+              },
+              child: Column(
+                children: [
+                  Icon(Icons.photo_camera, color: WHITE_COLOR),
+                  Text(
+                    "scan",
+                    style: TextStyle(color: WHITE_COLOR),
+                  ),
+                ],
+              ),
             ),
           ),
           Spacer(),
           Container(
-            height: MediaQuery.of(context).size.height * .09,
-            child: Column(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.contacts, color: WHITE_COLOR),
-                    onPressed: () {}),
-                Text(
-                  "Contacts",
-                  style: TextStyle(color: WHITE_COLOR),
-                ),
-              ],
+            height: MediaQuery.of(context).size.height * .07,
+            child: InkWell(
+              onTap: () {},
+              child: Column(
+                children: [
+                  Icon(Icons.contacts, color: WHITE_COLOR),
+                  Text(
+                    "Contacts",
+                    style: TextStyle(color: WHITE_COLOR),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(width: 30),
           Container(
-            height: MediaQuery.of(context).size.height * .09,
-            child: Column(
-              children: [
-                IconButton(
-                    icon: Icon(Icons.more, color: WHITE_COLOR),
-                    onPressed: () {}),
-                Text(
-                  "More",
-                  style: TextStyle(color: WHITE_COLOR),
-                ),
-              ],
+            height: MediaQuery.of(context).size.height * .07,
+            child: InkWell(
+              onTap: () {},
+              child: Column(
+                children: [
+                  Icon(Icons.more, color: WHITE_COLOR),
+                  Text(
+                    "More",
+                    style: TextStyle(color: WHITE_COLOR),
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(width: 15),

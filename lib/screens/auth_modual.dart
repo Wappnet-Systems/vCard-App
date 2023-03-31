@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'otp_screen.dart';
 
@@ -16,7 +17,7 @@ class Authmodual extends StatefulWidget {
 
 class _AuthmodualState extends State<Authmodual> {
   TextEditingController countryController = TextEditingController();
-  var phone = "";
+  var phone;
 
   @override
   void initState() {
@@ -120,8 +121,10 @@ class _AuthmodualState extends State<Authmodual> {
                         verificationCompleted:
                             (PhoneAuthCredential credential) {},
                         verificationFailed: (FirebaseAuthException e) {},
-                        codeSent: (String verificationId, int? resendToken) {
+                        codeSent:
+                            (String verificationId, int? resendToken) async {
                           Authmodual.verify = verificationId;
+                          final signature = await SmsAutoFill().getAppSignature;
                           log("VerificationId:${Authmodual.verify}");
                           Navigator.push(
                               context,
