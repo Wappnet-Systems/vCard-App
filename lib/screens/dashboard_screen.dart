@@ -323,16 +323,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                         "assets/images/splash1.png",
                         scale: 4,
                       ),
-                      // Container(
-                      //   decoration: BoxDecoration(
-                      //     image: DecorationImage(
-                      //       image: AssetImage('assets/images/splash1.png'),
-                      //       fit: BoxFit.fill,
-                      //     ),
-                      //   ),
-                      // ),
                       Text('${Staticmenbers.listofUsers[index].name}'),
-                      // Text('${Staticmenbers.listofUsers[index].id}'),
                     ]),
                   ),
                 ),

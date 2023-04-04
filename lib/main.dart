@@ -52,54 +52,43 @@ class _MyAppState extends State<MyApp> {
     final Future<FirebaseApp> _initialization = Firebase.initializeApp();
     print(isfirsttime);
 
-    return FutureBuilder(
-        future: _initialization,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print("object");
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'Flutter Demo',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-              ),
-              home: AnimatedSplashScreen(
-                duration: 1500,
-                splashTransition: SplashTransition.fadeTransition,
-                backgroundColor: PRIMARY_COLOR,
-                splashIconSize: 250,
-                animationDuration: Duration(milliseconds: 1500),
-                splash: Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Image.asset(
-                          "assets/images/splash1.png",
-                          height: 200,
-                          width: 200,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Text("V Card",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: BACKGROUND_COLOR,
-                          ))
-                    ],
-                  ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: AnimatedSplashScreen(
+        duration: 1500,
+        splashTransition: SplashTransition.fadeTransition,
+        backgroundColor: PRIMARY_COLOR,
+        splashIconSize: 250,
+        animationDuration: Duration(milliseconds: 1500),
+        splash: Center(
+          child: Column(
+            children: [
+              Container(
+                child: Image.asset(
+                  "assets/images/splash1.png",
+                  height: 200,
+                  width: 200,
                 ),
-                nextScreen: 
-                // Dashboardscreen(),
-                (widget.islogin! == true)
-                    ? Dashboardscreen()
-                    : Authmodual(),
               ),
-            );
-          }
-          return CircularProgressIndicator();
-        });
+              SizedBox(height: 10),
+              Text("V Card",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: BACKGROUND_COLOR,
+                  ))
+            ],
+          ),
+        ),
+        nextScreen: Dashboardscreen(),
+        // (widget.islogin! == true)
+        //     ? Dashboardscreen()
+        //     : Authmodual(),
+      ),
+    );
   }
 }

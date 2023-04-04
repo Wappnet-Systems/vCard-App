@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
 import '../widget/custom_textformfield.dart';
 import '../widget/icon.dart';
-import 'package:image_picker/image_picker.dart';
 
 class Createcardscreen extends StatefulWidget {
   @override
@@ -75,12 +76,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         .catchError((error) => print("Failed to add user: $error"));
   }
 
-  File? pickedImage;
-  // var _userImageFile;
-  // void _pickedImage(File image) {
-  //   _userImageFile = image;
-  //   print("Image got $_userImageFile");
-  // }
+  File? Imagepicker;
 
   @override
   Widget build(BuildContext context) {
@@ -136,23 +132,23 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     ),
                     child: InkWell(
                       onTap: () {
-                        imagePickerOption();
+                        imagepicker();
+                        log("$imagepicker()");
                       },
                       child: ClipOval(
-                        child: pickedImage != null
-                            ? Image.file(
-                                pickedImage!,
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.asset(
-                                "assets/images/splash.png",
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              ),
-                      ),
+                          child: Imagepicker == null
+                              ? Image.asset(
+                                  "assets/images/splash.png",
+                                  width: 170,
+                                  height: 170,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.file(
+                                  Imagepicker!,
+                                  width: 170,
+                                  height: 170,
+                                  fit: BoxFit.cover,
+                                )),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -246,13 +242,87 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     );
   }
 
+  void imagepicker() {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text("Address"),
+        content: Container(
+          color: WHITE_COLOR,
+          height: 250,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  "Pic Image From",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: PRIMARY_COLOR),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: PRIMARY_COLOR,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextButton(
+                      onPressed: () {
+                        pickImage(ImageSource.camera);
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "CAMERA",
+                        style: TextStyle(color: WHITE_COLOR),
+                      )),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  decoration: BoxDecoration(
+                    color: PRIMARY_COLOR,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextButton(
+                      onPressed: () {
+                        pickImage(ImageSource.gallery);
+                        Navigator.pop(context);
+                      },
+                      child: Text("GALLERY",
+                          style: TextStyle(color: WHITE_COLOR))),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  decoration: BoxDecoration(
+                    color: PRIMARY_COLOR,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child:
+                          Text("CANCEL", style: TextStyle(color: WHITE_COLOR))),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   pickImage(ImageSource imageType) async {
     try {
       final photo = await ImagePicker().pickImage(source: imageType);
       if (photo == null) return;
       final tempImage = File(photo.path);
       setState(() {
-        pickedImage = tempImage;
+        Imagepicker = tempImage;
         // widget.getImageValue(pickedImage!);
       });
 
@@ -260,82 +330,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     } catch (error) {
       debugPrint(error.toString());
     }
-  }
-
-  void imagePickerOption() {
-    bottomSheet(
-      SingleChildScrollView(
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(10.0),
-            topRight: Radius.circular(10.0),
-          ),
-          child: Container(
-            color: WHITE_COLOR,
-            height: 250,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    "Pic Image From",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: PRIMARY_COLOR),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: PRIMARY_COLOR,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          pickImage(ImageSource.camera);
-                        },
-                        child: Text(
-                          "CAMERA",
-                          style: TextStyle(color: WHITE_COLOR),
-                        )),
-                  ),
-                  SizedBox(height: 15),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: PRIMARY_COLOR,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          pickImage(ImageSource.gallery);
-                        },
-                        child: Text("GALLERY",
-                            style: TextStyle(color: WHITE_COLOR))),
-                  ),
-                  SizedBox(height: 15),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: PRIMARY_COLOR,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          exit(0);
-                        },
-                        child: Text("CANCEL",
-                            style: TextStyle(color: WHITE_COLOR))),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   displayCustomToast() {
@@ -356,6 +350,4 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       toastDuration: const Duration(seconds: 3),
     );
   }
-
-  void bottomSheet(SingleChildScrollView singleChildScrollView) {}
 }

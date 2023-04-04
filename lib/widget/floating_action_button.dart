@@ -14,7 +14,7 @@ class Customfloatingbuttom extends StatelessWidget with PreferredSizeWidget {
         backgroundColor: PRIMARY_COLOR,
         child: Icon(Icons.add, color: WHITE_COLOR),
         onPressed: () {
-          Navigator.pushReplacement(context,
+          Navigator.push(context,
               MaterialPageRoute(builder: ((context) => Createcardscreen())));
         });
   }
