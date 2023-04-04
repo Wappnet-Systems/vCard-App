@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
@@ -124,11 +126,24 @@ class _OTPscreenState extends State<OTPscreen> {
                                 verificationId: Authmodual.verify,
                                 smsCode: code);
 
-                        await auth.signInWithCredential(credential);
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Dashboardscreen()));
+                        await auth
+                            .signInWithCredential(credential)
+                            .then((value) async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setBool('isLoggedIn', true);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.success,
+                            showCloseIcon: true,
+                            desc: "Login Successfully",
+                          ).show();
+                          await Future.delayed(const Duration(seconds: 1));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Dashboardscreen()));
+                        });
                       } catch (e) {
                         print(e);
                       }

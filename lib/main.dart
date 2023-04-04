@@ -1,24 +1,56 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/splash_screen.dart';
 import 'screens/create_card_screen.dart';
 import 'screens/dashboard_screen.dart';
+import 'screens/intro_screen.dart';
+import 'utils/constants_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final islogin = await prefs.getBool('isLoggedIn') ?? false;
+  // final isfirsttime = await prefs.getBool('isFirstTime');
+  runApp(MyApp(islogin: islogin));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class DefaultFirebaseOptions {
+  static var currentPlatform;
+}
 
+class MyApp extends StatefulWidget {
+  bool? islogin;
+  MyApp({
+    super.key,
+    required this.islogin,
+  });
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    IntroductionScreens();
+    super.initState();
+  }
+
+  // Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    bool isfirsttime = false;
     final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+    print(isfirsttime);
 
     return FutureBuilder(
         future: _initialization,
@@ -33,7 +65,38 @@ class MyApp extends StatelessWidget {
               theme: ThemeData(
                 primarySwatch: Colors.blue,
               ),
-              home: Dashboardscreen(),
+              home: AnimatedSplashScreen(
+                duration: 1500,
+                splashTransition: SplashTransition.fadeTransition,
+                backgroundColor: PRIMARY_COLOR,
+                splashIconSize: 250,
+                animationDuration: Duration(milliseconds: 1500),
+                splash: Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Image.asset(
+                          "assets/images/splash1.png",
+                          height: 200,
+                          width: 200,
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      Text("V Card",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: BACKGROUND_COLOR,
+                          ))
+                    ],
+                  ),
+                ),
+                nextScreen: 
+                // Dashboardscreen(),
+                (widget.islogin! == true)
+                    ? Dashboardscreen()
+                    : Authmodual(),
+              ),
             );
           }
           return CircularProgressIndicator();

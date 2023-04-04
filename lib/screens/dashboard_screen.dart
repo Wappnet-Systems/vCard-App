@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/buttombar.dart';
 import 'package:vcard/widget/floating_action_button.dart';
-
 import '../controllers/data_controllers.dart';
+import 'digital_visiting_card.dart';
 
 class Dashboardscreen extends StatefulWidget {
   const Dashboardscreen({super.key});
@@ -18,6 +20,7 @@ class Dashboardscreen extends StatefulWidget {
 }
 
 class _DashboardscreenState extends State<Dashboardscreen> {
+  int? cardindex;
   Future<void> getSingleUserData() async {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
@@ -86,24 +89,254 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           ),
           itemCount: Staticmenbers.listofUsers.length,
           itemBuilder: (BuildContext context, int index) {
-            return Card(
-              color: Colors.amber,
-              child: Column(children: [
-                Text('${Staticmenbers.listofUsers[index].id}'),
-                Text('${Staticmenbers.listofUsers[index].name}'),
-                Text('${Staticmenbers.listofUsers[index].department}'),
-                Text('${Staticmenbers.listofUsers[index].compeny}'),
-                Text('${Staticmenbers.listofUsers[index].headline}'),
-                Text('${Staticmenbers.listofUsers[index].whatsapp}'),
-                Text('${Staticmenbers.listofUsers[index].telegram}'),
-                Text('${Staticmenbers.listofUsers[index].snapchat}'),
-                Text('${Staticmenbers.listofUsers[index].website}'),
-                Text('${Staticmenbers.listofUsers[index].link}'),
-                Text('${Staticmenbers.listofUsers[index].facebook}'),
-                Text('${Staticmenbers.listofUsers[index].email}'),
-                Text('${Staticmenbers.listofUsers[index].phone}'),
-                Text('${Staticmenbers.listofUsers[index].address}'),
-              ]),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    cardindex = index;
+                  });
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                              height: 400.0,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Work",
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 140,
+                                          width: 150,
+                                          child: Card(
+                                            color: PRIMARY_COLOR,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 10),
+                                                  Icon(
+                                                    Icons.send_sharp,
+                                                    color: WHITE_COLOR,
+                                                  ),
+                                                  SizedBox(height: 3),
+                                                  Text(
+                                                    "Send",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: WHITE_COLOR),
+                                                  ),
+                                                  SizedBox(height: 3),
+                                                  Text(
+                                                    "Share via QR,",
+                                                    style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: WHITE_COLOR),
+                                                  ),
+                                                  Text(
+                                                    "email.",
+                                                    style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: WHITE_COLOR),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Digitalvisitingcard(
+                                                          id: cardindex,
+                                                        )));
+                                          },
+                                          child: Container(
+                                            height: 140,
+                                            width: 150,
+                                            child: Card(
+                                              color: PRIMARY_COLOR,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(height: 10),
+                                                    Icon(
+                                                      Icons.remove_red_eye,
+                                                      color: WHITE_COLOR,
+                                                    ),
+                                                    SizedBox(height: 3),
+                                                    Text(
+                                                      "View",
+                                                      style: TextStyle(
+                                                          fontSize: 20,
+                                                          color: WHITE_COLOR),
+                                                    ),
+                                                    SizedBox(height: 3),
+                                                    Text(
+                                                      "Open your card",
+                                                      style: TextStyle(
+                                                          fontSize: 17,
+                                                          color: WHITE_COLOR),
+                                                    ),
+                                                    Text(
+                                                      "in vCard.",
+                                                      style: TextStyle(
+                                                          fontSize: 17,
+                                                          color: WHITE_COLOR),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 10),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 140,
+                                          width: 150,
+                                          child: Card(
+                                            color: PRIMARY_COLOR,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 10),
+                                                  Icon(
+                                                    Icons.edit,
+                                                    color: WHITE_COLOR,
+                                                  ),
+                                                  SizedBox(height: 3),
+                                                  Text(
+                                                    "Edit",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: WHITE_COLOR),
+                                                  ),
+                                                  SizedBox(height: 3),
+                                                  Text(
+                                                    "Customize your",
+                                                    style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: WHITE_COLOR),
+                                                  ),
+                                                  Text(
+                                                    "business card.",
+                                                    style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: WHITE_COLOR),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(width: 10),
+                                        Container(
+                                          height: 140,
+                                          width: 150,
+                                          child: Card(
+                                            color: PRIMARY_COLOR,
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: 10),
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: WHITE_COLOR,
+                                                  ),
+                                                  SizedBox(height: 3),
+                                                  Text(
+                                                    "Delete",
+                                                    style: TextStyle(
+                                                        fontSize: 20,
+                                                        color: WHITE_COLOR),
+                                                  ),
+                                                  SizedBox(height: 3),
+                                                  Text(
+                                                    "Delete your",
+                                                    style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: WHITE_COLOR),
+                                                  ),
+                                                  Text(
+                                                    "Card.",
+                                                    style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: WHITE_COLOR),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )),
+                        );
+                      });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: BACKGROUND_COLOR,
+                        offset: const Offset(
+                          1.0,
+                          1.0,
+                        ), //Offset
+                        blurRadius: 10.0,
+                        spreadRadius: 2.0,
+                      ), //BoxShadow
+                      //BoxShadow
+                    ],
+                  ), //BoxDecoration
+                  child: Card(
+                    color: Colors.amber,
+                    child: Column(children: [
+                      Image.asset(
+                        "assets/images/splash1.png",
+                        scale: 4,
+                      ),
+                      // Container(
+                      //   decoration: BoxDecoration(
+                      //     image: DecorationImage(
+                      //       image: AssetImage('assets/images/splash1.png'),
+                      //       fit: BoxFit.fill,
+                      //     ),
+                      //   ),
+                      // ),
+                      Text('${Staticmenbers.listofUsers[index].name}'),
+                      // Text('${Staticmenbers.listofUsers[index].id}'),
+                    ]),
+                  ),
+                ),
+              ),
             );
           }),
       bottomNavigationBar: CustomButtomBar(""),
