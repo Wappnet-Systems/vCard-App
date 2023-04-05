@@ -44,7 +44,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             email: e['Email'],
             phone: e['Phone'],
             address: e['Address'],
-            id: e['id']))
+            id: e['id'],
+            image: e['images']))
         .toList();
 
     print("userData $userData");
@@ -309,19 +310,28 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                         offset: const Offset(
                           1.0,
                           1.0,
-                        ), //Offset
+                        ),
                         blurRadius: 10.0,
                         spreadRadius: 2.0,
-                      ), //BoxShadow
-                      //BoxShadow
+                      ),
                     ],
-                  ), //BoxDecoration
+                  ),
                   child: Card(
-                    color: Colors.amber,
+                    color: PRIMARY_COLOR,
                     child: Column(children: [
-                      Image.asset(
-                        "assets/images/splash1.png",
-                        scale: 4,
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: PRIMARY_COLOR, width: 5),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(100),
+                          ),
+                        ),
+                        child: Image.network(
+                          "${Staticmenbers.listofUsers[index].image}",
+                          width: 130,
+                          height: 130,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       Text('${Staticmenbers.listofUsers[index].name}'),
                     ]),

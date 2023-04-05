@@ -62,9 +62,19 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                     SizedBox(height: 20),
                     Center(
                       child: Container(
-                        height: 100,
-                        width: 100,
-                        color: BLACK_COLOR,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: PRIMARY_COLOR, width: 5),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(100),
+                          ),
+                        ),
+                        child: ClipOval(
+                            child: Image.network(
+                          "${Staticmenbers.listofUsers[cardindex!].image}",
+                          width: 170,
+                          height: 170,
+                          fit: BoxFit.cover,
+                        )),
                       ),
                     ),
                     SizedBox(height: 90),

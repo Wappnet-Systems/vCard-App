@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -52,9 +53,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       .collection("Carddata")
       .doc();
 
-  Future<void> addUser() {
+  Future<void> addUser() async {
     print(receivedLoanDataRef.id);
     // Call the user's CollectionReference to add a new user
+    final imgurl = await uploadImage(Imagepicker!);
     return receivedLoanDataRef
         .set({
           'Name': _nameController.text,
@@ -70,13 +72,38 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           'Email': _emailcontroller.text,
           'Phone': _numbercontroller.text,
           'Address': _addresscontroller.text,
-          'id': receivedLoanDataRef.id
+          'id': receivedLoanDataRef.id,
+          'images': imgurl,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
 
   File? Imagepicker;
+  // String? downloadUrl;
+
+  // final picker = Image;
+
+  Future imagePicker() async {
+    try {
+      final pick = await ImagePicker().pickImage(source: ImageSource.gallery);
+      setState(() {
+        if (pick != null) {
+          Imagepicker = File(pick.path);
+        }
+      });
+    } catch (e) {}
+  }
+
+  Future uploadImage(File Imagepicker) async {
+    String url;
+    String imgId = DateTime.now().microsecondsSinceEpoch.toString();
+    Reference reference =
+        FirebaseStorage.instance.ref().child('images').child('users$imgId');
+    await reference.putFile(Imagepicker);
+    url = await reference.getDownloadURL();
+    return url;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +159,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     ),
                     child: InkWell(
                       onTap: () {
-                        imagepicker();
-                        log("$imagepicker()");
+                        imagePicker();
+                        // .whenComplete(() {
+                        //   uploadImage(Imagepicker!);
+                        // });
+                        // imagepicker();
+                        // log("$imagepicker()");
+                        // pickImage(imageType).whenComplete(() => null)
                       },
                       child: ClipOval(
                           child: Imagepicker == null
@@ -242,95 +274,111 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     );
   }
 
-  void imagepicker() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text("Address"),
-        content: Container(
-          color: WHITE_COLOR,
-          height: 250,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Pic Image From",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: PRIMARY_COLOR),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "CAMERA",
-                        style: TextStyle(color: WHITE_COLOR),
-                      )),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.pop(context);
-                      },
-                      child: Text("GALLERY",
-                          style: TextStyle(color: WHITE_COLOR))),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child:
-                          Text("CANCEL", style: TextStyle(color: WHITE_COLOR))),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // void imagepicker() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (ctx) => AlertDialog(
+  //       title: const Text("Address"),
+  //       content: Container(
+  //         color: WHITE_COLOR,
+  //         height: 250,
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(8.0),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.stretch,
+  //             children: [
+  //               const Text(
+  //                 "Pic Image From",
+  //                 style: TextStyle(
+  //                     fontSize: 20,
+  //                     fontWeight: FontWeight.bold,
+  //                     color: PRIMARY_COLOR),
+  //                 textAlign: TextAlign.center,
+  //               ),
+  //               const SizedBox(
+  //                 height: 20,
+  //               ),
+  //               Container(
+  //                 decoration: BoxDecoration(
+  //                   color: PRIMARY_COLOR,
+  //                   borderRadius: BorderRadius.circular(8),
+  //                 ),
+  //                 child: TextButton(
+  //                     onPressed: () {
+  //                       pickImage(ImageSource.camera);
+  //                       Navigator.pop(context);
+  //                     },
+  //                     child: Text(
+  //                       "CAMERA",
+  //                       style: TextStyle(color: WHITE_COLOR),
+  //                     )),
+  //               ),
+  //               SizedBox(height: 15),
+  //               Container(
+  //                 decoration: BoxDecoration(
+  //                   color: PRIMARY_COLOR,
+  //                   borderRadius: BorderRadius.circular(8),
+  //                 ),
+  //                 child: TextButton(
+  //                     onPressed: () {
+  //                       pickImage(ImageSource.gallery);
+  //                       Navigator.pop(context);
+  //                     },
+  //                     child: Text("GALLERY",
+  //                         style: TextStyle(color: WHITE_COLOR))),
+  //               ),
+  //               SizedBox(height: 15),
+  //               Container(
+  //                 decoration: BoxDecoration(
+  //                   color: PRIMARY_COLOR,
+  //                   borderRadius: BorderRadius.circular(8),
+  //                 ),
+  //                 child: TextButton(
+  //                     onPressed: () {
+  //                       Navigator.pop(context);
+  //                     },
+  //                     child:
+  //                         Text("CANCEL", style: TextStyle(color: WHITE_COLOR))),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  pickImage(ImageSource imageType) async {
-    try {
-      final photo = await ImagePicker().pickImage(source: imageType);
-      if (photo == null) return;
-      final tempImage = File(photo.path);
-      setState(() {
-        Imagepicker = tempImage;
-        // widget.getImageValue(pickedImage!);
-      });
+  // Future pickimage() async {
+  //   try {
+  //     final pick = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     setState(() {
+  //       if (pick == null) {
+  //         Imagepicker = File(pick!.path);
+  //       }
+  //     });
+  //   } catch (e) {}
+  // }
+  // Future pickImage(ImageSource imageType) async {
+  //   try {
+  //     final photo = await ImagePicker().pickImage(source: imageType);
+  //     if (photo == null) return;
+  //     final tempImage = File(photo.path);
+  //     setState(() {
+  //       Imagepicker = tempImage;
+  //       // widget.getImageValue(pickedImage!);
+  //     });
 
-      // Get.back();
-    } catch (error) {
-      debugPrint(error.toString());
-    }
-  }
+  //     // Get.back();
+  //   } catch (error) {
+  //     debugPrint(error.toString());
+  //   }
+  // }
+
+  // Future uploadImage(File? Imagepicker) async {
+  //   Reference ref =
+  //       FirebaseStorage.instance.ref().child("images").child("dgsg");
+  //   await ref.putFile(Imagepicker!);
+  // }
 
   displayCustomToast() {
     Widget toast = Container(
