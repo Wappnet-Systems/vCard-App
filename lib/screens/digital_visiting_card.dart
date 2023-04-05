@@ -224,11 +224,6 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                           scale: 15,
                         ),
                       ),
-                      // Text('${Staticmenbers.listofUsers[cardindex!].address}',
-                      //     style: TextStyle(
-                      //         fontSize: 25,
-                      //         color: BLACK_COLOR,
-                      //         fontWeight: FontWeight.bold)),],),
                     ]),
                   ]),
             ),
