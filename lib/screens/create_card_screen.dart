@@ -161,7 +161,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       child: ClipOval(
                           child: Imagepicker == null
                               ? Image.asset(
-                                  "assets/images/splash.png",
+                                  "assets/images/splash1.png",
                                   width: 170,
                                   height: 170,
                                   fit: BoxFit.cover,
