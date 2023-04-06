@@ -1,12 +1,11 @@
+import 'dart:developer';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-
 import '../widget/alart_dialog_widget.dart';
 import '../widget/text_button_widget.dart';
 
@@ -23,7 +22,6 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     cardindex = widget.id;
   }
@@ -204,11 +202,13 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    // TextButtomWidget(
-                                    //   onPressed: () {},
-                                    //   title: 'Abc',
-                                    //   color: PRIMARY_COLOR,
-                                    // ),
+                                    TextButtomWidget(
+                                      onPressed: () {
+                                        _pushMap();
+                                      },
+                                      title: 'Use Map',
+                                      color: PRIMARY_COLOR,
+                                    ),
                                     TextButtomWidget(
                                       onPressed: () {
                                         Navigator.pop(context);
@@ -246,5 +246,17 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
         ),
       ),
     );
+  }
+
+  void _pushMap() async {
+    // String query = Uri.encodeComponent(address);
+    String googleUrl =
+        "google.navigation:q=${Staticmenbers.listofUsers[cardindex!].address}";
+    Uri googleUri = Uri.parse(googleUrl);
+
+    if (await canLaunchUrl(googleUri)) {
+      await launchUrl(googleUri);
+      print(googleUri);
+    }
   }
 }

@@ -56,18 +56,16 @@ class _IconwidgetState extends State<Iconwidget> {
               children: [
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                icon: Icon(
-                                  Icons.whatsapp,
-                                ),
-                                hint: 'Whatsapp',
-                                textInputType: TextInputType.number,
-                                textEditingController:
-                                    widget.whatsappcontroller,
-                                validationfunction: numbervalidator)));
+                    showDialog(
+                        builder: (context) => IconTextField(
+                            icon: Icon(
+                              Icons.whatsapp,
+                            ),
+                            hint: 'Whatsapp',
+                            textInputType: TextInputType.number,
+                            textEditingController: widget.whatsappcontroller,
+                            validationfunction: numbervalidator),
+                        context: context);
                   },
                   child: Column(
                     children: [
@@ -87,17 +85,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 22),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.telegram),
-                                  hint: 'Telegram',
-                                  textInputType: TextInputType.text,
-                                  textEditingController:
-                                      widget.telegramcontroller,
-                                  validationfunction: null,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.telegram),
+                              hint: 'Telegram',
+                              textInputType: TextInputType.text,
+                              textEditingController: widget.telegramcontroller,
+                              validationfunction: null,
+                            ));
                   },
                   child: Column(
                     children: [
@@ -117,17 +113,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 28),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.snapchat_outlined),
-                                  hint: 'Snapchat',
-                                  textInputType: TextInputType.text,
-                                  textEditingController:
-                                      widget.snapchatcontroller,
-                                  validationfunction: null,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.snapchat_outlined),
+                              hint: 'Snapchat',
+                              textInputType: TextInputType.text,
+                              textEditingController: widget.snapchatcontroller,
+                              validationfunction: null,
+                            ));
                   },
                   child: Column(
                     children: [
@@ -152,17 +146,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 5),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.web),
-                                  hint: 'Website',
-                                  textInputType: TextInputType.text,
-                                  textEditingController:
-                                      widget.websitecontroller,
-                                  validationfunction: null,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.web),
+                              hint: 'Website',
+                              textInputType: TextInputType.text,
+                              textEditingController: widget.websitecontroller,
+                              validationfunction: null,
+                            ));
                   },
                   child: Column(
                     children: [
@@ -183,16 +175,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 55),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.link_sharp),
-                                  hint: 'Link',
-                                  textInputType: TextInputType.text,
-                                  textEditingController: widget.linkcontroller,
-                                  validationfunction: null,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.link_sharp),
+                              hint: 'Link',
+                              textInputType: TextInputType.text,
+                              textEditingController: widget.linkcontroller,
+                              validationfunction: null,
+                            ));
                   },
                   child: Column(
                     children: [
@@ -213,17 +204,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 // Spacer(),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.facebook),
-                                  hint: 'Facebook',
-                                  textInputType: TextInputType.text,
-                                  textEditingController:
-                                      widget.facebookcontroller,
-                                  validationfunction: null,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.facebook),
+                              hint: 'Facebook',
+                              textInputType: TextInputType.text,
+                              textEditingController: widget.facebookcontroller,
+                              validationfunction: null,
+                            ));
                   },
                   child: Column(
                     children: [
@@ -248,16 +237,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 16),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.email),
-                                  hint: 'Email',
-                                  textInputType: TextInputType.emailAddress,
-                                  textEditingController: widget.emailcontroller,
-                                  validationfunction: emailValidator,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.email),
+                              hint: 'Email',
+                              textInputType: TextInputType.emailAddress,
+                              textEditingController: widget.emailcontroller,
+                              validationfunction: emailValidator,
+                            ));
                   },
                   child: Column(
                     children: [
@@ -278,15 +266,14 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 56),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                icon: Icon(Icons.phone),
-                                hint: 'Number',
-                                textInputType: TextInputType.number,
-                                textEditingController: widget.numbercontroller,
-                                validationfunction: numbervalidator)));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                            icon: Icon(Icons.phone),
+                            hint: 'Number',
+                            textInputType: TextInputType.number,
+                            textEditingController: widget.numbercontroller,
+                            validationfunction: numbervalidator));
                   },
                   child: Column(
                     children: [
@@ -307,17 +294,15 @@ class _IconwidgetState extends State<Iconwidget> {
                 SizedBox(width: 43),
                 InkWell(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IconTextField(
-                                  icon: Icon(Icons.add_location_alt_rounded),
-                                  hint: 'Address',
-                                  textInputType: TextInputType.text,
-                                  textEditingController:
-                                      widget.addresscontroller,
-                                  validationfunction: null,
-                                )));
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                              icon: Icon(Icons.add_location_alt_rounded),
+                              hint: 'Address',
+                              textInputType: TextInputType.text,
+                              textEditingController: widget.addresscontroller,
+                              validationfunction: null,
+                            ));
                   },
                   child: Column(
                     children: [

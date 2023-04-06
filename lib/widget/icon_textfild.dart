@@ -6,6 +6,8 @@ import '../utils/constants_color.dart';
 import 'custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'text_button_widget.dart';
+
 class IconTextField extends StatefulWidget {
   final Icon? icon;
   final String? hint;
@@ -36,7 +38,7 @@ class _IconTextFieldState extends State<IconTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return new AlertDialog(
+    return AlertDialog(
       title: Text(widget.hint!),
       content: Form(
         key: _formfield,
@@ -58,48 +60,32 @@ class _IconTextFieldState extends State<IconTextField> {
             SizedBox(
                 width: double.infinity,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: PRIMARY_COLOR,
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                if (_formfield.currentState!.validate()) {
-                                  try {
-                                    print(widget.textEditingController?.text);
-                                    Navigator.pop(context, true);
-                                    displayCustomToast();
-                                  } catch (e) {
-                                    return null;
-                                  }
-                                }
-                              });
-                            },
-                            child: const Text("Save",
-                                style: TextStyle(
-                                  color: Color(0xfffefefd),
-                                  fontSize: 17,
-                                )))),
-                    SizedBox(width: 20),
-                    Container(
-                        width: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.red,
-                        ),
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text("Cancle",
-                                style: TextStyle(
-                                  color: Color(0xfffefefd),
-                                  fontSize: 17,
-                                )))),
+                    TextButtomWidget(
+                      onPressed: () {
+                        setState(() {
+                          if (_formfield.currentState!.validate()) {
+                            try {
+                              print(widget.textEditingController?.text);
+                              Navigator.pop(context, true);
+                              displayCustomToast();
+                            } catch (e) {
+                              return null;
+                            }
+                          }
+                        });
+                      },
+                      title: 'Save',
+                      color: PRIMARY_COLOR,
+                    ),
+                    TextButtomWidget(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      title: 'Cancle',
+                      color: Colors.redAccent,
+                    )
                   ],
                 )),
           ],
