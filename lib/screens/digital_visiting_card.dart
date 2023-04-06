@@ -7,6 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
+import '../widget/alart_dialog_widget.dart';
+import '../widget/text_button_widget.dart';
+
 class Digitalvisitingcard extends StatefulWidget {
   final int? id;
   Digitalvisitingcard({super.key, required this.id});
@@ -32,18 +35,6 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       body: SingleChildScrollView(
         child: Card(
           child: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/template.png'),
-                fit: BoxFit.fill,
-              ),
-            ),
-            // child: ListView.builder(
-            //     itemCount: 1,
-            //     itemBuilder: (BuildContext context, int index) {
-            //       return Container(
-            //       );
-            //     }),
             child: Padding(
               padding: const EdgeInsets.all(25.0),
               child: Column(
@@ -75,6 +66,14 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                           height: 170,
                           fit: BoxFit.cover,
                         )),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/images/template2.png'),
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     ),
                     SizedBox(height: 90),
@@ -202,18 +201,22 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               content: Text(
                                   '${Staticmenbers.listofUsers[cardindex!].address}'),
                               actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(ctx).pop();
-                                  },
-                                  child: Container(
-                                    color: Colors.green,
-                                    padding: const EdgeInsets.all(14),
-                                    child: const Text(
-                                      "okay",
-                                      style: TextStyle(color: WHITE_COLOR),
-                                    ),
-                                  ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    // TextButtomWidget(
+                                    //   onPressed: () {},
+                                    //   title: 'Abc',
+                                    //   color: PRIMARY_COLOR,
+                                    // ),
+                                    TextButtomWidget(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      title: 'Cancle',
+                                      color: Colors.redAccent,
+                                    )
+                                  ],
                                 ),
                               ],
                             ),

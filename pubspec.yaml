@@ -56,6 +56,8 @@ dependencies:
   awesome_dialog: ^3.0.2
   font_awesome_flutter: ^10.4.0
   image_picker: ^0.8.7+1
+  lottie: ^2.3.1
+  map_launcher: ^2.5.0+1
   
  
   
@@ -87,6 +89,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icon/
+    - assets/lottie/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
