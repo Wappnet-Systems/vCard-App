@@ -22,6 +22,7 @@ class Users {
   final String? address;
   final String? id;
   final String? image;
+  final String? type;
 
   Users(
       {required this.name,
@@ -38,5 +39,6 @@ class Users {
       required this.phone,
       required this.address,
       required this.id,
+      required this.type,
       required this.image});
 }

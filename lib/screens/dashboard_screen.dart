@@ -51,7 +51,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             phone: e['Phone'],
             address: e['Address'],
             id: e['id'],
-            image: e['images']))
+            image: e['images'],
+            type: e['type']))
         .toList();
 
     print("userData $userData");
@@ -243,14 +244,14 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                       },
                       child: Column(
                         children: [
-                          SizedBox(height: 7),
+                          SizedBox(height: 2.8),
                           Card(
                             color: PRIMARY_COLOR,
                             child: Column(children: [
                               Image.network(
                                 "${Staticmenbers.listofUsers[index].image}",
                                 width: 175,
-                                height: 143,
+                                height: 147,
                                 fit: BoxFit.cover,
                                 frameBuilder: (context, child, frame,
                                     wasSynchronouslyLoaded) {
@@ -269,13 +270,14 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                   }
                                 },
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(height: 3),
                               Center(
                                 child: Text(
-                                  '${Staticmenbers.listofUsers[index].name}',
+                                  '${Staticmenbers.listofUsers[index].type}',
                                   style: TextStyle(color: WHITE_COLOR),
                                 ),
                               ),
+                              SizedBox(height: 3),
                             ]),
                           ),
                         ],

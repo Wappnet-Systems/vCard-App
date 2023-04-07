@@ -33,15 +33,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   TextEditingController _facebookcontroller = TextEditingController();
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _numbercontroller = TextEditingController();
+  TextEditingController _typecontroller = TextEditingController();
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
-    _numbercontroller.text = "+91";
-    _whatsappcontroller.text = "+91";
-    _facebookcontroller.text = "https://www.facebook.com/";
     fToast = FToast();
     fToast?.init(context);
     super.initState();
@@ -74,6 +72,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           'Address': _addresscontroller.text,
           'id': receivedLoanDataRef.id,
           'images': imgurl,
+          'type': _typecontroller.text,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
@@ -112,15 +111,16 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           IconButton(
               onPressed: () async {
                 if (_formfield.currentState!.validate()) {
-                  print("text:${_whatsappcontroller.text}");
-                  print("text:${_telegramcontroller.text}");
-                  print("text:${_addresscontroller.text}");
-                  print("text:${_linkcontroller.text}");
-                  print("text:${_snapchatcontroller.text}");
-                  print("text:${_facebookcontroller.text}");
-                  print("text:${_emailcontroller.text}");
-                  print("text:${_numbercontroller.text}");
-                  print("text:${_websitecontroller.text}");
+                  // print("text:${_whatsappcontroller.text}");
+                  // print("text:${_telegramcontroller.text}");
+                  // print("text:${_addresscontroller.text}");
+                  // print("text:${_linkcontroller.text}");
+                  // print("text:${_snapchatcontroller.text}");
+                  // print("text:${_facebookcontroller.text}");
+                  // print("text:${_emailcontroller.text}");
+                  // print("text:${_numbercontroller.text}");
+                  // print("text:${_websitecontroller.text}");
+                  print("text:${_typecontroller.text}");
                   print(_companyController.text);
                   addUser();
                   displayCustomToast();
@@ -175,28 +175,37 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     ),
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    children: [
-                      SizedBox(width: 230),
-                      Container(
-                        height: 50,
-                        width: 60,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: PRIMARY_COLOR,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Column(
-                          children: [
-                            Icon(Icons.add),
-                            Text("Logo"),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     SizedBox(width: 230),
+                  //     Container(
+                  //       height: 50,
+                  //       width: 60,
+                  //       decoration: BoxDecoration(
+                  //         border: Border.all(
+                  //           color: PRIMARY_COLOR,
+                  //         ),
+                  //         borderRadius: BorderRadius.circular(5),
+                  //       ),
+                  //       child: Column(
+                  //         children: [
+                  //           Icon(Icons.add),
+                  //           Text("Logo"),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(height: 20),
+                  CustomTextFormField(
+                    textInputType: TextInputType.emailAddress,
+                    textEditingController: _typecontroller,
+                    texteditinghinttext: 'type',
+                    customobscuretext: true,
+                    custominkwell: null,
+                    customprefixicon: null,
+                    validationfunction: textvalidator,
+                  ),
                   CustomTextFormField(
                     textInputType: TextInputType.emailAddress,
                     textEditingController: _nameController,
