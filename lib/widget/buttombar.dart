@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/screens/setting_screen.dart';
+import '../screens/contacts_screen.dart';
 import '../screens/scanner_screen.dart';
 import '../utils/constants_color.dart';
 
@@ -64,7 +66,12 @@ class CustomButtomBar extends StatelessWidget with PreferredSizeWidget {
             Container(
               height: MediaQuery.of(context).size.height * .06,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ContactsScreen()));
+                },
                 child: Column(
                   children: [
                     Icon(Icons.contacts, color: WHITE_COLOR),

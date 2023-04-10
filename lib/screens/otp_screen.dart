@@ -150,22 +150,6 @@ class _OTPscreenState extends State<OTPscreen> {
                     },
                     child: Text("Verify Phone Number")),
               ),
-              Row(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          'phone',
-                          (route) => false,
-                        );
-                      },
-                      child: Text(
-                        "Edit Phone Number ?",
-                        style: TextStyle(color: Colors.black),
-                      ))
-                ],
-              )
             ],
           ),
         ),

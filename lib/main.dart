@@ -38,14 +38,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool _darkMode = false;
   @override
   void initState() {
     IntroductionScreens();
     super.initState();
+    _loadThemeMode();
   }
 
-  // Future<SharedPreferences> prefs = SharedPreferences.getInstance();
-  // This widget is the root of your application.
+  Future<void> _loadThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _darkMode = prefs.getBool('darkMode') ?? false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isfirsttime = false;
@@ -55,9 +62,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
+      // : ThemeData.dark(),
       home: AnimatedSplashScreen(
         duration: 1500,
         splashTransition: SplashTransition.fadeTransition,
@@ -84,8 +90,9 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
-        nextScreen: Dashboardscreen(),
-        // (widget.islogin! == true) ? Dashboardscreen() : Authmodual(),
+        nextScreen:
+            // Dashboardscreen(),
+            (widget.islogin! == true) ? Dashboardscreen() : Authmodual(),
       ),
     );
   }
