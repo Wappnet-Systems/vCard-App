@@ -105,6 +105,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: BACKGROUND_COLOR,
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Create Card"),
