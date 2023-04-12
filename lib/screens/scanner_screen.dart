@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -65,62 +67,34 @@ class _ScannerscreenState extends State<Scannerscreen> {
     return Scaffold(
         backgroundColor: BACKGROUND_COLOR,
         appBar: AppBar(
-          actions: [
-            InkWell(
-                onTap: () {
-                  scanQRCode();
-                },
-                child: Icon(Icons.abc))
-          ],
           centerTitle: true,
           title: const Text("QR Scanner"),
           backgroundColor: PRIMARY_COLOR,
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        body: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: .001,
-              crossAxisSpacing: .001,
-            ),
-            itemCount: Staticmenbers.newUserCar.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(children: [
-                TextButton(
-                    onPressed: () {
-                      print('${Staticmenbers.newUserCar[index].type}');
-                    },
-                    child: Text("data")),
-                SizedBox(height: 2.8),
-                Card(
-                    color: PRIMARY_COLOR,
-                    child: Column(
-                      children: [
-                        Image.network(
-                          "${Staticmenbers.newUserCar[index].image}",
-                          width: 175,
-                          height: 147,
-                          fit: BoxFit.cover,
-                          frameBuilder:
-                              (context, child, frame, wasSynchronouslyLoaded) {
-                            return child;
-                          },
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: WHITE_COLOR,
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ],
-                    ))
-              ]);
-            }));
+        body: Center(
+          child: Column(
+            children: [
+              SizedBox(height: 300),
+              Text(getResult),
+              SizedBox(height: 20),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  color: PRIMARY_COLOR,
+                ),
+                child: TextButton(
+                    onPressed: (() {
+                      scanQRCode();
+                    }),
+                    child: Text(
+                      "Scan QR",
+                      style: TextStyle(color: WHITE_COLOR),
+                    )),
+              )
+            ],
+          ),
+        ));
   }
 
   void scanQRCode() async {
@@ -132,7 +106,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
 
       setState(() {
         // cid = qrCode;
-        uid = qrCode;
+        getResult = qrCode;
       });
       print("QRCode_Result:--");
       print(getSingleUserData());

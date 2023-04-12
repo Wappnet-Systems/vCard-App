@@ -79,22 +79,19 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       backgroundColor: BACKGROUND_COLOR,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("DashBoard"),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () async {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Setting_Screen()));
-              },
-              icon: Icon(Icons.settings)),
-        ],
+        title: const Text("Cards"),
         backgroundColor: PRIMARY_COLOR,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: InkWell(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GenerateQR()));
+              showModalBottomSheet(
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25.0)),
+                  ),
+                  builder: (BuildContext context) => GenerateQR());
             },
             child: CircleAvatar(
               backgroundColor: Colors.white,

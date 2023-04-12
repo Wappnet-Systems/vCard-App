@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/splash_screen.dart';
+import 'package:vcard/utils/shered.dart';
 import 'screens/create_card_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/intro_screen.dart';
@@ -38,18 +39,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _darkMode = false;
+  SharedPreferences? prefs;
+  bool? isDarkMode;
+
   @override
   void initState() {
-    IntroductionScreens();
     super.initState();
-    _loadThemeMode();
+    loadPreferences();
   }
 
-  Future<void> _loadThemeMode() async {
-    final prefs = await SharedPreferences.getInstance();
+  void loadPreferences() async {
+    prefs = await SharedPreferences.getInstance();
     setState(() {
-      _darkMode = prefs.getBool('darkMode') ?? false;
+      isDarkMode = prefs!.getBool('isDarkMode') ?? false;
     });
   }
 
@@ -62,8 +64,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData.light(),
-      // : ThemeData.dark(),
+      // theme: (isDarkMode) ? ThemeData.dark() : ThemeData.light(),
       home: AnimatedSplashScreen(
         duration: 1500,
         splashTransition: SplashTransition.fadeTransition,

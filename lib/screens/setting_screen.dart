@@ -1,3 +1,4 @@
+import 'package:app_settings/app_settings.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -67,7 +68,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                 children: [
                   InkWell(
                     onTap: () async {
-                      checkAndRequestLocationPermissions();
+                      AppSettings.openAppSettings();
                     },
                     child: Text(
                       "Permissions",
@@ -107,7 +108,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                           style: TextStyle(fontSize: 18),
                         ),
                         Spacer(),
-                        // Text('${version}'),
+                        Text('1.0.0+1'),
                       ],
                     ),
                   ),

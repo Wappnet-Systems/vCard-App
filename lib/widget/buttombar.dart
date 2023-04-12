@@ -67,10 +67,10 @@ class CustomButtomBar extends StatelessWidget with PreferredSizeWidget {
               height: MediaQuery.of(context).size.height * .06,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ContactsScreen()));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => ContactsScreen()));
                 },
                 child: Column(
                   children: [
@@ -83,16 +83,21 @@ class CustomButtomBar extends StatelessWidget with PreferredSizeWidget {
                 ),
               ),
             ),
-            SizedBox(width: 30),
+            SizedBox(width: 20),
             Container(
               height: MediaQuery.of(context).size.height * .06,
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Setting_Screen()));
+                },
                 child: Column(
                   children: [
-                    Icon(Icons.more, color: WHITE_COLOR),
+                    Icon(Icons.settings, color: WHITE_COLOR),
                     Text(
-                      "More",
+                      "Settings",
                       style: TextStyle(color: WHITE_COLOR),
                     ),
                   ],

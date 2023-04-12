@@ -1,6 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:vcard/utils/constants_color.dart';
 
 class GenerateQR extends StatefulWidget {
@@ -9,26 +12,70 @@ class GenerateQR extends StatefulWidget {
 }
 
 class _GenerateQRState extends State<GenerateQR> {
+  final String _content =
+      'https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB';
   String qrData =
       "https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB";
+  void _shareContent() {
+    Share.share(_content);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Shere vCard"),
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
-      body: Center(
-        child: Container(
-          padding: EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: QrImage(data: qrData),
-          ),
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: BACKGROUND_COLOR,
         ),
-      ),
-    );
+        height: 500.0,
+        child: Column(
+          children: [
+            SizedBox(height: 20),
+            Text(
+              "Share vCard",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: Colors.green,
+                    width: 4,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: const Offset(0.0, 0.0),
+                      blurRadius: 0.0,
+                      spreadRadius: 0.0,
+                    ),
+                  ],
+                ),
+                padding: EdgeInsets.all(5),
+                child: SingleChildScrollView(
+                  child: QrImage(
+                    data: qrData,
+                    size: 180,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: PRIMARY_COLOR,
+                ),
+                onPressed: _shareContent,
+                icon: const Icon(Icons.ios_share_outlined),
+                label: const Text('Share App')),
+            SizedBox(height: 20),
+            Text(
+              "vCard 1.0.0 was just released!",
+              style: TextStyle(color: PRIMARY_COLOR),
+            )
+          ],
+        ));
   }
 }
