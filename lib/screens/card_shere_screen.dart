@@ -1,25 +1,20 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/constants_color.dart';
 
 class CardGenerateQR extends StatefulWidget {
-  final String? id;
-  CardGenerateQR({super.key, required this.id});
+  final String? uid;
+  final String? cid;
+  CardGenerateQR({super.key, required this.uid, required this.cid});
   @override
   _CardGenerateQRState createState() => _CardGenerateQRState();
 }
 
 class _CardGenerateQRState extends State<CardGenerateQR> {
-  int? cardindex;
-  // String? qrData;
-
   @override
   void initState() {
-    // log("$cardindex");
-    // qrData = cardindex.toString();
     super.initState();
   }
 
@@ -36,7 +31,7 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
         child: Container(
           padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
-            child: QrImage(data: widget.id!),
+            child: QrImage(data: "${widget.uid}"),
           ),
         ),
       ),

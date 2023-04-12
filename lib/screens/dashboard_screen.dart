@@ -29,6 +29,7 @@ class Dashboardscreen extends StatefulWidget {
 class _DashboardscreenState extends State<Dashboardscreen> {
   int? cardindex;
   Future<void> getSingleUserData() async {
+    // String abc= FirebaseAuth.instance.currentUser?.uid;
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -152,11 +153,14 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             CardGenerateQR(
-                                                              id: Staticmenbers
-                                                                  .listofUsers[
-                                                                      index]
-                                                                  .id,
-                                                            )));
+                                                                uid: FirebaseAuth
+                                                                    .instance
+                                                                    .currentUser
+                                                                    ?.uid,
+                                                                cid: Staticmenbers
+                                                                    .listofUsers[
+                                                                        index]
+                                                                    .id)));
                                               },
                                               child: CardWidget(
                                                 icon: Icons.send_sharp,

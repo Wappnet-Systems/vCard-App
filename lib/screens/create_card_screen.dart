@@ -73,6 +73,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           'id': receivedLoanDataRef.id,
           'images': imgurl,
           'type': _typecontroller.text,
+          'user': FirebaseAuth.instance.currentUser?.uid,
         })
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));

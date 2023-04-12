@@ -105,11 +105,11 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
                         },
                         child: Image.asset(
-                          "assets/icon/call.png",
+                          "assets/icon/telephone.png",
                           scale: 12,
                         ),
                       ),
-                      SizedBox(width: 20),
+                      SizedBox(width: 25),
                       InkWell(
                         onTap: () {
                           launchUrl(
@@ -129,11 +129,11 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
                         },
                         child: Image.asset(
-                          "assets/icon/email.png",
-                          scale: 12,
+                          "assets/icon/gmail.png",
+                          scale: 35,
                         ),
                       ),
-                      SizedBox(width: 20),
+                      SizedBox(width: 25),
                       InkWell(
                         onTap: () {
                           UrlLauncher.launch(
@@ -159,19 +159,18 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             scale: 12,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 25),
                         InkWell(
                           onTap: () {
                             Uri.parse(
                                 'website${Staticmenbers.listofUsers[cardindex!].website}');
                           },
                           child: Image.asset(
-                            "assets/icon/website.png",
-                            color: Colors.lightBlueAccent,
+                            "assets/icon/web.png",
                             scale: 12,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 25),
                         InkWell(
                           onTap: () {
                             Uri.parse(
@@ -182,7 +181,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             scale: 12,
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 25),
                         InkWell(
                           onTap: () {
                             showDialog(
@@ -216,8 +215,8 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             );
                           },
                           child: Image.asset(
-                            "assets/icon/address.png",
-                            scale: 10,
+                            "assets/icon/location.png",
+                            scale: 12,
                           ),
                         ),
                       ],
@@ -253,7 +252,6 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   }
 
   void _pushMap() async {
-    // String query = Uri.encodeComponent(address);
     String googleUrl =
         "google.navigation:q=${Staticmenbers.listofUsers[cardindex!].address}";
     Uri googleUri = Uri.parse(googleUrl);

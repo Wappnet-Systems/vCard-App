@@ -11,5 +11,6 @@ const String CARD = 'assets/lottie/No_Data.json';
 
 class Staticmenbers {
   static List<Users> listofUsers = [];
+  static List<Users> newUserCar = [];
 }
 // (0xff2e3637)
