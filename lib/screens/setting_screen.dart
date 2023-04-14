@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_settings/app_settings.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,6 +39,18 @@ class _Setting_ScreenState extends State<Setting_Screen> {
       _darkMode = !_darkMode;
     });
     await prefs.setBool('darkMode', _darkMode);
+  }
+
+  Future<void> _delete_user() async {
+    var collection = FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Carddata");
+    var snapshots = await collection.get();
+    for (var doc in snapshots.docs) {
+      await doc.reference.delete();
+    }
+    await FirebaseAuth.instance.currentUser?.delete();
   }
 
   @override
@@ -126,8 +140,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                           btnOkOnPress: () async {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
-                            final success = await prefs
-                                .remove('Staticmenbers.listofUsers[index].id');
+                            prefs.remove('isLoggedIn');
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -142,28 +155,30 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       ),
                     ),
                   ),
-                  Divider(
-                      // color: LINE_COLOR,
-                      ),
+                  Divider(),
                   InkWell(
                     onTap: () {
-                      AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.warning,
-                          showCloseIcon: true,
-                          desc: "Delete Account",
-                          btnCancelOnPress: () async {},
-                          btnOkOnPress: () async {
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            FirebaseFirestore.instance
-                                .collection("users")
-                                .doc(FirebaseAuth.instance.currentUser?.uid);
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Authmodual()));
-                          }).show();
+                      try {
+                        AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.warning,
+                            showCloseIcon: true,
+                            desc: "Delete Account",
+                            btnCancelOnPress: () async {},
+                            btnOkOnPress: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              _delete_user();
+                              prefs.remove('isLoggedIn');
+                              log('log:${FirebaseAuth.instance.currentUser?.uid}');
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Authmodual()));
+                            }).show();
+                      } catch (e) {
+                        print(e);
+                      }
                     },
                     child: Text(
                       "Delete Account",

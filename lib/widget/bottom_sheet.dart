@@ -36,7 +36,7 @@ class CardWidget extends StatelessWidget {
               SizedBox(height: 3),
               Text(
                 data1!,
-                style: TextStyle(fontSize: 17, color: WHITE_COLOR),
+                style: TextStyle(fontSize: 16, color: WHITE_COLOR),
               ),
               Text(
                 data2!,

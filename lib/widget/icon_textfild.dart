@@ -46,7 +46,6 @@ class _IconTextFieldState extends State<IconTextField> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 100),
             SizedBox(width: double.infinity),
             CustomTextFormField(
                 textInputType: widget.textInputType!,

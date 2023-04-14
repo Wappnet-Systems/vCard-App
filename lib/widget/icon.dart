@@ -39,7 +39,7 @@ class _IconwidgetState extends State<Iconwidget> {
         color: PRIMARY_COLOR,
       ),
       child: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Row(
@@ -291,7 +291,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   ),
                 ),
                 // Spacer(),
-                SizedBox(width: 43),
+                SizedBox(width: 46),
                 InkWell(
                   onTap: () {
                     showDialog(

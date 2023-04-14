@@ -68,6 +68,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                         child: Text(
                             '${Staticmenbers.listofUsers[cardindex!].compeny}',
                             style: TextStyle(
+                                fontFamily: 'Marck',
                                 fontSize: 23,
                                 color: WHITE_COLOR,
                                 fontWeight: FontWeight.bold)),
@@ -80,11 +81,12 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Center(
                         child: Text(
                           '${Staticmenbers.listofUsers[cardindex!].name}',
                           style: TextStyle(
+                              fontFamily: 'Marck',
                               fontSize: 25,
                               color: WHITE_COLOR,
                               fontWeight: FontWeight.bold),
@@ -95,12 +97,13 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                         child: Text(
                             '${Staticmenbers.listofUsers[cardindex!].department}',
                             style: TextStyle(
-                                fontSize: 25,
+                                fontFamily: 'Marck',
+                                fontSize: 23,
                                 color: WHITE_COLOR,
                                 fontWeight: FontWeight.bold)),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Divider(
                           color: WHITE_COLOR,
                           thickness: 2,
@@ -116,7 +119,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               },
                               child: Image.asset(
                                 "assets/icon/telephone.png",
-                                scale: 12,
+                                scale: 14,
                               ),
                             ),
                             SizedBox(width: 25),
@@ -129,7 +132,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               },
                               child: Image.asset(
                                 "assets/icon/whatsapp.png",
-                                scale: 12,
+                                scale: 14,
                               ),
                             ),
                             SizedBox(width: 20),
@@ -139,8 +142,8 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
                               },
                               child: Image.asset(
-                                "assets/icon/gmail.png",
-                                scale: 35,
+                                "assets/icon/mail.png",
+                                scale: 14,
                               ),
                             ),
                             SizedBox(width: 25),
@@ -151,7 +154,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               },
                               child: Image.asset(
                                 "assets/icon/facebook.png",
-                                scale: 12,
+                                scale: 14,
                               ),
                             ),
                           ]),
@@ -166,7 +169,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             },
                             child: Image.asset(
                               "assets/icon/telegram.png",
-                              scale: 12,
+                              scale: 14,
                             ),
                           ),
                           SizedBox(width: 25),
@@ -177,7 +180,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             },
                             child: Image.asset(
                               "assets/icon/web.png",
-                              scale: 12,
+                              scale: 14,
                             ),
                           ),
                           SizedBox(width: 25),
@@ -188,7 +191,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             },
                             child: Image.asset(
                               "assets/icon/link.png",
-                              scale: 12,
+                              scale: 14,
                             ),
                           ),
                           SizedBox(width: 25),
@@ -197,9 +200,20 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                  title: const Text("Address"),
+                                  backgroundColor: BLUE_COLOR,
+                                  title: const Text("Address",
+                                      style: TextStyle(
+                                          fontFamily: 'Marck',
+                                          fontSize: 25,
+                                          color: WHITE_COLOR,
+                                          fontWeight: FontWeight.bold)),
                                   content: Text(
-                                      '${Staticmenbers.listofUsers[cardindex!].address}'),
+                                      '${Staticmenbers.listofUsers[cardindex!].address}',
+                                      style: TextStyle(
+                                          fontFamily: 'Marck',
+                                          fontSize: 25,
+                                          color: WHITE_COLOR,
+                                          fontWeight: FontWeight.bold)),
                                   actions: <Widget>[
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
@@ -226,17 +240,18 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             },
                             child: Image.asset(
                               "assets/icon/location.png",
-                              scale: 12,
+                              scale: 14,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.all(25.0),
                         child: Text(
                             '${Staticmenbers.listofUsers[cardindex!].headline}',
                             style: TextStyle(
+                                fontFamily: 'Marck',
                                 fontSize: 25,
                                 color: WHITE_COLOR,
                                 fontWeight: FontWeight.bold)),

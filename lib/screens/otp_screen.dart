@@ -103,8 +103,6 @@ class _OTPscreenState extends State<OTPscreen> {
                 onCodeChanged: (value) {
                   code = value!;
                 },
-                // showCursor: true,
-                // onCompleted: (pin) => print(pin),
               ),
               SizedBox(
                 height: 20,
@@ -138,14 +136,20 @@ class _OTPscreenState extends State<OTPscreen> {
                             showCloseIcon: true,
                             desc: "Login Successfully",
                           ).show();
-                          await Future.delayed(const Duration(seconds: 1));
+                          Future.delayed(const Duration(seconds: 3));
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Dashboardscreen()));
                         });
                       } catch (e) {
-                        print(e);
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          showCloseIcon: true,
+                          desc: "OTP is invalid.",
+                        ).show();
+                        Future.delayed(const Duration(seconds: 2));
                       }
                     },
                     child: Text("Verify Phone Number")),

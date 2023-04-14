@@ -53,7 +53,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
 
   Future<void> addUser() async {
     print(receivedLoanDataRef.id);
-    // Call the user's CollectionReference to add a new user
     final imgurl = await uploadImage(Imagepicker!);
     return receivedLoanDataRef
         .set({
@@ -112,25 +111,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         actions: <Widget>[
           IconButton(
               onPressed: () async {
-                if (_formfield.currentState!.validate()) {
-                  // print("text:${_whatsappcontroller.text}");
-                  // print("text:${_telegramcontroller.text}");
-                  // print("text:${_addresscontroller.text}");
-                  // print("text:${_linkcontroller.text}");
-                  // print("text:${_snapchatcontroller.text}");
-                  // print("text:${_facebookcontroller.text}");
-                  // print("text:${_emailcontroller.text}");
-                  // print("text:${_numbercontroller.text}");
-                  // print("text:${_websitecontroller.text}");
-                  print("text:${_typecontroller.text}");
-                  print(_companyController.text);
-                  addUser();
-                  displayCustomToast();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Dashboardscreen()));
-                }
+                setState(() {
+                  if (_formfield.currentState!.validate()) {
+                    addUser();
+                    displayCustomToast();
+                    Navigator.pop(context);
+                  }
+                });
               },
               icon: Icon(Icons.save)),
         ],
