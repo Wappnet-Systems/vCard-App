@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:app_settings/app_settings.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +8,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
-
 import '../utils/constants_color.dart';
+import 'app_shere_screen.dart';
 
 class Setting_Screen extends StatefulWidget {
   const Setting_Screen({super.key});
@@ -26,7 +24,6 @@ class _Setting_ScreenState extends State<Setting_Screen> {
   bool _darkMode = false;
 
   Future<void> checkAndRequestLocationPermissions() async {
-    // var status = await Permission.location.status;
     var status = await Permission.location.status;
     if (status.isDenied) {
       await Permission.location.request();
@@ -58,6 +55,24 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25.0)),
+                  ),
+                  builder: (BuildContext context) => GenerateQR());
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: AssetImage("assets/images/splash1.png"),
+            ),
+          ),
+        ),
         centerTitle: true,
         title: const Text("Settings"),
         backgroundColor: PRIMARY_COLOR,
@@ -89,30 +104,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       style: TextStyle(fontSize: 18),
                     ),
                   ),
-                  Divider(
-                      // color: LINE_COLOR,
-                      ),
-                  Container(
-                    height: 30,
-                    child: Row(
-                      children: [
-                        Text(
-                          "Dark Mode",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        Spacer(),
-                        Switch(
-                          value: _darkMode,
-                          onChanged: (value) {
-                            _toggleThemeMode();
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  Divider(
-                      // color: LINE_COLOR,
-                      ),
+                  Divider(),
                   Container(
                     height: 30,
                     child: Row(
@@ -126,9 +118,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       ],
                     ),
                   ),
-                  Divider(
-                      //color: LINE_COLOR,
-                      ),
+                  Divider(),
                   InkWell(
                     onTap: () {
                       AwesomeDialog(

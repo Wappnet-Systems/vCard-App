@@ -8,6 +8,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
+import 'app_shere_screen.dart';
 
 class Scannerscreen extends StatefulWidget {
   Scannerscreen({super.key});
@@ -67,8 +68,26 @@ class _ScannerscreenState extends State<Scannerscreen> {
     return Scaffold(
         backgroundColor: BACKGROUND_COLOR,
         appBar: AppBar(
+          leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(25.0)),
+                    ),
+                    builder: (BuildContext context) => GenerateQR());
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage("assets/images/splash1.png"),
+              ),
+            ),
+          ),
           centerTitle: true,
-          title: const Text("QR Scanner"),
+          title: const Text("Qr Scanner"),
           backgroundColor: PRIMARY_COLOR,
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),

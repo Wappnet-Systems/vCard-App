@@ -1,7 +1,9 @@
 import 'dart:developer';
+import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'otp_screen.dart';
@@ -18,6 +20,11 @@ class Authmodual extends StatefulWidget {
 class _AuthmodualState extends State<Authmodual> {
   TextEditingController countryController = TextEditingController();
   var phone;
+
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '##########',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   @override
   void initState() {
@@ -92,6 +99,7 @@ class _AuthmodualState extends State<Authmodual> {
                     ),
                     Expanded(
                         child: TextField(
+                      inputFormatters: [maskFormatter],
                       onChanged: (value) {
                         phone = value;
                       },
@@ -134,7 +142,10 @@ class _AuthmodualState extends State<Authmodual> {
                         codeAutoRetrievalTimeout: (String verificationId) {},
                       );
                     },
-                    child: Text("Send the code")),
+                    child: Text(
+                      "Send the code",
+                      style: TextStyle(color: WHITE_COLOR),
+                    )),
               )
             ],
           ),

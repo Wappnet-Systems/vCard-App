@@ -115,7 +115,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   if (_formfield.currentState!.validate()) {
                     addUser();
                     displayCustomToast();
-                    Navigator.pop(context);
+                    Navigator.pop(context, 'refresh');
                   }
                 });
               },
@@ -163,30 +163,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                                 )),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  // Row(
-                  //   children: [
-                  //     SizedBox(width: 230),
-                  //     Container(
-                  //       height: 50,
-                  //       width: 60,
-                  //       decoration: BoxDecoration(
-                  //         border: Border.all(
-                  //           color: PRIMARY_COLOR,
-                  //         ),
-                  //         borderRadius: BorderRadius.circular(5),
-                  //       ),
-                  //       child: Column(
-                  //         children: [
-                  //           Icon(Icons.add),
-                  //           Text("Logo"),
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   SizedBox(height: 20),
                   CustomTextFormField(
+                    inputFormatters: null,
                     textInputType: TextInputType.emailAddress,
                     textEditingController: _typecontroller,
                     texteditinghinttext: 'type',
@@ -196,7 +175,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     validationfunction: textvalidator,
                   ),
                   CustomTextFormField(
-                    textInputType: TextInputType.emailAddress,
+                    inputFormatters: null,
+                    textInputType: TextInputType.text,
                     textEditingController: _nameController,
                     texteditinghinttext: 'Name',
                     customobscuretext: true,
@@ -205,7 +185,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     validationfunction: textvalidator,
                   ),
                   CustomTextFormField(
-                    textInputType: TextInputType.emailAddress,
+                    inputFormatters: null,
+                    textInputType: TextInputType.text,
                     textEditingController: _departmentController,
                     texteditinghinttext: 'Department',
                     customobscuretext: true,
@@ -214,7 +195,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     validationfunction: textvalidator,
                   ),
                   CustomTextFormField(
-                    textInputType: TextInputType.emailAddress,
+                    inputFormatters: null,
+                    textInputType: TextInputType.text,
                     textEditingController: _companyController,
                     texteditinghinttext: 'Company',
                     customobscuretext: true,
@@ -267,7 +249,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text("Address"),
         content: Container(
           color: WHITE_COLOR,
           height: 250,

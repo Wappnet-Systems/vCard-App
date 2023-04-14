@@ -30,8 +30,6 @@ String? textvalidator(String? value) {
           r"^[a-zA-z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-z0-9]+\.[a-zA-Z0-9]+")
       .hasMatch(value!);
   if (value.isEmpty) {
-    return "Enter Passsword";
-  } else if (value.length < 2) {
-    return 'Pass must be fill.';
+    return "this field can't be Empty";
   }
 }

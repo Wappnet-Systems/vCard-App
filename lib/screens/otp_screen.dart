@@ -152,7 +152,10 @@ class _OTPscreenState extends State<OTPscreen> {
                         Future.delayed(const Duration(seconds: 2));
                       }
                     },
-                    child: Text("Verify Phone Number")),
+                    child: Text(
+                      "Verify Phone Number",
+                      style: TextStyle(color: WHITE_COLOR),
+                    )),
               ),
             ],
           ),

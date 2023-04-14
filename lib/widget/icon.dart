@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
 
 import '../utils/validator.dart';
@@ -31,6 +32,11 @@ class Iconwidget extends StatefulWidget {
 }
 
 class _IconwidgetState extends State<Iconwidget> {
+  var maskFormatter = new MaskTextInputFormatter(
+      mask: '##########',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -63,6 +69,7 @@ class _IconwidgetState extends State<Iconwidget> {
                             ),
                             hint: 'Whatsapp',
                             textInputType: TextInputType.number,
+                            inputFormatters: [maskFormatter],
                             textEditingController: widget.whatsappcontroller,
                             validationfunction: numbervalidator),
                         context: context);
@@ -90,7 +97,8 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: Icon(Icons.telegram),
                               hint: 'Telegram',
-                              textInputType: TextInputType.text,
+                              textInputType: TextInputType.number,
+                              inputFormatters: [maskFormatter],
                               textEditingController: widget.telegramcontroller,
                               validationfunction: null,
                             ));
@@ -118,7 +126,8 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: Icon(Icons.snapchat_outlined),
                               hint: 'Snapchat',
-                              textInputType: TextInputType.text,
+                              textInputType: TextInputType.number,
+                              inputFormatters: [maskFormatter],
                               textEditingController: widget.snapchatcontroller,
                               validationfunction: null,
                             ));
@@ -152,6 +161,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               icon: Icon(Icons.web),
                               hint: 'Website',
                               textInputType: TextInputType.text,
+                              inputFormatters: null,
                               textEditingController: widget.websitecontroller,
                               validationfunction: null,
                             ));
@@ -181,6 +191,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               icon: Icon(Icons.link_sharp),
                               hint: 'Link',
                               textInputType: TextInputType.text,
+                              inputFormatters: null,
                               textEditingController: widget.linkcontroller,
                               validationfunction: null,
                             ));
@@ -210,6 +221,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               icon: Icon(Icons.facebook),
                               hint: 'Facebook',
                               textInputType: TextInputType.text,
+                              inputFormatters: null,
                               textEditingController: widget.facebookcontroller,
                               validationfunction: null,
                             ));
@@ -243,6 +255,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               icon: Icon(Icons.email),
                               hint: 'Email',
                               textInputType: TextInputType.emailAddress,
+                              inputFormatters: null,
                               textEditingController: widget.emailcontroller,
                               validationfunction: emailValidator,
                             ));
@@ -272,6 +285,7 @@ class _IconwidgetState extends State<Iconwidget> {
                             icon: Icon(Icons.phone),
                             hint: 'Number',
                             textInputType: TextInputType.number,
+                            inputFormatters: [maskFormatter],
                             textEditingController: widget.numbercontroller,
                             validationfunction: numbervalidator));
                   },
@@ -300,6 +314,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               icon: Icon(Icons.add_location_alt_rounded),
                               hint: 'Address',
                               textInputType: TextInputType.text,
+                              inputFormatters: null,
                               textEditingController: widget.addresscontroller,
                               validationfunction: null,
                             ));
