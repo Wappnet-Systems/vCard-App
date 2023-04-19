@@ -22,7 +22,7 @@ class _AuthmodualState extends State<Authmodual> {
   var phone;
 
   var maskFormatter = new MaskTextInputFormatter(
-      mask: '##########',
+      mask: '##### #####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 

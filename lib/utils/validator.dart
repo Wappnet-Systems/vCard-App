@@ -33,3 +33,15 @@ String? textvalidator(String? value) {
     return "this field can't be Empty";
   }
 }
+
+String? hasValidUrl(String? value) {
+  String pattern =
+      r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+  RegExp regExp = new RegExp(pattern);
+  if (value?.length == 0) {
+    return 'Please enter url';
+  } else if (!regExp.hasMatch(value!)) {
+    return 'Please enter valid url';
+  }
+  return null;
+}

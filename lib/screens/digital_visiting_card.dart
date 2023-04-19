@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
@@ -20,11 +21,14 @@ class Digitalvisitingcard extends StatefulWidget {
 
 class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   int? cardindex;
+  FToast? fToast;
 
   @override
   void initState() {
     super.initState();
     cardindex = widget.id;
+    fToast = FToast();
+    fToast?.init(context);
   }
 
   @override
@@ -114,8 +118,14 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                           children: [
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launch(
-                                    'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                                if (Staticmenbers.listofUsers[cardindex!].phone
+                                        .toString() ==
+                                    "") {
+                                  displayCustomToast();
+                                } else {
+                                  UrlLauncher.launch(
+                                      'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                                }
                               },
                               child: Image.asset(
                                 "assets/icon/telephone.png",
@@ -125,10 +135,17 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             SizedBox(width: 25),
                             InkWell(
                               onTap: () {
-                                launchUrl(
-                                    Uri.parse(
-                                        'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
-                                    mode: LaunchMode.externalApplication);
+                                log('${Staticmenbers.listofUsers[cardindex!].whatsapp}');
+                                if (Staticmenbers
+                                        .listofUsers[cardindex!].whatsapp ==
+                                    "") {
+                                  displayCustomToast();
+                                } else {
+                                  launchUrl(
+                                      Uri.parse(
+                                          'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                      mode: LaunchMode.externalApplication);
+                                }
                               },
                               child: Image.asset(
                                 "assets/icon/whatsapp.png",
@@ -138,8 +155,14 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             SizedBox(width: 20),
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launch(
-                                    'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                                if (Staticmenbers
+                                        .listofUsers[cardindex!].email ==
+                                    "") {
+                                  displayCustomToast();
+                                } else {
+                                  UrlLauncher.launch(
+                                      'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                                }
                               },
                               child: Image.asset(
                                 "assets/icon/mail.png",
@@ -149,8 +172,14 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             SizedBox(width: 25),
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launch(
-                                    "fb://facewebmodal/f?href=$Staticmenbers.listofUsers[cardindex!].facebook");
+                                if (Staticmenbers
+                                        .listofUsers[cardindex!].facebook ==
+                                    "") {
+                                  displayCustomToast();
+                                } else {
+                                  UrlLauncher.launch(
+                                      "fb://facewebmodal/f?href=$Staticmenbers.listofUsers[cardindex!].facebook");
+                                }
                               },
                               child: Image.asset(
                                 "assets/icon/facebook.png",
@@ -164,8 +193,14 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                         children: [
                           InkWell(
                             onTap: () {
-                              UrlLauncher.launch(
-                                  "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                              if (Staticmenbers
+                                      .listofUsers[cardindex!].telegram ==
+                                  "") {
+                                displayCustomToast();
+                              } else {
+                                UrlLauncher.launch(
+                                    "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                              }
                             },
                             child: Image.asset(
                               "assets/icon/telegram.png",
@@ -175,8 +210,14 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                           SizedBox(width: 25),
                           InkWell(
                             onTap: () {
-                              Uri.parse(
-                                  'website${Staticmenbers.listofUsers[cardindex!].website}');
+                              if (Staticmenbers
+                                      .listofUsers[cardindex!].website ==
+                                  "") {
+                                displayCustomToast();
+                              } else {
+                                Uri.parse(
+                                    'website${Staticmenbers.listofUsers[cardindex!].website}');
+                              }
                             },
                             child: Image.asset(
                               "assets/icon/web.png",
@@ -186,8 +227,13 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                           SizedBox(width: 25),
                           InkWell(
                             onTap: () {
-                              Uri.parse(
-                                  "${Staticmenbers.listofUsers[cardindex!].link}");
+                              if (Staticmenbers.listofUsers[cardindex!].link ==
+                                  "") {
+                                displayCustomToast();
+                              } else {
+                                Uri.parse(
+                                    "${Staticmenbers.listofUsers[cardindex!].link}");
+                              }
                             },
                             child: Image.asset(
                               "assets/icon/link.png",
@@ -266,13 +312,36 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   }
 
   void _pushMap() async {
-    String googleUrl =
-        "google.navigation:q=${Staticmenbers.listofUsers[cardindex!].address}";
-    Uri googleUri = Uri.parse(googleUrl);
+    if (Staticmenbers.listofUsers[cardindex!].address == "") {
+      displayCustomToast();
+    } else {
+      String googleUrl =
+          "google.navigation:q=${Staticmenbers.listofUsers[cardindex!].address}";
+      Uri googleUri = Uri.parse(googleUrl);
 
-    if (await canLaunchUrl(googleUri)) {
-      await launchUrl(googleUri);
-      print(googleUri);
+      if (await canLaunchUrl(googleUri)) {
+        await launchUrl(googleUri);
+        print(googleUri);
+      }
     }
+  }
+
+  displayCustomToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: WHITE_COLOR,
+      ),
+      child: const Text(
+        "Value is empty",
+        style: TextStyle(color: BLUE_COLOR),
+      ),
+    );
+
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 1),
+    );
   }
 }

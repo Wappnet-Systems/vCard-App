@@ -33,7 +33,7 @@ class Iconwidget extends StatefulWidget {
 
 class _IconwidgetState extends State<Iconwidget> {
   var maskFormatter = new MaskTextInputFormatter(
-      mask: '##########',
+      mask: '##### #####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
@@ -163,7 +163,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               textInputType: TextInputType.text,
                               inputFormatters: null,
                               textEditingController: widget.websitecontroller,
-                              validationfunction: null,
+                              validationfunction: hasValidUrl,
                             ));
                   },
                   child: Column(
@@ -333,26 +333,6 @@ class _IconwidgetState extends State<Iconwidget> {
                       )
                     ],
                   ),
-                ),
-              ],
-            ),
-            SizedBox(height: 25),
-            Row(
-              children: [
-                SizedBox(width: 18),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.more,
-                      color: WHITE_COLOR,
-                      size: 30,
-                    ),
-                    SizedBox(height: 5),
-                    Text(
-                      "More",
-                      style: TextStyle(color: WHITE_COLOR, fontSize: 18),
-                    )
-                  ],
                 ),
               ],
             ),
