@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:vcard/screens/create_card_screen.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/alart_dialog_widget.dart';
@@ -28,8 +29,6 @@ class Cardscreen extends StatefulWidget {
 }
 
 class _CardscreenState extends State<Cardscreen> {
-  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      new GlobalKey<RefreshIndicatorState>();
   int? cardindex;
   bool value = false;
   @override
@@ -129,7 +128,7 @@ class _CardscreenState extends State<Cardscreen> {
           ],
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        body: value
+        body: value == true
             ? GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -238,39 +237,43 @@ class _CardscreenState extends State<Cardscreen> {
                                                           MainAxisAlignment.end,
                                                       children: [
                                                         TextButtomWidget(
-                                                          onPressed: () async {
-                                                            log("${Staticmenbers.listofUsers[index].id}");
-                                                            final refresh = await FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    "users")
-                                                                .doc(FirebaseAuth
-                                                                    .instance
-                                                                    .currentUser
-                                                                    ?.uid)
-                                                                .collection(
-                                                                    "Carddata")
-                                                                .doc(Staticmenbers
-                                                                    .listofUsers[
-                                                                        index]
-                                                                    .id)
-                                                                .delete()
-                                                                .then((value) {
-                                                              Future.delayed(
-                                                                  Duration(
-                                                                      seconds:
-                                                                          5),
-                                                                  () {
-                                                                Navigator.pop(
-                                                                    context,
-                                                                    true);
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              log("${Staticmenbers.listofUsers[index].id}");
+                                                              final refresh = FirebaseFirestore
+                                                                  .instance
+                                                                  .collection(
+                                                                      "users")
+                                                                  .doc(FirebaseAuth
+                                                                      .instance
+                                                                      .currentUser
+                                                                      ?.uid)
+                                                                  .collection(
+                                                                      "Carddata")
+                                                                  .doc(Staticmenbers
+                                                                      .listofUsers[
+                                                                          index]
+                                                                      .id)
+                                                                  .delete()
+                                                                  .then(
+                                                                      (value) {
+                                                                Future.delayed(
+                                                                    Duration(
+                                                                        seconds:
+                                                                            1),
+                                                                    () {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              Dashboardscreen()));
+                                                                });
                                                               });
+                                                              if (refresh ==
+                                                                  true) {
+                                                                changeData();
+                                                              }
                                                             });
-                                                            log("refresh2:$refresh");
-                                                            if (refresh ==
-                                                                true) {
-                                                              changeData();
-                                                            }
                                                           },
                                                           title: 'okey',
                                                           color:

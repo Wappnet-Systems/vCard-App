@@ -54,30 +54,29 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   Future<void> addUser() async {
     print(receivedLoanDataRef.id);
     final imgurl = await uploadImage(Imagepicker!);
-    return receivedLoanDataRef
-        .set({
-          'Name': _nameController.text,
-          'Department': _departmentController.text,
-          'Company': _companyController.text,
-          'HeadLine': _headlineController.text,
-          'WhatsApp': _whatsappcontroller.text,
-          'Telegram': _telegramcontroller.text,
-          'Snapchat': _snapchatcontroller.text,
-          'Website': _snapchatcontroller.text,
-          'Link': _linkcontroller.text,
-          'Facebook': _facebookcontroller.text,
-          'Email': _emailcontroller.text,
-          'Phone': _numbercontroller.text,
-          'Address': _addresscontroller.text,
-          'id': receivedLoanDataRef.id,
-          'images': imgurl,
-          'type': _typecontroller.text,
-          'user': FirebaseAuth.instance.currentUser?.uid,
-        })
-        .then((value) => log("User Added"))
-        .catchError((error) {
-          log("Failed to add user: $error");
-        });
+    return receivedLoanDataRef.set({
+      'Name': _nameController.text,
+      'Department': _departmentController.text,
+      'Company': _companyController.text,
+      'HeadLine': _headlineController.text,
+      'WhatsApp': _whatsappcontroller.text,
+      'Telegram': _telegramcontroller.text,
+      'Snapchat': _snapchatcontroller.text,
+      'Website': _snapchatcontroller.text,
+      'Link': _linkcontroller.text,
+      'Facebook': _facebookcontroller.text,
+      'Email': _emailcontroller.text,
+      'Phone': _numbercontroller.text,
+      'Address': _addresscontroller.text,
+      'id': receivedLoanDataRef.id,
+      'images': imgurl,
+      'type': _typecontroller.text,
+      'user': FirebaseAuth.instance.currentUser?.uid,
+    }).then((value) {
+      Navigator.pop(context, true);
+    }).catchError((error) {
+      log("Failed to add user: $error");
+    });
   }
 
   File? Imagepicker;
@@ -115,11 +114,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               onPressed: () async {
                 setState(() {
                   if (_formfield.currentState!.validate()) {
-                    addUser().then((value) {
-                      // Future.delayed(Duration(seconds: 5), () {
-                      Navigator.pop(context, true);
-                      // });
-                    });
+                    addUser();
+                    // Future.delayed(Duration(seconds: 5), () {
+                    // });
+
                     displayCustomToast();
                   }
                 });
