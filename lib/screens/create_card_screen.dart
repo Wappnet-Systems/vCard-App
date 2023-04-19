@@ -74,8 +74,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           'type': _typecontroller.text,
           'user': FirebaseAuth.instance.currentUser?.uid,
         })
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+        .then((value) => log("User Added"))
+        .catchError((error) {
+          log("Failed to add user: $error");
+        });
   }
 
   File? Imagepicker;
@@ -113,9 +115,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               onPressed: () async {
                 setState(() {
                   if (_formfield.currentState!.validate()) {
-                    addUser();
+                    addUser().then((value) {
+                      // Future.delayed(Duration(seconds: 5), () {
+                      Navigator.pop(context, true);
+                      // });
+                    });
                     displayCustomToast();
-                    Navigator.pop(context, 'refresh');
                   }
                 });
               },

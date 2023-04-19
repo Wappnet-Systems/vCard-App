@@ -32,9 +32,17 @@ class _CardscreenState extends State<Cardscreen> {
       new GlobalKey<RefreshIndicatorState>();
   int? cardindex;
   bool value = false;
+  @override
+  void initState() {
+    getSingleUserData();
+    log('Rfresh');
+    setState(() {});
+    super.initState();
+  }
 
   void changeData() {
     setState(() {
+      getSingleUserData();
       value = true;
     });
   }
@@ -70,17 +78,13 @@ class _CardscreenState extends State<Cardscreen> {
     print("userData $userData");
 
     setState(() {
+      value = true;
       Staticmenbers.listofUsers = userData;
+      log('message:$value');
     });
 
     print(
         "Staticmenbers.listofUsers.length : ${Staticmenbers.listofUsers.length}");
-  }
-
-  @override
-  void initState() {
-    getSingleUserData();
-    super.initState();
   }
 
   @override
@@ -112,11 +116,12 @@ class _CardscreenState extends State<Cardscreen> {
           actions: [
             InkWell(
                 onTap: () async {
-                  String refresh = await Navigator.push(
+                  final refresh = await Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => Createcardscreen()));
-                  if (refresh == 'refresh') {
+                  log("refresh:$refresh");
+                  if (refresh == true) {
                     changeData();
                   }
                 },
@@ -133,13 +138,12 @@ class _CardscreenState extends State<Cardscreen> {
                 ),
                 itemCount: Staticmenbers.listofUsers.length,
                 itemBuilder: (BuildContext context, int index) {
-                  print("index $index");
                   return InkWell(
-                    onTap: () {
+                    onTap: () async {
                       setState(() {
                         cardindex = index;
                       });
-                      showModalBottomSheet(
+                      final refresh = await showModalBottomSheet(
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
@@ -234,9 +238,9 @@ class _CardscreenState extends State<Cardscreen> {
                                                           MainAxisAlignment.end,
                                                       children: [
                                                         TextButtomWidget(
-                                                          onPressed: () {
+                                                          onPressed: () async {
                                                             log("${Staticmenbers.listofUsers[index].id}");
-                                                            FirebaseFirestore
+                                                            final refresh = await FirebaseFirestore
                                                                 .instance
                                                                 .collection(
                                                                     "users")
@@ -250,10 +254,23 @@ class _CardscreenState extends State<Cardscreen> {
                                                                     .listofUsers[
                                                                         index]
                                                                     .id)
-                                                                .delete();
-                                                            Navigator.of(
-                                                                    context)
-                                                                .pop();
+                                                                .delete()
+                                                                .then((value) {
+                                                              Future.delayed(
+                                                                  Duration(
+                                                                      seconds:
+                                                                          5),
+                                                                  () {
+                                                                Navigator.pop(
+                                                                    context,
+                                                                    true);
+                                                              });
+                                                            });
+                                                            log("refresh2:$refresh");
+                                                            if (refresh ==
+                                                                true) {
+                                                              changeData();
+                                                            }
                                                           },
                                                           title: 'okey',
                                                           color:
@@ -286,6 +303,10 @@ class _CardscreenState extends State<Cardscreen> {
                                   ),
                                 ));
                           });
+                      log("refresh1:$refresh");
+                      if (refresh == true) {
+                        changeData();
+                      }
                     },
                     child: Column(
                       children: [

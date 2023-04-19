@@ -13,9 +13,9 @@ class GenerateQR extends StatefulWidget {
 
 class _GenerateQRState extends State<GenerateQR> {
   final String _content =
-      'https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB';
+      'https://drive.google.com/drive/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB?usp=share_link';
   String qrData =
-      "https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB";
+      "https://drive.google.com/drive/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB?usp=share_link";
   void _shareContent() {
     Share.share(_content);
   }

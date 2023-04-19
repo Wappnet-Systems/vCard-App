@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'VCard',
       theme: ThemeData(fontFamily: 'Trajan'),
       // theme: (isDarkMode) ? ThemeData.dark() : ThemeData.light(),
       home: AnimatedSplashScreen(
