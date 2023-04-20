@@ -1,24 +1,34 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:vcard/screens/setting_screen.dart';
-
 import '../utils/constants_color.dart';
 import '../widget/bottom_sheet.dart';
-
 import '../widget/custom_no_data.dart';
 import '../widget/floating_action_button.dart';
 import '../widget/text_button_widget.dart';
+import 'contect_visiting_card.dart';
 
 class ContactsScreen extends StatefulWidget {
-  const ContactsScreen({super.key});
+  final int? contectid;
+  ContactsScreen({super.key, this.contectid});
 
   @override
   State<ContactsScreen> createState() => _ContactsScreenState();
 }
 
 class _ContactsScreenState extends State<ContactsScreen> {
+  int? contectcard;
+  int? cvc;
+
+  @override
+  void initState() {
+    super.initState();
+    contectcard = widget.contectid;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,11 +59,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     mainAxisSpacing: .001,
                     crossAxisSpacing: .001,
                   ),
-                  itemCount: Staticmenbers.listofUsers.length,
-                  itemBuilder: (BuildContext context, int index) {
+                  itemCount: Staticmenbers.newUserCar.length,
+                  itemBuilder: (BuildContext context, int contectcard) {
                     return InkWell(
                       onTap: () {
-                        setState(() {});
+                        setState(() {
+                          cvc = contectcard;
+                        });
                         showModalBottomSheet(
                             context: context,
                             builder: (BuildContext context) {
@@ -76,13 +88,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             SizedBox(width: 10),
                                             InkWell(
                                               onTap: () {
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) =>
-                                                //             Digitalvisitingcard(
-                                                //               id: cardindex,
-                                                //             )));
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            contectvisitingcard(
+                                                                id: cvc)));
                                               },
                                               child: CardWidget(
                                                 icon: Icons.remove_red_eye,
@@ -107,26 +118,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                                 .end,
                                                         children: [
                                                           TextButtomWidget(
-                                                            onPressed: () {
-                                                              // FirebaseFirestore
-                                                              //     .instance
-                                                              //     .collection(
-                                                              //         "users")
-                                                              //     .doc(FirebaseAuth
-                                                              //         .instance
-                                                              //         .currentUser
-                                                              //         ?.uid)
-                                                              //     .collection(
-                                                              //         "Carddata")
-                                                              //     .doc(Staticmenbers
-                                                              //         .listofUsers[
-                                                              //             index]
-                                                              //         .id)
-                                                              //     .delete();
-                                                              // Navigator.of(
-                                                              //         context)
-                                                              //     .pop();
-                                                            },
+                                                            onPressed: () {},
                                                             title: 'okey',
                                                             color:
                                                                 PRIMARY_COLOR,
@@ -170,32 +162,39 @@ class _ContactsScreenState extends State<ContactsScreen> {
                           Card(
                             color: PRIMARY_COLOR,
                             child: Column(children: [
-                              Image.network(
-                                "${Staticmenbers.listofUsers[index].image}",
-                                width: 175,
-                                height: 147,
-                                fit: BoxFit.cover,
-                                frameBuilder: (context, child, frame,
-                                    wasSynchronouslyLoaded) {
-                                  return child;
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return const Center(
-                                      child: CircularProgressIndicator(
-                                        color: WHITE_COLOR,
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
+                              Staticmenbers.newUserCar[contectcard].image == ""
+                                  ? Image.asset(
+                                      "assets/images/splash1.png",
+                                      width: 175,
+                                      height: 146,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      "${Staticmenbers.newUserCar[contectcard].image}",
+                                      width: 175,
+                                      height: 146,
+                                      fit: BoxFit.cover,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
+                                        return child;
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              color: WHITE_COLOR,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
                               SizedBox(height: 3),
                               Center(
                                 child: Text(
-                                  '${Staticmenbers.listofUsers[index].type}',
+                                  '${Staticmenbers.newUserCar[contectcard].type}',
                                   style: TextStyle(color: WHITE_COLOR),
                                 ),
                               ),

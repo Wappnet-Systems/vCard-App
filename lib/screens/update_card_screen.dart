@@ -102,8 +102,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
     });
-
-    print("userData $singleuser");
   }
 
   Future<void> updateUser() async {

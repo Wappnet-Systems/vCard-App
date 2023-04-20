@@ -61,7 +61,7 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
                 ],
               ),
               child: QrImage(
-                data: "${widget.uid}",
+                data: "${widget.uid} ${widget.cid}",
                 size: 200,
               ),
             ),

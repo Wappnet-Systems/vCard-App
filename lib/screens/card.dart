@@ -114,18 +114,21 @@ class _CardscreenState extends State<Cardscreen> {
             ),
           ),
           actions: [
-            InkWell(
-                onTap: () async {
-                  final refresh = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Createcardscreen()));
-                  log("refresh:$refresh");
-                  if (refresh == true) {
-                    changeData();
-                  }
-                },
-                child: Icon(Icons.add, size: 40))
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                  onTap: () async {
+                    final refresh = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Createcardscreen()));
+                    log("refresh:$refresh");
+                    if (refresh == true) {
+                      changeData();
+                    }
+                  },
+                  child: Icon(Icons.add, size: 40)),
+            )
           ],
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
@@ -219,7 +222,6 @@ class _CardscreenState extends State<Cardscreen> {
                                           SizedBox(width: 17),
                                           InkWell(
                                             onTap: () {
-                                              // log("${Staticmenbers.listofUsers[index].id}");
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
