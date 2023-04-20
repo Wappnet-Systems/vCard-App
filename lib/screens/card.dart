@@ -10,6 +10,7 @@ import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:vcard/screens/create_card_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
+import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/alart_dialog_widget.dart';
 import 'package:vcard/widget/bottom_sheet.dart';
@@ -128,7 +129,7 @@ class _CardscreenState extends State<Cardscreen> {
           ],
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        body: value == true
+        body: Staticmenbers.listofUsers.isNotEmpty
             ? GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -216,11 +217,25 @@ class _CardscreenState extends State<Cardscreen> {
                                       Row(
                                         children: [
                                           SizedBox(width: 17),
-                                          CardWidget(
-                                            icon: Icons.edit,
-                                            data: "Edit",
-                                            data1: "Customize your",
-                                            data2: "business card.",
+                                          InkWell(
+                                            onTap: () {
+                                              // log("${Staticmenbers.listofUsers[index].id}");
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Updatecardscreen(
+                                                              id: Staticmenbers
+                                                                  .listofUsers[
+                                                                      index]
+                                                                  .id)));
+                                            },
+                                            child: CardWidget(
+                                              icon: Icons.edit,
+                                              data: "Edit",
+                                              data1: "Customize your",
+                                              data2: "business card.",
+                                            ),
                                           ),
                                           SizedBox(width: 10),
                                           InkWell(
@@ -317,28 +332,35 @@ class _CardscreenState extends State<Cardscreen> {
                         Card(
                           color: PRIMARY_COLOR,
                           child: Column(children: [
-                            Image.network(
-                              "${Staticmenbers.listofUsers[index].image}",
-                              width: 175,
-                              height: 146,
-                              fit: BoxFit.cover,
-                              frameBuilder: (context, child, frame,
-                                  wasSynchronouslyLoaded) {
-                                return child;
-                              },
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                } else {
-                                  return const Center(
-                                    child: CircularProgressIndicator(
-                                      color: WHITE_COLOR,
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
+                            Staticmenbers.listofUsers[index].image == ""
+                                ? Image.asset(
+                                    "assets/images/splash1.png",
+                                    width: 175,
+                                    height: 146,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.network(
+                                    "${Staticmenbers.listofUsers[index].image}",
+                                    width: 175,
+                                    height: 146,
+                                    fit: BoxFit.cover,
+                                    frameBuilder: (context, child, frame,
+                                        wasSynchronouslyLoaded) {
+                                      return child;
+                                    },
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: WHITE_COLOR,
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
                             SizedBox(height: 3),
                             Center(
                               child: Text(

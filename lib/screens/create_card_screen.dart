@@ -52,8 +52,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       .doc();
 
   Future<void> addUser() async {
+    String? imgurl;
     print(receivedLoanDataRef.id);
-    final imgurl = await uploadImage(Imagepicker!);
+    if (Imagepicker != null) {
+      imgurl = await uploadImage(Imagepicker!);
+    }
     return receivedLoanDataRef.set({
       'Name': _nameController.text,
       'Department': _departmentController.text,
@@ -69,7 +72,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'Phone': _numbercontroller.text,
       'Address': _addresscontroller.text,
       'id': receivedLoanDataRef.id,
-      'images': imgurl,
+      'images': imgurl ?? "",
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
     }).then((value) {

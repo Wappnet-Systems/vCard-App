@@ -77,14 +77,21 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                 color: WHITE_COLOR,
                                 fontWeight: FontWeight.bold)),
                       ),
-                      Center(
-                        child: Image.network(
-                          "${Staticmenbers.listofUsers[cardindex!].image}",
-                          width: MediaQuery.of(context).size.width,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                      Staticmenbers.listofUsers[cardindex!].image == ""
+                          ? Image.asset(
+                              "assets/images/splash1.png",
+                              width: 400,
+                              height: 146,
+                              fit: BoxFit.cover,
+                            )
+                          : Center(
+                              child: Image.network(
+                                "${Staticmenbers.listofUsers[cardindex!].image}",
+                                width: MediaQuery.of(context).size.width,
+                                height: 200,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                       SizedBox(height: 10),
                       Center(
                         child: Text(
