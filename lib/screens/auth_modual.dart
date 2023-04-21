@@ -134,7 +134,7 @@ class _AuthmodualState extends State<Authmodual> {
                           Authmodual.verify = verificationId;
                           final signature = await SmsAutoFill().getAppSignature;
                           log("VerificationId:${Authmodual.verify}");
-                          Navigator.push(
+                          Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => OTPscreen()));

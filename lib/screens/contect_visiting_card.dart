@@ -11,22 +11,22 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../widget/alart_dialog_widget.dart';
 import '../widget/text_button_widget.dart';
 
-class contectvisitingcard extends StatefulWidget {
+class Contectvisitingcard extends StatefulWidget {
   final int? id;
-  contectvisitingcard({super.key, required this.id});
+  Contectvisitingcard({super.key, required this.id});
 
   @override
-  State<contectvisitingcard> createState() => _contectvisitingcardState();
+  State<Contectvisitingcard> createState() => _ContectvisitingcardState();
 }
 
-class _contectvisitingcardState extends State<contectvisitingcard> {
-  int? cvc;
+class _ContectvisitingcardState extends State<Contectvisitingcard> {
+  int? cardindex;
   FToast? fToast;
 
   @override
   void initState() {
     super.initState();
-    cvc = widget.id;
+    cardindex = widget.id;
     fToast = FToast();
     fToast?.init(context);
   }
@@ -69,14 +69,15 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                     children: [
                       Container(
                         padding: EdgeInsets.all(25),
-                        child: Text('${Staticmenbers.newUserCar[cvc!].compeny}',
+                        child: Text(
+                            '${Staticmenbers.listofUsers[cardindex!].compeny}',
                             style: TextStyle(
                                 fontFamily: 'Marck',
                                 fontSize: 23,
                                 color: WHITE_COLOR,
                                 fontWeight: FontWeight.bold)),
                       ),
-                      Staticmenbers.newUserCar[cvc!].image == ""
+                      Staticmenbers.listofUsers[cardindex!].image == ""
                           ? Image.asset(
                               "assets/images/splash1.png",
                               width: 400,
@@ -85,7 +86,7 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                             )
                           : Center(
                               child: Image.network(
-                                "${Staticmenbers.newUserCar[cvc!].image}",
+                                "${Staticmenbers.listofUsers[cardindex!].image}",
                                 width: MediaQuery.of(context).size.width,
                                 height: 200,
                                 fit: BoxFit.cover,
@@ -94,7 +95,7 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                       SizedBox(height: 10),
                       Center(
                         child: Text(
-                          '${Staticmenbers.newUserCar[cvc!].name}',
+                          '${Staticmenbers.listofUsers[cardindex!].name}',
                           style: TextStyle(
                               fontFamily: 'Marck',
                               fontSize: 25,
@@ -105,7 +106,7 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                       SizedBox(height: 2),
                       Center(
                         child: Text(
-                            '${Staticmenbers.newUserCar[cvc!].department}',
+                            '${Staticmenbers.listofUsers[cardindex!].department}',
                             style: TextStyle(
                                 fontFamily: 'Marck',
                                 fontSize: 23,
@@ -124,13 +125,13 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                           children: [
                             InkWell(
                               onTap: () {
-                                if (Staticmenbers.newUserCar[cvc!].phone
+                                if (Staticmenbers.listofUsers[cardindex!].phone
                                         .toString() ==
                                     "") {
                                   displayCustomToast();
                                 } else {
                                   UrlLauncher.launch(
-                                      'tel:+${Staticmenbers.newUserCar[cvc!].phone.toString()}');
+                                      'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
                                 }
                               },
                               child: Image.asset(
@@ -141,14 +142,15 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                             SizedBox(width: 25),
                             InkWell(
                               onTap: () {
-                                log('${Staticmenbers.newUserCar[cvc!].whatsapp}');
-                                if (Staticmenbers.newUserCar[cvc!].whatsapp ==
+                                log('${Staticmenbers.listofUsers[cardindex!].whatsapp}');
+                                if (Staticmenbers
+                                        .listofUsers[cardindex!].whatsapp ==
                                     "") {
                                   displayCustomToast();
                                 } else {
                                   launchUrl(
                                       Uri.parse(
-                                          'https://wa.me/$Staticmenbers.newUserCar[cvc!].whatsapp?text=Hi'),
+                                          'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
                                       mode: LaunchMode.externalApplication);
                                 }
                               },
@@ -160,12 +162,13 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                             SizedBox(width: 20),
                             InkWell(
                               onTap: () {
-                                if (Staticmenbers.newUserCar[cvc!].email ==
+                                if (Staticmenbers
+                                        .listofUsers[cardindex!].email ==
                                     "") {
                                   displayCustomToast();
                                 } else {
                                   UrlLauncher.launch(
-                                      'mailto:${Staticmenbers.newUserCar[cvc!].email}');
+                                      'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
                                 }
                               },
                               child: Image.asset(
@@ -176,12 +179,13 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                             SizedBox(width: 25),
                             InkWell(
                               onTap: () {
-                                if (Staticmenbers.newUserCar[cvc!].facebook ==
+                                if (Staticmenbers
+                                        .listofUsers[cardindex!].facebook ==
                                     "") {
                                   displayCustomToast();
                                 } else {
                                   UrlLauncher.launch(
-                                      "fb://facewebmodal/f?href=$Staticmenbers.newUserCar[cvc!].facebook");
+                                      "fb://facewebmodal/f?href=$Staticmenbers.listofUsers[cardindex!].facebook");
                                 }
                               },
                               child: Image.asset(
@@ -196,12 +200,13 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                         children: [
                           InkWell(
                             onTap: () {
-                              if (Staticmenbers.newUserCar[cvc!].telegram ==
+                              if (Staticmenbers
+                                      .listofUsers[cardindex!].telegram ==
                                   "") {
                                 displayCustomToast();
                               } else {
                                 UrlLauncher.launch(
-                                    "https://telegram.me/$Staticmenbers.newUserCar[cvc!].telegram");
+                                    "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
                               }
                             },
                             child: Image.asset(
@@ -212,12 +217,13 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                           SizedBox(width: 25),
                           InkWell(
                             onTap: () {
-                              if (Staticmenbers.newUserCar[cvc!].website ==
+                              if (Staticmenbers
+                                      .listofUsers[cardindex!].website ==
                                   "") {
                                 displayCustomToast();
                               } else {
                                 Uri.parse(
-                                    'website${Staticmenbers.newUserCar[cvc!].website}');
+                                    'website${Staticmenbers.listofUsers[cardindex!].website}');
                               }
                             },
                             child: Image.asset(
@@ -228,11 +234,12 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                           SizedBox(width: 25),
                           InkWell(
                             onTap: () {
-                              if (Staticmenbers.newUserCar[cvc!].link == "") {
+                              if (Staticmenbers.listofUsers[cardindex!].link ==
+                                  "") {
                                 displayCustomToast();
                               } else {
                                 Uri.parse(
-                                    "${Staticmenbers.newUserCar[cvc!].link}");
+                                    "${Staticmenbers.listofUsers[cardindex!].link}");
                               }
                             },
                             child: Image.asset(
@@ -254,7 +261,7 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                                           color: WHITE_COLOR,
                                           fontWeight: FontWeight.bold)),
                                   content: Text(
-                                      '${Staticmenbers.newUserCar[cvc!].address}',
+                                      '${Staticmenbers.listofUsers[cardindex!].address}',
                                       style: TextStyle(
                                           fontFamily: 'Marck',
                                           fontSize: 25,
@@ -295,7 +302,7 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
                       Padding(
                         padding: const EdgeInsets.all(25.0),
                         child: Text(
-                            '${Staticmenbers.newUserCar[cvc!].headline}',
+                            '${Staticmenbers.listofUsers[cardindex!].headline}',
                             style: TextStyle(
                                 fontFamily: 'Marck',
                                 fontSize: 25,
@@ -312,11 +319,11 @@ class _contectvisitingcardState extends State<contectvisitingcard> {
   }
 
   void _pushMap() async {
-    if (Staticmenbers.newUserCar[cvc!].address == "") {
+    if (Staticmenbers.listofUsers[cardindex!].address == "") {
       displayCustomToast();
     } else {
       String googleUrl =
-          "google.navigation:q=${Staticmenbers.newUserCar[cvc!].address}";
+          "google.navigation:q=${Staticmenbers.listofUsers[cardindex!].address}";
       Uri googleUri = Uri.parse(googleUrl);
 
       if (await canLaunchUrl(googleUri)) {

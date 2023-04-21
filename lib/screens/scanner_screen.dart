@@ -6,6 +6,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
 
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
@@ -20,9 +22,27 @@ class Scannerscreen extends StatefulWidget {
 }
 
 class _ScannerscreenState extends State<Scannerscreen> {
+  FToast? fToast;
+  bool value = false;
   int? contectcard;
   String? cid;
   String? uid;
+  String? name;
+  String? department;
+  String? compeny;
+  String? headline;
+  String? whatsapp;
+  String? telegram;
+  String? snapchat;
+  String? website;
+  String? link;
+  String? facebook;
+  String? email;
+  String? phone;
+  String? address;
+  String? id;
+  String? image;
+  String? type;
 
   Future<void> getSingleUserData() async {
     log("xzc:${cid}");
@@ -56,121 +76,164 @@ class _ScannerscreenState extends State<Scannerscreen> {
 
     log("userData ${userData.length}");
     setState(() {
-      Staticmenbers.newUserCar = userData;
+      name = userData[0].name;
+      cid = cid;
+      uid = uid;
+      department = userData[0].department;
+      compeny = userData[0].compeny;
+      headline = userData[0].headline;
+      whatsapp = userData[0].whatsapp;
+      telegram = userData[0].telegram;
+      snapchat = userData[0].snapchat;
+      website = userData[0].website;
+      link = userData[0].link;
+      facebook = userData[0].facebook;
+      email = userData[0].email;
+      phone = userData[0].phone;
+      address = userData[0].address;
+      id = userData[0].id;
+      image = userData[0].image;
+      type = userData[0].type;
     });
 
     log("Staticmenbers.list.length : ${Staticmenbers.newUserCar.length}");
   }
 
+  Future<void> addUser() async {
+    var receivedLoanDataRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Frind's Card")
+        .doc(cid);
+    return receivedLoanDataRef.set({
+      'Name': name,
+      'Department': department,
+      'Company': compeny,
+      'HeadLine': headline,
+      'WhatsApp': whatsapp,
+      'Telegram': telegram,
+      'Snapchat': snapchat,
+      'Website': website,
+      'Link': link,
+      'Facebook': facebook,
+      'Email': email,
+      'Phone': phone,
+      'Address': address,
+      'id': cid,
+      'images': image,
+      'type': type,
+      'user': FirebaseAuth.instance.currentUser?.uid,
+    }).then((value) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Dashboardscreen()));
+    }).catchError((error) {
+      log("Failed to add user: $error");
+    });
+  }
+
   @override
   void initState() {
+    fToast = FToast();
+    fToast?.init(context);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: BACKGROUND_COLOR,
-        appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(25.0)),
-                    ),
-                    builder: (BuildContext context) => GenerateQR());
-              },
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                backgroundImage: AssetImage("assets/images/splash1.png"),
-              ),
+      backgroundColor: BACKGROUND_COLOR,
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(25.0)),
+                  ),
+                  builder: (BuildContext context) => GenerateQR());
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: AssetImage("assets/images/splash1.png"),
             ),
           ),
-          centerTitle: true,
-          title: const Text("Qr Scanner"),
-          backgroundColor: PRIMARY_COLOR,
-          systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        body: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: .001,
-              crossAxisSpacing: .001,
-            ),
-            itemCount: Staticmenbers.newUserCar.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
+        centerTitle: true,
+        title: const Text("Qr Scanner"),
+        backgroundColor: PRIMARY_COLOR,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+      ),
+      body: value != false
+          ? Center(
+              child: Column(
                 children: [
                   SizedBox(height: 2.8),
-                  InkWell(
-                    onTap: () {
-                      contectcard = index;
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ContactsScreen(contectid: contectcard)));
-                    },
-                    child: Card(
-                      color: PRIMARY_COLOR,
-                      child: Column(children: [
-                        Staticmenbers.newUserCar[index].image == ""
-                            ? Image.asset(
-                                "assets/images/splash1.png",
-                                width: 175,
-                                height: 146,
-                                fit: BoxFit.cover,
-                              )
-                            : Image.network(
-                                "${Staticmenbers.newUserCar[index].image}",
-                                width: 175,
-                                height: 146,
-                                fit: BoxFit.cover,
-                                frameBuilder: (context, child, frame,
-                                    wasSynchronouslyLoaded) {
-                                  return child;
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return const Center(
-                                      child: CircularProgressIndicator(
-                                        color: WHITE_COLOR,
-                                      ),
-                                    );
-                                  }
-                                },
+                  Card(
+                    color: PRIMARY_COLOR,
+                    child: Column(children: [
+                      Image.network(
+                        "${image}",
+                        fit: BoxFit.cover,
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          return child;
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return const Center(
+                              child: CircularProgressIndicator(
+                                color: WHITE_COLOR,
                               ),
-                        SizedBox(height: 3),
-                        Center(
-                          child: Text(
-                            '${Staticmenbers.newUserCar[index].type}',
-                            style: TextStyle(color: WHITE_COLOR),
-                          ),
+                            );
+                          }
+                        },
+                      ),
+                      SizedBox(height: 3),
+                      Center(
+                        child: Text(
+                          '${type}',
+                          style: TextStyle(color: WHITE_COLOR),
                         ),
-                        SizedBox(height: 3),
-                      ]),
-                    ),
+                      ),
+                      SizedBox(height: 3),
+                    ]),
                   ),
+                  SizedBox(height: 10),
+                  Container(
+                      child: FloatingActionButton.extended(
+                    backgroundColor: PRIMARY_COLOR,
+                    label: Row(
+                      children: [
+                        Icon(Icons.contact_page_rounded),
+                        Text('Connected')
+                      ],
+                    ),
+                    onPressed: () {
+                      addUser();
+                      displayCustomToast();
+                    },
+                  )),
                 ],
-              );
-            }),
-        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: PRIMARY_COLOR,
-          label: Row(
-            children: [Icon(Icons.photo_camera), Text('Qr Scan')],
-          ),
-          onPressed: () {
-            scanQRCode();
-          },
-        ));
+              ),
+            )
+          : Center(
+              child: Container(
+                  child: FloatingActionButton.extended(
+                backgroundColor: PRIMARY_COLOR,
+                label: Row(
+                  children: [Icon(Icons.photo_camera), Text('Qr Scan')],
+                ),
+                onPressed: () {
+                  scanQRCode();
+                },
+              )),
+            ),
+    );
   }
 
   void scanQRCode() async {
@@ -183,9 +246,29 @@ class _ScannerscreenState extends State<Scannerscreen> {
       setState(() {
         uid = qrCode.substring(0, 28);
         cid = qrCode.substring(29);
+        value = true;
       });
       log("message: ${cid} ${uid}");
       getSingleUserData();
     } on PlatformException {}
+  }
+
+  displayCustomToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: PRIMARY_COLOR,
+      ),
+      child: const Text(
+        "Connected",
+        style: TextStyle(color: WHITE_COLOR),
+      ),
+    );
+
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 3),
+    );
   }
 }

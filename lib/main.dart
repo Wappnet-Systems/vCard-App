@@ -13,13 +13,13 @@ import 'utils/constants_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final islogin = await prefs.getBool('isLoggedIn') ?? false;
-  // final isfirsttime = await prefs.getBool('isFirstTime');
+
   runApp(MyApp(islogin: islogin));
 }
 
