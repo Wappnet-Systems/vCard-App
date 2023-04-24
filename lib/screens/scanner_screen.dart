@@ -170,38 +170,43 @@ class _ScannerscreenState extends State<Scannerscreen> {
           ? Center(
               child: Column(
                 children: [
-                  SizedBox(height: 2.8),
+                  SizedBox(height: 180),
                   Card(
                     color: PRIMARY_COLOR,
-                    child: Column(children: [
-                      Image.network(
-                        "${image}",
-                        fit: BoxFit.cover,
-                        frameBuilder:
-                            (context, child, frame, wasSynchronouslyLoaded) {
-                          return child;
-                        },
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) {
+                    child: Container(
+                      width: 200,
+                      child: Column(children: [
+                        Image.network(
+                          "${image}",
+                          width: 200,
+                          height: 146,
+                          fit: BoxFit.cover,
+                          frameBuilder:
+                              (context, child, frame, wasSynchronouslyLoaded) {
                             return child;
-                          } else {
-                            return const Center(
-                              child: CircularProgressIndicator(
-                                color: WHITE_COLOR,
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(height: 3),
-                      Center(
-                        child: Text(
-                          '${type}',
-                          style: TextStyle(color: WHITE_COLOR),
+                          },
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  color: WHITE_COLOR,
+                                ),
+                              );
+                            }
+                          },
                         ),
-                      ),
-                      SizedBox(height: 3),
-                    ]),
+                        SizedBox(height: 3),
+                        Center(
+                          child: Text(
+                            '${name}',
+                            style: TextStyle(color: WHITE_COLOR),
+                          ),
+                        ),
+                        SizedBox(height: 3),
+                      ]),
+                    ),
                   ),
                   SizedBox(height: 10),
                   Container(

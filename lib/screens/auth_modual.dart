@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/utils/constants_color.dart';
+import '../widget/custom loading bar.dart';
 import 'otp_screen.dart';
 
 class Authmodual extends StatefulWidget {
@@ -31,6 +32,8 @@ class _AuthmodualState extends State<Authmodual> {
     countryController.text = "+91";
     super.initState();
   }
+
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +68,11 @@ class _AuthmodualState extends State<Authmodual> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 30,
-              ),
+              (isLoading)
+                  ? Custonloading()
+                  : SizedBox(
+                      height: 40,
+                    ),
               Container(
                 height: 55,
                 decoration: BoxDecoration(
@@ -124,6 +129,10 @@ class _AuthmodualState extends State<Authmodual> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
+                      setState(() {
+                        isLoading = true;
+                      });
+
                       await FirebaseAuth.instance.verifyPhoneNumber(
                         phoneNumber: '${countryController.text + phone}',
                         verificationCompleted:

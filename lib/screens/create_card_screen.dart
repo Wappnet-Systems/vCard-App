@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
+import '../widget/custom loading bar.dart';
 import '../widget/custom_textformfield.dart';
 import '../widget/icon.dart';
 
@@ -76,6 +77,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
     }).then((value) {
+      displayCustomToast();
       Navigator.pop(context, true);
     }).catchError((error) {
       log("Failed to add user: $error");
@@ -105,6 +107,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     return url;
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,11 +120,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               onPressed: () async {
                 setState(() {
                   if (_formfield.currentState!.validate()) {
+                    isLoading = true;
                     addUser();
+
                     // Future.delayed(Duration(seconds: 5), () {
                     // });
 
-                    displayCustomToast();
                   }
                 });
               },
@@ -169,7 +173,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                                 )),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  (isLoading) ? Custonloading() : SizedBox(height: 25),
                   CustomTextFormField(
                     inputFormatters: null,
                     textInputType: TextInputType.emailAddress,
