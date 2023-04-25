@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../controllers/data_controllers.dart';
 
 const Color BACKGROUND_COLOR = Color(0Xfff5f4f3);

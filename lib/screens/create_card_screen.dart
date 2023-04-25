@@ -122,10 +122,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   if (_formfield.currentState!.validate()) {
                     isLoading = true;
                     addUser();
-
-                    // Future.delayed(Duration(seconds: 5), () {
-                    // });
-
                   }
                 });
               },

@@ -13,13 +13,6 @@ class CardGenerateQR extends StatefulWidget {
 }
 
 class _CardGenerateQRState extends State<CardGenerateQR> {
-  // final String _content =
-  //     'https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB';
-  // void _shareContent() {
-
-  //   Share.share(_content);
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -70,14 +63,6 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
               "Point yoour camera at the QR code.",
               style: TextStyle(color: PRIMARY_COLOR),
             ),
-            // SizedBox(height: 20),
-            // ElevatedButton.icon(
-            //     style: ElevatedButton.styleFrom(
-            //       primary: PRIMARY_COLOR,
-            //     ),
-            //     onPressed: _shareContent,
-            //     icon: const Icon(Icons.ios_share_outlined),
-            //     label: const Text('Share Card')),
           ],
         ));
   }

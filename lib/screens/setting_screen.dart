@@ -179,49 +179,6 @@ class _Setting_ScreenState extends State<Setting_Screen> {
               ),
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.all(15.0),
-          //   child: Text(
-          //     "Follow US",
-          //     style: TextStyle(fontSize: 23),
-          //   ),
-          // ),
-          // Container(
-          //   color: WHITE_COLOR,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(15.0),
-          //     child: Column(
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Text(
-          //           "Twitter",
-          //           style: TextStyle(fontSize: 18),
-          //         ),
-          //         Divider(
-          //             // color: LINE_COLOR,
-          //             ),
-          //         Text(
-          //           "Face Book",
-          //           style: TextStyle(fontSize: 18),
-          //         ),
-          //         Divider(
-          //             // color: LINE_COLOR,
-          //             ),
-          //         Text(
-          //           "Telegram",
-          //           style: TextStyle(fontSize: 18),
-          //         ),
-          //         Divider(
-          //             // color: LINE_COLOR,
-          //             ),
-          //         Text(
-          //           "Instgram",
-          //           style: TextStyle(fontSize: 18),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

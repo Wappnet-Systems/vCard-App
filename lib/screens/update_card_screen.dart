@@ -1,7 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -11,7 +9,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
@@ -134,6 +131,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'type': _typecontroller.text,
     })
       ..then((value) {
+        displayCustomToast();
         Navigator.push(context,
             MaterialPageRoute(builder: ((context) => Dashboardscreen())));
       }).catchError((error) => print("Failed to update user: $error"));
@@ -175,10 +173,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 setState(() {
                   if (_formfield.currentState!.validate()) {
                     updateUser();
-                    // Future.delayed(Duration(seconds: 5), () {
-                    // });
-
-                    displayCustomToast();
                   }
                 });
               },

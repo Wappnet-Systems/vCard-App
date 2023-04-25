@@ -3,11 +3,8 @@ import 'package:lottie/lottie.dart';
 
 class CustomNoData extends StatelessWidget {
   String iconaddress;
-  //maintext, description;
   CustomNoData({
     required this.iconaddress,
-    // required this.maintext,
-    // required this.description,
   });
 
   @override

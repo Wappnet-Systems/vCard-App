@@ -1,4 +1,3 @@
-// ignore_for_file: unnecessary_new
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,7 +5,6 @@ import 'package:get/get.dart';
 import '../utils/constants_color.dart';
 import 'custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
 import 'text_button_widget.dart';
 
 class IconTextField extends StatefulWidget {
@@ -116,49 +114,3 @@ class _IconTextFieldState extends State<IconTextField> {
     );
   }
 }
-    
-//     Scaffold(
-//       body: Center(
-//         child: Padding(
-//           padding: const EdgeInsets.all(15.0),
-//           child: Column(
-//             children: [
-//               SizedBox(height: 300),
-//               CustomTextFormField(
-//                 textInputType: widget.textInputType!,
-//                 textEditingController: widget.textEditingController!,
-//                 texteditinghinttext: widget.hint!,
-//                 customobscuretext: true,
-//                 custominkwell: null,
-//                 customprefixicon: widget.icon,
-//                 validationfunction: (value) {
-//                   widget.validationfunction;
-//                 },
-//               ),
-//               SizedBox(height: 30),
-//               SizedBox(
-//                   width: double.infinity,
-//                   child: Container(
-//                       decoration: BoxDecoration(
-//                         borderRadius: BorderRadius.circular(5),
-//                         color: PRIMARY_COLOR,
-//                       ),
-//                       child: TextButton(
-//                           onPressed: () {
-//                             setState(() {
-//                               print(widget.textEditingController?.text);
-//                               Navigator.pop(context, true);
-//                             });
-//                           },
-//                           child: Text("Save",
-//                               style: TextStyle(
-//                                 color: Color(0xfffefefd),
-//                                 fontSize: 17,
-//                               ))))),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
-
 import '../utils/validator.dart';
 import 'icon_textfild.dart';
 
@@ -181,7 +180,6 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                // Spacer(),
                 SizedBox(width: 55),
                 InkWell(
                   onTap: () {
@@ -212,7 +210,6 @@ class _IconwidgetState extends State<Iconwidget> {
                   ),
                 ),
                 SizedBox(width: 46),
-                // Spacer(),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -275,7 +272,6 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                // Spacer(),
                 SizedBox(width: 56),
                 InkWell(
                   onTap: () {
@@ -304,7 +300,6 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                // Spacer(),
                 SizedBox(width: 46),
                 InkWell(
                   onTap: () {

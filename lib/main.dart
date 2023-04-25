@@ -4,11 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
-import 'package:vcard/screens/splash_screen.dart';
-import 'package:vcard/utils/shered.dart';
 import 'screens/create_card_screen.dart';
 import 'screens/dashboard_screen.dart';
-import 'screens/intro_screen.dart';
 import 'utils/constants_color.dart';
 
 void main() async {
@@ -65,7 +62,6 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'VCard',
       theme: ThemeData(fontFamily: 'Trajan'),
-      // theme: (isDarkMode) ? ThemeData.dark() : ThemeData.light(),
       home: AnimatedSplashScreen(
         duration: 1500,
         splashTransition: SplashTransition.fadeTransition,
@@ -93,7 +89,6 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
         nextScreen:
-            // Dashboardscreen(),
             (widget.islogin! == true) ? Dashboardscreen() : Authmodual(),
       ),
     );

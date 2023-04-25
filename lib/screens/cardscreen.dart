@@ -14,7 +14,6 @@ import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/alart_dialog_widget.dart';
 import 'package:vcard/widget/bottom_sheet.dart';
-import 'package:vcard/widget/floating_action_button.dart';
 import '../controllers/data_controllers.dart';
 import '../widget/custom_no_data.dart';
 import '../widget/text_button_widget.dart';
@@ -193,7 +192,7 @@ class _CardscreenState extends State<Cardscreen> {
                                               icon: Icons.send_sharp,
                                               data: "Send",
                                               data1: "Share via QR",
-                                              data2: "email.",
+                                              data2: "",
                                             ),
                                           ),
                                           SizedBox(width: 10),
