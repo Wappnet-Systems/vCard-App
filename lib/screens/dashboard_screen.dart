@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vcard/screens/scanner_screen.dart';
@@ -25,45 +28,59 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Center(
-            child: _widgetOptions.elementAt(indexx),
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await AwesomeDialog(
+            context: context,
+            dialogType: DialogType.warning,
+            showCloseIcon: true,
+            desc: "Exit",
+            btnCancelOnPress: () async {},
+            btnOkOnPress: () async {
+              exit(0);
+            }).show();
+        return shouldPop;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Container(
+            child: Center(
+              child: _widgetOptions.elementAt(indexx),
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: PRIMARY_COLOR,
-        selectedItemColor: BLUE_COLOR,
-        selectedIconTheme: IconThemeData(color: BLUE_COLOR),
-        unselectedItemColor: WHITE_COLOR,
-        unselectedIconTheme: IconThemeData(color: WHITE_COLOR),
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add_card),
-            label: 'Card',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.photo_camera),
-            label: 'Scan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contacts),
-            label: 'Contacts',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: indexx,
-        onTap: (int index) async {
-          setState(() {
-            indexx = index;
-          });
-        },
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: PRIMARY_COLOR,
+          selectedItemColor: BLUE_COLOR,
+          selectedIconTheme: IconThemeData(color: BLUE_COLOR),
+          unselectedItemColor: WHITE_COLOR,
+          unselectedIconTheme: IconThemeData(color: WHITE_COLOR),
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add_card),
+              label: 'Card',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.photo_camera),
+              label: 'Scan',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.contacts),
+              label: 'Contacts',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+          ],
+          currentIndex: indexx,
+          onTap: (int index) async {
+            setState(() {
+              indexx = index;
+            });
+          },
+        ),
       ),
     );
   }

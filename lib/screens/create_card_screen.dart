@@ -77,7 +77,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
     }).then((value) {
-      displayCustomToast();
       Navigator.pop(context, true);
     }).catchError((error) {
       log("Failed to add user: $error");
@@ -122,6 +121,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   if (_formfield.currentState!.validate()) {
                     isLoading = true;
                     addUser();
+                    displayCustomToast();
                   }
                 });
               },

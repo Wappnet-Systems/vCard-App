@@ -12,6 +12,7 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
+import '../widget/custom loading bar.dart';
 import '../widget/custom_textformfield.dart';
 import '../widget/icon.dart';
 
@@ -129,12 +130,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? "",
       'type': _typecontroller.text,
-    })
-      ..then((value) {
-        displayCustomToast();
-        Navigator.push(context,
-            MaterialPageRoute(builder: ((context) => Dashboardscreen())));
-      }).catchError((error) => print("Failed to update user: $error"));
+    }).then((value) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => Dashboardscreen())));
+    }).catchError((error) => print("Failed to update user: $error"));
   }
 
   File? Imagepicker;
@@ -160,6 +159,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     return url;
   }
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,6 +171,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
           IconButton(
               onPressed: () async {
                 setState(() {
+                  isLoading = true;
+                  displayCustomToast();
                   if (_formfield.currentState!.validate()) {
                     updateUser();
                   }
@@ -220,7 +222,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                 )),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  (isLoading) ? Custonloading() : SizedBox(height: 25),
                   CustomTextFormField(
                     inputFormatters: null,
                     textInputType: TextInputType.emailAddress,

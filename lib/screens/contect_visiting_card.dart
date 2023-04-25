@@ -113,6 +113,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
                                 color: WHITE_COLOR,
                                 fontWeight: FontWeight.bold)),
                       ),
+                      SizedBox(height: 10),
                       Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Divider(
@@ -120,194 +121,201 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
                           thickness: 2,
                         ),
                       ),
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                if (Staticmenbers.listofUsers[cardindex!].phone
-                                        .toString() ==
-                                    "") {
-                                  displayCustomToast();
-                                } else {
-                                  UrlLauncher.launch(
-                                      'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
-                                }
-                              },
-                              child: Image.asset(
-                                "assets/icon/telephone.png",
-                                scale: 14,
-                              ),
-                            ),
-                            SizedBox(width: 25),
-                            InkWell(
-                              onTap: () {
-                                log('${Staticmenbers.listofUsers[cardindex!].whatsapp}');
-                                if (Staticmenbers
-                                        .listofUsers[cardindex!].whatsapp ==
-                                    "") {
-                                  displayCustomToast();
-                                } else {
-                                  launchUrl(
-                                      Uri.parse(
-                                          'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
-                                      mode: LaunchMode.externalApplication);
-                                }
-                              },
-                              child: Image.asset(
-                                "assets/icon/whatsapp.png",
-                                scale: 14,
-                              ),
-                            ),
-                            SizedBox(width: 20),
-                            InkWell(
-                              onTap: () {
-                                if (Staticmenbers
-                                        .listofUsers[cardindex!].email ==
-                                    "") {
-                                  displayCustomToast();
-                                } else {
-                                  UrlLauncher.launch(
-                                      'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
-                                }
-                              },
-                              child: Image.asset(
-                                "assets/icon/mail.png",
-                                scale: 14,
-                              ),
-                            ),
-                            SizedBox(width: 25),
-                            InkWell(
-                              onTap: () {
-                                if (Staticmenbers
-                                        .listofUsers[cardindex!].facebook ==
-                                    "") {
-                                  displayCustomToast();
-                                } else {
-                                  UrlLauncher.launch(
-                                      "fb://facewebmodal/f?href=$Staticmenbers.listofUsers[cardindex!].facebook");
-                                }
-                              },
-                              child: Image.asset(
-                                "assets/icon/facebook.png",
-                                scale: 14,
-                              ),
-                            ),
-                          ]),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              if (Staticmenbers
-                                      .listofUsers[cardindex!].telegram ==
-                                  "") {
-                                displayCustomToast();
-                              } else {
-                                UrlLauncher.launch(
-                                    "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
-                              }
-                            },
-                            child: Image.asset(
-                              "assets/icon/telegram.png",
-                              scale: 14,
-                            ),
-                          ),
-                          SizedBox(width: 25),
-                          InkWell(
-                            onTap: () {
-                              if (Staticmenbers
-                                      .listofUsers[cardindex!].website ==
-                                  "") {
-                                displayCustomToast();
-                              } else {
-                                Uri.parse(
-                                    'website${Staticmenbers.listofUsers[cardindex!].website}');
-                              }
-                            },
-                            child: Image.asset(
-                              "assets/icon/web.png",
-                              scale: 14,
-                            ),
-                          ),
-                          SizedBox(width: 25),
-                          InkWell(
-                            onTap: () {
-                              if (Staticmenbers.listofUsers[cardindex!].link ==
-                                  "") {
-                                displayCustomToast();
-                              } else {
-                                Uri.parse(
-                                    "${Staticmenbers.listofUsers[cardindex!].link}");
-                              }
-                            },
-                            child: Image.asset(
-                              "assets/icon/link.png",
-                              scale: 14,
-                            ),
-                          ),
-                          SizedBox(width: 25),
-                          InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  backgroundColor: BLUE_COLOR,
-                                  title: const Text("Address",
-                                      style: TextStyle(
-                                          fontFamily: 'Marck',
-                                          fontSize: 25,
-                                          color: WHITE_COLOR,
-                                          fontWeight: FontWeight.bold)),
-                                  content: Text(
-                                      '${Staticmenbers.listofUsers[cardindex!].address}',
-                                      style: TextStyle(
-                                          fontFamily: 'Marck',
-                                          fontSize: 25,
-                                          color: WHITE_COLOR,
-                                          fontWeight: FontWeight.bold)),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            _pushMap();
-                                          },
-                                          title: 'Use Map',
-                                          color: PRIMARY_COLOR,
+                      Center(
+                        child: Container(
+                          height: 100,
+                          width: 250,
+                          padding: const EdgeInsets.all(10.0),
+                          child: Center(
+                            child: Wrap(children: [
+                              (Staticmenbers.listofUsers[cardindex!].phone ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          UrlLauncher.launch(
+                                              'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/telephone.png",
+                                          scale: 14,
                                         ),
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          title: 'Cancle',
-                                          color: Colors.redAccent,
-                                        )
-                                      ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              );
-                            },
-                            child: Image.asset(
-                              "assets/icon/location.png",
-                              scale: 14,
-                            ),
+                              (Staticmenbers.listofUsers[cardindex!].whatsapp ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          launchUrl(
+                                              Uri.parse(
+                                                  'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                              mode: LaunchMode
+                                                  .externalApplication);
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/whatsapp.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                              (Staticmenbers.listofUsers[cardindex!].email ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          UrlLauncher.launch(
+                                              'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/mail.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                              (Staticmenbers.listofUsers[cardindex!].facebook ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          UrlLauncher.launch(
+                                              "fb://facewebmodal/f?href=$Staticmenbers.listofUsers[cardindex!].facebook");
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/facebook.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                              (Staticmenbers.listofUsers[cardindex!].telegram ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          UrlLauncher.launch(
+                                              "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/telegram.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                              (Staticmenbers.listofUsers[cardindex!].website ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Uri.parse(
+                                              'website${Staticmenbers.listofUsers[cardindex!].website}');
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/web.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                              (Staticmenbers.listofUsers[cardindex!].link == "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          Uri.parse(
+                                              "${Staticmenbers.listofUsers[cardindex!].link}");
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/link.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                              (Staticmenbers.listofUsers[cardindex!].address ==
+                                      "")
+                                  ? SizedBox()
+                                  : Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (ctx) => AlertDialog(
+                                              backgroundColor: BLUE_COLOR,
+                                              title: const Text("Address",
+                                                  style: TextStyle(
+                                                      fontFamily: 'Marck',
+                                                      fontSize: 25,
+                                                      color: WHITE_COLOR,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              content: Text(
+                                                  '${Staticmenbers.listofUsers[cardindex!].address}',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Marck',
+                                                      fontSize: 25,
+                                                      color: WHITE_COLOR,
+                                                      fontWeight:
+                                                          FontWeight.bold)),
+                                              actions: <Widget>[
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    TextButtomWidget(
+                                                      onPressed: () {
+                                                        _pushMap();
+                                                      },
+                                                      title: 'Use Map',
+                                                      color: PRIMARY_COLOR,
+                                                    ),
+                                                    TextButtomWidget(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      title: 'Cancle',
+                                                      color: Colors.redAccent,
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        child: Image.asset(
+                                          "assets/icon/location.png",
+                                          scale: 14,
+                                        ),
+                                      ),
+                                    ),
+                            ]),
                           ),
-                        ],
+                        ),
                       ),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: Text(
-                            '${Staticmenbers.listofUsers[cardindex!].headline}',
-                            style: TextStyle(
-                                fontFamily: 'Marck',
-                                fontSize: 25,
-                                color: WHITE_COLOR,
-                                fontWeight: FontWeight.bold)),
+                      Container(
+                        padding: EdgeInsets.all(25),
+                        child: (Staticmenbers
+                                    .listofUsers[cardindex!].headline ==
+                                "")
+                            ? Container()
+                            : Text(
+                                '${Staticmenbers.listofUsers[cardindex!].headline}',
+                                style: TextStyle(
+                                    fontFamily: 'Marck',
+                                    fontSize: 25,
+                                    color: WHITE_COLOR,
+                                    fontWeight: FontWeight.bold)),
                       ),
                     ]),
               ),
