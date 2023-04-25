@@ -140,7 +140,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                             child: Wrap(children: [
                               (Staticmenbers.listofUsers[cardindex!].phone ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
@@ -156,7 +156,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].whatsapp ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
@@ -175,7 +175,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].email ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
@@ -191,13 +191,13 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].facebook ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
                                         onTap: () {
                                           UrlLauncher.launch(
-                                              "fb://facewebmodal/f?href=$Staticmenbers.listofUsers[cardindex!].facebook");
+                                              'https://www.facebook.com/{$Staticmenbers.listofUsers[cardindex!].facebook}');
                                         },
                                         child: Image.asset(
                                           "assets/icon/facebook.png",
@@ -207,7 +207,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].telegram ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
@@ -223,13 +223,15 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].website ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
-                                        onTap: () {
-                                          Uri.parse(
-                                              'website${Staticmenbers.listofUsers[cardindex!].website}');
+                                        onTap: () async {
+                                          final url =
+                                              '${Staticmenbers.listofUsers[cardindex!].website}';
+
+                                          await launch(url);
                                         },
                                         child: Image.asset(
                                           "assets/icon/web.png",
@@ -238,13 +240,15 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                       ),
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].link == "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(
-                                        onTap: () {
-                                          Uri.parse(
-                                              "${Staticmenbers.listofUsers[cardindex!].link}");
+                                        onTap: () async {
+                                          final url =
+                                              '${Staticmenbers.listofUsers[cardindex!].link}';
+
+                                          await launch(url);
                                         },
                                         child: Image.asset(
                                           "assets/icon/link.png",
@@ -254,7 +258,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].address ==
                                       "")
-                                  ? SizedBox()
+                                  ? Container()
                                   : Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: InkWell(

@@ -121,7 +121,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'WhatsApp': _whatsappcontroller.text,
       'Telegram': _telegramcontroller.text,
       'Snapchat': _snapchatcontroller.text,
-      'Website': _snapchatcontroller.text,
+      'Website': _websitecontroller.text,
       'Link': _linkcontroller.text,
       'Facebook': _facebookcontroller.text,
       'Email': _emailcontroller.text,
