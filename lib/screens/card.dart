@@ -180,14 +180,14 @@ class _CardscreenState extends State<Cardscreen> {
                                                   builder: (BuildContext
                                                           context) =>
                                                       CardGenerateQR(
-                                                          uid: FirebaseAuth
-                                                              .instance
-                                                              .currentUser
-                                                              ?.uid,
-                                                          cid: Staticmenbers
-                                                              .listofUsers[
-                                                                  index]
-                                                              .id));
+                                                        uid: FirebaseAuth
+                                                            .instance
+                                                            .currentUser
+                                                            ?.uid,
+                                                        cid: Staticmenbers
+                                                            .listofUsers[index]
+                                                            .id,
+                                                      ));
                                             },
                                             child: CardWidget(
                                               icon: Icons.send_sharp,

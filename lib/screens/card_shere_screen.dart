@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:vcard/utils/constants_color.dart';
 
 class CardGenerateQR extends StatefulWidget {
@@ -14,11 +13,12 @@ class CardGenerateQR extends StatefulWidget {
 }
 
 class _CardGenerateQRState extends State<CardGenerateQR> {
-  final String _content =
-      'https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB';
-  void _shareContent() {
-    Share.share(_content);
-  }
+  // final String _content =
+  //     'https://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzBhttps://drive.google.com/drive/u/2/folders/1PWfNNLTFS7rNyYBJ2lBjJNF1KQF-omzB';
+  // void _shareContent() {
+
+  //   Share.share(_content);
+  // }
 
   @override
   void initState() {
@@ -28,7 +28,7 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.999,
+        height: MediaQuery.of(context).size.height * 0.9,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: BACKGROUND_COLOR,
@@ -70,14 +70,14 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
               "Point yoour camera at the QR code.",
               style: TextStyle(color: PRIMARY_COLOR),
             ),
-            SizedBox(height: 20),
-            ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: PRIMARY_COLOR,
-                ),
-                onPressed: _shareContent,
-                icon: const Icon(Icons.ios_share_outlined),
-                label: const Text('Share Card')),
+            // SizedBox(height: 20),
+            // ElevatedButton.icon(
+            //     style: ElevatedButton.styleFrom(
+            //       primary: PRIMARY_COLOR,
+            //     ),
+            //     onPressed: _shareContent,
+            //     icon: const Icon(Icons.ios_share_outlined),
+            //     label: const Text('Share Card')),
           ],
         ));
   }
