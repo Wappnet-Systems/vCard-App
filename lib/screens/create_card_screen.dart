@@ -29,7 +29,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   TextEditingController _telegramcontroller = TextEditingController();
   TextEditingController _addresscontroller = TextEditingController();
   TextEditingController _linkcontroller = TextEditingController();
-  TextEditingController _snapchatcontroller = TextEditingController();
   TextEditingController _websitecontroller = TextEditingController();
   TextEditingController _facebookcontroller = TextEditingController();
   TextEditingController _emailcontroller = TextEditingController();
@@ -65,7 +64,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'HeadLine': _headlineController.text,
       'WhatsApp': _whatsappcontroller.text,
       'Telegram': _telegramcontroller.text,
-      'Snapchat': _snapchatcontroller.text,
       'Website': _websitecontroller.text,
       'Link': _linkcontroller.text,
       'Facebook': _facebookcontroller.text,
@@ -232,7 +230,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   ),
                   SizedBox(height: 50),
                   Iconwidget(
-                    snapchatcontroller: _snapchatcontroller,
                     websitecontroller: _websitecontroller,
                     telegramcontroller: _telegramcontroller,
                     numbercontroller: _numbercontroller,

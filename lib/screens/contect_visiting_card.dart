@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import '../utils/responsive.dart';
 import '../widget/alart_dialog_widget.dart';
 import '../widget/text_button_widget.dart';
 
@@ -37,7 +38,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Card"),
+          title: Text("${Staticmenbers.listofUsers[cardindex!].type}"),
           backgroundColor: BLUE_COLOR,
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
@@ -60,7 +61,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
                   side: BorderSide(
                     color: WHITE_COLOR,
                   ),
-                  borderRadius: BorderRadius.circular(30.0), //<-- SEE HERE
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
                 elevation: 30,
                 color: BLUE_COLOR,
@@ -80,16 +81,16 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
                       Staticmenbers.listofUsers[cardindex!].image == ""
                           ? Image.asset(
                               "assets/images/splash1.png",
-                              width: 400,
-                              height: 146,
-                              fit: BoxFit.cover,
+                              width: wp(100, context),
+                              height: hp(30, context),
+                              fit: BoxFit.fill,
                             )
                           : Center(
                               child: Image.network(
                                 "${Staticmenbers.listofUsers[cardindex!].image}",
-                                width: MediaQuery.of(context).size.width,
-                                height: 200,
-                                fit: BoxFit.cover,
+                                width: wp(100, context),
+                                height: hp(30, context),
+                                fit: BoxFit.fill,
                               ),
                             ),
                       SizedBox(height: 10),
@@ -123,188 +124,203 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
                       ),
                       Center(
                         child: Container(
-                          height: 100,
-                          width: 250,
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Wrap(children: [
-                              (Staticmenbers.listofUsers[cardindex!].phone ==
-                                      "")
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          UrlLauncher.launch(
-                                              'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/telephone.png",
-                                          scale: 14,
+                          height: hp(15, context),
+                          width: wp(70, context),
+                          alignment: Alignment.center,
+                          // padding: EdgeInsets.all(10.0),
+                          child: Wrap(
+                              // spacing: 20.0,
+                              runSpacing: 5.0,
+                              alignment: WrapAlignment.center,
+                              runAlignment: WrapAlignment.center,
+                              crossAxisAlignment: WrapCrossAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                (Staticmenbers.listofUsers[cardindex!].phone ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            UrlLauncher.launch(
+                                                'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/telephone.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].whatsapp ==
-                                      "")
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launchUrl(
-                                              Uri.parse(
-                                                  'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
-                                              mode: LaunchMode
-                                                  .externalApplication);
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/whatsapp.png",
-                                          scale: 14,
+                                (Staticmenbers
+                                            .listofUsers[cardindex!].whatsapp ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            launchUrl(
+                                                Uri.parse(
+                                                    'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                                mode: LaunchMode
+                                                    .externalApplication);
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/whatsapp.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].email ==
-                                      "")
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          UrlLauncher.launch(
-                                              'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/mail.png",
-                                          scale: 14,
+                                (Staticmenbers.listofUsers[cardindex!].email ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            UrlLauncher.launch(
+                                                'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/mail.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].facebook ==
-                                      "")
-                                  ? Container()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          UrlLauncher.launch(
-                                              'https://www.facebook.com/{$Staticmenbers.listofUsers[cardindex!].facebook}');
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/facebook.png",
-                                          scale: 14,
+                                (Staticmenbers
+                                            .listofUsers[cardindex!].facebook ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            UrlLauncher.launch(
+                                                'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}');
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/facebook.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].telegram ==
-                                      "")
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          UrlLauncher.launch(
-                                              "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/telegram.png",
-                                          scale: 14,
+                                (Staticmenbers
+                                            .listofUsers[cardindex!].telegram ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            UrlLauncher.launch(
+                                                "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/telegram.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].website ==
-                                      "")
-                                  ? Container()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          final url =
-                                              '${Staticmenbers.listofUsers[cardindex!].website}';
+                                (Staticmenbers
+                                            .listofUsers[cardindex!].website ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            final url =
+                                                '${Staticmenbers.listofUsers[cardindex!].website}';
 
-                                          await launch(url);
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/web.png",
-                                          scale: 14,
+                                            await launch(url);
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/web.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].link == "")
-                                  ? Container()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          final url =
-                                              '${Staticmenbers.listofUsers[cardindex!].link}';
+                                (Staticmenbers.listofUsers[cardindex!].link ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            final url =
+                                                '${Staticmenbers.listofUsers[cardindex!].link}';
 
-                                          await launch(url);
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/link.png",
-                                          scale: 14,
+                                            await launch(url);
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/link.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                              (Staticmenbers.listofUsers[cardindex!].address ==
-                                      "")
-                                  ? SizedBox()
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: InkWell(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (ctx) => AlertDialog(
-                                              backgroundColor: BLUE_COLOR,
-                                              title: const Text("Address",
-                                                  style: TextStyle(
-                                                      fontFamily: 'Marck',
-                                                      fontSize: 25,
-                                                      color: WHITE_COLOR,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              content: Text(
-                                                  '${Staticmenbers.listofUsers[cardindex!].address}',
-                                                  style: TextStyle(
-                                                      fontFamily: 'Marck',
-                                                      fontSize: 25,
-                                                      color: WHITE_COLOR,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              actions: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    TextButtomWidget(
-                                                      onPressed: () {
-                                                        _pushMap();
-                                                      },
-                                                      title: 'Use Map',
-                                                      color: PRIMARY_COLOR,
-                                                    ),
-                                                    TextButtomWidget(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      title: 'Cancle',
-                                                      color: Colors.redAccent,
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/location.png",
-                                          scale: 14,
+                                (Staticmenbers
+                                            .listofUsers[cardindex!].address ==
+                                        "")
+                                    ? const SizedBox.shrink()
+                                    : Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: InkWell(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (ctx) => AlertDialog(
+                                                backgroundColor: BLUE_COLOR,
+                                                title: const Text("Address",
+                                                    style: TextStyle(
+                                                        fontFamily: 'Marck',
+                                                        fontSize: 25,
+                                                        color: WHITE_COLOR,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                content: Text(
+                                                    '${Staticmenbers.listofUsers[cardindex!].address}',
+                                                    style: TextStyle(
+                                                        fontFamily: 'Marck',
+                                                        fontSize: 25,
+                                                        color: WHITE_COLOR,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                actions: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      TextButtomWidget(
+                                                        onPressed: () {
+                                                          _pushMap();
+                                                        },
+                                                        title: 'Use Map',
+                                                        fontSize: null,
+                                                        color: PRIMARY_COLOR,
+                                                      ),
+                                                      TextButtomWidget(
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        title: 'Cancle',
+                                                        fontSize: 15,
+                                                        color: Colors.redAccent,
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          child: Image.asset(
+                                            "assets/icon/location.png",
+                                            scale: 14,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                            ]),
-                          ),
+                              ]),
                         ),
                       ),
                       Container(

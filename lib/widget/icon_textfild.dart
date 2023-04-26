@@ -78,6 +78,7 @@ class _IconTextFieldState extends State<IconTextField> {
                         });
                       },
                       title: 'Save',
+                      fontSize: 15,
                       color: PRIMARY_COLOR,
                     ),
                     TextButtomWidget(
@@ -85,6 +86,7 @@ class _IconTextFieldState extends State<IconTextField> {
                         Navigator.pop(context);
                       },
                       title: 'Cancle',
+                      fontSize: 13,
                       color: Colors.redAccent,
                     )
                   ],

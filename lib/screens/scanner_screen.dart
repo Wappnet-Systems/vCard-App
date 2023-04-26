@@ -9,6 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
+import '../utils/responsive.dart';
 import 'app_shere_screen.dart';
 import 'contacts_screen.dart';
 
@@ -169,42 +170,61 @@ class _ScannerscreenState extends State<Scannerscreen> {
               child: Column(
                 children: [
                   SizedBox(height: 180),
-                  Card(
-                    color: PRIMARY_COLOR,
-                    child: Container(
-                      width: 200,
-                      child: Column(children: [
-                        Image.network(
-                          "${image}",
-                          width: 200,
-                          height: 146,
-                          fit: BoxFit.cover,
-                          frameBuilder:
-                              (context, child, frame, wasSynchronouslyLoaded) {
-                            return child;
-                          },
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) {
-                              return child;
-                            } else {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: WHITE_COLOR,
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                        SizedBox(height: 3),
-                        Center(
-                          child: Text(
-                            '${name}',
-                            style: TextStyle(color: WHITE_COLOR),
-                          ),
-                        ),
-                        SizedBox(height: 3),
-                      ]),
+                  Container(
+                    height: 165,
+                    width: 180,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: PRIMARY_COLOR,
                     ),
+                    margin: EdgeInsets.symmetric(
+                        horizontal: wp(3, context), vertical: hp(1, context)),
+                    child: Column(children: [
+                      image == ""
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                "assets/images/splash1.png",
+                                width: wp(40, context),
+                                height: hp(19, context),
+                                fit: BoxFit.fill,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                "${image}",
+                                width: wp(50, context),
+                                height: hp(19, context),
+                                fit: BoxFit.fill,
+                                frameBuilder: (context, child, frame,
+                                    wasSynchronouslyLoaded) {
+                                  return child;
+                                },
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return Center(
+                                        child: Icon(
+                                      Icons.image,
+                                      size: 130,
+                                      color: WHITE_COLOR,
+                                    ));
+                                  }
+                                },
+                              ),
+                            ),
+                      SizedBox(height: 3),
+                      Center(
+                        child: Text(
+                          '${name}',
+                          style: TextStyle(color: WHITE_COLOR),
+                        ),
+                      ),
+                      SizedBox(height: 3),
+                    ]),
                   ),
                   SizedBox(height: 10),
                   Container(

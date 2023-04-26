@@ -21,7 +21,7 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.9,
+        height: MediaQuery.of(context).size.height * 0.5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: BACKGROUND_COLOR,

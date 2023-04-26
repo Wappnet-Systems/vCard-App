@@ -32,7 +32,10 @@ class _GenerateQRState extends State<GenerateQR> {
             SizedBox(height: 20),
             Text(
               "Share vCard",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: PRIMARY_COLOR),
             ),
             SizedBox(height: 20),
             Center(

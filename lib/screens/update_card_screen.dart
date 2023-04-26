@@ -172,7 +172,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
               onPressed: () async {
                 setState(() {
                   isLoading = true;
-                  displayCustomToast();
+                  // displayCustomToast();
                   if (_formfield.currentState!.validate()) {
                     updateUser();
                   }
@@ -285,7 +285,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   ),
                   SizedBox(height: 50),
                   Iconwidget(
-                    snapchatcontroller: _snapchatcontroller,
                     websitecontroller: _websitecontroller,
                     telegramcontroller: _telegramcontroller,
                     numbercontroller: _numbercontroller,

@@ -1,14 +1,10 @@
-import 'dart:developer';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import '../widget/alart_dialog_widget.dart';
+import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';
 
 class Digitalvisitingcard extends StatefulWidget {
@@ -37,112 +33,116 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Your Card"),
+          title: Text("${Staticmenbers.listofUsers[cardindex!].type}"),
           backgroundColor: BLUE_COLOR,
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
         backgroundColor: BACKGROUND_COLOR,
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: new BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(30)),
-                boxShadow: [
-                  BoxShadow(
-                    color: WHITE_COLOR,
-                    blurRadius: 10.0,
-                  ),
-                ],
-              ),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                    color: WHITE_COLOR,
-                  ),
-                  borderRadius: BorderRadius.circular(30.0),
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: new BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(30)),
+              boxShadow: [
+                BoxShadow(
+                  color: WHITE_COLOR,
+                  blurRadius: 10.0,
                 ),
-                elevation: 30,
-                color: BLUE_COLOR,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(25),
-                        child: (Staticmenbers.listofUsers[cardindex!].compeny ==
-                                "")
-                            ? Container()
-                            : Text(
-                                '${Staticmenbers.listofUsers[cardindex!].compeny}',
-                                style: TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 23,
-                                    color: WHITE_COLOR,
-                                    fontWeight: FontWeight.bold)),
-                      ),
-                      Staticmenbers.listofUsers[cardindex!].image == ""
-                          ? Image.asset(
-                              "assets/images/splash1.png",
-                              width: 400,
-                              height: 146,
-                              fit: BoxFit.cover,
-                            )
-                          : Center(
-                              child: Image.network(
-                                "${Staticmenbers.listofUsers[cardindex!].image}",
-                                width: MediaQuery.of(context).size.width,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
+              ],
+            ),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: WHITE_COLOR,
+                ),
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              elevation: 30,
+              color: BLUE_COLOR,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(25),
+                      child: (Staticmenbers.listofUsers[cardindex!].compeny ==
+                              "")
+                          ? Container()
+                          : Text(
+                              '${Staticmenbers.listofUsers[cardindex!].compeny}',
+                              style: TextStyle(
+                                  fontFamily: 'Marck',
+                                  fontSize: 23,
+                                  color: WHITE_COLOR,
+                                  fontWeight: FontWeight.bold)),
+                    ),
+                    Staticmenbers.listofUsers[cardindex!].image == ""
+                        ? Image.asset(
+                            "assets/images/splash1.png",
+                            width: wp(100, context),
+                            height: hp(30, context),
+                            fit: BoxFit.fill,
+                          )
+                        : Image.network(
+                            "${Staticmenbers.listofUsers[cardindex!].image}",
+                            width: wp(100, context),
+                            height: hp(30, context),
+                            fit: BoxFit.fill,
+                          ),
+                    SizedBox(height: 10),
+                    Center(
+                      child: (Staticmenbers.listofUsers[cardindex!].name == "")
+                          ? Container()
+                          : Text(
+                              '${Staticmenbers.listofUsers[cardindex!].name}',
+                              style: TextStyle(
+                                  fontFamily: 'Marck',
+                                  fontSize: 25,
+                                  color: WHITE_COLOR,
+                                  fontWeight: FontWeight.bold),
                             ),
-                      SizedBox(height: 10),
-                      Center(
-                        child:
-                            (Staticmenbers.listofUsers[cardindex!].name == "")
-                                ? Container()
-                                : Text(
-                                    '${Staticmenbers.listofUsers[cardindex!].name}',
-                                    style: TextStyle(
-                                        fontFamily: 'Marck',
-                                        fontSize: 25,
-                                        color: WHITE_COLOR,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                    ),
+                    SizedBox(height: 2),
+                    Center(
+                      child: (Staticmenbers
+                                  .listofUsers[cardindex!].department ==
+                              "")
+                          ? Container()
+                          : Text(
+                              '${Staticmenbers.listofUsers[cardindex!].department}',
+                              style: TextStyle(
+                                  fontFamily: 'Marck',
+                                  fontSize: 23,
+                                  color: WHITE_COLOR,
+                                  fontWeight: FontWeight.bold)),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Divider(
+                        color: WHITE_COLOR,
+                        thickness: 2,
+                        height: 1,
                       ),
-                      SizedBox(height: 2),
-                      Center(
-                        child: (Staticmenbers
-                                    .listofUsers[cardindex!].department ==
-                                "")
-                            ? Container()
-                            : Text(
-                                '${Staticmenbers.listofUsers[cardindex!].department}',
-                                style: TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 23,
-                                    color: WHITE_COLOR,
-                                    fontWeight: FontWeight.bold)),
-                      ),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Divider(
-                          color: WHITE_COLOR,
-                          thickness: 2,
-                        ),
-                      ),
-                      Center(
-                        child: Container(
-                          height: 100,
-                          width: 250,
-                          padding: const EdgeInsets.all(10.0),
-                          child: Center(
-                            child: Wrap(children: [
+                    ),
+                    Center(
+                      child: Container(
+                        height: hp(15, context),
+                        width: wp(70, context),
+                        alignment: Alignment.center,
+                        // padding: EdgeInsets.all(10.0),
+                        child: Wrap(
+                            // spacing: 20.0,
+                            runSpacing: 5.0,
+                            alignment: WrapAlignment.center,
+                            runAlignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
                               (Staticmenbers.listofUsers[cardindex!].phone ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
                                           UrlLauncher.launch(
@@ -156,9 +156,9 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].whatsapp ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
                                           launchUrl(
@@ -175,9 +175,9 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].email ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
                                           UrlLauncher.launch(
@@ -191,13 +191,13 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].facebook ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
                                           UrlLauncher.launch(
-                                              'https://www.facebook.com/{$Staticmenbers.listofUsers[cardindex!].facebook}');
+                                              'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}');
                                         },
                                         child: Image.asset(
                                           "assets/icon/facebook.png",
@@ -207,9 +207,9 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].telegram ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
                                           UrlLauncher.launch(
@@ -223,9 +223,9 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].website ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () async {
                                           final url =
@@ -240,9 +240,9 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                       ),
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].link == "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () async {
                                           final url =
@@ -258,9 +258,9 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                     ),
                               (Staticmenbers.listofUsers[cardindex!].address ==
                                       "")
-                                  ? Container()
+                                  ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.all(10.0),
+                                      padding: const EdgeInsets.all(8.0),
                                       child: InkWell(
                                         onTap: () {
                                           showDialog(
@@ -292,6 +292,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                                         _pushMap();
                                                       },
                                                       title: 'Use Map',
+                                                      fontSize: null,
                                                       color: PRIMARY_COLOR,
                                                     ),
                                                     TextButtomWidget(
@@ -299,6 +300,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                                         Navigator.pop(context);
                                                       },
                                                       title: 'Cancle',
+                                                      fontSize: 15,
                                                       color: Colors.redAccent,
                                                     )
                                                   ],
@@ -314,25 +316,22 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                       ),
                                     ),
                             ]),
-                          ),
-                        ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(25),
-                        child: (Staticmenbers
-                                    .listofUsers[cardindex!].headline ==
-                                "")
-                            ? Container()
-                            : Text(
-                                '${Staticmenbers.listofUsers[cardindex!].headline}',
-                                style: TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 25,
-                                    color: WHITE_COLOR,
-                                    fontWeight: FontWeight.bold)),
-                      ),
-                    ]),
-              ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(25),
+                      child: (Staticmenbers.listofUsers[cardindex!].headline ==
+                              "")
+                          ? Container()
+                          : Text(
+                              '${Staticmenbers.listofUsers[cardindex!].headline}',
+                              style: TextStyle(
+                                  fontFamily: 'Marck',
+                                  fontSize: 25,
+                                  color: WHITE_COLOR,
+                                  fontWeight: FontWeight.bold)),
+                    ),
+                  ]),
             ),
           ),
         ),

@@ -12,6 +12,7 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
 import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/alart_dialog_widget.dart';
 import 'package:vcard/widget/bottom_sheet.dart';
 import '../controllers/data_controllers.dart';
@@ -133,6 +134,7 @@ class _CardscreenState extends State<Cardscreen> {
         ),
         body: Staticmenbers.listofUsers.isNotEmpty
             ? GridView.builder(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: .001,
@@ -246,7 +248,7 @@ class _CardscreenState extends State<Cardscreen> {
                                                 builder: (ctx) => AlertDialog(
                                                   title: const Text(
                                                       "Are you sure you want to delete this card?"),
-                                                  content: Text(''),
+                                                  content: null,
                                                   actions: <Widget>[
                                                     Row(
                                                       mainAxisAlignment:
@@ -291,7 +293,8 @@ class _CardscreenState extends State<Cardscreen> {
                                                               }
                                                             });
                                                           },
-                                                          title: 'okey',
+                                                          title: 'Okey',
+                                                          fontSize: 15,
                                                           color:
                                                               Colors.redAccent,
                                                         ),
@@ -301,6 +304,7 @@ class _CardscreenState extends State<Cardscreen> {
                                                                 context);
                                                           },
                                                           title: 'Cancle',
+                                                          fontSize: 15,
                                                           color: PRIMARY_COLOR,
                                                         )
                                                       ],
@@ -327,52 +331,59 @@ class _CardscreenState extends State<Cardscreen> {
                         changeData();
                       }
                     },
-                    child: Column(
-                      children: [
-                        SizedBox(height: 2.8),
-                        Card(
-                          color: PRIMARY_COLOR,
-                          child: Column(children: [
-                            Staticmenbers.listofUsers[index].image == ""
-                                ? Image.asset(
-                                    "assets/images/splash1.png",
-                                    width: 175,
-                                    height: 146,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.network(
-                                    "${Staticmenbers.listofUsers[index].image}",
-                                    width: 175,
-                                    height: 146,
-                                    fit: BoxFit.cover,
-                                    frameBuilder: (context, child, frame,
-                                        wasSynchronouslyLoaded) {
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: PRIMARY_COLOR,
+                      ),
+                      margin: EdgeInsets.symmetric(
+                          horizontal: wp(3, context), vertical: hp(1, context)),
+                      child: Column(children: [
+                        Staticmenbers.listofUsers[index].image == ""
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  "assets/images/splash1.png",
+                                  width: wp(40, context),
+                                  height: hp(19, context),
+                                  fit: BoxFit.fill,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  "${Staticmenbers.listofUsers[index].image}",
+                                  width: wp(50, context),
+                                  height: hp(19, context),
+                                  fit: BoxFit.fill,
+                                  frameBuilder: (context, child, frame,
+                                      wasSynchronouslyLoaded) {
+                                    return child;
+                                  },
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
                                       return child;
-                                    },
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      } else {
-                                        return const Center(
-                                          child: CircularProgressIndicator(
-                                            color: WHITE_COLOR,
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                            SizedBox(height: 3),
-                            Center(
-                              child: Text(
-                                '${Staticmenbers.listofUsers[index].type}',
-                                style: TextStyle(color: WHITE_COLOR),
+                                    } else {
+                                      return Center(
+                                          child: Icon(
+                                        Icons.image,
+                                        size: 130,
+                                        color: WHITE_COLOR,
+                                      ));
+                                    }
+                                  },
+                                ),
                               ),
-                            ),
-                            SizedBox(height: 3),
-                          ]),
+                        SizedBox(height: 3),
+                        Center(
+                          child: Text(
+                            '${Staticmenbers.listofUsers[index].type}',
+                            style: TextStyle(color: WHITE_COLOR),
+                          ),
                         ),
-                      ],
+                        SizedBox(height: 3),
+                      ]),
                     ),
                   );
                 })

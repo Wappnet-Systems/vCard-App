@@ -6,7 +6,6 @@ import 'icon_textfild.dart';
 
 class Iconwidget extends StatefulWidget {
   TextEditingController? whatsappcontroller;
-  TextEditingController? snapchatcontroller;
   TextEditingController? websitecontroller;
   TextEditingController? linkcontroller;
   TextEditingController? facebookcontroller;
@@ -22,7 +21,6 @@ class Iconwidget extends StatefulWidget {
       required this.facebookcontroller,
       required this.linkcontroller,
       required this.numbercontroller,
-      required this.snapchatcontroller,
       required this.telegramcontroller,
       required this.websitecontroller,
       super.key});
@@ -117,30 +115,30 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: 28),
+                SizedBox(width: 43),
                 InkWell(
                   onTap: () {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.snapchat_outlined),
-                              hint: 'Snapchat',
-                              textInputType: TextInputType.number,
-                              inputFormatters: [maskFormatter],
-                              textEditingController: widget.snapchatcontroller,
-                              validationfunction: null,
+                              icon: Icon(Icons.email),
+                              hint: 'Email',
+                              textInputType: TextInputType.emailAddress,
+                              inputFormatters: null,
+                              textEditingController: widget.emailcontroller,
+                              validationfunction: emailValidator,
                             ));
                   },
                   child: Column(
                     children: [
                       Icon(
-                        Icons.snapchat_outlined,
+                        Icons.email,
                         color: WHITE_COLOR,
                         size: 30,
                       ),
                       SizedBox(height: 5),
                       Text(
-                        "Snapchat",
+                        "Email",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
                     ],
@@ -244,35 +242,6 @@ class _IconwidgetState extends State<Iconwidget> {
             Row(
               children: [
                 SizedBox(width: 16),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => IconTextField(
-                              icon: Icon(Icons.email),
-                              hint: 'Email',
-                              textInputType: TextInputType.emailAddress,
-                              inputFormatters: null,
-                              textEditingController: widget.emailcontroller,
-                              validationfunction: emailValidator,
-                            ));
-                  },
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.email,
-                        color: WHITE_COLOR,
-                        size: 30,
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "Email",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(width: 56),
                 InkWell(
                   onTap: () {
                     showDialog(
