@@ -43,8 +43,17 @@ class _Setting_ScreenState extends State<Setting_Screen> {
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Carddata");
+
     var snapshots = await collection.get();
     for (var doc in snapshots.docs) {
+      await doc.reference.delete();
+    }
+    var snapshot = FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Frind's Card");
+    var sanap = await snapshot.get();
+    for (var doc in sanap.docs) {
       await doc.reference.delete();
     }
     await FirebaseAuth.instance.currentUser?.delete();

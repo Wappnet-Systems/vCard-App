@@ -56,7 +56,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
             headline: e['HeadLine'],
             whatsapp: e['WhatsApp'],
             telegram: e['Telegram'],
-            snapchat: e['Snapchat'],
             website: e['Website'],
             link: e['Link'],
             facebook: e['Facebook'],

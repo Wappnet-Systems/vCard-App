@@ -71,7 +71,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             headline: e['HeadLine'],
             whatsapp: e['WhatsApp'],
             telegram: e['Telegram'],
-            snapchat: e['Snapchat'],
             website: e['Website'],
             link: e['Link'],
             facebook: e['Facebook'],
@@ -95,7 +94,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _headlineController.text = singleuser.first.headline!;
       _linkcontroller.text = singleuser.first.link!;
       _numbercontroller.text = singleuser.first.phone!;
-      _snapchatcontroller.text = singleuser.first.snapchat!;
       _telegramcontroller.text = singleuser.first.telegram!;
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
@@ -170,13 +168,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
         actions: <Widget>[
           IconButton(
               onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                  // displayCustomToast();
-                  if (_formfield.currentState!.validate()) {
-                    updateUser();
-                  }
-                });
+                if (_formfield.currentState!.validate()) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  updateUser();
+                }
               },
               icon: Icon(Icons.save)),
         ],

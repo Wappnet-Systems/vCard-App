@@ -61,7 +61,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
             headline: e['HeadLine'],
             whatsapp: e['WhatsApp'],
             telegram: e['Telegram'],
-            snapchat: e['Snapchat'],
             website: e['Website'],
             link: e['Link'],
             facebook: e['Facebook'],
@@ -83,7 +82,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
       headline = userData[0].headline;
       whatsapp = userData[0].whatsapp;
       telegram = userData[0].telegram;
-      snapchat = userData[0].snapchat;
       website = userData[0].website;
       link = userData[0].link;
       facebook = userData[0].facebook;

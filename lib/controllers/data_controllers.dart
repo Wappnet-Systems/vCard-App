@@ -11,7 +11,6 @@ class Users {
   final String? headline;
   final String? whatsapp;
   final String? telegram;
-  final String? snapchat;
   final String? website;
   final String? link;
   final String? facebook;
@@ -29,7 +28,6 @@ class Users {
       required this.headline,
       required this.whatsapp,
       required this.telegram,
-      required this.snapchat,
       required this.website,
       required this.link,
       required this.facebook,
