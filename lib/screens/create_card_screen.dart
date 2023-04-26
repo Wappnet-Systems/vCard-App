@@ -115,13 +115,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         actions: <Widget>[
           IconButton(
               onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                  // displayCustomToast();
-                  if (_formfield.currentState!.validate()) {
-                    addUser();
-                  }
-                });
+                if (_formfield.currentState!.validate()) {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  addUser();
+                }
               },
               icon: Icon(Icons.save)),
         ],
@@ -140,32 +139,44 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   Text("New Card"),
                   Divider(),
                   SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: PRIMARY_COLOR, width: 5),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
+                  Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: PRIMARY_COLOR, width: 5),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(100),
+                          ),
+                        ),
+                        child: ClipOval(
+                            child: Imagepicker == null
+                                ? Image.asset(
+                                    "assets/images/splash1.png",
+                                    width: 170,
+                                    height: 170,
+                                    fit: BoxFit.cover,
+                                  )
+                                : Image.file(
+                                    Imagepicker!,
+                                    width: 170,
+                                    height: 170,
+                                    fit: BoxFit.cover,
+                                  )),
                       ),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        imagepicker();
-                      },
-                      child: ClipOval(
-                          child: Imagepicker == null
-                              ? Image.asset(
-                                  "assets/images/splash1.png",
-                                  width: 170,
-                                  height: 170,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.file(
-                                  Imagepicker!,
-                                  width: 170,
-                                  height: 170,
-                                  fit: BoxFit.cover,
-                                )),
-                    ),
+                      Positioned(
+                          top: 140,
+                          left: 140,
+                          child: InkWell(
+                            onTap: () {
+                              imagepicker();
+                            },
+                            child: Icon(
+                              Icons.flip_camera_ios,
+                              size: 30,
+                              color: BLUE_COLOR,
+                            ),
+                          )),
+                    ],
                   ),
                   (isLoading) ? Custonloading() : SizedBox(height: 25),
                   CustomTextFormField(

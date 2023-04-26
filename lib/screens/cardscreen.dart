@@ -152,7 +152,7 @@ class _CardscreenState extends State<Cardscreen> {
                           builder: (BuildContext context) {
                             return Container(
                                 color: BLUE_COLOR,
-                                height: 360.0,
+                                height: hp(50, context),
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(

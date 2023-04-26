@@ -157,7 +157,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                 builder: (ctx) => AlertDialog(
                                                   title: const Text(
                                                       "Are you sure you want to delete this card?"),
-                                                  content: Text(''),
+                                                  content: null,
                                                   actions: <Widget>[
                                                     Row(
                                                       mainAxisAlignment:
