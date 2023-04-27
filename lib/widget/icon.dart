@@ -189,7 +189,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               textInputType: TextInputType.text,
                               inputFormatters: null,
                               textEditingController: widget.linkcontroller,
-                              validationfunction: null,
+                              validationfunction: hasValidUrl,
                             ));
                   },
                   child: Column(

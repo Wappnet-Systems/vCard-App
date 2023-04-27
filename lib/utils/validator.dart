@@ -39,7 +39,7 @@ String? hasValidUrl(String? value) {
       r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
   RegExp regExp = new RegExp(pattern);
   if (value?.length == 0) {
-    return 'Please enter url';
+    return 'Please enter https://';
   } else if (!regExp.hasMatch(value!)) {
     return 'Please enter valid url';
   }

@@ -29,6 +29,7 @@ class Updatecardscreen extends StatefulWidget {
 
 class _UpdatecardscreenState extends State<Updatecardscreen> {
   int? i = 0;
+  String? imageurl;
   List<Users> singleuser = [];
   TextEditingController _nameController = TextEditingController();
   TextEditingController _departmentController = TextEditingController();
@@ -83,7 +84,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
         .toList();
     setState(() {
       singleuser = userData;
-      log("${singleuser.first.type}");
+      log("${singleuser.first.image}");
+      imageurl = singleuser.first.image!;
       _nameController.text = singleuser.first.name!;
       _typecontroller.text = singleuser.first.type!;
       _addresscontroller.text = singleuser.first.address!;
@@ -192,33 +194,65 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   Text("Edit Card"),
                   Divider(),
                   SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: PRIMARY_COLOR, width: 5),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
+                  Stack(children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: PRIMARY_COLOR, width: 5),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          imagepicker();
+                        },
+                        child: ClipOval(
+                            child: Imagepicker == null
+                                ? Image.network(
+                                    "imageurl",
+                                    width: 170,
+                                    height: 170,
+                                    fit: BoxFit.cover,
+                                    frameBuilder: (context, child, frame,
+                                        wasSynchronouslyLoaded) {
+                                      return child;
+                                    },
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return Center(
+                                            child: Icon(
+                                          Icons.image,
+                                          size: 130,
+                                          color: WHITE_COLOR,
+                                        ));
+                                      }
+                                    },
+                                  )
+                                : Image.file(
+                                    Imagepicker!,
+                                    width: 170,
+                                    height: 170,
+                                    fit: BoxFit.cover,
+                                  )),
                       ),
                     ),
-                    child: InkWell(
-                      onTap: () {
-                        imagepicker();
-                      },
-                      child: ClipOval(
-                          child: Imagepicker == null
-                              ? Image.asset(
-                                  "assets/images/splash1.png",
-                                  width: 170,
-                                  height: 170,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.file(
-                                  Imagepicker!,
-                                  width: 170,
-                                  height: 170,
-                                  fit: BoxFit.cover,
-                                )),
-                    ),
-                  ),
+                    Positioned(
+                        top: 140,
+                        left: 140,
+                        child: InkWell(
+                          onTap: () {
+                            imagepicker();
+                          },
+                          child: Icon(
+                            Icons.flip_camera_ios,
+                            size: 30,
+                            color: BLUE_COLOR,
+                          ),
+                        )),
+                  ]),
                   (isLoading) ? Custonloading() : SizedBox(height: 25),
                   CustomTextFormField(
                     inputFormatters: null,
