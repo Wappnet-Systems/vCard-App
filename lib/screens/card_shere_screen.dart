@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/constants_color.dart';
 
+import '../widget/decoration_widget.dart';
+
 class CardGenerateQR extends StatefulWidget {
   final String? uid;
   final String? cid;
@@ -23,11 +25,17 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
     return Container(
         height: MediaQuery.of(context).size.height * 0.5,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: BACKGROUND_COLOR,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(0),
+          ),
+          color: BLUE_COLOR,
         ),
         child: Column(
           children: [
+            Decorationwidget(),
             SizedBox(height: 20),
             Text(
               "Send Your Card",
@@ -46,7 +54,7 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.white,
+                    color: BACKGROUND_COLOR,
                     offset: const Offset(0.0, 0.0),
                     blurRadius: 0.0,
                     spreadRadius: 0.0,
