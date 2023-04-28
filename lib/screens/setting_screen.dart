@@ -109,9 +109,13 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     onTap: () async {
                       AppSettings.openAppSettings();
                     },
-                    child: Text(
-                      "Permissions",
-                      style: TextStyle(fontSize: 18),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Permissions",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
                   Divider(),
@@ -147,12 +151,16 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                                     builder: (context) => Authmodual()));
                           }).show();
                     },
-                    child: Container(
-                      height: 30,
-                      child: Text(
-                        "Log out",
-                        style: TextStyle(fontSize: 18),
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 30,
+                          child: Text(
+                            "Log out",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   Divider(),
@@ -180,9 +188,13 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                         print(e);
                       }
                     },
-                    child: Text(
-                      "Delete Account",
-                      style: TextStyle(fontSize: 18),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Delete Account",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ],
                     ),
                   ),
                 ],

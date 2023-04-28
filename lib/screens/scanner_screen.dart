@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -121,7 +122,11 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'user': FirebaseAuth.instance.currentUser?.uid,
     }).then((value) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => Dashboardscreen()));
+          context,
+          MaterialPageRoute(
+              builder: (context) => Dashboardscreen(
+                    index: 2,
+                  )));
     }).catchError((error) {
       log("Failed to add user: $error");
     });
@@ -198,6 +203,14 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                     wasSynchronouslyLoaded) {
                                   return child;
                                 },
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Image(
+                                    image:
+                                        AssetImage("assets/images/splash1.png"),
+                                    width: wp(50, context),
+                                    height: hp(19, context),
+                                  );
+                                },
                                 loadingBuilder:
                                     (context, child, loadingProgress) {
                                   if (loadingProgress == null) {
@@ -213,31 +226,56 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 },
                               ),
                             ),
-                      SizedBox(height: 3),
+                      SizedBox(height: hp(0.5, context)),
                       Center(
                         child: Text(
                           '${name}',
                           style: TextStyle(color: WHITE_COLOR),
                         ),
                       ),
-                      SizedBox(height: 3),
+                      SizedBox(height: hp(0.5, context)),
                     ]),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: hp(1, context)),
+                  Center(
+                    child: Container(
+                        width: wp(50, context),
+                        decoration: BoxDecoration(
+                          color: PRIMARY_COLOR,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: TextButton(
+                          child: Text(
+                            'Connected',
+                            style: TextStyle(color: WHITE_COLOR),
+                          ),
+                          onPressed: () {
+                            addUser();
+                            displayCustomToast();
+                          },
+                        )),
+                  ),
+                  SizedBox(height: hp(1, context)),
                   Container(
-                      child: FloatingActionButton.extended(
-                    backgroundColor: PRIMARY_COLOR,
-                    label: Row(
-                      children: [
-                        Icon(Icons.contact_page_rounded),
-                        Text('Connected')
-                      ],
-                    ),
-                    onPressed: () {
-                      addUser();
-                      displayCustomToast();
-                    },
-                  )),
+                      width: wp(50, context),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextButton(
+                        child: Text(
+                          'Disconnected',
+                          style: TextStyle(color: WHITE_COLOR),
+                        ),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Dashboardscreen(
+                                        index: 1,
+                                      )));
+                        },
+                      )),
                 ],
               ),
             )

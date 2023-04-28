@@ -86,8 +86,11 @@ class _MyAppState extends State<MyApp> {
             ],
           ),
         ),
-        nextScreen:
-            (widget.islogin! == true) ? Dashboardscreen() : Authmodual(),
+        nextScreen: (widget.islogin! == true)
+            ? Dashboardscreen(
+                index: 0,
+              )
+            : Authmodual(),
       ),
     );
   }

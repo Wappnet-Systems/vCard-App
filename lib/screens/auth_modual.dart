@@ -151,9 +151,7 @@ class _AuthmodualState extends State<Authmodual> {
                               (String verificationId, int? resendToken) async {
                             Authmodual.verify = verificationId;
                             log("VerificationId:${Authmodual.verify}");
-                            setState(() {
-                              isLoading = true;
-                            });
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -161,6 +159,9 @@ class _AuthmodualState extends State<Authmodual> {
                           },
                           codeAutoRetrievalTimeout: (String verificationId) {},
                         );
+                        setState(() {
+                          isLoading = true;
+                        });
                       },
                       child: Text(
                         "Send the code",

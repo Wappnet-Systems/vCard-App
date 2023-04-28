@@ -140,7 +140,9 @@ class _OTPscreenState extends State<OTPscreen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dashboardscreen()));
+                                  builder: (context) => Dashboardscreen(
+                                        index: 0,
+                                      )));
                         });
                       } catch (e) {
                         AwesomeDialog(

@@ -23,7 +23,7 @@ String? numbervalidator(String? value) {
 }
 
 String? textvalidator(String? value) {
-  bool passwordValid = RegExp(
+  bool textValid = RegExp(
           r"^[a-zA-z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-z0-9]+\.[a-zA-Z0-9]+")
       .hasMatch(value!);
   if (value.isEmpty) {

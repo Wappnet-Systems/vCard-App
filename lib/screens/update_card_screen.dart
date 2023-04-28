@@ -137,8 +137,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'images': imgurl ?? updateImageUrl,
       'type': _typecontroller.text,
     }).then((value) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => Dashboardscreen())));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => Dashboardscreen(
+                    index: 0,
+                  ))));
     }).catchError((error) => print("Failed to update user: $error"));
   }
 

@@ -8,14 +8,15 @@ import 'cardscreen.dart';
 import 'contacts_screen.dart';
 
 class Dashboardscreen extends StatefulWidget {
-  const Dashboardscreen({super.key});
+  int index;
+  Dashboardscreen({super.key, required this.index});
 
   @override
   State<Dashboardscreen> createState() => _DashboardscreenState();
 }
 
 class _DashboardscreenState extends State<Dashboardscreen> {
-  int indexx = 0;
+  int? indexx;
 
   List<Widget> _widgetOptions = <Widget>[
     Cardscreen(),
@@ -23,6 +24,11 @@ class _DashboardscreenState extends State<Dashboardscreen> {
     ContactsScreen(),
     Setting_Screen()
   ];
+  @override
+  void initState() {
+    indexx = widget.index;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +49,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
         body: SafeArea(
           child: Container(
             child: Center(
-              child: _widgetOptions.elementAt(indexx),
+              child: _widgetOptions.elementAt(indexx!),
             ),
           ),
         ),
@@ -72,7 +78,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               label: 'Settings',
             ),
           ],
-          currentIndex: indexx,
+          currentIndex: indexx!,
           onTap: (int index) async {
             setState(() {
               indexx = index;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
+import '../utils/responsive.dart';
 import '../utils/validator.dart';
 import 'icon_textfild.dart';
 
@@ -55,9 +56,14 @@ class _IconwidgetState extends State<Iconwidget> {
                 )
               ],
             ),
-            SizedBox(height: 25),
+            SizedBox(
+              height: hp(5, context),
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // SizedBox(width: wp(5, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -77,7 +83,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 25,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Whatsapp",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -85,7 +93,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: 22),
+                SizedBox(width: wp(5, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -106,7 +114,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 30,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Telegram",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -114,7 +124,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: 43),
+                SizedBox(width: wp(8, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -135,7 +145,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 30,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Email",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -145,10 +157,13 @@ class _IconwidgetState extends State<Iconwidget> {
                 ),
               ],
             ),
-            SizedBox(height: 25),
+            SizedBox(
+              height: hp(5, context),
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(width: 5),
+                SizedBox(width: wp(2, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -159,7 +174,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               textInputType: TextInputType.text,
                               inputFormatters: null,
                               textEditingController: widget.websitecontroller,
-                              validationfunction: hasValidUrl,
+                              validationfunction: null,
                             ));
                   },
                   child: Column(
@@ -169,7 +184,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 30,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Website",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -177,7 +194,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: 55),
+                SizedBox(width: wp(15, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -188,7 +205,7 @@ class _IconwidgetState extends State<Iconwidget> {
                               textInputType: TextInputType.text,
                               inputFormatters: null,
                               textEditingController: widget.linkcontroller,
-                              validationfunction: hasValidUrl,
+                              validationfunction: null,
                             ));
                   },
                   child: Column(
@@ -198,7 +215,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 30,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Link",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -206,7 +225,45 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: 46),
+                SizedBox(width: wp(15, context)),
+                InkWell(
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) => IconTextField(
+                            icon: Icon(Icons.phone),
+                            hint: 'Number',
+                            textInputType: TextInputType.number,
+                            inputFormatters: [maskFormatter],
+                            textEditingController: widget.numbercontroller,
+                            validationfunction: numbervalidator));
+                  },
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.phone,
+                        color: WHITE_COLOR,
+                        size: 30,
+                      ),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
+                      Text(
+                        "Phone",
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: hp(5, context),
+            ),
+            Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SizedBox(width: wp(3, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -227,7 +284,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 30,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Facebook",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -235,40 +294,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 25),
-            Row(
-              children: [
-                SizedBox(width: 16),
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => IconTextField(
-                            icon: Icon(Icons.phone),
-                            hint: 'Number',
-                            textInputType: TextInputType.number,
-                            inputFormatters: [maskFormatter],
-                            textEditingController: widget.numbercontroller,
-                            validationfunction: numbervalidator));
-                  },
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.phone,
-                        color: WHITE_COLOR,
-                        size: 30,
-                      ),
-                      SizedBox(height: 5),
-                      Text(
-                        "Phone",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(width: 46),
+                SizedBox(width: wp(10, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -289,7 +315,9 @@ class _IconwidgetState extends State<Iconwidget> {
                         color: WHITE_COLOR,
                         size: 30,
                       ),
-                      SizedBox(height: 5),
+                      SizedBox(
+                        height: hp(1, context),
+                      ),
                       Text(
                         "Address",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
@@ -299,7 +327,6 @@ class _IconwidgetState extends State<Iconwidget> {
                 ),
               ],
             ),
-            SizedBox(height: 25),
           ],
         ),
       ),
