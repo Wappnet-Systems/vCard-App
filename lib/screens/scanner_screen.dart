@@ -11,7 +11,6 @@ import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import 'app_shere_screen.dart';
-import 'contacts_screen.dart';
 
 class Scannerscreen extends StatefulWidget {
   Scannerscreen({super.key});

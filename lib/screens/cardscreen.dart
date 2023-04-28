@@ -3,17 +3,12 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:vcard/screens/create_card_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/screens/setting_screen.dart';
 import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
-import 'package:vcard/widget/alart_dialog_widget.dart';
 import 'package:vcard/widget/bottom_sheet.dart';
 import '../controllers/data_controllers.dart';
 import '../widget/custom_no_data.dart';
@@ -335,6 +330,12 @@ class _CardscreenState extends State<Cardscreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: WHITE_COLOR,
+                            blurRadius: 20.0,
+                          ),
+                        ],
                         color: PRIMARY_COLOR,
                       ),
                       margin: EdgeInsets.symmetric(

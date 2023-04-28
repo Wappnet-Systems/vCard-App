@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import '../controllers/data_controllers.dart';
@@ -47,6 +46,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   TextEditingController _typecontroller = TextEditingController();
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
+  String? updateImageUrl;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
@@ -57,6 +57,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   }
 
   Future<void> getSingleUserData() async {
+    print("-----------------");
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -82,9 +83,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             image: e['images'],
             type: e['type']))
         .toList();
+
     setState(() {
       singleuser = userData;
-      log("${singleuser.first.image}");
+
       imageurl = singleuser.first.image!;
       _nameController.text = singleuser.first.name!;
       _typecontroller.text = singleuser.first.type!;
@@ -100,9 +102,13 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
     });
+    updateImageUrl = singleuser.first.image;
+    setState(() {});
+    print("Image:${singleuser.first.image}");
   }
 
   Future<void> updateUser() async {
+    print("Update - Image:$updateImageUrl");
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -128,7 +134,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'Phone': _numbercontroller.text,
       'Address': _addresscontroller.text,
       'id': receivedLoanDataRef.id,
-      'images': imgurl ?? "",
+      'images': imgurl ?? updateImageUrl,
       'type': _typecontroller.text,
     }).then((value) {
       Navigator.push(context,
@@ -144,19 +150,27 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       setState(() {
         if (pick != null) {
           Imagepicker = File(pick.path);
+          log("Updatd Image:${Imagepicker?.path}");
+          uploadImage(Imagepicker!);
         }
       });
     } catch (e) {}
   }
 
-  Future uploadImage(File Imagepicker) async {
-    String url;
+  String url = "";
+  uploadImage(File Imagepicker) async {
     String imgId = DateTime.now().microsecondsSinceEpoch.toString();
     Reference reference =
         FirebaseStorage.instance.ref().child('images').child('users$imgId');
     await reference.putFile(Imagepicker);
     url = await reference.getDownloadURL();
-    return url;
+    log("url:$url");
+    setState(() {
+      imageurl = url;
+    });
+
+    log("imageurl:$imageurl");
+    return imageurl;
   }
 
   bool isLoading = false;
@@ -203,13 +217,24 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         ),
                       ),
                       child: InkWell(
-                        onTap: () {
-                          imagepicker();
-                        },
-                        child: ClipOval(
-                            child: Imagepicker == null
-                                ? Image.network(
-                                    "imageurl",
+                          onTap: () {
+                            imagepicker();
+                          },
+                          child: imageurl == null || imageurl == ""
+                              ? ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                  child: Image(
+                                    image:
+                                        AssetImage("assets/images/splash1.png"),
+                                    height: 170,
+                                    width: 170,
+                                  ),
+                                )
+                              : ClipOval(
+                                  child: Image.network(
+                                    "$imageurl",
                                     width: 170,
                                     height: 170,
                                     fit: BoxFit.cover,
@@ -217,31 +242,33 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                         wasSynchronouslyLoaded) {
                                       return child;
                                     },
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Image(
+                                        image: AssetImage(
+                                            "assets/images/splash1.png"),
+                                        height: 170,
+                                        width: 170,
+                                      );
+                                    },
                                     loadingBuilder:
                                         (context, child, loadingProgress) {
                                       if (loadingProgress == null) {
                                         return child;
                                       } else {
-                                        return Center(
-                                            child: Icon(
-                                          Icons.image,
-                                          size: 130,
-                                          color: WHITE_COLOR,
-                                        ));
+                                        return Image(
+                                          image: AssetImage(
+                                              "assets/images/splash1.png"),
+                                          height: 170,
+                                          width: 170,
+                                        );
                                       }
                                     },
-                                  )
-                                : Image.file(
-                                    Imagepicker!,
-                                    width: 170,
-                                    height: 170,
-                                    fit: BoxFit.cover,
-                                  )),
-                      ),
+                                  ),
+                                )),
                     ),
                     Positioned(
-                        top: 140,
-                        left: 140,
+                        top: 120,
+                        left: 150,
                         child: InkWell(
                           onTap: () {
                             imagepicker();

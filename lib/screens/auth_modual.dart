@@ -1,9 +1,10 @@
 import 'dart:developer';
+import 'dart:io';
 import 'dart:ui';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/utils/constants_color.dart';
 import '../widget/custom loading bar.dart';
 import 'otp_screen.dart';
@@ -36,125 +37,138 @@ class _AuthmodualState extends State<Authmodual> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
-      body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/Auth_modual.png',
-                width: 150,
-                height: 150,
-              ),
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                "Add your Phone Number",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  fontSize: 16,
+    return WillPopScope(
+      onWillPop: () async {
+        final shouldPop = await AwesomeDialog(
+            context: context,
+            dialogType: DialogType.warning,
+            showCloseIcon: true,
+            desc: "Exit",
+            btnCancelOnPress: () async {},
+            btnOkOnPress: () async {
+              exit(0);
+            }).show();
+        return shouldPop;
+      },
+      child: Scaffold(
+        backgroundColor: BACKGROUND_COLOR,
+        body: Container(
+          margin: EdgeInsets.only(left: 25, right: 25),
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/Auth_modual.png',
+                  width: 150,
+                  height: 150,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              (isLoading)
-                  ? Custonloading()
-                  : SizedBox(
-                      height: 40,
-                    ),
-              Container(
-                height: 55,
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        cursorColor: PRIMARY_COLOR,
-                        controller: countryController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
+                SizedBox(
+                  height: 25,
+                ),
+                Text(
+                  "Add your Phone Number",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "We need to register your phone without getting started!",
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                (isLoading)
+                    ? Custonloading()
+                    : SizedBox(
+                        height: 40,
+                      ),
+                Container(
+                  height: 55,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      SizedBox(
+                        width: 40,
+                        child: TextField(
+                          cursorColor: PRIMARY_COLOR,
+                          controller: countryController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
                         ),
                       ),
-                    ),
-                    Text(
-                      "|",
-                      style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                        child: TextField(
-                      inputFormatters: [maskFormatter],
-                      onChanged: (value) {
-                        phone = value;
-                      },
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Phone",
+                      Text(
+                        "|",
+                        style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
                       ),
-                    ))
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: PRIMARY_COLOR,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async {
-                      await FirebaseAuth.instance.verifyPhoneNumber(
-                        phoneNumber: '${countryController.text + phone}',
-                        verificationCompleted:
-                            (PhoneAuthCredential credential) {},
-                        verificationFailed: (FirebaseAuthException e) {},
-                        codeSent:
-                            (String verificationId, int? resendToken) async {
-                          Authmodual.verify = verificationId;
-                          final signature = await SmsAutoFill().getAppSignature;
-                          log("VerificationId:${Authmodual.verify}");
-                          setState(() {
-                            isLoading = true;
-                          });
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => OTPscreen()));
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                          child: TextField(
+                        inputFormatters: [maskFormatter],
+                        onChanged: (value) {
+                          phone = value;
                         },
-                        codeAutoRetrievalTimeout: (String verificationId) {},
-                      );
-                    },
-                    child: Text(
-                      "Send the code",
-                      style: TextStyle(color: WHITE_COLOR),
-                    )),
-              )
-            ],
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "Phone",
+                        ),
+                      ))
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  height: 45,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: PRIMARY_COLOR,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      onPressed: () async {
+                        await FirebaseAuth.instance.verifyPhoneNumber(
+                          phoneNumber: '${countryController.text + phone}',
+                          verificationCompleted:
+                              (PhoneAuthCredential credential) {},
+                          verificationFailed: (FirebaseAuthException e) {},
+                          codeSent:
+                              (String verificationId, int? resendToken) async {
+                            Authmodual.verify = verificationId;
+                            log("VerificationId:${Authmodual.verify}");
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => OTPscreen()));
+                          },
+                          codeAutoRetrievalTimeout: (String verificationId) {},
+                        );
+                      },
+                      child: Text(
+                        "Send the code",
+                        style: TextStyle(color: WHITE_COLOR),
+                      )),
+                )
+              ],
+            ),
           ),
         ),
       ),

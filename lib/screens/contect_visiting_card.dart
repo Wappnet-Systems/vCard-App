@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../utils/responsive.dart';
-import '../widget/alart_dialog_widget.dart';
 import '../widget/text_button_widget.dart';
 
 class Contectvisitingcard extends StatefulWidget {

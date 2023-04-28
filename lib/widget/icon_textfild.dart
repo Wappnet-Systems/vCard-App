@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import '../utils/constants_color.dart';
 import 'custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';

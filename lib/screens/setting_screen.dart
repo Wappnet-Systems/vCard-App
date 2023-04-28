@@ -43,9 +43,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Carddata");
-
+    log("doc:${collection.id}");
     var snapshots = await collection.get();
     for (var doc in snapshots.docs) {
+      log("doc:${doc}");
       await doc.reference.delete();
     }
     var snapshot = FirebaseFirestore.instance

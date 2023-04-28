@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/screens/setting_screen.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -140,7 +139,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                         SizedBox(width: 17),
                                         InkWell(
                                           onTap: () {
-                                            Navigator.push(
+                                            Navigator.pushReplacement(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>

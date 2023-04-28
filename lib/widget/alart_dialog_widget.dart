@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
+
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:vcard/widget/text_button_widget.dart';
-import '../utils/constants_color.dart';
 
 class AlartDialogWidget extends StatelessWidget {
   final Widget? title;

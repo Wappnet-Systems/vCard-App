@@ -92,28 +92,38 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                     Center(
                       child: (Staticmenbers.listofUsers[cardindex!].name == "")
                           ? Container()
-                          : Text(
-                              '${Staticmenbers.listofUsers[cardindex!].name}',
-                              style: TextStyle(
-                                  fontFamily: 'Marck',
-                                  fontSize: 25,
-                                  color: WHITE_COLOR,
-                                  fontWeight: FontWeight.bold),
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                '${Staticmenbers.listofUsers[cardindex!].name}',
+                                style: TextStyle(
+                                    fontFamily: 'Marck',
+                                    fontSize: 25,
+                                    color: WHITE_COLOR,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                     ),
                     SizedBox(height: 2),
                     Center(
-                      child: (Staticmenbers
-                                  .listofUsers[cardindex!].department ==
-                              "")
-                          ? Container()
-                          : Text(
-                              '${Staticmenbers.listofUsers[cardindex!].department}',
-                              style: TextStyle(
-                                  fontFamily: 'Marck',
-                                  fontSize: 23,
-                                  color: WHITE_COLOR,
-                                  fontWeight: FontWeight.bold)),
+                      child:
+                          (Staticmenbers.listofUsers[cardindex!].department ==
+                                  "")
+                              ? Container()
+                              : Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 8),
+                                  child: Text(
+                                      '${Staticmenbers.listofUsers[cardindex!].department}',
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Marck',
+                                          fontSize: 20,
+                                          color: WHITE_COLOR,
+                                          fontWeight: FontWeight.bold)),
+                                ),
                     ),
                     SizedBox(height: 10),
                     Padding(

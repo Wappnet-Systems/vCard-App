@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
 import '../utils/validator.dart';
@@ -61,9 +62,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   onTap: () {
                     showDialog(
                         builder: (context) => IconTextField(
-                            icon: Icon(
-                              Icons.whatsapp,
-                            ),
+                            icon: Icon(FontAwesomeIcons.whatsapp),
                             hint: 'Whatsapp',
                             textInputType: TextInputType.number,
                             inputFormatters: [maskFormatter],
@@ -74,9 +73,9 @@ class _IconwidgetState extends State<Iconwidget> {
                   child: Column(
                     children: [
                       Icon(
-                        Icons.whatsapp,
+                        FontAwesomeIcons.whatsapp,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(height: 5),
                       Text(
