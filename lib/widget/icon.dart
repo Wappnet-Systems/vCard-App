@@ -4,6 +4,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
+import 'google_textformfield.dart';
 import 'icon_textfild.dart';
 
 class Iconwidget extends StatefulWidget {
@@ -320,16 +321,8 @@ class _IconwidgetState extends State<Iconwidget> {
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (context) => IconTextField(
-                              icon: Icon(
-                                Icons.add_location_alt_rounded,
-                                color: PRIMARY_COLOR,
-                              ),
+                        builder: (context) => placesAutoCompleteTextField(
                               hint: 'Address',
-                              textInputType: TextInputType.text,
-                              inputFormatters: null,
-                              textEditingController: widget.addresscontroller,
-                              validationfunction: null,
                             ));
                   },
                   child: Column(
