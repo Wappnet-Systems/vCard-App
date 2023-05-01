@@ -12,9 +12,11 @@ class Custonloading extends StatefulWidget {
 class _CustonloadingState extends State<Custonloading> {
   @override
   Widget build(BuildContext context) {
-    return CircularProgressIndicator(
-      color: PRIMARY_COLOR,
-      strokeWidth: 1.5,
+    return Center(
+      child: CircularProgressIndicator(
+        color: PRIMARY_COLOR,
+        strokeWidth: 1.5,
+      ),
     );
   }
 }

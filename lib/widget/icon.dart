@@ -68,7 +68,10 @@ class _IconwidgetState extends State<Iconwidget> {
                   onTap: () {
                     showDialog(
                         builder: (context) => IconTextField(
-                            icon: Icon(FontAwesomeIcons.whatsapp),
+                            icon: Icon(
+                              FontAwesomeIcons.whatsapp,
+                              color: PRIMARY_COLOR,
+                            ),
                             hint: 'Whatsapp',
                             textInputType: TextInputType.number,
                             inputFormatters: [maskFormatter],
@@ -99,7 +102,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.telegram),
+                              icon: Icon(
+                                Icons.telegram,
+                                color: PRIMARY_COLOR,
+                              ),
                               hint: 'Telegram',
                               textInputType: TextInputType.number,
                               inputFormatters: [maskFormatter],
@@ -130,7 +136,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.email),
+                              icon: Icon(
+                                Icons.email,
+                                color: PRIMARY_COLOR,
+                              ),
                               hint: 'Email',
                               textInputType: TextInputType.emailAddress,
                               inputFormatters: null,
@@ -169,7 +178,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.web),
+                              icon: Icon(
+                                Icons.web,
+                                color: PRIMARY_COLOR,
+                              ),
                               hint: 'Website',
                               textInputType: TextInputType.text,
                               inputFormatters: null,
@@ -200,7 +212,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.link_sharp),
+                              icon: Icon(
+                                Icons.link_sharp,
+                                color: PRIMARY_COLOR,
+                              ),
                               hint: 'Link',
                               textInputType: TextInputType.text,
                               inputFormatters: null,
@@ -231,7 +246,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                            icon: Icon(Icons.phone),
+                            icon: Icon(
+                              Icons.phone,
+                              color: PRIMARY_COLOR,
+                            ),
                             hint: 'Number',
                             textInputType: TextInputType.number,
                             inputFormatters: [maskFormatter],
@@ -269,7 +287,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.facebook),
+                              icon: Icon(
+                                Icons.facebook,
+                                color: PRIMARY_COLOR,
+                              ),
                               hint: 'Facebook',
                               textInputType: TextInputType.text,
                               inputFormatters: null,
@@ -300,7 +321,10 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(Icons.add_location_alt_rounded),
+                              icon: Icon(
+                                Icons.add_location_alt_rounded,
+                                color: PRIMARY_COLOR,
+                              ),
                               hint: 'Address',
                               textInputType: TextInputType.text,
                               inputFormatters: null,

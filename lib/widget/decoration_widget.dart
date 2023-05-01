@@ -19,8 +19,6 @@ class _DecorationwidgetState extends State<Decorationwidget> {
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
-          bottomLeft: Radius.circular(0),
-          bottomRight: Radius.circular(0),
         ),
         border: Border.all(
           color: PRIMARY_COLOR,

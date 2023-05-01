@@ -133,7 +133,36 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                         height: 1,
                       ),
                     ),
-                    cardindex == null
+                    Staticmenbers.listofUsers[cardindex!].telegram != "" &&
+                                Staticmenbers.listofUsers[cardindex!].telegram !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].whatsapp != "" &&
+                                Staticmenbers
+                                        .listofUsers[cardindex!].whatsapp !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].website !=
+                                    "" &&
+                                Staticmenbers.listofUsers[cardindex!].website !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].address !=
+                                    "" &&
+                                Staticmenbers
+                                        .listofUsers[cardindex!].address !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].email != "" &&
+                                Staticmenbers.listofUsers[cardindex!].email !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].facebook !=
+                                    "" &&
+                                Staticmenbers
+                                        .listofUsers[cardindex!].facebook !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].link != "" &&
+                                Staticmenbers.listofUsers[cardindex!].link !=
+                                    null ||
+                            Staticmenbers.listofUsers[cardindex!].phone != "" &&
+                                Staticmenbers.listofUsers[cardindex!].phone !=
+                                    null
                         ? Center(
                             child: Container(
                               height: hp(15, context),
@@ -242,7 +271,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                             child: InkWell(
                                               onTap: () async {
                                                 final url =
-                                                    '${Staticmenbers.listofUsers[cardindex!].website}';
+                                                    'https://${Staticmenbers.listofUsers[cardindex!].website}';
 
                                                 await launch(url);
                                               },
@@ -261,7 +290,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                                             child: InkWell(
                                               onTap: () async {
                                                 final url =
-                                                    '${Staticmenbers.listofUsers[cardindex!].link}';
+                                                    'https://${Staticmenbers.listofUsers[cardindex!].link}';
 
                                                 await launch(url);
                                               },

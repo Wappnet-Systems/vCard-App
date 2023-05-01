@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -117,6 +118,7 @@ class _AuthmodualState extends State<Authmodual> {
                       ),
                       Expanded(
                           child: TextField(
+                        cursorColor: PRIMARY_COLOR,
                         inputFormatters: [maskFormatter],
                         onChanged: (value) {
                           phone = value;
@@ -142,11 +144,23 @@ class _AuthmodualState extends State<Authmodual> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () async {
+                        // FirebaseAuth.instance.setSettings(
+                        //     appVerificationDisabledForTesting: true);
+
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber: '${countryController.text + phone}',
                           verificationCompleted:
                               (PhoneAuthCredential credential) {},
-                          verificationFailed: (FirebaseAuthException e) {},
+                          verificationFailed: (FirebaseAuthException e) {
+                            setState(() {
+                              isLoading = false;
+                            });
+
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                  "Phone number verification failed. Error: ${e.message}"),
+                            ));
+                          },
                           codeSent:
                               (String verificationId, int? resendToken) async {
                             Authmodual.verify = verificationId;

@@ -101,8 +101,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing: .001,
-                  crossAxisSpacing: .001,
+                  mainAxisSpacing: 15,
                 ),
                 itemCount: Staticmenbers.listofUsers.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -121,8 +120,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(15),
                                     topRight: Radius.circular(15),
-                                    bottomLeft: Radius.circular(0),
-                                    bottomRight: Radius.circular(0),
                                   ),
                                   color: BLUE_COLOR,
                                 ),
@@ -139,108 +136,116 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                         style: TextStyle(
                                             fontSize: 20, color: WHITE_COLOR),
                                       ),
-                                      Row(
-                                        children: [
-                                          SizedBox(width: wp(7, context)),
-                                          InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Contectvisitingcard(
-                                                            id: cardindex,
-                                                          )));
-                                            },
-                                            child: CardWidget(
-                                              icon: Icons.remove_red_eye,
-                                              data: "View",
-                                              data1: "Open your card",
-                                              data2: "in vCard.",
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: wp(6.7, context)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            // SizedBox(width: wp(7, context)),
+                                            InkWell(
+                                              onTap: () {
+                                                Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Contectvisitingcard(
+                                                              id: cardindex,
+                                                            )));
+                                              },
+                                              child: CardWidget(
+                                                icon: Icons.remove_red_eye,
+                                                data: "View",
+                                                data1: "Open your card",
+                                                data2: "in vCard.",
+                                              ),
                                             ),
-                                          ),
-                                          SizedBox(width: wp(3, context)),
-                                          InkWell(
-                                            onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                  title: const Text(
-                                                      "Are you sure you want to delete this card?"),
-                                                  content: null,
-                                                  actions: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        TextButtomWidget(
-                                                          onPressed: () {
-                                                            setState(() {
-                                                              log("${Staticmenbers.listofUsers[index].id}");
-                                                              final refresh = FirebaseFirestore
-                                                                  .instance
-                                                                  .collection(
-                                                                      "users")
-                                                                  .doc(FirebaseAuth
-                                                                      .instance
-                                                                      .currentUser
-                                                                      ?.uid)
-                                                                  .collection(
-                                                                      "Frind's Card")
-                                                                  .doc(Staticmenbers
-                                                                      .listofUsers[
-                                                                          index]
-                                                                      .id)
-                                                                  .delete()
-                                                                  .then(
-                                                                      (value) {
-                                                                Future.delayed(
-                                                                    Duration(
-                                                                        seconds:
-                                                                            1),
-                                                                    () {
-                                                                  Navigator.pushReplacement(
-                                                                      context,
-                                                                      MaterialPageRoute(
-                                                                          builder: (context) => Dashboardscreen(
-                                                                                index: 2,
-                                                                              )));
+                                            // SizedBox(width: wp(3, context)),
+                                            InkWell(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (ctx) => AlertDialog(
+                                                    title: const Text(
+                                                        "Are you sure you want to delete this card?"),
+                                                    content: null,
+                                                    actions: <Widget>[
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          TextButtomWidget(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                log("${Staticmenbers.listofUsers[index].id}");
+                                                                final refresh = FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        "users")
+                                                                    .doc(FirebaseAuth
+                                                                        .instance
+                                                                        .currentUser
+                                                                        ?.uid)
+                                                                    .collection(
+                                                                        "Frind's Card")
+                                                                    .doc(Staticmenbers
+                                                                        .listofUsers[
+                                                                            index]
+                                                                        .id)
+                                                                    .delete()
+                                                                    .then(
+                                                                        (value) {
+                                                                  Future.delayed(
+                                                                      Duration(
+                                                                          seconds:
+                                                                              1),
+                                                                      () {
+                                                                    Navigator.pushReplacement(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) => Dashboardscreen(
+                                                                                  index: 2,
+                                                                                )));
+                                                                  });
                                                                 });
+                                                                if (refresh ==
+                                                                    true) {
+                                                                  changeData();
+                                                                }
                                                               });
-                                                              if (refresh ==
-                                                                  true) {
-                                                                changeData();
-                                                              }
-                                                            });
-                                                          },
-                                                          title: '0key',
-                                                          fontSize: 15,
-                                                          color:
-                                                              Colors.redAccent,
-                                                        ),
-                                                        TextButtomWidget(
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          title: 'Cancle',
-                                                          fontSize: 15,
-                                                          color: PRIMARY_COLOR,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            child: CardWidget(
-                                              icon: Icons.delete,
-                                              data: "Delete",
-                                              data1: "Delete your",
-                                              data2: "Card.",
+                                                            },
+                                                            title: '0key',
+                                                            fontSize: 15,
+                                                            color: Colors
+                                                                .redAccent,
+                                                          ),
+                                                          TextButtomWidget(
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
+                                                            title: 'Cancle',
+                                                            fontSize: 15,
+                                                            color:
+                                                                PRIMARY_COLOR,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                              child: CardWidget(
+                                                icon: Icons.delete,
+                                                data: "Delete",
+                                                data1: "Delete your",
+                                                data2: "Card.",
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -257,8 +262,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         color: PRIMARY_COLOR,
                       ),
                       margin: EdgeInsets.symmetric(
-                          horizontal: wp(2.5, context),
-                          vertical: hp(0.5, context)),
+                        horizontal: wp(2, context),
+                      ),
                       child: Column(children: [
                         Staticmenbers.listofUsers[index].image == null
                             ? ClipRRect(

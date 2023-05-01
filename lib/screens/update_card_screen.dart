@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -178,6 +179,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   }
 
   bool isLoading = false;
+  bool isphotoloading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -220,61 +222,61 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           Radius.circular(100),
                         ),
                       ),
-                      child: InkWell(
-                          onTap: () {
-                            imagepicker();
-                          },
-                          child: imageurl == null || imageurl == ""
-                              ? ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
-                                  child: Image(
-                                    image:
-                                        AssetImage("assets/images/splash1.png"),
-                                    height: 170,
-                                    width: 170,
-                                  ),
-                                )
-                              : ClipOval(
-                                  child: Image.network(
-                                    "$imageurl",
-                                    width: 170,
-                                    height: 170,
-                                    fit: BoxFit.cover,
-                                    frameBuilder: (context, child, frame,
-                                        wasSynchronouslyLoaded) {
-                                      return child;
-                                    },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image(
-                                        image: AssetImage(
-                                            "assets/images/splash1.png"),
-                                        height: 170,
-                                        width: 170,
-                                      );
-                                    },
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      } else {
-                                        return Image(
-                                          image: AssetImage(
-                                              "assets/images/splash1.png"),
-                                          height: 170,
-                                          width: 170,
-                                        );
-                                      }
-                                    },
-                                  ),
-                                )),
+                      child: imageurl == null || imageurl == ""
+                          ? ClipRRect(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(100),
+                              ),
+                              child: Image(
+                                image: AssetImage("assets/images/splash1.png"),
+                                height: 170,
+                                width: 170,
+                              ),
+                            )
+                          : ClipOval(
+                              child: CachedNetworkImage(
+                                placeholder: (context, url) => Custonloading(),
+                                imageUrl: "$imageurl",
+
+                                width: 170,
+                                height: 170,
+                                fit: BoxFit.cover,
+                                // frameBuilder: (context, child, frame,
+                                //     wasSynchronouslyLoaded) {
+                                //   return child;
+                                // },
+                                // errorBuilder: (context, error, stackTrace) {
+                                //   return Image(
+                                //     image:
+                                //         AssetImage("assets/images/splash1.png"),
+                                //     height: 170,
+                                //     width: 170,
+                                //   );
+                                // },
+                                // loadingBuilder:
+                                //     (context, child, loadingProgress) {
+                                //   if (loadingProgress == null) {
+                                //     return child;
+                                //   } else {
+                                //     return Image(
+                                //       image: AssetImage(
+                                //           "assets/images/splash1.png"),
+                                //       height: 170,
+                                //       width: 170,
+                                //     );
+                                //   }
+                                // },
+                              ),
+                            ),
                     ),
                     Positioned(
                         top: 120,
                         left: 150,
                         child: InkWell(
                           onTap: () {
+                            setState(() {
+                              isphotoloading = true;
+                            });
                             imagepicker();
                           },
                           child: Icon(

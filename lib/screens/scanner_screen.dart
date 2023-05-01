@@ -173,8 +173,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
                 children: [
                   SizedBox(height: 180),
                   Container(
-                    height: 165,
-                    width: 180,
+                    height: hp(22.5, context),
+                    width: wp(50, context),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: PRIMARY_COLOR,
@@ -187,7 +187,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                               borderRadius: BorderRadius.circular(10),
                               child: Image.asset(
                                 "assets/images/splash1.png",
-                                width: wp(40, context),
+                                width: wp(50, context),
                                 height: hp(19, context),
                                 fit: BoxFit.fill,
                               ),
