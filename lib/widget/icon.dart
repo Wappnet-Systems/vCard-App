@@ -15,11 +15,11 @@ class Iconwidget extends StatefulWidget {
   TextEditingController? emailcontroller;
   TextEditingController? numbercontroller;
   TextEditingController? telegramcontroller;
-  TextEditingController? addresscontroller;
+  TextEditingController? textEditingController;
 
   Iconwidget(
       {required this.whatsappcontroller,
-      required this.addresscontroller,
+      required this.textEditingController,
       required this.emailcontroller,
       required this.facebookcontroller,
       required this.linkcontroller,
@@ -323,6 +323,8 @@ class _IconwidgetState extends State<Iconwidget> {
                         context: context,
                         builder: (context) => placesAutoCompleteTextField(
                               hint: 'Address',
+                              textEditingController:
+                                  widget.textEditingController,
                             ));
                   },
                   child: Column(

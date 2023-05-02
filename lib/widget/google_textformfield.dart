@@ -3,12 +3,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:vcard/widget/text_button_widget.dart';
-
 import '../utils/constants_color.dart';
 
 class placesAutoCompleteTextField extends StatefulWidget {
   final String? hint;
-  placesAutoCompleteTextField({super.key, required this.hint});
+  final TextEditingController? textEditingController;
+  placesAutoCompleteTextField(
+      {super.key, required this.hint, required this.textEditingController});
 
   @override
   State<placesAutoCompleteTextField> createState() =>
@@ -17,7 +18,6 @@ class placesAutoCompleteTextField extends StatefulWidget {
 
 class _placesAutoCompleteTextFieldState
     extends State<placesAutoCompleteTextField> {
-  TextEditingController controller = TextEditingController();
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
   @override
@@ -38,7 +38,7 @@ class _placesAutoCompleteTextFieldState
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GooglePlaceAutoCompleteTextField(
-                    textEditingController: controller,
+                    textEditingController: widget.textEditingController!,
                     googleAPIKey: YOUR_GOOGLE_API_KEY,
                     inputDecoration: InputDecoration(
                       hintText: "Add your location",
@@ -54,10 +54,12 @@ class _placesAutoCompleteTextFieldState
                       print("placeDetails" + prediction.lng.toString());
                     },
                     itmClick: (Prediction prediction) {
-                      controller.text = prediction.description!;
+                      widget.textEditingController!.text =
+                          prediction.description!;
 
-                      controller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: prediction.description!.length));
+                      widget.textEditingController!.selection =
+                          TextSelection.fromPosition(TextPosition(
+                              offset: prediction.description!.length));
                     }),
                 SizedBox(height: 30),
                 SizedBox(

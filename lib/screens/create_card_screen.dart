@@ -243,7 +243,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     telegramcontroller: _telegramcontroller,
                     numbercontroller: _numbercontroller,
                     emailcontroller: _emailcontroller,
-                    addresscontroller: _addresscontroller,
+                    textEditingController: _addresscontroller,
                     linkcontroller: _linkcontroller,
                     facebookcontroller: _facebookcontroller,
                     whatsappcontroller: _whatsappcontroller,

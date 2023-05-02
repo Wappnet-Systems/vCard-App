@@ -166,7 +166,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                         ? Center(
                             child: Container(
                               height: hp(15, context),
-                              width: wp(70, context),
+                              width: wp(60, context),
                               alignment: Alignment.center,
                               child: Wrap(
                                   runSpacing: 5.0,
@@ -392,14 +392,11 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   }
 
   void _pushMap() async {
+    // String query = Uri.encodeComponent();
     String googleUrl =
-        "google.navigation:q=${Staticmenbers.listofUsers[cardindex!].address}";
-    Uri googleUri = Uri.parse(googleUrl);
+        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[cardindex!].address}";
 
-    if (await canLaunchUrl(googleUri)) {
-      await launchUrl(googleUri);
-      print(googleUri);
-    }
+    await launch(googleUrl);
   }
 
   displayCustomToast() {
