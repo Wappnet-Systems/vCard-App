@@ -145,6 +145,7 @@ class _OTPscreenState extends State<OTPscreen> {
                                       )));
                         });
                       } catch (e) {
+                        log("Error:$e");
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.error,

@@ -144,14 +144,12 @@ class _AuthmodualState extends State<Authmodual> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () async {
-                        // FirebaseAuth.instance.setSettings(
-                        //     appVerificationDisabledForTesting: true);
-
                         await FirebaseAuth.instance.verifyPhoneNumber(
                           phoneNumber: '${countryController.text + phone}',
                           verificationCompleted:
                               (PhoneAuthCredential credential) {},
                           verificationFailed: (FirebaseAuthException e) {
+                            log("Error:::::$e");
                             setState(() {
                               isLoading = false;
                             });
@@ -164,7 +162,7 @@ class _AuthmodualState extends State<Authmodual> {
                           codeSent:
                               (String verificationId, int? resendToken) async {
                             Authmodual.verify = verificationId;
-                            log("VerificationId:${Authmodual.verify}");
+                            log("VerificationId::::::${Authmodual.verify}");
 
                             Navigator.pushReplacement(
                                 context,

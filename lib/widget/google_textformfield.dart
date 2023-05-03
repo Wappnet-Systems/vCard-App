@@ -40,11 +40,21 @@ class _placesAutoCompleteTextFieldState
                 GooglePlaceAutoCompleteTextField(
                     textEditingController: widget.textEditingController!,
                     googleAPIKey: YOUR_GOOGLE_API_KEY,
-                    inputDecoration: InputDecoration(
+                    inputDecoration: const InputDecoration(
                       hintText: "Add your location",
                       icon: Icon(
                         Icons.add_location_alt_rounded,
                         color: PRIMARY_COLOR,
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: PRIMARY_COLOR),
+                      ),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+                      hintStyle: TextStyle(
+                        color: Color(0xff000000),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
                       ),
                     ),
                     debounceTime: 800,
@@ -62,38 +72,36 @@ class _placesAutoCompleteTextFieldState
                               offset: prediction.description!.length));
                     }),
                 SizedBox(height: 30),
-                SizedBox(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButtomWidget(
-                          onPressed: () {
-                            setState(() {
-                              if (_formfield.currentState!.validate()) {
-                                try {
-                                  Navigator.pop(context, true);
-                                  displayCustomToast();
-                                } catch (e) {
-                                  return null;
-                                }
-                              }
-                            });
-                          },
-                          title: 'Save',
-                          fontSize: 15,
-                          color: PRIMARY_COLOR,
-                        ),
-                        TextButtomWidget(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          title: 'Cancle',
-                          fontSize: 13,
-                          color: Colors.redAccent,
-                        )
-                      ],
-                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButtomWidget(
+                      onPressed: () {
+                        setState(() {
+                          if (_formfield.currentState!.validate()) {
+                            try {
+                              Navigator.pop(context, true);
+                              displayCustomToast();
+                            } catch (e) {
+                              return null;
+                            }
+                          }
+                        });
+                      },
+                      title: 'Save',
+                      fontSize: 15,
+                      color: PRIMARY_COLOR,
+                    ),
+                    TextButtomWidget(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      title: 'Cancle',
+                      fontSize: 13,
+                      color: Colors.redAccent,
+                    )
+                  ],
+                ),
               ]),
         ));
   }

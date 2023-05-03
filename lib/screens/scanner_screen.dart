@@ -92,8 +92,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
       image = userData[0].image;
       type = userData[0].type;
     });
-
-    log("Staticmenbers.list.length : ${Staticmenbers.newUserCar.length}");
   }
 
   Future<void> addUser() async {

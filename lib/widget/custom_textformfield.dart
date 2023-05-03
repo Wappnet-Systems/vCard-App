@@ -24,10 +24,12 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       keyboardType: textInputType,
       style: TextStyle(color: Color(0xff000000)),
       obscureText: !customobscuretext,
+      enableInteractiveSelection: false,
       cursorColor: PRIMARY_COLOR,
       controller: textEditingController,
       decoration: InputDecoration(

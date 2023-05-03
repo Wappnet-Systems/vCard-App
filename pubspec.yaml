@@ -60,6 +60,9 @@ dependencies:
   mask_text_input_formatter: ^2.4.0
   cached_network_image: ^3.2.3
   google_places_flutter: ^2.0.5
+  path_provider: ^2.0.14
+  flutter_colorpicker: ^1.0.3
+  
   
   
   
