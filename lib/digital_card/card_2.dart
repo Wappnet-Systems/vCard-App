@@ -4,6 +4,7 @@ import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 
 import '../widget/clip_path_widget.dart';
+import '../widget/text_button_widget.dart';
 
 class Cardtheme2 extends StatelessWidget {
   const Cardtheme2({super.key});
@@ -24,49 +25,278 @@ class Cardtheme2 extends StatelessWidget {
         ],
       ),
       backgroundColor: BACKGROUND_COLOR,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-            color: WHITE_COLOR,
-            child: Column(children: [
-              Stack(
-                children: [
-                  ClipPath(
-                    child: Container(
-                      alignment: Alignment.topRight,
-                      width: MediaQuery.of(context).size.width,
-                      height: 400,
-                      color: Colors.blue,
-                    ),
-                    clipper: CustomClipPath(),
-                  ),
-                  SizedBox(height: 50),
-                  ClipPath(
-                    child: Container(
-                      alignment: Alignment.topRight,
-                      width: MediaQuery.of(context).size.width,
-                      height: 550,
-                      color: Colors.blue,
-                    ),
-                    clipper: CustomClipPath3(),
-                  ),
-                  Positioned(
-                    top: 90,
-                    left: 180,
-                    child: ClipPath(
-                      child: Container(
-                        width: wp(45, context),
-                        height: hp(24, context),
-                        color: Colors.orange,
-                      ),
-                      clipper: CustomClipPath2(),
-                    ),
-                  ),
-                ],
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          width: wp(100, context),
+          height: hp(100, context),
+          decoration: BoxDecoration(
+            color: BLUE_COLOR,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 3.0,
               ),
-            ]),
+            ],
           ),
+          child: Stack(children: [
+            Column(
+              children: [
+                SizedBox(height: hp(15, context)),
+                Container(
+                  width: wp(100, context),
+                  height: hp(57, context),
+                  color: WHITE_COLOR,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: hp(15, context),
+                      ),
+                      Center(
+                          child: Text("Name", style: TextStyle(fontSize: 24))),
+                      SizedBox(
+                        height: hp(0.10, context),
+                      ),
+                      Center(
+                          child: Text("Department",
+                              style: TextStyle(fontSize: 14))),
+                      SizedBox(
+                        height: hp(5, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                // UrlLauncher.launch(
+                                //     'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                              },
+                              child: Image.asset(
+                                "assets/icon/call.png",
+                                scale: 18,
+                                color: BLUE_COLOR,
+                              ),
+                            ),
+                            SizedBox(
+                              width: wp(8, context),
+                            ),
+                            Text("Number", style: TextStyle(fontSize: 14))
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: hp(3, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                // UrlLauncher.launch(
+                                //     'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                              },
+                              child: Image.asset(
+                                "assets/icon/email.png",
+                                scale: 18,
+                                color: BLUE_COLOR,
+                              ),
+                            ),
+                            SizedBox(
+                              width: wp(8, context),
+                            ),
+                            Text("Email", style: TextStyle(fontSize: 14))
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: hp(3, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () async {
+                                // final url =
+                                //     'https://${Staticmenbers.listofUsers[cardindex!].website}';
+
+                                // await launch(url);
+                              },
+                              child: Image.asset(
+                                "assets/icon/website.png",
+                                scale: 18,
+                                color: BLUE_COLOR,
+                              ),
+                            ),
+                            SizedBox(
+                              width: wp(8, context),
+                            ),
+                            Text("Website", style: TextStyle(fontSize: 14))
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: hp(3, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 8),
+                        child: Center(
+                            child: Text("Headline",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(fontSize: 11))),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                Wrap(
+                    runSpacing: 5.0,
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            // launchUrl(
+                            //     Uri.parse(
+                            //         'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                            //     mode: LaunchMode.externalApplication);
+                          },
+                          child: Image.asset(
+                            "assets/icon/whats.png",
+                            scale: 18,
+                            color: WHITE_COLOR,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            // UrlLauncher.launch(
+                            //     'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}');
+                          },
+                          child: Image.asset(
+                            "assets/icon/Face.png",
+                            scale: 18,
+                            color: WHITE_COLOR,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            // UrlLauncher.launch(
+                            //     "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                          },
+                          child: Image.asset(
+                            "assets/icon/tele.png",
+                            scale: 18,
+                            color: WHITE_COLOR,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () async {
+                            // final url =
+                            //     'https://${Staticmenbers.listofUsers[cardindex!].link}';
+
+                            // await launch(url);
+                          },
+                          child: Image.asset(
+                            "assets/icon/lin.png",
+                            scale: 18,
+                            color: WHITE_COLOR,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                backgroundColor: BLUE_COLOR,
+                                title: const Text("Address",
+                                    style: TextStyle(
+                                        fontFamily: 'Marck',
+                                        fontSize: 25,
+                                        color: WHITE_COLOR,
+                                        fontWeight: FontWeight.bold)),
+                                content: Text('',
+                                    style: TextStyle(
+                                        fontFamily: 'Marck',
+                                        fontSize: 25,
+                                        color: WHITE_COLOR,
+                                        fontWeight: FontWeight.bold)),
+                                actions: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButtomWidget(
+                                        onPressed: () {
+                                          // _pushMap();
+                                        },
+                                        title: 'Use Map',
+                                        fontSize: null,
+                                        color: PRIMARY_COLOR,
+                                      ),
+                                      TextButtomWidget(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        title: 'Cancle',
+                                        fontSize: 15,
+                                        color: Colors.redAccent,
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            "assets/icon/pin.png",
+                            scale: 18,
+                            color: WHITE_COLOR,
+                          ),
+                        ),
+                      ),
+                    ]),
+              ],
+            ),
+            Positioned(
+              top: 20,
+              left: 80,
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: BLUE_COLOR, width: 5),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(100),
+                  ),
+                ),
+                child: ClipOval(
+                    child: Image.asset(
+                  "assets/images/splash1.png",
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                )),
+              ),
+            ),
+          ]),
         ),
       ),
     );

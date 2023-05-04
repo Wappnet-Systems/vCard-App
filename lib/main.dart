@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'digital_card/card_1.dart';
+import 'digital_card/card_2.dart';
 import 'screens/dashboard_screen.dart';
 import 'utils/constants_color.dart';
 
@@ -87,7 +88,7 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
           ),
-          nextScreen: cardtheme1()
+          nextScreen: Cardtheme2()
           // (widget.islogin! == true)
           //     ? Dashboardscreen(
           //         index: 0,

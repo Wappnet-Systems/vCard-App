@@ -6,7 +6,6 @@ class CustomClipPath extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
     path.lineTo(size.width, 0);
-
     path.lineTo(size.width * 2.5, size.height);
     path.close();
     return path;
@@ -41,9 +40,8 @@ class CustomClipPath3 extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path();
-    path.lineTo(0, size.width * 5);
-    path.lineTo(size.width * 3, 0);
-    path.lineTo(0, size.width / 1);
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width * 2.5, size.height);
     path.close();
     return path;
   }
