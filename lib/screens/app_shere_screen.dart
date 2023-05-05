@@ -28,8 +28,6 @@ class _GenerateQRState extends State<GenerateQR> {
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
-            bottomLeft: Radius.circular(0),
-            bottomRight: Radius.circular(0),
           ),
           color: BLUE_COLOR,
         ),
@@ -57,9 +55,6 @@ class _GenerateQRState extends State<GenerateQR> {
                   boxShadow: [
                     BoxShadow(
                       color: BACKGROUND_COLOR,
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.0,
-                      spreadRadius: 0.0,
                     ),
                   ],
                 ),

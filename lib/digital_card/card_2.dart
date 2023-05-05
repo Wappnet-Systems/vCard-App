@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
-
 import '../widget/clip_path_widget.dart';
 import '../widget/text_button_widget.dart';
 
-class Cardtheme2 extends StatelessWidget {
-  const Cardtheme2({super.key});
+class Cardtheme2 extends StatefulWidget {
+  final int? id;
+  const Cardtheme2({super.key, required this.id});
+
+  @override
+  State<Cardtheme2> createState() => _Cardtheme2State();
+}
+
+class _Cardtheme2State extends State<Cardtheme2> {
+  int? cardindex;
+  FToast? fToast;
+  @override
+  void initState() {
+    cardindex = widget.id;
+    fToast = FToast();
+    fToast?.init(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("abc"),
-        backgroundColor: BLUE_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.ios_share_rounded),
-          ),
-        ],
-      ),
       backgroundColor: BACKGROUND_COLOR,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -54,7 +60,9 @@ class Cardtheme2 extends StatelessWidget {
                         height: hp(15, context),
                       ),
                       Center(
-                          child: Text("Name", style: TextStyle(fontSize: 24))),
+                          child: Text(
+                              "${Staticmenbers.listofUsers[cardindex!].name}",
+                              style: TextStyle(fontSize: 24))),
                       SizedBox(
                         height: hp(0.10, context),
                       ),
@@ -70,8 +78,8 @@ class Cardtheme2 extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                // UrlLauncher.launch(
-                                //     'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                                UrlLauncher.launchUrl(Uri.parse(
+                                    'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                               },
                               child: Image.asset(
                                 "assets/icon/call.png",
@@ -82,7 +90,9 @@ class Cardtheme2 extends StatelessWidget {
                             SizedBox(
                               width: wp(8, context),
                             ),
-                            Text("Number", style: TextStyle(fontSize: 14))
+                            Text(
+                                "${Staticmenbers.listofUsers[cardindex!].phone}",
+                                style: TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -95,8 +105,8 @@ class Cardtheme2 extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () {
-                                // UrlLauncher.launch(
-                                //     'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                                UrlLauncher.launchUrl(Uri.parse(
+                                    'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
                               },
                               child: Image.asset(
                                 "assets/icon/email.png",
@@ -107,7 +117,9 @@ class Cardtheme2 extends StatelessWidget {
                             SizedBox(
                               width: wp(8, context),
                             ),
-                            Text("Email", style: TextStyle(fontSize: 14))
+                            Text(
+                                "${Staticmenbers.listofUsers[cardindex!].email}",
+                                style: TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -120,10 +132,10 @@ class Cardtheme2 extends StatelessWidget {
                           children: [
                             InkWell(
                               onTap: () async {
-                                // final url =
-                                //     'https://${Staticmenbers.listofUsers[cardindex!].website}';
+                                final url =
+                                    'https://${Staticmenbers.listofUsers[cardindex!].website}';
 
-                                // await launch(url);
+                                await launchUrl(Uri.parse(url));
                               },
                               child: Image.asset(
                                 "assets/icon/website.png",
@@ -134,7 +146,9 @@ class Cardtheme2 extends StatelessWidget {
                             SizedBox(
                               width: wp(8, context),
                             ),
-                            Text("Website", style: TextStyle(fontSize: 14))
+                            Text(
+                                "${Staticmenbers.listofUsers[cardindex!].website}",
+                                style: TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -165,10 +179,10 @@ class Cardtheme2 extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () {
-                            // launchUrl(
-                            //     Uri.parse(
-                            //         'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
-                            //     mode: LaunchMode.externalApplication);
+                            launchUrl(
+                                Uri.parse(
+                                    'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                mode: LaunchMode.externalApplication);
                           },
                           child: Image.asset(
                             "assets/icon/whats.png",
@@ -181,8 +195,8 @@ class Cardtheme2 extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () {
-                            // UrlLauncher.launch(
-                            //     'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}');
+                            UrlLauncher.launchUrl(Uri.parse(
+                                'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
                           },
                           child: Image.asset(
                             "assets/icon/Face.png",
@@ -195,8 +209,8 @@ class Cardtheme2 extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () {
-                            // UrlLauncher.launch(
-                            //     "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                            UrlLauncher.launchUrl(Uri.parse(
+                                "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
                           },
                           child: Image.asset(
                             "assets/icon/tele.png",
@@ -209,10 +223,10 @@ class Cardtheme2 extends StatelessWidget {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () async {
-                            // final url =
-                            //     'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                            final url =
+                                'https://${Staticmenbers.listofUsers[cardindex!].link}';
 
-                            // await launch(url);
+                            await launchUrl(Uri.parse(url));
                           },
                           child: Image.asset(
                             "assets/icon/lin.png",
@@ -235,7 +249,8 @@ class Cardtheme2 extends StatelessWidget {
                                         fontSize: 25,
                                         color: WHITE_COLOR,
                                         fontWeight: FontWeight.bold)),
-                                content: Text('',
+                                content: Text(
+                                    '${Staticmenbers.listofUsers[cardindex!].address}',
                                     style: TextStyle(
                                         fontFamily: 'Marck',
                                         fontSize: 25,
@@ -247,7 +262,7 @@ class Cardtheme2 extends StatelessWidget {
                                     children: [
                                       TextButtomWidget(
                                         onPressed: () {
-                                          // _pushMap();
+                                          _pushMap();
                                         },
                                         title: 'Use Map',
                                         fontSize: null,
@@ -288,17 +303,51 @@ class Cardtheme2 extends StatelessWidget {
                   ),
                 ),
                 child: ClipOval(
-                    child: Image.asset(
-                  "assets/images/splash1.png",
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,
-                )),
+                  child: Staticmenbers.listofUsers[cardindex!].image == ""
+                      ? Image.asset(
+                          "assets/images/splash1.png",
+                          width: wp(40, context),
+                          height: hp(20, context),
+                          fit: BoxFit.fill,
+                        )
+                      : Image.network(
+                          "${Staticmenbers.listofUsers[cardindex!].image}",
+                          width: wp(40, context),
+                          height: hp(20, context),
+                          fit: BoxFit.fill,
+                        ),
+                ),
               ),
             ),
           ]),
         ),
       ),
+    );
+  }
+
+  void _pushMap() async {
+    String googleUrl =
+        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[cardindex!].address}";
+
+    await launchUrl(Uri.parse(googleUrl));
+  }
+
+  displayCustomToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: WHITE_COLOR,
+      ),
+      child: const Text(
+        "Value is empty",
+        style: TextStyle(color: BLUE_COLOR),
+      ),
+    );
+
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }

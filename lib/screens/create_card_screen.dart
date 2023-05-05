@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vcard/utils/responsive.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
 import '../widget/custom loading bar.dart';
@@ -51,6 +52,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
 
   Future<void> addUser() async {
     String? imgurl;
+    String? card;
     print(receivedLoanDataRef.id);
     if (Imagepicker != null) {
       imgurl = await uploadImage(Imagepicker!);
@@ -72,6 +74,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'images': imgurl ?? "",
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
+      'card': _selectedIndex ?? 4,
     }).then((value) {
       Navigator.pop(context, true);
     }).catchError((error) {
@@ -102,6 +105,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     return url;
   }
 
+  final imageList = [
+    "assets/cards/card1.jpg",
+    'assets/cards/card2.jpg',
+    "assets/cards/card3.jpg",
+    "assets/cards/card4.jpg"
+  ];
+
+  int? _selectedIndex;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -237,7 +248,15 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 20),
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    InkWell(
+                        onTap: () {
+                          showimagelist();
+                        },
+                        child: Text("Select Card Theme")),
+                  ]),
+                  SizedBox(height: 20),
                   Iconwidget(
                     websitecontroller: _websitecontroller,
                     telegramcontroller: _telegramcontroller,
@@ -327,6 +346,56 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           ),
         ),
       ),
+    );
+  }
+
+  showimagelist() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Card's"),
+          content: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return SizedBox(
+              height: hp(30, context),
+              child: ListView.builder(
+                  itemCount: imageList.length,
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: hp(2, context),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: _selectedIndex == index
+                                ? PRIMARY_COLOR
+                                : WHITE_COLOR,
+                            width: 4,
+                          ),
+                        ),
+                        margin: EdgeInsets.only(
+                          right: wp(4, context),
+                        ),
+                        child: Image(
+                          image: AssetImage(imageList[index]),
+                          height: hp(20, context),
+                        ),
+                      ),
+                    );
+                  }),
+            );
+          }),
+        );
+      },
     );
   }
 
