@@ -1,18 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
-import 'dart:ui';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:vcard/utils/constants_color.dart';
-import '../widget/custom loading bar.dart';
-import 'otp_screen.dart';
+import 'package:vcard/screens/otp_screen.dart';
+import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/widget/custom_loading_bar.dart';
 
 class Authmodual extends StatefulWidget {
   const Authmodual({Key? key}) : super(key: key);
-
   static String verify = "";
 
   @override
@@ -21,16 +22,14 @@ class Authmodual extends StatefulWidget {
 
 class _AuthmodualState extends State<Authmodual> {
   TextEditingController countryController = TextEditingController();
-  var phone;
-
-  var maskFormatter = new MaskTextInputFormatter(
+  String phone = "91";
+  var maskFormatter = MaskTextInputFormatter(
       mask: '##### #####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
 
   @override
   void initState() {
-    countryController.text = "+91";
     super.initState();
   }
 
@@ -53,135 +52,194 @@ class _AuthmodualState extends State<Authmodual> {
       },
       child: Scaffold(
         backgroundColor: BACKGROUND_COLOR,
-        body: Container(
-          margin: EdgeInsets.only(left: 25, right: 25),
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
+        body: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+            horizontal: wp(7, context),
+            vertical: hp(3, context),
+          ),
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: hp(10, context),
+              ),
+              Center(
+                child: Image.asset(
                   'assets/images/Auth_modual.png',
                   width: 150,
                   height: 150,
                 ),
-                SizedBox(
-                  height: 25,
-                ),
-                Text(
-                  "Add your Phone Number",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "We need to register your phone without getting started!",
-                  style: TextStyle(
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              const Text(
+                "Login",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: hp(1, context),
+              ),
+              Text(
+                "Please sign in to continue.",
+                style: TextStyle(
                     fontSize: 16,
+                    color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+                    fontWeight: FontWeight.w400),
+              ),
+              (isLoading)
+                  ? const Custonloading()
+                  : SizedBox(
+                      height: hp(5, context),
+                    ),
+              IntlPhoneField(
+                dropdownIconPosition: IconPosition.trailing,
+                flagsButtonMargin:
+                    EdgeInsets.symmetric(horizontal: wp(2, context)),
+                initialCountryCode: 'IN',
+                controller: countryController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                onChanged: (phone) {
+                  print(phone.completeNumber);
+                },
+                onCountryChanged: (country) {
+                  phone = country.dialCode;
+                  log("phone:$phone");
+                },
+                decoration: InputDecoration(
+                  counterText: '',
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: hp(2, context),
                   ),
-                  textAlign: TextAlign.center,
+                  labelText: '',
+                  hintText: "Phone Number",
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: COLOR_PRIMARY_LIGHT,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(
+                      color: COLOR_PRIMARY_LIGHT,
+                    ),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
-                (isLoading)
-                    ? Custonloading()
-                    : SizedBox(
-                        height: 40,
-                      ),
-                Container(
-                  height: 55,
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 10,
-                      ),
-                      SizedBox(
-                        width: 40,
-                        child: TextField(
-                          cursorColor: PRIMARY_COLOR,
-                          controller: countryController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        "|",
-                        style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                          child: TextField(
-                        cursorColor: PRIMARY_COLOR,
-                        inputFormatters: [maskFormatter],
-                        onChanged: (value) {
-                          phone = value;
+              ),
+              // Container(
+              //   height: 55,
+              //   decoration: BoxDecoration(
+              //       border: Border.all(width: 1, color: Colors.grey),
+              //       borderRadius: BorderRadius.circular(10)),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       SizedBox(
+              //         width: 40,
+              //         child: TextField(
+              //           cursorColor: PRIMARY_COLOR,
+              //           controller: countryController,
+              //           keyboardType: TextInputType.number,
+              //           decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //           ),
+              //         ),
+              //       ),
+              //       Text(
+              //         "|",
+              //         style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
+              //       ),
+              //       SizedBox(
+              //         width: 10,
+              //       ),
+              //       Expanded(
+              //           child: TextField(
+              //         cursorColor: PRIMARY_COLOR,
+              //         inputFormatters: [maskFormatter],
+              //         onChanged: (value) {
+              //           phone = value;
+              //         },
+              //         keyboardType: TextInputType.phone,
+              //         decoration: InputDecoration(
+              //           border: InputBorder.none,
+              //           hintText: "Phone",
+              //         ),
+              //       ))
+              //     ],
+              //   ),
+              // ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 45,
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: PRIMARY_COLOR,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () async {
+                      log("number:+${phone + countryController.text}");
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: "+${phone + countryController.text}",
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {
+                          log("Error:::::$e");
+                          setState(() {
+                            isLoading = false;
+                          });
+
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                "Phone number verification failed. Error: ${e.message}"),
+                          ));
                         },
-                        keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Phone",
-                        ),
-                      ))
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: PRIMARY_COLOR,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                      onPressed: () async {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: '${countryController.text + phone}',
-                          verificationCompleted:
-                              (PhoneAuthCredential credential) {},
-                          verificationFailed: (FirebaseAuthException e) {
-                            log("Error:::::$e");
-                            setState(() {
-                              isLoading = false;
-                            });
+                        codeSent:
+                            (String verificationId, int? resendToken) async {
+                          Authmodual.verify = verificationId;
+                          log("VerificationId::::::${Authmodual.verify}");
 
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                              content: Text(
-                                  "Phone number verification failed. Error: ${e.message}"),
-                            ));
-                          },
-                          codeSent:
-                              (String verificationId, int? resendToken) async {
-                            Authmodual.verify = verificationId;
-                            log("VerificationId::::::${Authmodual.verify}");
-
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => OTPscreen()));
-                          },
-                          codeAutoRetrievalTimeout: (String verificationId) {},
-                        );
-                        setState(() {
-                          isLoading = true;
-                        });
-                      },
-                      child: Text(
-                        "Send the code",
-                        style: TextStyle(color: WHITE_COLOR),
-                      )),
-                )
-              ],
-            ),
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OTPscreen(
+                                phoneNumber:
+                                    "+${phone + countryController.text}",
+                              ),
+                            ),
+                          );
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+                      setState(() {
+                        isLoading = true;
+                      });
+                    },
+                    child: const Text(
+                      "Send the code",
+                      style: TextStyle(color: WHITE_COLOR, fontSize: 16),
+                    )),
+              )
+            ],
           ),
         ),
       ),

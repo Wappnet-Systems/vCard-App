@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';

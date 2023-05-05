@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:vcard/utils/string.dart';
 import 'package:vcard/widget/text_button_widget.dart';
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 
 class placesAutoCompleteTextField extends StatefulWidget {
   final String? hint;

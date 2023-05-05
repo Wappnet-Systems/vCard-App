@@ -9,7 +9,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import '../controllers/data_controllers.dart';
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 import '../utils/responsive.dart';
 import 'app_shere_screen.dart';
 

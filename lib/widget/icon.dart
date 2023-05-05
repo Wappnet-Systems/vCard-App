@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/style.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
 import 'google_textformfield.dart';

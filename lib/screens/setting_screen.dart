@@ -10,7 +10,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 import 'app_shere_screen.dart';
 
 class Setting_Screen extends StatefulWidget {

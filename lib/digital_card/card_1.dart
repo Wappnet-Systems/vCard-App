@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/responsive.dart';
 
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 import '../widget/text_button_widget.dart';
 
 class cardtheme1 extends StatelessWidget {

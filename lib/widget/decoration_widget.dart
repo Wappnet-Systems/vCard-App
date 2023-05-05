@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 
 class Decorationwidget extends StatefulWidget {
   const Decorationwidget({super.key});

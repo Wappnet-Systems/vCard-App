@@ -7,10 +7,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
 
 class OTPscreen extends StatefulWidget {
-  const OTPscreen({Key? key}) : super(key: key);
+  final String? phoneNumber;
+  const OTPscreen({Key? key, this.phoneNumber}) : super(key: key);
 
   @override
   State<OTPscreen> createState() => _OTPscreenState();
@@ -59,109 +61,115 @@ class _OTPscreenState extends State<OTPscreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: Colors.black,
           ),
         ),
         elevation: 0,
       ),
-      body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+            horizontal: wp(7, context), vertical: hp(3, context)),
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: hp(8, context),
+            ),
+            Center(
+              child: Image.asset(
                 'assets/images/OTP_verification.jpg',
-                width: 150,
-                height: 150,
+                width: wp(50, context),
+                height: hp(25, context),
               ),
-              SizedBox(
-                height: 25,
+            ),
+            SizedBox(height: hp(3, context)),
+            const Text(
+              "OTP Verification Code",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: COLOR_PRIMARY_DARK,
               ),
-              Text(
-                "Enter the Verification Code",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: hp(1, context)),
+            Text(
+              "We just sent you a 6-digit code via SMS to confirm your phone number ${widget.phoneNumber ?? ""}.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                color: COLOR_PRIMARY_LIGHT,
+                fontWeight: FontWeight.w400,
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                "We need to register your phone without getting started!",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              PinFieldAutoFill(
-                codeLength: 6,
-                onCodeChanged: (value) {
-                  code = value!;
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: PRIMARY_COLOR,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async {
-                      try {
-                        log(Authmodual.verify);
-                        log(code);
-                        PhoneAuthCredential credential =
-                            PhoneAuthProvider.credential(
-                                verificationId: Authmodual.verify,
-                                smsCode: code);
+            ),
+            SizedBox(
+              height: hp(3, context),
+            ),
+            PinFieldAutoFill(
+              codeLength: 6,
+              onCodeChanged: (value) {
+                code = value!;
+              },
+            ),
+            SizedBox(height: hp(6, context)),
+            SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: PRIMARY_COLOR,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                onPressed: () async {
+                  try {
+                    log(Authmodual.verify);
+                    log(code);
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: Authmodual.verify, smsCode: code);
 
-                        await auth
-                            .signInWithCredential(credential)
-                            .then((value) async {
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setBool('isLoggedIn', true);
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.success,
-                            showCloseIcon: true,
-                            desc: "Login Successfully",
-                          ).show();
-                          Future.delayed(const Duration(seconds: 3));
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Dashboardscreen(
-                                        index: 0,
-                                      )));
-                        });
-                      } catch (e) {
-                        log("Error:$e");
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          showCloseIcon: true,
-                          desc: "OTP is invalid.",
-                        ).show();
-                        Future.delayed(const Duration(seconds: 2));
-                      }
-                    },
-                    child: Text(
-                      "Verify Phone Number",
-                      style: TextStyle(color: WHITE_COLOR),
-                    )),
+                    await auth
+                        .signInWithCredential(credential)
+                        .then((value) async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setBool('isLoggedIn', true);
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.success,
+                        showCloseIcon: true,
+                        desc: "Login Successfully",
+                      ).show();
+                      Future.delayed(const Duration(seconds: 3));
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Dashboardscreen(
+                                    index: 0,
+                                  )));
+                    });
+                  } catch (e) {
+                    log("Error:$e");
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.error,
+                      showCloseIcon: true,
+                      desc: "OTP is invalid.",
+                    ).show();
+                    Future.delayed(const Duration(seconds: 2));
+                  }
+                },
+                child: const Text(
+                  "Verify ",
+                  style: TextStyle(color: WHITE_COLOR, fontSize: 16),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

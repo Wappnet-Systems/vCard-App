@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';

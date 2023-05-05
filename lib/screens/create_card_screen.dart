@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 import '../utils/validator.dart';
-import '../widget/custom loading bar.dart';
+import '../widget/custom_loading_bar.dart';
 import '../widget/custom_textformfield.dart';
 import '../widget/icon.dart';
 

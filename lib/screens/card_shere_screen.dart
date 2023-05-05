@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/style.dart';
 
 import '../widget/decoration_widget.dart';
 

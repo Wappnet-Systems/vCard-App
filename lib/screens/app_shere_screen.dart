@@ -1,15 +1,16 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
 
 import '../widget/decoration_widget.dart';
 
 class GenerateQR extends StatefulWidget {
+  const GenerateQR({super.key});
+
   @override
-  _GenerateQRState createState() => _GenerateQRState();
+  State<GenerateQR> createState() => _GenerateQRState();
 }
 
 class _GenerateQRState extends State<GenerateQR> {
@@ -23,48 +24,45 @@ class _GenerateQRState extends State<GenerateQR> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            bottomLeft: Radius.circular(0),
-            bottomRight: Radius.circular(0),
-          ),
-          color: BLUE_COLOR,
-        ),
-        height: 500.0,
-        child: Column(
-          children: [
-            Decorationwidget(),
-            SizedBox(height: 20),
-            Text(
-              "Share vCard",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: PRIMARY_COLOR),
+    return Wrap(
+      children: [
+        Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
             ),
-            SizedBox(height: 20),
-            Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(
-                    color: Colors.green,
-                    width: 4,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: BACKGROUND_COLOR,
-                      offset: const Offset(0.0, 0.0),
-                      blurRadius: 0.0,
-                      spreadRadius: 0.0,
+            color: WHITE_COLOR,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Decorationwidget(),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              const Text(
+                "Share VCard",
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: PRIMARY_COLOR),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: BACKGROUND_COLOR,
+                    border: Border.all(
+                      color: PRIMARY_COLOR,
+                      width: 3,
                     ),
-                  ],
-                ),
-                padding: EdgeInsets.all(5),
-                child: SingleChildScrollView(
+                  ),
+                  padding: const EdgeInsets.all(5),
                   child: QrImage(
                     data: qrData,
                     size: 180,
@@ -72,21 +70,26 @@ class _GenerateQRState extends State<GenerateQR> {
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  primary: PRIMARY_COLOR,
-                ),
-                onPressed: _shareContent,
-                icon: const Icon(Icons.ios_share_outlined),
-                label: const Text('Share App')),
-            SizedBox(height: 20),
-            Text(
-              "vCard 1.0.0 was just released!",
-              style: TextStyle(color: PRIMARY_COLOR),
-            )
-          ],
-        ));
+              SizedBox(height: hp(3, context)),
+              ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: PRIMARY_COLOR,
+                  ),
+                  onPressed: _shareContent,
+                  icon: const Icon(Icons.ios_share_outlined),
+                  label: const Text('Share App')),
+              SizedBox(height: hp(3, context)),
+              const Text(
+                "vCard 1.0.0 was just released!",
+                style: TextStyle(color: PRIMARY_COLOR),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

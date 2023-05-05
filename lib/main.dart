@@ -1,32 +1,26 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
-import 'digital_card/card_1.dart';
-import 'digital_card/card_2.dart';
-import 'screens/dashboard_screen.dart';
-import 'utils/constants_color.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/splash_screen.dart';
+import 'utils/style.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final islogin = await prefs.getBool('isLoggedIn') ?? false;
+  final islogin = prefs.getBool('isLoggedIn') ?? false;
 
   runApp(MyApp(islogin: islogin));
 }
 
-class DefaultFirebaseOptions {
-  static var currentPlatform;
-}
-
 class MyApp extends StatefulWidget {
-  bool? islogin;
-  MyApp({
+  final bool? islogin;
+  const MyApp({
     super.key,
     required this.islogin,
   });
@@ -36,6 +30,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isfirsttime = false;
   SharedPreferences? prefs;
   bool? isDarkMode;
 
@@ -54,47 +49,50 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    bool isfirsttime = false;
-    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-    print(isfirsttime);
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
+        // For iOS (dark icons)
+      ),
+    );
 
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'VCard',
-      theme: ThemeData(fontFamily: 'Trajan'),
-      home: AnimatedSplashScreen(
-          duration: 1500,
-          splashTransition: SplashTransition.fadeTransition,
-          backgroundColor: PRIMARY_COLOR,
-          splashIconSize: 250,
-          animationDuration: Duration(milliseconds: 1500),
-          splash: Center(
-            child: Column(
-              children: [
-                Container(
-                  child: Image.asset(
-                    "assets/images/splash1.png",
-                    height: 200,
-                    width: 200,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text("V Card",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: BACKGROUND_COLOR,
-                    ))
-              ],
-            ),
-          ),
-          nextScreen: Cardtheme2()
-          // (widget.islogin! == true)
-          //     ? Dashboardscreen(
-          //         index: 0,
-          //       )
-          //     : Authmodual(),
-          ),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'VCard',
+        theme: appThemeData[AppTheme.CustomTheme],
+        home: SplashScreen(islogin: widget.islogin!)
+        //  AnimatedSplashScreen(
+        //   duration: 1500,
+        //   splashTransition: SplashTransition.fadeTransition,
+        //   backgroundColor: PRIMARY_COLOR,
+        //   splashIconSize: 250,
+        //   animationDuration: const Duration(milliseconds: 1500),
+        //   splash: Center(
+        //     child: Column(
+        //       children: [
+        //         Image.asset(
+        //           "assets/images/splash1.png",
+        //           height: 200,
+        //           width: 200,
+        //         ),
+        //         const SizedBox(height: 10),
+        //         const Text("V Card",
+        //             style: TextStyle(
+        //               fontSize: 30,
+        //               fontWeight: FontWeight.bold,
+        //               color: BACKGROUND_COLOR,
+        //             ))
+        //       ],
+        //     ),
+        //   ),
+        //   nextScreen: (widget.islogin! == true)
+        //       ? Dashboardscreen(
+        //           index: 0,
+        //         )
+        //       : Authmodual(),
+        // ),
+        );
   }
 }

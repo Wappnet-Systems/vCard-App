@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 
 class CardWidget extends StatelessWidget {
   final IconData? icon;

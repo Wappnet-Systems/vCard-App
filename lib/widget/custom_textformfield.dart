@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/style.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;

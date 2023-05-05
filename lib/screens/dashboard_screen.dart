@@ -3,7 +3,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/scanner_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
-import '../utils/constants_color.dart';
+import '../utils/style.dart';
 import 'cardscreen.dart';
 import 'contacts_screen.dart';
 
@@ -18,7 +18,7 @@ class Dashboardscreen extends StatefulWidget {
 class _DashboardscreenState extends State<Dashboardscreen> {
   int? indexx;
 
-  List<Widget> _widgetOptions = <Widget>[
+  List<Widget> screens = <Widget>[
     Cardscreen(),
     Scannerscreen(),
     ContactsScreen(),
@@ -46,12 +46,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
         return shouldPop;
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Container(
-            child: Center(
-              child: _widgetOptions.elementAt(indexx!),
-            ),
-          ),
+        body: Center(
+          child: screens.elementAt(indexx!),
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
