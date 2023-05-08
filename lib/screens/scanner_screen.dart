@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/style.dart';
 import '../utils/responsive.dart';
 import 'app_shere_screen.dart';
 
 class Scannerscreen extends StatefulWidget {
-  Scannerscreen({super.key});
+  const Scannerscreen({super.key});
 
   @override
   State<Scannerscreen> createState() => _ScannerscreenState();
@@ -127,11 +126,13 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'card': card
     }).then((value) {
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Dashboardscreen(
-                    index: 2,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Dashboardscreen(
+            index: 2,
+          ),
+        ),
+      );
     }).catchError((error) {
       log("Failed to add user: $error");
     });
@@ -148,33 +149,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25.0)),
-                  ),
-                  builder: (BuildContext context) => GenerateQR());
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage("assets/images/splash1.png"),
-            ),
-          ),
-        ),
+      appBar: const AppBarWidget(
+        title: "Qr Scanner",
         centerTitle: true,
-        title: const Text("Qr Scanner"),
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: value != false
           ? Center(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(height: 180),
                   Container(
@@ -285,16 +268,30 @@ class _ScannerscreenState extends State<Scannerscreen> {
               ),
             )
           : Center(
-              child: Container(
-                  child: FloatingActionButton.extended(
+              child: FloatingActionButton.extended(
                 backgroundColor: PRIMARY_COLOR,
                 label: Row(
-                  children: [Icon(Icons.photo_camera), Text('Qr Scan')],
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Icon(
+                      Icons.photo_camera,
+                      size: 20,
+                      color: WHITE_COLOR,
+                    ),
+                    SizedBox(
+                      width: wp(2, context),
+                    ),
+                    const Text('Qr Scan',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: WHITE_COLOR,
+                            fontWeight: FontWeight.w500))
+                  ],
                 ),
                 onPressed: () {
                   scanQRCode();
                 },
-              )),
+              ),
             ),
     );
   }

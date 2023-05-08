@@ -1,10 +1,7 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/auth_modual.dart';
-import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/splash_screen.dart';
 import 'utils/style.dart';
 
@@ -59,40 +56,10 @@ class _MyAppState extends State<MyApp> {
     );
 
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'VCard',
-        theme: appThemeData[AppTheme.CustomTheme],
-        home: SplashScreen(islogin: widget.islogin!)
-        //  AnimatedSplashScreen(
-        //   duration: 1500,
-        //   splashTransition: SplashTransition.fadeTransition,
-        //   backgroundColor: PRIMARY_COLOR,
-        //   splashIconSize: 250,
-        //   animationDuration: const Duration(milliseconds: 1500),
-        //   splash: Center(
-        //     child: Column(
-        //       children: [
-        //         Image.asset(
-        //           "assets/images/splash1.png",
-        //           height: 200,
-        //           width: 200,
-        //         ),
-        //         const SizedBox(height: 10),
-        //         const Text("V Card",
-        //             style: TextStyle(
-        //               fontSize: 30,
-        //               fontWeight: FontWeight.bold,
-        //               color: BACKGROUND_COLOR,
-        //             ))
-        //       ],
-        //     ),
-        //   ),
-        //   nextScreen: (widget.islogin! == true)
-        //       ? Dashboardscreen(
-        //           index: 0,
-        //         )
-        //       : Authmodual(),
-        // ),
-        );
+      debugShowCheckedModeBanner: false,
+      title: 'VCard',
+      theme: appThemeData[AppTheme.CustomTheme],
+      home: SplashScreen(islogin: widget.islogin!),
+    );
   }
 }

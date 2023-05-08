@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
-  final Icon? customprefixicon;
+  final Widget? prefixIcon;
   final TextEditingController textEditingController;
   final String texteditinghinttext;
   final bool customobscuretext;
   final String? Function(String? value)? validationfunction;
-  final InkWell? custominkwell;
+  final Widget? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
-  CustomTextFormField(
-      {required this.textInputType,
-      required this.customprefixicon,
-      required this.textEditingController,
-      required this.texteditinghinttext,
-      required this.customobscuretext,
-      required this.validationfunction,
-      required this.custominkwell,
-      required this.inputFormatters});
+  final int? maxLength, minLines, maxLines;
+  const CustomTextFormField({
+    super.key,
+    required this.textInputType,
+    this.prefixIcon,
+    required this.textEditingController,
+    required this.texteditinghinttext,
+    required this.customobscuretext,
+    required this.validationfunction,
+    this.suffixIcon,
+    this.inputFormatters,
+    this.maxLength,
+    this.minLines,
+    this.maxLines,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +34,43 @@ class CustomTextFormField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       keyboardType: textInputType,
-      style: TextStyle(color: Color(0xff000000)),
+      style: const TextStyle(
+        color: COLOR_PRIMARY_DARK,
+        fontSize: 16,
+      ),
       obscureText: !customobscuretext,
       enableInteractiveSelection: false,
       cursorColor: PRIMARY_COLOR,
       controller: textEditingController,
       decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: PRIMARY_COLOR),
+        counterText: "",
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: BLUE_COLOR),
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+        border: const UnderlineInputBorder(
+          borderSide: BorderSide(color: BLUE_COLOR),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+          ),
+        ),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: wp(1, context),
+          vertical: hp(3, context),
+        ),
         hintText: texteditinghinttext,
         hintStyle: TextStyle(
-          color: Color(0xff000000),
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
+          color: COLOR_PRIMARY_LIGHT.withOpacity(0.7),
+          fontSize: 14,
         ),
-        prefixIcon: customprefixicon,
-        suffixIcon: custominkwell,
+        prefixIcon: prefixIcon,
+        suffixIcon: suffixIcon,
       ),
       validator: validationfunction,
+      maxLength: maxLength,
+      minLines: minLines ?? 1,
+      maxLines: maxLines ?? 1,
     );
   }
 }

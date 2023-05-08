@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
-
-import '../widget/decoration_widget.dart';
 
 class CardGenerateQR extends StatefulWidget {
   final String? uid;
   final String? cid;
-  CardGenerateQR({super.key, required this.uid, required this.cid});
+  const CardGenerateQR({super.key, required this.uid, required this.cid});
   @override
-  _CardGenerateQRState createState() => _CardGenerateQRState();
+  State<CardGenerateQR> createState() => _CardGenerateQRState();
 }
 
 class _CardGenerateQRState extends State<CardGenerateQR> {
@@ -22,55 +20,64 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.5,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-            bottomLeft: Radius.circular(0),
-            bottomRight: Radius.circular(0),
-          ),
-          color: BLUE_COLOR,
+      padding: EdgeInsets.symmetric(
+        vertical: hp(3, context),
+      ),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
         ),
-        child: Column(
-          children: [
-            Decorationwidget(),
-            SizedBox(height: 20),
-            Text(
-              "Send Your Card",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: PRIMARY_COLOR),
-            ),
-            SizedBox(height: 20),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: Colors.green,
-                  width: 4,
+        color: WHITE_COLOR,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            "Send Your Card",
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: PRIMARY_COLOR),
+          ),
+          SizedBox(
+            height: hp(4, context),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: WHITE_COLOR,
+              border: Border.all(
+                color: PRIMARY_COLOR,
+                width: 3,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: COLOR_PRIMARY_DARK.withOpacity(0.5),
+                  offset: const Offset(1, -1),
+                  blurRadius: 2.0,
                 ),
-                boxShadow: [
-                  BoxShadow(
-                    color: BACKGROUND_COLOR,
-                    offset: const Offset(0.0, 0.0),
-                    blurRadius: 0.0,
-                    spreadRadius: 0.0,
-                  ),
-                ],
-              ),
-              child: QrImage(
-                data: "${widget.uid} ${widget.cid}",
-                size: 200,
-              ),
+                BoxShadow(
+                  color: COLOR_PRIMARY_DARK.withOpacity(0.5),
+                  offset: const Offset(-1, 1),
+                  blurRadius: 2.0,
+                ),
+              ],
             ),
-            SizedBox(height: 10),
-            Text(
-              "Point yoour camera at the QR code.",
-              style: TextStyle(color: PRIMARY_COLOR),
+            child: QrImage(
+              data: "${widget.uid} ${widget.cid}",
+              size: 200,
             ),
-          ],
-        ));
+          ),
+          SizedBox(
+            height: hp(3, context),
+          ),
+          const Text(
+            "Point your camera at the QR code.",
+            style: TextStyle(color: PRIMARY_COLOR, fontSize: 14),
+          ),
+        ],
+      ),
+    );
   }
 }

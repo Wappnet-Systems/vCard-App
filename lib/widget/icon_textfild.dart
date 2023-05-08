@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vcard/utils/responsive.dart';
 import '../utils/style.dart';
 import 'custom_textformfield.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,7 +15,7 @@ class IconTextField extends StatefulWidget {
   final TextEditingController? textEditingController;
   final String? Function(String? value)? validationfunction;
   final List<TextInputFormatter>? inputFormatters;
-  IconTextField(
+  const IconTextField(
       {super.key,
       required this.icon,
       required this.hint,
@@ -42,54 +44,62 @@ class _IconTextFieldState extends State<IconTextField> {
       title: Text(widget.hint!),
       content: Form(
         key: _formfield,
-        child: new Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: double.infinity),
             CustomTextFormField(
-                inputFormatters: widget.inputFormatters,
-                textInputType: widget.textInputType!,
-                textEditingController: widget.textEditingController!,
-                texteditinghinttext: widget.hint!,
-                customobscuretext: true,
-                custominkwell: null,
-                customprefixicon: widget.icon,
-                validationfunction: widget.validationfunction),
-            SizedBox(height: 30),
+              inputFormatters: widget.inputFormatters,
+              textInputType: widget.textInputType!,
+              textEditingController: widget.textEditingController!,
+              texteditinghinttext: widget.hint!,
+              customobscuretext: true,
+              prefixIcon: widget.icon,
+              validationfunction: widget.validationfunction,
+            ),
             SizedBox(
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButtomWidget(
-                      onPressed: () {
-                        setState(() {
-                          if (_formfield.currentState!.validate()) {
-                            try {
-                              print(widget.textEditingController?.text);
-                              Navigator.pop(context, true);
-                              displayCustomToast();
-                            } catch (e) {
-                              return null;
-                            }
+              height: hp(4, context),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Flexible(
+                  child: TextButtomWidget(
+                    height: hp(6, context),
+                    onPressed: () {
+                      setState(() {
+                        if (_formfield.currentState!.validate()) {
+                          try {
+                            print(widget.textEditingController?.text);
+                            Navigator.pop(context, true);
+                            displayCustomToast();
+                          } catch (e) {
+                            log("Error:$e");
                           }
-                        });
-                      },
-                      title: 'Save',
-                      fontSize: 15,
-                      color: PRIMARY_COLOR,
-                    ),
-                    TextButtomWidget(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      title: 'Cancle',
-                      fontSize: 13,
-                      color: Colors.redAccent,
-                    )
-                  ],
-                )),
+                        }
+                      });
+                    },
+                    title: 'Save',
+                    fontSize: 14,
+                    color: PRIMARY_COLOR,
+                  ),
+                ),
+                SizedBox(
+                  width: wp(4, context),
+                ),
+                Flexible(
+                  child: TextButtomWidget(
+                    height: hp(6, context),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    title: 'Cancle',
+                    fontSize: 14,
+                    color: Colors.redAccent,
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/string.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/style.dart';
 import '../utils/responsive.dart';
@@ -17,7 +18,7 @@ import '../widget/text_button_widget.dart';
 import 'contect_visiting_card.dart';
 
 class ContactsScreen extends StatefulWidget {
-  ContactsScreen({super.key});
+  const ContactsScreen({super.key});
 
   @override
   State<ContactsScreen> createState() => _ContactsScreenState();
@@ -76,39 +77,30 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
     setState(() {
       value = true;
-      Staticmenbers.listofUsers = userData;
+      Staticmembers.listofUsers = userData;
       log('message:$value');
     });
 
     print(
-        "Staticmenbers.listofUsers.length : ${Staticmenbers.listofUsers.length}");
+        "Staticmembers.listofUsers.length : ${Staticmembers.listofUsers.length}");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: BACKGROUND_COLOR,
-        appBar: AppBar(
+        appBar: const AppBarWidget(
+          title: "Contacts",
           centerTitle: true,
-          title: const Text("Contacts"),
-          backgroundColor: PRIMARY_COLOR,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage("assets/images/splash1.png"),
-            ),
-          ),
-          systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        body: Staticmenbers.listofUsers.isNotEmpty
+        body: Staticmembers.listofUsers.isNotEmpty
             ? GridView.builder(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 15,
                 ),
-                itemCount: Staticmenbers.listofUsers.length,
+                itemCount: Staticmembers.listofUsers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () async {
@@ -184,7 +176,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                           TextButtomWidget(
                                                             onPressed: () {
                                                               setState(() {
-                                                                log("${Staticmenbers.listofUsers[index].id}");
+                                                                log("${Staticmembers.listofUsers[index].id}");
                                                                 final refresh = FirebaseFirestore
                                                                     .instance
                                                                     .collection(
@@ -195,7 +187,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                                         ?.uid)
                                                                     .collection(
                                                                         "Frind's Card")
-                                                                    .doc(Staticmenbers
+                                                                    .doc(Staticmembers
                                                                         .listofUsers[
                                                                             index]
                                                                         .id)
@@ -270,7 +262,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         horizontal: wp(2, context),
                       ),
                       child: Column(children: [
-                        Staticmenbers.listofUsers[index].image == null
+                        Staticmembers.listofUsers[index].image == null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.asset(
@@ -283,7 +275,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  "${Staticmenbers.listofUsers[index].image}",
+                                  "${Staticmembers.listofUsers[index].image}",
                                   width: wp(45, context),
                                   height: hp(20, context),
                                   fit: BoxFit.fill,
@@ -317,7 +309,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         SizedBox(height: hp(0.5, context)),
                         Center(
                           child: Text(
-                            '${Staticmenbers.listofUsers[index].type}',
+                            '${Staticmembers.listofUsers[index].type}',
                             style: TextStyle(color: WHITE_COLOR),
                           ),
                         ),

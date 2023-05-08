@@ -80,7 +80,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                         ),
                         Center(
                             child: Text(
-                                "${Staticmenbers.listofUsers[cardindex!].compeny}",
+                                "${Staticmembers.listofUsers[cardindex!].compeny}",
                                 style: TextStyle(fontSize: 24))),
                       ],
                     ),
@@ -110,14 +110,14 @@ class _Cardtheme1State extends State<Cardtheme1> {
                         ),
                         Center(
                             child: Text(
-                                "${Staticmenbers.listofUsers[cardindex!].name}",
+                                "${Staticmembers.listofUsers[cardindex!].name}",
                                 style: TextStyle(fontSize: 24))),
                         SizedBox(
                           height: hp(0.10, context),
                         ),
                         Center(
                             child: Text(
-                                "${Staticmenbers.listofUsers[cardindex!].department}",
+                                "${Staticmembers.listofUsers[cardindex!].department}",
                                 style: TextStyle(fontSize: 14))),
                         SizedBox(
                           height: hp(2, context),
@@ -127,7 +127,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                               horizontal: 15, vertical: 8),
                           child: Center(
                               child: Text(
-                                  "${Staticmenbers.listofUsers[cardindex!].headline}",
+                                  "${Staticmembers.listofUsers[cardindex!].headline}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
@@ -170,7 +170,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                   child: InkWell(
                                     onTap: () {
                                       UrlLauncher.launchUrl(Uri.parse(
-                                          'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                          'tel:+${Staticmembers.listofUsers[cardindex!].phone.toString()}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/call.png",
@@ -185,7 +185,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                     onTap: () {
                                       launchUrl(
                                           Uri.parse(
-                                              'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
+                                              'https://wa.me/${Staticmembers.listofUsers[cardindex!].whatsapp}?text=Hi'),
                                           mode: LaunchMode.externalApplication);
                                     },
                                     child: Image.asset(
@@ -200,7 +200,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                   child: InkWell(
                                     onTap: () {
                                       UrlLauncher.launchUrl(Uri.parse(
-                                          'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                                          'mailto:${Staticmembers.listofUsers[cardindex!].email}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/email.png",
@@ -214,7 +214,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                   child: InkWell(
                                     onTap: () {
                                       UrlLauncher.launchUrl(Uri.parse(
-                                          'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
+                                          'https://www.facebook.com/{${Staticmembers.listofUsers[cardindex!].facebook}}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/Face.png",
@@ -257,7 +257,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 child: InkWell(
                                   onTap: () {
                                     UrlLauncher.launchUrl(Uri.parse(
-                                        "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
+                                        "https://telegram.me/$Staticmembers.listofUsers[cardindex!].telegram"));
                                   },
                                   child: Image.asset(
                                     "assets/icon/tele.png",
@@ -271,7 +271,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 child: InkWell(
                                   onTap: () async {
                                     final url =
-                                        'https://${Staticmenbers.listofUsers[cardindex!].website}';
+                                        'https://${Staticmembers.listofUsers[cardindex!].website}';
 
                                     await launchUrl(Uri.parse(url));
                                   },
@@ -287,7 +287,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 child: InkWell(
                                   onTap: () async {
                                     final url =
-                                        'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                        'https://${Staticmembers.listofUsers[cardindex!].link}';
 
                                     await launchUrl(Uri.parse(url));
                                   },
@@ -370,7 +370,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                     ),
                   ),
                   child: ClipOval(
-                    child: Staticmenbers.listofUsers[cardindex!].image == ""
+                    child: Staticmembers.listofUsers[cardindex!].image == ""
                         ? Image.asset(
                             "assets/images/splash1.png",
                             width: wp(40, context),
@@ -378,7 +378,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             fit: BoxFit.fill,
                           )
                         : Image.network(
-                            "${Staticmenbers.listofUsers[cardindex!].image}",
+                            "${Staticmembers.listofUsers[cardindex!].image}",
                             width: wp(40, context),
                             height: hp(20, context),
                             fit: BoxFit.fill,
@@ -393,7 +393,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
 
   void _pushMap() async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[cardindex!].address}";
+        "https://www.google.com/maps/search/?api=1&query=${Staticmembers.listofUsers[cardindex!].address}";
 
     await launchUrl(Uri.parse(googleUrl));
   }

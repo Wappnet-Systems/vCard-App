@@ -4,7 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
-import '../utils/constants_color.dart';
+import 'package:vcard/utils/style.dart';
+
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';
 
@@ -61,7 +62,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: Text(
-                          "${Staticmenbers.listofUsers[cardindex!].name}",
+                          "${Staticmembers.listofUsers[cardindex!].name}",
                           style: TextStyle(fontSize: 20),
                         ),
                       ),
@@ -71,7 +72,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                       Padding(
                         padding: const EdgeInsets.only(left: 30),
                         child: Text(
-                          "${Staticmenbers.listofUsers[cardindex!].department}",
+                          "${Staticmembers.listofUsers[cardindex!].department}",
                           style: TextStyle(fontSize: 14),
                         ),
                       ),
@@ -90,7 +91,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               width: wp(25, context),
                               height: hp(13, context),
                               child:
-                                  Staticmenbers.listofUsers[cardindex!].image ==
+                                  Staticmembers.listofUsers[cardindex!].image ==
                                           ""
                                       ? Image.asset(
                                           "assets/images/splash1.png",
@@ -99,7 +100,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                           fit: BoxFit.fill,
                                         )
                                       : Image.network(
-                                          "${Staticmenbers.listofUsers[cardindex!].image}",
+                                          "${Staticmembers.listofUsers[cardindex!].image}",
                                           width: wp(25, context),
                                           height: hp(13, context),
                                           fit: BoxFit.fill,
@@ -114,7 +115,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             child: InkWell(
                               onTap: () {
                                 UrlLauncher.launchUrl(Uri.parse(
-                                    "https://telegram.me/${Staticmenbers.listofUsers[cardindex!].telegram}"));
+                                    "https://telegram.me/${Staticmembers.listofUsers[cardindex!].telegram}"));
                               },
                               child: Image.asset(
                                 "assets/icon/tele.png",
@@ -128,7 +129,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             child: InkWell(
                               onTap: () async {
                                 final url =
-                                    'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                    'https://${Staticmembers.listofUsers[cardindex!].link}';
 
                                 await launchUrl(Uri.parse(url));
                               },
@@ -154,7 +155,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                             color: WHITE_COLOR,
                                             fontWeight: FontWeight.bold)),
                                     content: Text(
-                                        '${Staticmenbers.listofUsers[cardindex!].address}',
+                                        '${Staticmembers.listofUsers[cardindex!].address}',
                                         style: TextStyle(
                                             fontFamily: 'Marck',
                                             fontSize: 25,
@@ -226,7 +227,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             InkWell(
                               onTap: () {
                                 UrlLauncher.launchUrl(Uri.parse(
-                                    'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                    'tel:+${Staticmembers.listofUsers[cardindex!].phone.toString()}'));
                               },
                               child: Image.asset(
                                 "assets/icon/call.png",
@@ -238,7 +239,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               width: wp(4, context),
                             ),
                             Text(
-                                "${Staticmenbers.listofUsers[cardindex!].phone}",
+                                "${Staticmembers.listofUsers[cardindex!].phone}",
                                 style:
                                     TextStyle(fontSize: 10, color: WHITE_COLOR))
                           ],
@@ -255,7 +256,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               onTap: () {
                                 launchUrl(
                                     Uri.parse(
-                                        'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
+                                        'https://wa.me/${Staticmembers.listofUsers[cardindex!].whatsapp}?text=Hi'),
                                     mode: LaunchMode.externalApplication);
                               },
                               child: Image.asset(
@@ -269,7 +270,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             width: wp(4, context),
                           ),
                           Text(
-                              "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
+                              "${Staticmembers.listofUsers[cardindex!].whatsapp}",
                               style:
                                   TextStyle(fontSize: 10, color: WHITE_COLOR))
                         ],
@@ -284,7 +285,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             InkWell(
                               onTap: () {
                                 UrlLauncher.launchUrl(Uri.parse(
-                                    'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                                    'mailto:${Staticmembers.listofUsers[cardindex!].email}'));
                               },
                               child: Image.asset(
                                 "assets/icon/email.png",
@@ -296,7 +297,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               width: wp(4, context),
                             ),
                             Text(
-                                "${Staticmenbers.listofUsers[cardindex!].email}",
+                                "${Staticmembers.listofUsers[cardindex!].email}",
                                 style:
                                     TextStyle(fontSize: 10, color: WHITE_COLOR))
                           ],
@@ -312,7 +313,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             InkWell(
                               onTap: () async {
                                 final url =
-                                    'https://${Staticmenbers.listofUsers[cardindex!].website}';
+                                    'https://${Staticmembers.listofUsers[cardindex!].website}';
 
                                 await launchUrl(Uri.parse(url));
                               },
@@ -326,7 +327,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               width: wp(4, context),
                             ),
                             Text(
-                                "${Staticmenbers.listofUsers[cardindex!].website}",
+                                "${Staticmembers.listofUsers[cardindex!].website}",
                                 style:
                                     TextStyle(fontSize: 10, color: WHITE_COLOR))
                           ],
@@ -342,7 +343,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             child: InkWell(
                               onTap: () {
                                 UrlLauncher.launchUrl(Uri.parse(
-                                    'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
+                                    'https://www.facebook.com/{${Staticmembers.listofUsers[cardindex!].facebook}}'));
                               },
                               child: Image.asset(
                                 "assets/icon/Face.png",
@@ -355,7 +356,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             width: wp(4, context),
                           ),
                           Text(
-                              "${Staticmenbers.listofUsers[cardindex!].facebook}",
+                              "${Staticmembers.listofUsers[cardindex!].facebook}",
                               style:
                                   TextStyle(fontSize: 10, color: WHITE_COLOR))
                         ],
@@ -384,7 +385,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                     padding: const EdgeInsets.only(left: 1),
                     child: Center(
                       child: Text(
-                        "${Staticmenbers.listofUsers[cardindex!].compeny}",
+                        "${Staticmembers.listofUsers[cardindex!].compeny}",
                         style: TextStyle(fontSize: 14),
                       ),
                     ),
@@ -398,7 +399,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
 
   void _pushMap() async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[cardindex!].address}";
+        "https://www.google.com/maps/search/?api=1&query=${Staticmembers.listofUsers[cardindex!].address}";
 
     await launchUrl(Uri.parse(googleUrl));
   }

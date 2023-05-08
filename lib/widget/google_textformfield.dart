@@ -1,24 +1,27 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/string.dart';
 import 'package:vcard/widget/text_button_widget.dart';
 import '../utils/style.dart';
 
-class placesAutoCompleteTextField extends StatefulWidget {
+class PlacesAutoCompleteTextField extends StatefulWidget {
   final String? hint;
   final TextEditingController? textEditingController;
-  placesAutoCompleteTextField(
+  const PlacesAutoCompleteTextField(
       {super.key, required this.hint, required this.textEditingController});
 
   @override
-  State<placesAutoCompleteTextField> createState() =>
-      _placesAutoCompleteTextFieldState();
+  State<PlacesAutoCompleteTextField> createState() =>
+      _PlacesAutoCompleteTextFieldState();
 }
 
-class _placesAutoCompleteTextFieldState
-    extends State<placesAutoCompleteTextField> {
+class _PlacesAutoCompleteTextFieldState
+    extends State<PlacesAutoCompleteTextField> {
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
   @override
@@ -41,28 +44,35 @@ class _placesAutoCompleteTextFieldState
                 GooglePlaceAutoCompleteTextField(
                     textEditingController: widget.textEditingController!,
                     googleAPIKey: YOUR_GOOGLE_API_KEY,
-                    inputDecoration: const InputDecoration(
+                    inputDecoration: InputDecoration(
                       hintText: "Add your location",
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add_location_alt_rounded,
                         color: PRIMARY_COLOR,
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: PRIMARY_COLOR),
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: BLUE_COLOR),
                       ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: BLUE_COLOR),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: COLOR_PRIMARY_LIGHT.withOpacity(0.6)),
+                      ),
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: wp(2, context), vertical: hp(2, context)),
                       hintStyle: TextStyle(
-                        color: Color(0xff000000),
+                        color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
                         fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                        fontSize: 14,
                       ),
                     ),
                     debounceTime: 800,
-                    countries: ["in", "fr"],
+                    countries: const ["in", "fr"],
                     isLatLngRequired: true,
                     getPlaceDetailWithLatLng: (Prediction prediction) {
-                      print("placeDetails" + prediction.lng.toString());
+                      log("placeDetails:${prediction.lng}");
                     },
                     itmClick: (Prediction prediction) {
                       widget.textEditingController!.text =
@@ -72,34 +82,45 @@ class _placesAutoCompleteTextFieldState
                           TextSelection.fromPosition(TextPosition(
                               offset: prediction.description!.length));
                     }),
-                SizedBox(height: 30),
+                SizedBox(
+                  height: hp(4, context),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    TextButtomWidget(
-                      onPressed: () {
-                        setState(() {
-                          if (_formfield.currentState!.validate()) {
-                            try {
-                              Navigator.pop(context, true);
-                              displayCustomToast();
-                            } catch (e) {
-                              return null;
+                    Flexible(
+                      child: TextButtomWidget(
+                        height: hp(6, context),
+                        fontSize: 14,
+                        onPressed: () {
+                          setState(() {
+                            if (_formfield.currentState!.validate()) {
+                              try {
+                                Navigator.pop(context, true);
+                                displayCustomToast();
+                              } catch (e) {
+                                log("Error:$e");
+                              }
                             }
-                          }
-                        });
-                      },
-                      title: 'Save',
-                      fontSize: 15,
-                      color: PRIMARY_COLOR,
+                          });
+                        },
+                        title: 'Save',
+                        color: PRIMARY_COLOR,
+                      ),
                     ),
-                    TextButtomWidget(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      title: 'Cancle',
-                      fontSize: 13,
-                      color: Colors.redAccent,
+                    SizedBox(
+                      width: wp(4, context),
+                    ),
+                    Flexible(
+                      child: TextButtomWidget(
+                        height: hp(6, context),
+                        fontSize: 14,
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        title: 'Cancle',
+                        color: Colors.redAccent,
+                      ),
                     )
                   ],
                 ),

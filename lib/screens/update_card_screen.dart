@@ -305,8 +305,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     textEditingController: _typecontroller,
                     texteditinghinttext: 'type',
                     customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
                     validationfunction: textvalidator,
                   ),
                   CustomTextFormField(
@@ -315,8 +313,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     textEditingController: _nameController,
                     texteditinghinttext: 'Name',
                     customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
                     validationfunction: textvalidator,
                   ),
                   CustomTextFormField(
@@ -325,8 +321,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     textEditingController: _departmentController,
                     texteditinghinttext: 'Department',
                     customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
                     validationfunction: textvalidator,
                   ),
                   CustomTextFormField(
@@ -335,8 +329,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     textEditingController: _companyController,
                     texteditinghinttext: 'Company',
                     customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
                     validationfunction: textvalidator,
                   ),
                   TextFormField(

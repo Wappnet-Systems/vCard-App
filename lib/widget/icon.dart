@@ -8,16 +8,16 @@ import 'google_textformfield.dart';
 import 'icon_textfild.dart';
 
 class Iconwidget extends StatefulWidget {
-  TextEditingController? whatsappcontroller;
-  TextEditingController? websitecontroller;
-  TextEditingController? linkcontroller;
-  TextEditingController? facebookcontroller;
-  TextEditingController? emailcontroller;
-  TextEditingController? numbercontroller;
-  TextEditingController? telegramcontroller;
-  TextEditingController? textEditingController;
+  final TextEditingController? whatsappcontroller;
+  final TextEditingController? websitecontroller;
+  final TextEditingController? linkcontroller;
+  final TextEditingController? facebookcontroller;
+  final TextEditingController? emailcontroller;
+  final TextEditingController? numbercontroller;
+  final TextEditingController? telegramcontroller;
+  final TextEditingController? textEditingController;
 
-  Iconwidget(
+  const Iconwidget(
       {required this.whatsappcontroller,
       required this.textEditingController,
       required this.emailcontroller,
@@ -32,7 +32,7 @@ class Iconwidget extends StatefulWidget {
 }
 
 class _IconwidgetState extends State<Iconwidget> {
-  var maskFormatter = new MaskTextInputFormatter(
+  var maskFormatter = MaskTextInputFormatter(
       mask: '##### #####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
@@ -41,35 +41,42 @@ class _IconwidgetState extends State<Iconwidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: PRIMARY_COLOR,
+        borderRadius: BorderRadius.circular(16),
+        color: PRIMARY_COLOR.withOpacity(0.8),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.symmetric(
+          horizontal: wp(4, context),
+          vertical: hp(2, context),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(Icons.add, color: WHITE_COLOR, size: 30),
-                Text(
+                const Icon(Icons.add, color: WHITE_COLOR, size: 25),
+                SizedBox(
+                  width: wp(2, context),
+                ),
+                const Text(
                   "Add Item",
-                  style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                  style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                 )
               ],
             ),
             SizedBox(
-              height: hp(5, context),
+              height: hp(3, context),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // SizedBox(width: wp(5, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
                         builder: (context) => IconTextField(
-                            icon: Icon(
+                            icon: const Icon(
                               FontAwesomeIcons.whatsapp,
                               color: PRIMARY_COLOR,
                             ),
@@ -82,7 +89,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         FontAwesomeIcons.whatsapp,
                         color: WHITE_COLOR,
                         size: 25,
@@ -90,9 +97,9 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Whatsapp",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
@@ -103,7 +110,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.telegram,
                                 color: PRIMARY_COLOR,
                               ),
@@ -116,28 +123,28 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.telegram,
+                      const Icon(
+                        Icons.telegram_rounded,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Telegram",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
                 ),
-                SizedBox(width: wp(8, context)),
+                SizedBox(width: wp(5, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.email,
                                 color: PRIMARY_COLOR,
                               ),
@@ -150,17 +157,17 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.email,
+                      const Icon(
+                        Icons.email_rounded,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Email",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
@@ -168,10 +175,11 @@ class _IconwidgetState extends State<Iconwidget> {
               ],
             ),
             SizedBox(
-              height: hp(5, context),
+              height: hp(3, context),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(width: wp(2, context)),
                 InkWell(
@@ -179,8 +187,8 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
-                                Icons.web,
+                              icon: const Icon(
+                                Icons.desktop_mac_rounded,
                                 color: PRIMARY_COLOR,
                               ),
                               hint: 'Website',
@@ -192,17 +200,17 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
-                        Icons.web,
+                      const Icon(
+                        Icons.desktop_mac_rounded,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Website",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
@@ -213,7 +221,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.link_sharp,
                                 color: PRIMARY_COLOR,
                               ),
@@ -226,28 +234,30 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.link_sharp,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Link",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
                 ),
-                SizedBox(width: wp(15, context)),
+                SizedBox(
+                  width: wp(15, context),
+                ),
                 InkWell(
                   onTap: () {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.phone,
                               color: PRIMARY_COLOR,
                             ),
@@ -259,17 +269,17 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.phone,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Phone",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
@@ -277,18 +287,18 @@ class _IconwidgetState extends State<Iconwidget> {
               ],
             ),
             SizedBox(
-              height: hp(5, context),
+              height: hp(3, context),
             ),
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(width: wp(3, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.facebook,
                                 color: PRIMARY_COLOR,
                               ),
@@ -301,27 +311,26 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.facebook,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Facebook",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
                 ),
-                SizedBox(width: wp(10, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
                         context: context,
-                        builder: (context) => placesAutoCompleteTextField(
+                        builder: (context) => PlacesAutoCompleteTextField(
                               hint: 'Address',
                               textEditingController:
                                   widget.textEditingController,
@@ -329,21 +338,24 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.add_location_rounded,
                         color: WHITE_COLOR,
-                        size: 30,
+                        size: 25,
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Address",
-                        style: TextStyle(color: WHITE_COLOR, fontSize: 18),
+                        style: TextStyle(color: WHITE_COLOR, fontSize: 16),
                       )
                     ],
                   ),
                 ),
+                SizedBox(
+                  width: wp(10, context),
+                )
               ],
             ),
           ],

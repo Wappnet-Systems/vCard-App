@@ -7,35 +7,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
-
-import '../utils/validator.dart';
-import '../widget/custom_loading_bar.dart';
-import '../widget/custom_textformfield.dart';
-import '../widget/icon.dart';
+import 'package:vcard/utils/validator.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
+import 'package:vcard/widget/custom_loading_bar.dart';
+import 'package:vcard/widget/custom_textformfield.dart';
+import 'package:vcard/widget/icon.dart';
 
 class Createcardscreen extends StatefulWidget {
+  const Createcardscreen({super.key});
+
   @override
   State<Createcardscreen> createState() => _CreatecardscreenState();
 }
 
 class _CreatecardscreenState extends State<Createcardscreen> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _departmentController = TextEditingController();
-  TextEditingController _companyController = TextEditingController();
-  TextEditingController _headlineController = TextEditingController();
-  TextEditingController _whatsappcontroller = TextEditingController();
-  TextEditingController _telegramcontroller = TextEditingController();
-  TextEditingController _addresscontroller = TextEditingController();
-  TextEditingController _linkcontroller = TextEditingController();
-  TextEditingController _websitecontroller = TextEditingController();
-  TextEditingController _facebookcontroller = TextEditingController();
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _numbercontroller = TextEditingController();
-  TextEditingController _typecontroller = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _departmentController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _headlineController = TextEditingController();
+  final TextEditingController _whatsappcontroller = TextEditingController();
+  final TextEditingController _telegramcontroller = TextEditingController();
+  final TextEditingController _addresscontroller = TextEditingController();
+  final TextEditingController _linkcontroller = TextEditingController();
+  final TextEditingController _websitecontroller = TextEditingController();
+  final TextEditingController _facebookcontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _numbercontroller = TextEditingController();
+  final TextEditingController _typecontroller = TextEditingController();
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
+  int? _selectedIndex;
+  bool isLoading = false;
+  String? imgurl;
+  File? imagepicker;
+  String? card;
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
@@ -52,11 +60,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       .doc();
 
   Future<void> addUser() async {
-    String? imgurl;
-    String? card;
-    print(receivedLoanDataRef.id);
-    if (Imagepicker != null) {
-      imgurl = await uploadImage(Imagepicker!);
+    log(receivedLoanDataRef.id);
+    if (imagepicker != null) {
+      imgurl = await uploadImage(imagepicker!);
     }
     return receivedLoanDataRef.set({
       'Name': _nameController.text,
@@ -77,31 +83,40 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'user': FirebaseAuth.instance.currentUser?.uid,
       'card': _selectedIndex ?? 4,
     }).then((value) {
-      Navigator.pop(context, true);
+      Navigator.pushAndRemoveUntil(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const Dashboardscreen(
+              index: 0,
+            ),
+            transitionDuration: const Duration(seconds: 0),
+          ),
+          (route) => false);
     }).catchError((error) {
       log("Failed to add user: $error");
     });
   }
-
-  File? Imagepicker;
 
   Future pickImage(ImageSource imageType) async {
     try {
       final pick = await ImagePicker().pickImage(source: imageType);
       setState(() {
         if (pick != null) {
-          Imagepicker = File(pick.path);
+          imagepicker = File(pick.path);
         }
       });
-    } catch (e) {}
+    } catch (e) {
+      log("Error:$e");
+    }
   }
 
-  Future uploadImage(File Imagepicker) async {
+  Future uploadImage(File imagepicker) async {
     String url;
     String imgId = DateTime.now().microsecondsSinceEpoch.toString();
     Reference reference =
         FirebaseStorage.instance.ref().child('images').child('users$imgId');
-    await reference.putFile(Imagepicker);
+    await reference.putFile(imagepicker);
     url = await reference.getDownloadURL();
     return url;
   }
@@ -113,171 +128,187 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     "assets/cards/card4.jpg"
   ];
 
-  int? _selectedIndex;
-  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
+      appBar: AppBarWidget(
+        title: "Create Card",
         centerTitle: true,
-        title: const Text("Create Card"),
-        actions: <Widget>[
+        leadinWidget: InkWell(
+          onTap: () {
+            Navigator.pop(context, true);
+          },
+          child: const Icon(
+            Icons.arrow_back_rounded,
+            color: WHITE_COLOR,
+            size: 25,
+          ),
+        ),
+        actions: [
           IconButton(
-              onPressed: () async {
-                if (_formfield.currentState!.validate()) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  addUser();
-                }
-              },
-              icon: Icon(Icons.save)),
+            onPressed: () {
+              log("Save");
+              if (_formfield.currentState!.validate()) {
+                setState(() {
+                  isLoading = true;
+                });
+                addUser();
+              }
+            },
+            icon: const Icon(
+              Icons.save,
+              color: WHITE_COLOR,
+            ),
+          ),
         ],
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formfield,
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  Text("New Card"),
-                  Divider(),
-                  SizedBox(height: 20),
-                  Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: PRIMARY_COLOR, width: 5),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(100),
-                          ),
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.symmetric(
+          horizontal: wp(6, context),
+          vertical: hp(3, context),
+        ),
+        child: Form(
+          key: _formfield,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: PRIMARY_COLOR, width: 2),
+                          shape: BoxShape.circle),
+                      child: CircleAvatar(
+                        radius: 60,
+                        backgroundColor: PRIMARY_COLOR.withOpacity(0.8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(60),
+                          child: imagepicker == null
+                              ? Image.asset(
+                                  "assets/images/splash1.png",
+                                  width: wp(35, context),
+                                  height: hp(21, context),
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.file(
+                                  imagepicker!,
+                                  width: wp(35, context),
+                                  height: hp(21, context),
+                                  fit: BoxFit.cover,
+                                ),
                         ),
-                        child: ClipOval(
-                            child: Imagepicker == null
-                                ? Image.asset(
-                                    "assets/images/splash1.png",
-                                    width: 170,
-                                    height: 170,
-                                    fit: BoxFit.cover,
-                                  )
-                                : Image.file(
-                                    Imagepicker!,
-                                    width: 170,
-                                    height: 170,
-                                    fit: BoxFit.cover,
-                                  )),
-                      ),
-                      Positioned(
-                          top: 140,
-                          left: 140,
-                          child: InkWell(
-                            onTap: () {
-                              imagepicker();
-                            },
-                            child: Icon(
-                              Icons.flip_camera_ios,
-                              size: 30,
-                              color: BLUE_COLOR,
-                            ),
-                          )),
-                    ],
-                  ),
-                  (isLoading) ? Custonloading() : SizedBox(height: 25),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.emailAddress,
-                    textEditingController: _typecontroller,
-                    texteditinghinttext: 'type',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _nameController,
-                    texteditinghinttext: 'Name',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _departmentController,
-                    texteditinghinttext: 'Department',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _companyController,
-                    texteditinghinttext: 'Company',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  TextFormField(
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    style: TextStyle(color: Color(0xff000000)),
-                    cursorColor: PRIMARY_COLOR,
-                    controller: _headlineController,
-                    decoration: InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: PRIMARY_COLOR),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-                      hintText: 'Headline',
-                      hintStyle: TextStyle(
-                        color: Color(0xff000000),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    InkWell(
-                        onTap: () {
-                          showimagelist();
-                        },
-                        child: Text("Select Card Theme")),
-                  ]),
-                  SizedBox(height: 20),
-                  Iconwidget(
-                    websitecontroller: _websitecontroller,
-                    telegramcontroller: _telegramcontroller,
-                    numbercontroller: _numbercontroller,
-                    emailcontroller: _emailcontroller,
-                    textEditingController: _addresscontroller,
-                    linkcontroller: _linkcontroller,
-                    facebookcontroller: _facebookcontroller,
-                    whatsappcontroller: _whatsappcontroller,
-                  ),
-                ],
+                    Positioned(
+                        bottom: hp(0, context),
+                        right: wp(0, context),
+                        child: InkWell(
+                          onTap: () {
+                            imagePicker();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(5.0),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: PRIMARY_COLOR,
+                              border: Border.all(
+                                color: WHITE_COLOR,
+                                width: 2,
+                              ),
+                            ),
+                            child: const Icon(
+                              Icons.camera_enhance_rounded,
+                              size: 23,
+                              color: WHITE_COLOR,
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
               ),
-            ),
+              (isLoading)
+                  ? const Custonloading()
+                  : SizedBox(
+                      height: hp(3, context),
+                    ),
+              CustomTextFormField(
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _typecontroller,
+                texteditinghinttext: 'Card Type',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.text,
+                textEditingController: _nameController,
+                texteditinghinttext: 'Name',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.text,
+                textEditingController: _departmentController,
+                texteditinghinttext: 'Department',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.text,
+                textEditingController: _companyController,
+                texteditinghinttext: 'Company',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.multiline,
+                textEditingController: _headlineController,
+                maxLength: 250,
+                maxLines: 7,
+                texteditinghinttext: 'Headline',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              InkWell(
+                onTap: () {
+                  showimagelist();
+                },
+                child: Text(
+                  "Select Card Theme",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: COLOR_PRIMARY_LIGHT.withOpacity(0.7),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              Iconwidget(
+                websitecontroller: _websitecontroller,
+                telegramcontroller: _telegramcontroller,
+                numbercontroller: _numbercontroller,
+                emailcontroller: _emailcontroller,
+                textEditingController: _addresscontroller,
+                linkcontroller: _linkcontroller,
+                facebookcontroller: _facebookcontroller,
+                whatsappcontroller: _whatsappcontroller,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  void imagepicker() {
+  void imagePicker() {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(

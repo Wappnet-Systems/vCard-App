@@ -15,9 +15,8 @@ const Color WHITE_COLOR = Color(0XffFFFFFF);
 const Color BLACK_COLOR = Colors.black;
 const Color BLUE_COLOR = Color(0xff1d2e3e);
 
-class Staticmenbers {
+class Staticmembers {
   static List<Users> listofUsers = [];
-  // static List<Users> newUserCar = [];
 }
 
 enum AppTheme {

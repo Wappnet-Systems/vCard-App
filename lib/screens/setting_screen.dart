@@ -5,22 +5,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/auth_modual.dart';
-import '../utils/style.dart';
+import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
+
 import 'app_shere_screen.dart';
 
-class Setting_Screen extends StatefulWidget {
-  const Setting_Screen({super.key});
+class SettingScreen extends StatefulWidget {
+  const SettingScreen({super.key});
 
   @override
-  State<Setting_Screen> createState() => _Setting_ScreenState();
+  State<SettingScreen> createState() => _SettingScreenState();
 }
 
-class _Setting_ScreenState extends State<Setting_Screen> {
+class _SettingScreenState extends State<SettingScreen> {
   bool _darkMode = false;
 
   Future<void> checkAndRequestLocationPermissions() async {
@@ -30,7 +31,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     }
   }
 
-  Future<void> _toggleThemeMode() async {
+  Future<void> toggleThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _darkMode = !_darkMode;
@@ -38,7 +39,8 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     await prefs.setBool('darkMode', _darkMode);
   }
 
-  Future<void> _delete_user() async {
+  Future<void> deleteUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     var collection = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -46,7 +48,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     log("doc:${collection.id}");
     var snapshots = await collection.get();
     for (var doc in snapshots.docs) {
-      log("doc:${doc}");
+      log("doc:$doc");
       await doc.reference.delete();
     }
     var snapshot = FirebaseFirestore.instance
@@ -58,149 +60,261 @@ class _Setting_ScreenState extends State<Setting_Screen> {
       await doc.reference.delete();
     }
     await FirebaseAuth.instance.currentUser?.delete();
+    prefs.remove('isLoggedIn');
+    log('delete user:${FirebaseAuth.instance.currentUser?.uid}');
+  }
+
+  logOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('isLoggedIn');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25.0)),
-                  ),
-                  builder: (BuildContext context) => GenerateQR());
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage("assets/images/splash1.png"),
-            ),
-          ),
-        ),
+      appBar: const AppBarWidget(
+        title: 'Settings',
         centerTitle: true,
-        title: const Text("Settings"),
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+          horizontal: wp(6, context),
+          vertical: hp(2, context),
+        ),
         children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              "vCard",
-              style: TextStyle(fontSize: 25),
+          SizedBox(
+            height: hp(4, context),
+          ),
+          SettingRow(
+            onTap: () {
+              AppSettings.openAppSettings();
+            },
+            color: COLOR_PRIMARY_DARK,
+            leadingIcon: const SizedBox.shrink(),
+            title: "Permissions",
+            trilingIcon: Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: COLOR_PRIMARY_LIGHT,
+              size: 18,
             ),
           ),
-          Container(
-            color: WHITE_COLOR,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      AppSettings.openAppSettings();
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          "Permissions",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    height: 30,
-                    child: Row(
-                      children: [
-                        Text(
-                          "Version",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        Spacer(),
-                        Text('1.0.0+1'),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  InkWell(
-                    onTap: () {
-                      AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.warning,
-                          showCloseIcon: true,
-                          desc: "Logout",
-                          btnCancelOnPress: () async {},
-                          btnOkOnPress: () async {
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            prefs.remove('isLoggedIn');
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Authmodual()));
-                          }).show();
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 30,
-                          child: Text(
-                            "Log out",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  InkWell(
-                    onTap: () {
-                      try {
-                        AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            showCloseIcon: true,
-                            desc: "Delete Account",
-                            btnCancelOnPress: () async {},
-                            btnOkOnPress: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              _delete_user();
-                              prefs.remove('isLoggedIn');
-                              log('log:${FirebaseAuth.instance.currentUser?.uid}');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Authmodual()));
-                            }).show();
-                      } catch (e) {
-                        print(e);
-                      }
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          "Delete Account",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+            ),
+            child: Divider(
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.15),
+              thickness: 1,
+            ),
+          ),
+          SettingRow(
+            color: COLOR_PRIMARY_DARK,
+            leadingIcon: const SizedBox.shrink(),
+            title: "Version",
+            trilingIcon: Text(
+              '1.0.0',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: COLOR_PRIMARY_LIGHT,
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+            ),
+            child: Divider(
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.15),
+              thickness: 1,
+            ),
+          ),
+          SettingRow(
+            color: COLOR_PRIMARY_DARK,
+            title: "Share App",
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                builder: (BuildContext context) => const GenerateQR(),
+              );
+            },
+            icon: Icon(
+              Icons.share_rounded,
+              size: 20,
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+            ),
+            trilingIcon: Icon(
+              Icons.arrow_forward_ios_rounded,
+              color: COLOR_PRIMARY_LIGHT,
+              size: 18,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+            ),
+            child: Divider(
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.15),
+              thickness: 1,
+            ),
+          ),
+          SettingRow(
+            color: COLOR_PRIMARY_DARK,
+            title: "Total Contacts",
+            icon: Icon(
+              Icons.account_box_rounded,
+              size: 20,
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+            ),
+            trilingIcon: Text(
+              '0',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: COLOR_PRIMARY_LIGHT,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+            ),
+            child: Divider(
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.15),
+              thickness: 1,
+            ),
+          ),
+          SettingRow(
+            color: Colors.red,
+            title: "Log Out",
+            icon: const Icon(
+              Icons.logout_rounded,
+              size: 20,
+              color: Colors.red,
+            ),
+            onTap: () {
+              AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.warning,
+                  showCloseIcon: true,
+                  desc: "Logout",
+                  btnCancelOnPress: () async {},
+                  btnOkOnPress: () async {
+                    logOut();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Authmodual(),
+                      ),
+                    );
+                  }).show();
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+            ),
+            child: Divider(
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.15),
+              thickness: 1,
+            ),
+          ),
+          SettingRow(
+            color: Colors.red,
+            title: "Delete Account",
+            icon: const Icon(
+              Icons.delete_outline_rounded,
+              size: 20,
+              color: Colors.red,
+            ),
+            onTap: () {
+              AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.warning,
+                  showCloseIcon: true,
+                  desc: "Delete Account",
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () async {
+                    deleteUser();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Authmodual(),
+                      ),
+                    );
+                  }).show();
+            },
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+            ),
+            child: Divider(
+              color: COLOR_PRIMARY_LIGHT.withOpacity(0.15),
+              thickness: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SettingRow extends StatelessWidget {
+  final String title;
+  final void Function()? onTap;
+  final Widget? icon;
+  final Widget? trilingIcon;
+  final Widget? leadingIcon;
+  final Color color;
+  const SettingRow({
+    super.key,
+    required this.title,
+    required this.color,
+    this.onTap,
+    this.trilingIcon,
+    this.leadingIcon,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          leadingIcon ??
+              Container(
+                padding: const EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: icon,
+              ),
+          leadingIcon != null
+              ? const SizedBox.shrink()
+              : SizedBox(
+                  width: wp(3, context),
+                ),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: color,
+            ),
+          ),
+          const Spacer(),
+          trilingIcon ?? const SizedBox.shrink()
         ],
       ),
     );

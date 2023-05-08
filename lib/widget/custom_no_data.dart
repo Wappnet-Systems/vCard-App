@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vcard/utils/responsive.dart';
 
 class CustomNoData extends StatelessWidget {
-  String iconaddress;
-  CustomNoData({
+  final String iconaddress;
+  const CustomNoData({
+    super.key,
     required this.iconaddress,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              child: Lottie.asset('$iconaddress')),
-          SizedBox(
-            height: 10,
-          ),
-        ],
+      child: SizedBox(
+        height: hp(15, context),
+        child: Lottie.asset(iconaddress),
       ),
     );
   }

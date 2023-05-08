@@ -55,7 +55,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       final image = imagePath.writeAsBytes(imageBytes);
       print("image:$image");
       Share.shareFiles([imagePath.path],
-          text: '${Staticmenbers.listofUsers[widget.id!].name}');
+          text: '${Staticmembers.listofUsers[widget.id!].name}');
     }
   }
 
@@ -72,7 +72,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("${Staticmenbers.listofUsers[widget.id!].type}"),
+        title: Text("${Staticmembers.listofUsers[widget.id!].type}"),
         backgroundColor: BLUE_COLOR,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         actions: [
@@ -89,7 +89,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       backgroundColor: BACKGROUND_COLOR,
       body: RepaintBoundary(
           key: _containerKey,
-          child: cardList[Staticmenbers.listofUsers[widget.id!].card!]),
+          child: cardList[Staticmembers.listofUsers[widget.id!].card!]),
     ));
   }
 }

@@ -9,8 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/utils/constants_color.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
+import 'package:vcard/utils/style.dart';
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';
 
@@ -66,12 +66,12 @@ class _DefultCardState extends State<DefultCard> {
                       children: [
                         Container(
                           padding: EdgeInsets.all(20),
-                          child: (Staticmenbers
+                          child: (Staticmembers
                                       .listofUsers[cardindex!].compeny ==
                                   "")
                               ? Container()
                               : Text(
-                                  '${Staticmenbers.listofUsers[cardindex!].compeny}',
+                                  '${Staticmembers.listofUsers[cardindex!].compeny}',
                                   style: TextStyle(
                                       fontFamily: 'Marck',
                                       fontSize: 23,
@@ -80,7 +80,7 @@ class _DefultCardState extends State<DefultCard> {
                         ),
                         Center(
                           child:
-                              Staticmenbers.listofUsers[cardindex!].image == ""
+                              Staticmembers.listofUsers[cardindex!].image == ""
                                   ? Image.asset(
                                       "assets/images/splash1.png",
                                       width: wp(90, context),
@@ -88,7 +88,7 @@ class _DefultCardState extends State<DefultCard> {
                                       fit: BoxFit.fill,
                                     )
                                   : Image.network(
-                                      "${Staticmenbers.listofUsers[cardindex!].image}",
+                                      "${Staticmembers.listofUsers[cardindex!].image}",
                                       width: wp(90, context),
                                       height: hp(28, context),
                                       fit: BoxFit.fill,
@@ -97,10 +97,10 @@ class _DefultCardState extends State<DefultCard> {
                         SizedBox(height: hp(1.5, context)),
                         Center(
                           child:
-                              (Staticmenbers.listofUsers[cardindex!].name == "")
+                              (Staticmembers.listofUsers[cardindex!].name == "")
                                   ? Container()
                                   : Text(
-                                      '${Staticmenbers.listofUsers[cardindex!].name}',
+                                      '${Staticmembers.listofUsers[cardindex!].name}',
                                       style: TextStyle(
                                           fontFamily: 'Marck',
                                           fontSize: 25,
@@ -110,7 +110,7 @@ class _DefultCardState extends State<DefultCard> {
                         ),
                         SizedBox(height: hp(0.5, context)),
                         Center(
-                          child: (Staticmenbers
+                          child: (Staticmembers
                                       .listofUsers[cardindex!].department ==
                                   "")
                               ? Container()
@@ -118,7 +118,7 @@ class _DefultCardState extends State<DefultCard> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 8),
                                   child: Text(
-                                      '${Staticmenbers.listofUsers[cardindex!].department}',
+                                      '${Staticmembers.listofUsers[cardindex!].department}',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.center,
@@ -138,31 +138,31 @@ class _DefultCardState extends State<DefultCard> {
                             height: 1,
                           ),
                         ),
-                        Staticmenbers.listofUsers[cardindex!].telegram != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].telegram !=
+                        Staticmembers.listofUsers[cardindex!].telegram != "" &&
+                                    Staticmembers.listofUsers[cardindex!].telegram !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].whatsapp != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].whatsapp !=
+                                Staticmembers.listofUsers[cardindex!].whatsapp != "" &&
+                                    Staticmembers.listofUsers[cardindex!].whatsapp !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].website != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].website !=
+                                Staticmembers.listofUsers[cardindex!].website != "" &&
+                                    Staticmembers.listofUsers[cardindex!].website !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].address != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].address !=
+                                Staticmembers.listofUsers[cardindex!].address != "" &&
+                                    Staticmembers.listofUsers[cardindex!].address !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].email != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].email !=
+                                Staticmembers.listofUsers[cardindex!].email != "" &&
+                                    Staticmembers.listofUsers[cardindex!].email !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].facebook !=
+                                Staticmembers.listofUsers[cardindex!].facebook !=
                                         "" &&
-                                    Staticmenbers
+                                    Staticmembers
                                             .listofUsers[cardindex!].facebook !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].link != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].link !=
+                                Staticmembers.listofUsers[cardindex!].link != "" &&
+                                    Staticmembers.listofUsers[cardindex!].link !=
                                         null ||
-                                Staticmenbers.listofUsers[cardindex!].phone != "" &&
-                                    Staticmenbers.listofUsers[cardindex!].phone !=
+                                Staticmembers.listofUsers[cardindex!].phone != "" &&
+                                    Staticmembers.listofUsers[cardindex!].phone !=
                                         null
                             ? Center(
                                 child: Container(
@@ -176,7 +176,7 @@ class _DefultCardState extends State<DefultCard> {
                                       crossAxisAlignment:
                                           WrapCrossAlignment.center,
                                       children: [
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .phone ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -186,7 +186,7 @@ class _DefultCardState extends State<DefultCard> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     UrlLauncher.launchUrl(Uri.parse(
-                                                        'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                                        'tel:+${Staticmembers.listofUsers[cardindex!].phone.toString()}'));
                                                   },
                                                   child: Image.asset(
                                                     "assets/icon/telephone.png",
@@ -194,7 +194,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .whatsapp ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -205,7 +205,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   onTap: () {
                                                     launchUrl(
                                                         Uri.parse(
-                                                            'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
+                                                            'https://wa.me/${Staticmembers.listofUsers[cardindex!].whatsapp}?text=Hi'),
                                                         mode: LaunchMode
                                                             .externalApplication);
                                                   },
@@ -215,7 +215,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .email ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -225,7 +225,7 @@ class _DefultCardState extends State<DefultCard> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     UrlLauncher.launchUrl(Uri.parse(
-                                                        'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                                                        'mailto:${Staticmembers.listofUsers[cardindex!].email}'));
                                                   },
                                                   child: Image.asset(
                                                     "assets/icon/mail.png",
@@ -233,7 +233,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .facebook ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -243,7 +243,7 @@ class _DefultCardState extends State<DefultCard> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     UrlLauncher.launchUrl(Uri.parse(
-                                                        'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
+                                                        'https://www.facebook.com/{${Staticmembers.listofUsers[cardindex!].facebook}}'));
                                                   },
                                                   child: Image.asset(
                                                     "assets/icon/facebook.png",
@@ -251,7 +251,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .telegram ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -261,7 +261,7 @@ class _DefultCardState extends State<DefultCard> {
                                                 child: InkWell(
                                                   onTap: () {
                                                     UrlLauncher.launchUrl(Uri.parse(
-                                                        "https://telegram.me/${Staticmenbers.listofUsers[cardindex!].telegram}"));
+                                                        "https://telegram.me/${Staticmembers.listofUsers[cardindex!].telegram}"));
                                                   },
                                                   child: Image.asset(
                                                     "assets/icon/telegram.png",
@@ -269,7 +269,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .website ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -279,7 +279,7 @@ class _DefultCardState extends State<DefultCard> {
                                                 child: InkWell(
                                                   onTap: () async {
                                                     final url =
-                                                        'https://${Staticmenbers.listofUsers[cardindex!].website}';
+                                                        'https://${Staticmembers.listofUsers[cardindex!].website}';
 
                                                     await launchUrl(
                                                         Uri.parse(url));
@@ -290,7 +290,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .link ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -300,7 +300,7 @@ class _DefultCardState extends State<DefultCard> {
                                                 child: InkWell(
                                                   onTap: () async {
                                                     final url =
-                                                        'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                                        'https://${Staticmembers.listofUsers[cardindex!].link}';
 
                                                     await launchUrl(
                                                         Uri.parse(url));
@@ -311,7 +311,7 @@ class _DefultCardState extends State<DefultCard> {
                                                   ),
                                                 ),
                                               ),
-                                        (Staticmenbers.listofUsers[cardindex!]
+                                        (Staticmembers.listofUsers[cardindex!]
                                                     .address ==
                                                 "")
                                             ? const SizedBox.shrink()
@@ -338,7 +338,7 @@ class _DefultCardState extends State<DefultCard> {
                                                                     FontWeight
                                                                         .bold)),
                                                         content: Text(
-                                                            '${Staticmenbers.listofUsers[cardindex!].address}',
+                                                            '${Staticmembers.listofUsers[cardindex!].address}',
                                                             style: TextStyle(
                                                                 fontFamily:
                                                                     'Marck',
@@ -392,12 +392,12 @@ class _DefultCardState extends State<DefultCard> {
                             : const SizedBox.shrink(),
                         Container(
                           padding: EdgeInsets.all(25),
-                          child: (Staticmenbers
+                          child: (Staticmembers
                                       .listofUsers[cardindex!].headline ==
                                   "")
                               ? Container()
                               : Text(
-                                  '${Staticmenbers.listofUsers[cardindex!].headline}',
+                                  '${Staticmembers.listofUsers[cardindex!].headline}',
                                   style: TextStyle(
                                       fontFamily: 'Marck',
                                       fontSize: 25,
@@ -414,7 +414,7 @@ class _DefultCardState extends State<DefultCard> {
 
   void _pushMap() async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[cardindex!].address}";
+        "https://www.google.com/maps/search/?api=1&query=${Staticmembers.listofUsers[cardindex!].address}";
 
     await launchUrl(Uri.parse(googleUrl));
   }

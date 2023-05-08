@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -10,7 +9,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/screens/otp_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
-import 'package:vcard/widget/custom_loading_bar.dart';
+import 'package:vcard/widget/text_button_widget.dart';
 
 class Authmodual extends StatefulWidget {
   const Authmodual({Key? key}) : super(key: key);
@@ -88,11 +87,9 @@ class _AuthmodualState extends State<Authmodual> {
                     color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
                     fontWeight: FontWeight.w400),
               ),
-              (isLoading)
-                  ? const Custonloading()
-                  : SizedBox(
-                      height: hp(5, context),
-                    ),
+              SizedBox(
+                height: hp(5, context),
+              ),
               IntlPhoneField(
                 dropdownIconPosition: IconPosition.trailing,
                 flagsButtonMargin:
@@ -109,6 +106,7 @@ class _AuthmodualState extends State<Authmodual> {
                   phone = country.dialCode;
                   log("phone:$phone");
                 },
+                style: const TextStyle(fontSize: 18, color: COLOR_PRIMARY_DARK),
                 decoration: InputDecoration(
                   counterText: '',
                   contentPadding: EdgeInsets.symmetric(
@@ -140,105 +138,57 @@ class _AuthmodualState extends State<Authmodual> {
                   ),
                 ),
               ),
-              // Container(
-              //   height: 55,
-              //   decoration: BoxDecoration(
-              //       border: Border.all(width: 1, color: Colors.grey),
-              //       borderRadius: BorderRadius.circular(10)),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       SizedBox(
-              //         width: 10,
-              //       ),
-              //       SizedBox(
-              //         width: 40,
-              //         child: TextField(
-              //           cursorColor: PRIMARY_COLOR,
-              //           controller: countryController,
-              //           keyboardType: TextInputType.number,
-              //           decoration: InputDecoration(
-              //             border: InputBorder.none,
-              //           ),
-              //         ),
-              //       ),
-              //       Text(
-              //         "|",
-              //         style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
-              //       ),
-              //       SizedBox(
-              //         width: 10,
-              //       ),
-              //       Expanded(
-              //           child: TextField(
-              //         cursorColor: PRIMARY_COLOR,
-              //         inputFormatters: [maskFormatter],
-              //         onChanged: (value) {
-              //           phone = value;
-              //         },
-              //         keyboardType: TextInputType.phone,
-              //         decoration: InputDecoration(
-              //           border: InputBorder.none,
-              //           hintText: "Phone",
-              //         ),
-              //       ))
-              //     ],
-              //   ),
-              // ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(4, context),
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: PRIMARY_COLOR,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async {
-                      log("number:+${phone + countryController.text}");
-                      await FirebaseAuth.instance.verifyPhoneNumber(
-                        phoneNumber: "+${phone + countryController.text}",
-                        verificationCompleted:
-                            (PhoneAuthCredential credential) {},
-                        verificationFailed: (FirebaseAuthException e) {
-                          log("Error:::::$e");
-                          setState(() {
-                            isLoading = false;
-                          });
+              TextButtomWidget(
+                isLoading: isLoading,
+                onPressed: () async {
+                  log("number:+${phone + countryController.text}");
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    phoneNumber: "+${phone + countryController.text}",
+                    verificationCompleted: (PhoneAuthCredential credential) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                    },
+                    verificationFailed: (FirebaseAuthException e) {
+                      log("Error:::::$e");
+                      setState(() {
+                        isLoading = false;
+                      });
 
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                "Phone number verification failed. Error: ${e.message}"),
-                          ));
-                        },
-                        codeSent:
-                            (String verificationId, int? resendToken) async {
-                          Authmodual.verify = verificationId;
-                          log("VerificationId::::::${Authmodual.verify}");
-
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OTPscreen(
-                                phoneNumber:
-                                    "+${phone + countryController.text}",
-                              ),
-                            ),
-                          );
-                        },
-                        codeAutoRetrievalTimeout: (String verificationId) {},
-                      );
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                            "Phone number verification failed. Error: ${e.message}"),
+                      ));
+                    },
+                    codeSent: (String verificationId, int? resendToken) async {
+                      Authmodual.verify = verificationId;
+                      log("VerificationId::::::${Authmodual.verify}");
                       setState(() {
                         isLoading = true;
                       });
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OTPscreen(
+                            phoneNumber: "+${phone + countryController.text}",
+                          ),
+                        ),
+                      );
                     },
-                    child: const Text(
-                      "Send the code",
-                      style: TextStyle(color: WHITE_COLOR, fontSize: 16),
-                    )),
-              )
+                    codeAutoRetrievalTimeout: (String verificationId) {
+                      isLoading = false;
+                    },
+                  );
+                  setState(() {
+                    isLoading = true;
+                  });
+                },
+                title: "Send the Code",
+                color: PRIMARY_COLOR,
+              ),
             ],
           ),
         ),
