@@ -41,7 +41,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   Future<void> getSingleUserData() async {
-    List<Users> userData = [];
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -49,38 +48,36 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .get();
 
     print("object");
-    snapshot.docs.forEach((element) {
-      userData.add(
-        Users(
-            name: element['Name'],
-            department: element['Department'],
-            compeny: element['Company'],
-            headline: element['HeadLine'],
-            whatsapp: element['WhatsApp'],
-            telegram: element['Telegram'],
-            website: element['Website'],
-            link: element['Link'],
-            facebook: element['Facebook'],
-            email: element['Email'],
-            phone: element['Phone'],
-            address: element['Address'],
-            id: element['id'],
-            type: element['type'],
-            image: element['images'],
-            card: element['card']),
-      );
-    });
+    final userData = snapshot.docs
+        .map((e) => Users(
+            user: e['user'],
+            name: e['Name'],
+            department: e['Department'],
+            compeny: e['Company'],
+            headline: e['HeadLine'],
+            whatsapp: e['WhatsApp'],
+            telegram: e['Telegram'],
+            website: e['Website'],
+            link: e['Link'],
+            facebook: e['Facebook'],
+            email: e['Email'],
+            phone: e['Phone'],
+            address: e['Address'],
+            id: e['id'],
+            image: e['images'],
+            type: e['type'],
+            card: e['card']))
+        .toList();
 
     print("userData $userData");
 
     setState(() {
       value = true;
-      Staticmenbers.listofUsers = userData;
+      Staticmenbers.cardUsers = userData;
       log('message:$value');
     });
 
-    print(
-        "Staticmenbers.listofUsers.length : ${Staticmenbers.listofUsers.length}");
+    print("Staticmenbers.cardUsers.length : ${Staticmenbers.cardUsers.length}");
   }
 
   @override
@@ -100,14 +97,14 @@ class _ContactsScreenState extends State<ContactsScreen> {
           ),
           systemOverlayStyle: SystemUiOverlayStyle.light,
         ),
-        body: Staticmenbers.listofUsers.isNotEmpty
+        body: Staticmenbers.cardUsers.isNotEmpty
             ? GridView.builder(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 15,
                 ),
-                itemCount: Staticmenbers.listofUsers.length,
+                itemCount: Staticmenbers.cardUsers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     onTap: () async {
@@ -183,7 +180,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                           TextButtomWidget(
                                                             onPressed: () {
                                                               setState(() {
-                                                                log("${Staticmenbers.listofUsers[index].id}");
+                                                                log("${Staticmenbers.cardUsers[index].id}");
                                                                 final refresh = FirebaseFirestore
                                                                     .instance
                                                                     .collection(
@@ -195,7 +192,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                                     .collection(
                                                                         "Frind's Card")
                                                                     .doc(Staticmenbers
-                                                                        .listofUsers[
+                                                                        .cardUsers[
                                                                             index]
                                                                         .id)
                                                                     .delete()
@@ -269,7 +266,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         horizontal: wp(2, context),
                       ),
                       child: Column(children: [
-                        Staticmenbers.listofUsers[index].image == null
+                        Staticmenbers.cardUsers[index].image == null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.asset(
@@ -282,7 +279,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  "${Staticmenbers.listofUsers[index].image}",
+                                  "${Staticmenbers.cardUsers[index].image}",
                                   width: wp(45, context),
                                   height: hp(20, context),
                                   fit: BoxFit.fill,
@@ -316,7 +313,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         SizedBox(height: hp(0.5, context)),
                         Center(
                           child: Text(
-                            '${Staticmenbers.listofUsers[index].type}',
+                            '${Staticmenbers.cardUsers[index].type}',
                             style: TextStyle(color: WHITE_COLOR),
                           ),
                         ),

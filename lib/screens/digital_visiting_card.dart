@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'dart:ui' as ui;
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -8,16 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/digital_card/card_1.dart';
 import 'package:vcard/digital_card/card_4.dart';
 import 'package:vcard/digital_card/defult_card.dart';
 import 'package:vcard/utils/constants_color.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../digital_card/card_2.dart';
 import '../digital_card/card_3.dart';
-import '../utils/responsive.dart';
-import '../widget/text_button_widget.dart';
 
 class Digitalvisitingcard extends StatefulWidget {
   final int? id;

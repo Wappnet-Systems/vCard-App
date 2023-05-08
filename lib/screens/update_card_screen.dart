@@ -69,6 +69,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
 
     final userData = snapshot.docs
         .map((e) => Users(
+            user: e['user'],
             name: e['Name'],
             department: e['Department'],
             compeny: e['Company'],

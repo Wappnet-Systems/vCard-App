@@ -15,9 +15,11 @@ class Users {
   final String? image;
   final String? type;
   final int? card;
+  final String? user;
 
   Users(
-      {required this.name,
+      {required this.user,
+      required this.name,
       required this.department,
       required this.compeny,
       required this.headline,

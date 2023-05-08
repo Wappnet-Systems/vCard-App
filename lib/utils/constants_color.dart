@@ -11,5 +11,5 @@ const YOUR_GOOGLE_API_KEY = 'AIzaSyDJbqVkRb6llQczHvPN_WnK4pGUGt30ykM';
 
 class Staticmenbers {
   static List<Users> listofUsers = [];
-  // static List<Users> newUserCar = [];
+  static List<Users> cardUsers = [];
 }

@@ -55,6 +55,7 @@ class _CardscreenState extends State<Cardscreen> {
     snapshot.docs.forEach((element) {
       userData.add(
         Users(
+            user: element['user'],
             name: element['Name'],
             department: element['Department'],
             compeny: element['Company'],
@@ -73,25 +74,6 @@ class _CardscreenState extends State<Cardscreen> {
             card: element['card']),
       );
     });
-    // final userData = snapshot.docs
-    //     .map((e) => Users(
-    //         name: e['Name'],
-    //         department: e['Department'],
-    //         compeny: e['Company'],
-    //         headline: e['HeadLine'],
-    //         whatsapp: e['WhatsApp'],
-    //         telegram: e['Telegram'],
-    //         website: e['Website'],
-    //         link: e['Link'],
-    //         facebook: e['Facebook'],
-    //         email: e['Email'],
-    //         phone: e['Phone'],
-    //         address: e['Address'],
-    //         id: e['id'],
-    //         image: e['images'],
-    //         type: e['type'],
-    //         card: e['card']))
-    //     .toList();
 
     print("userData $userData");
 
@@ -223,7 +205,7 @@ class _CardscreenState extends State<Cardscreen> {
                                                         ),
                                                         builder: (BuildContext
                                                                 context) =>
-                                                            CardGenerateQR(
+                                                            cardsherescreen(
                                                               uid: FirebaseAuth
                                                                   .instance
                                                                   .currentUser
@@ -233,6 +215,8 @@ class _CardscreenState extends State<Cardscreen> {
                                                                       index]
                                                                   .id,
                                                             ));
+                                                    print(
+                                                        "object : ${Staticmenbers.listofUsers[index].card}");
                                                   },
                                                   child: CardWidget(
                                                     icon: Icons.send_sharp,
@@ -447,7 +431,7 @@ class _CardscreenState extends State<Cardscreen> {
                             style: TextStyle(color: WHITE_COLOR),
                           ),
                         ),
-                        SizedBox(height: hp(0.5, context)),
+                        // SizedBox(height: hp(0.5, context)),
                       ]),
                     ),
                   );

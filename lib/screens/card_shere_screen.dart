@@ -5,15 +5,20 @@ import 'package:vcard/utils/constants_color.dart';
 
 import '../widget/decoration_widget.dart';
 
-class CardGenerateQR extends StatefulWidget {
+class cardsherescreen extends StatefulWidget {
   final String? uid;
   final String? cid;
-  CardGenerateQR({super.key, required this.uid, required this.cid});
+  // final int? card;
+  cardsherescreen({
+    super.key,
+    required this.uid,
+    required this.cid,
+  });
   @override
-  _CardGenerateQRState createState() => _CardGenerateQRState();
+  _CardsherescreenState createState() => _CardsherescreenState();
 }
 
-class _CardGenerateQRState extends State<CardGenerateQR> {
+class _CardsherescreenState extends State<cardsherescreen> {
   @override
   void initState() {
     super.initState();
@@ -61,13 +66,13 @@ class _CardGenerateQRState extends State<CardGenerateQR> {
                 ],
               ),
               child: QrImage(
-                data: "${widget.uid} ${widget.cid}",
+                data: "${widget.uid} ${widget.cid} ",
                 size: 200,
               ),
             ),
             SizedBox(height: 10),
             Text(
-              "Point yoour camera at the QR code.",
+              "Point your camera at the QR code.",
               style: TextStyle(color: PRIMARY_COLOR),
             ),
           ],
