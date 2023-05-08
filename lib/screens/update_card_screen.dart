@@ -9,8 +9,10 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/utils/style.dart';
 import '../controllers/data_controllers.dart';
-import '../utils/style.dart';
+
+import '../utils/responsive.dart';
 import '../utils/validator.dart';
 import '../widget/custom_loading_bar.dart';
 import '../widget/custom_textformfield.dart';
@@ -82,12 +84,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             address: e['Address'],
             id: e['id'],
             image: e['images'],
-            type: e['type']))
+            type: e['type'],
+            card: e['card']))
         .toList();
 
     setState(() {
       singleuser = userData;
-
       imageurl = singleuser.first.image!;
       _nameController.text = singleuser.first.name!;
       _typecontroller.text = singleuser.first.type!;
@@ -102,6 +104,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _telegramcontroller.text = singleuser.first.telegram!;
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
+      _selectedIndex = singleuser.first.card!;
     });
     updateImageUrl = singleuser.first.image;
     setState(() {});
@@ -137,6 +140,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? updateImageUrl,
       'type': _typecontroller.text,
+      'card': _selectedIndex
     }).then((value) {
       Navigator.push(
           context,
@@ -178,6 +182,14 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     return imageurl;
   }
 
+  final imageList = [
+    "assets/cards/card1.jpg",
+    'assets/cards/card2.jpg',
+    "assets/cards/card3.jpg",
+    "assets/cards/card4.jpg"
+  ];
+
+  int? _selectedIndex;
   bool isLoading = false;
   bool isphotoloading = false;
   @override
@@ -347,7 +359,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 20),
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    InkWell(
+                        onTap: () {
+                          showimagelist();
+                        },
+                        child: Text("Select Card Theme")),
+                  ]),
+                  SizedBox(height: 20),
                   Iconwidget(
                     websitecontroller: _websitecontroller,
                     telegramcontroller: _telegramcontroller,
@@ -437,6 +457,56 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
           ),
         ),
       ),
+    );
+  }
+
+  showimagelist() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Card's"),
+          content: StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return SizedBox(
+              height: hp(30, context),
+              child: ListView.builder(
+                  itemCount: imageList.length,
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        height: hp(2, context),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: _selectedIndex == index
+                                ? PRIMARY_COLOR
+                                : WHITE_COLOR,
+                            width: 4,
+                          ),
+                        ),
+                        margin: EdgeInsets.only(
+                          right: wp(4, context),
+                        ),
+                        child: Image(
+                          image: AssetImage(imageList[index]),
+                          height: hp(20, context),
+                        ),
+                      ),
+                    );
+                  }),
+            );
+          }),
+        );
+      },
     );
   }
 

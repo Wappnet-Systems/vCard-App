@@ -1,29 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vcard/controllers/data_controllers.dart';
 import 'package:vcard/utils/responsive.dart';
 
 import '../utils/style.dart';
 import '../widget/text_button_widget.dart';
 
-class cardtheme1 extends StatelessWidget {
-  const cardtheme1({super.key});
+class Cardtheme1 extends StatefulWidget {
+  final int? id;
+  const Cardtheme1({
+    super.key,
+    required this.id,
+  });
+
+  @override
+  State<Cardtheme1> createState() => _Cardtheme1State();
+}
+
+class _Cardtheme1State extends State<Cardtheme1> {
+  int? cardindex;
+  FToast? fToast;
+
+  @override
+  void initState() {
+    cardindex = widget.id;
+    fToast = FToast();
+    fToast?.init(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("abc"),
-        backgroundColor: BLUE_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(Icons.ios_share_rounded),
-          ),
-        ],
-      ),
       backgroundColor: BACKGROUND_COLOR,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -38,12 +49,7 @@ class cardtheme1 extends StatelessWidget {
                 color: Colors.black,
                 blurRadius: 8.0,
               ),
-              BoxShadow(
-                  // color: Colors.white,
-                  // offset: const Offset(0.0, 0.0),
-                  // blurRadius: 0.0,
-                  // spreadRadius: 0.0,
-                  ),
+              BoxShadow(),
             ],
           ),
           child: Stack(children: [
@@ -73,7 +79,8 @@ class cardtheme1 extends StatelessWidget {
                           height: hp(5, context),
                         ),
                         Center(
-                            child: Text("Compeny",
+                            child: Text(
+                                "${Staticmenbers.listofUsers[cardindex!].compeny}",
                                 style: TextStyle(fontSize: 24))),
                       ],
                     ),
@@ -102,13 +109,15 @@ class cardtheme1 extends StatelessWidget {
                           height: hp(12, context),
                         ),
                         Center(
-                            child:
-                                Text("Name", style: TextStyle(fontSize: 24))),
+                            child: Text(
+                                "${Staticmenbers.listofUsers[cardindex!].name}",
+                                style: TextStyle(fontSize: 24))),
                         SizedBox(
                           height: hp(0.10, context),
                         ),
                         Center(
-                            child: Text("Department",
+                            child: Text(
+                                "${Staticmenbers.listofUsers[cardindex!].department}",
                                 style: TextStyle(fontSize: 14))),
                         SizedBox(
                           height: hp(2, context),
@@ -117,7 +126,8 @@ class cardtheme1 extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 8),
                           child: Center(
-                              child: Text("Headline",
+                              child: Text(
+                                  "${Staticmenbers.listofUsers[cardindex!].headline}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
@@ -159,8 +169,8 @@ class cardtheme1 extends StatelessWidget {
                                   padding: const EdgeInsets.all(12.0),
                                   child: InkWell(
                                     onTap: () {
-                                      // UrlLauncher.launch(
-                                      //     'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}');
+                                      UrlLauncher.launchUrl(Uri.parse(
+                                          'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/call.png",
@@ -175,7 +185,7 @@ class cardtheme1 extends StatelessWidget {
                                     onTap: () {
                                       launchUrl(
                                           Uri.parse(
-                                              'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                              'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
                                           mode: LaunchMode.externalApplication);
                                     },
                                     child: Image.asset(
@@ -189,8 +199,8 @@ class cardtheme1 extends StatelessWidget {
                                   padding: const EdgeInsets.all(12.0),
                                   child: InkWell(
                                     onTap: () {
-                                      // UrlLauncher.launch(
-                                      //     'mailto:${Staticmenbers.listofUsers[cardindex!].email}');
+                                      UrlLauncher.launchUrl(Uri.parse(
+                                          'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/email.png",
@@ -203,8 +213,8 @@ class cardtheme1 extends StatelessWidget {
                                   padding: const EdgeInsets.all(12.0),
                                   child: InkWell(
                                     onTap: () {
-                                      // UrlLauncher.launch(
-                                      //     'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}');
+                                      UrlLauncher.launchUrl(Uri.parse(
+                                          'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/Face.png",
@@ -223,10 +233,6 @@ class cardtheme1 extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
-                        BoxShadow(
-                          // color: Colors.white,
-                          blurRadius: 8.0,
-                        ),
                         BoxShadow(
                           color: Colors.white,
                           offset: const Offset(0.0, 0.0),
@@ -250,8 +256,8 @@ class cardtheme1 extends StatelessWidget {
                                 padding: const EdgeInsets.all(12.0),
                                 child: InkWell(
                                   onTap: () {
-                                    // UrlLauncher.launch(
-                                    //     "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram");
+                                    UrlLauncher.launchUrl(Uri.parse(
+                                        "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
                                   },
                                   child: Image.asset(
                                     "assets/icon/tele.png",
@@ -264,10 +270,10 @@ class cardtheme1 extends StatelessWidget {
                                 padding: const EdgeInsets.all(12.0),
                                 child: InkWell(
                                   onTap: () async {
-                                    // final url =
-                                    //     'https://${Staticmenbers.listofUsers[cardindex!].website}';
+                                    final url =
+                                        'https://${Staticmenbers.listofUsers[cardindex!].website}';
 
-                                    // await launch(url);
+                                    await launchUrl(Uri.parse(url));
                                   },
                                   child: Image.asset(
                                     "assets/icon/website.png",
@@ -280,10 +286,10 @@ class cardtheme1 extends StatelessWidget {
                                 padding: const EdgeInsets.all(12.0),
                                 child: InkWell(
                                   onTap: () async {
-                                    // final url =
-                                    //     'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                    final url =
+                                        'https://${Staticmenbers.listofUsers[cardindex!].link}';
 
-                                    // await launch(url);
+                                    await launchUrl(Uri.parse(url));
                                   },
                                   child: Image.asset(
                                     "assets/icon/lin.png",
@@ -319,7 +325,7 @@ class cardtheme1 extends StatelessWidget {
                                             children: [
                                               TextButtomWidget(
                                                 onPressed: () {
-                                                  // _pushMap();
+                                                  _pushMap();
                                                 },
                                                 title: 'Use Map',
                                                 fontSize: null,
@@ -355,26 +361,59 @@ class cardtheme1 extends StatelessWidget {
             ),
             Positioned(
               top: 110,
-              left: 80,
+              left: 90,
               child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: BLUE_COLOR, width: 5),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(100),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: BLUE_COLOR, width: 5),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(100),
+                    ),
                   ),
-                ),
-                child: ClipOval(
-                    child: Image.asset(
-                  "assets/images/splash1.png",
-                  width: 150,
-                  height: 150,
-                  fit: BoxFit.cover,
-                )),
-              ),
+                  child: ClipOval(
+                    child: Staticmenbers.listofUsers[cardindex!].image == ""
+                        ? Image.asset(
+                            "assets/images/splash1.png",
+                            width: wp(40, context),
+                            height: hp(20, context),
+                            fit: BoxFit.fill,
+                          )
+                        : Image.network(
+                            "${Staticmenbers.listofUsers[cardindex!].image}",
+                            width: wp(40, context),
+                            height: hp(20, context),
+                            fit: BoxFit.fill,
+                          ),
+                  )),
             ),
           ]),
         ),
       ),
+    );
+  }
+
+  void _pushMap() async {
+    String googleUrl =
+        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[cardindex!].address}";
+
+    await launchUrl(Uri.parse(googleUrl));
+  }
+
+  displayCustomToast() {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: WHITE_COLOR,
+      ),
+      child: const Text(
+        "Value is empty",
+        style: TextStyle(color: BLUE_COLOR),
+      ),
+    );
+
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 1),
     );
   }
 }
