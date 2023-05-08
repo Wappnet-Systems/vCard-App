@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vcard/screens/scanner_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
 import '../utils/constants_color.dart';
-import 'cardscreen.dart';
+import 'card_screen.dart';
 import 'contacts_screen.dart';
 
 class Dashboardscreen extends StatefulWidget {

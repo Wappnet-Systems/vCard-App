@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/auth_modual.dart';
+import 'package:vcard/screens/number_verification_Screen.dart';
 import 'digital_card/card_1.dart';
 import 'digital_card/card_2.dart';
 import 'digital_card/card_3.dart';
@@ -97,7 +97,7 @@ class _MyAppState extends State<MyApp> {
                 ? Dashboardscreen(
                     index: 0,
                   )
-                : Authmodual(),
+                : Numberverification(),
       ),
     );
   }

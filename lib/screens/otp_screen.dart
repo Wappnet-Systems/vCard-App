@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:vcard/screens/auth_modual.dart';
+import 'package:vcard/screens/number_verification_Screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 
@@ -117,11 +117,11 @@ class _OTPscreenState extends State<OTPscreen> {
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
                       try {
-                        log(Authmodual.verify);
+                        log(Numberverification.verify);
                         log(code);
                         PhoneAuthCredential credential =
                             PhoneAuthProvider.credential(
-                                verificationId: Authmodual.verify,
+                                verificationId: Numberverification.verify,
                                 smsCode: code);
 
                         await auth

@@ -9,14 +9,14 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
-import 'package:vcard/widget/bottom_sheet.dart';
+import 'package:vcard/widget/bottom_sheet_widget.dart';
 import '../controllers/data_controllers.dart';
-import '../widget/custom_no_data.dart';
+import '../widget/custom_no_data_widget.dart';
 import '../widget/decoration_widget.dart';
 import '../widget/text_button_widget.dart';
 import 'app_shere_screen.dart';
 import 'card_shere_screen.dart';
-import 'digital_visiting_card.dart';
+import 'digital_visiting_card_screen.dart';
 
 class Cardscreen extends StatefulWidget {
   const Cardscreen({super.key});
@@ -165,7 +165,6 @@ class _CardscreenState extends State<Cardscreen> {
                                       ),
                                       color: BLUE_COLOR,
                                     ),
-                                    // height: hp(50, context),
                                     child: Center(
                                       child: Column(
                                         crossAxisAlignment:

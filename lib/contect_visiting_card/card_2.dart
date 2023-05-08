@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
-import '../widget/clip_path_widget.dart';
 import '../widget/text_button_widget.dart';
 
 class Contectcardtheme2 extends StatefulWidget {

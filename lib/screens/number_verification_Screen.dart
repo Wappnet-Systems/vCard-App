@@ -7,19 +7,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
-import '../widget/custom loading bar.dart';
+import '../widget/custom_loadingbar_widget.dart';
 import 'otp_screen.dart';
 
-class Authmodual extends StatefulWidget {
-  const Authmodual({Key? key}) : super(key: key);
+class Numberverification extends StatefulWidget {
+  const Numberverification({Key? key}) : super(key: key);
 
   static String verify = "";
 
   @override
-  State<Authmodual> createState() => _AuthmodualState();
+  State<Numberverification> createState() => _NumberverificationState();
 }
 
-class _AuthmodualState extends State<Authmodual> {
+class _NumberverificationState extends State<Numberverification> {
   TextEditingController countryController = TextEditingController();
   var phone;
 
@@ -161,8 +161,8 @@ class _AuthmodualState extends State<Authmodual> {
                           },
                           codeSent:
                               (String verificationId, int? resendToken) async {
-                            Authmodual.verify = verificationId;
-                            log("VerificationId::::::${Authmodual.verify}");
+                            Numberverification.verify = verificationId;
+                            log("VerificationId::::::${Numberverification.verify}");
 
                             Navigator.pushReplacement(
                                 context,

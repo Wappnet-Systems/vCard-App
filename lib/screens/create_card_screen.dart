@@ -10,9 +10,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
-import '../widget/custom loading bar.dart';
-import '../widget/custom_textformfield.dart';
-import '../widget/icon.dart';
+import '../widget/custom_loadingbar_widget.dart';
+import '../widget/custom_textformfield_widget.dart';
+import '../widget/icon_widget.dart';
 
 class Createcardscreen extends StatefulWidget {
   @override

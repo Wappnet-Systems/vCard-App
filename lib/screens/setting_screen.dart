@@ -9,7 +9,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/auth_modual.dart';
+import 'package:vcard/screens/number_verification_Screen.dart';
 import '../utils/constants_color.dart';
 import 'app_shere_screen.dart';
 
@@ -148,7 +148,8 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Authmodual()));
+                                    builder: (context) =>
+                                        Numberverification()));
                           }).show();
                     },
                     child: Row(
@@ -182,7 +183,8 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Authmodual()));
+                                      builder: (context) =>
+                                          Numberverification()));
                             }).show();
                       } catch (e) {
                         print(e);
