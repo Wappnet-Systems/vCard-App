@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
@@ -12,9 +11,9 @@ import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/validator.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
-import 'package:vcard/widget/custom_loading_bar.dart';
 import 'package:vcard/widget/custom_textformfield_widget.dart';
 import 'package:vcard/widget/icon_widget.dart';
+import 'package:vcard/widget/upload_image_dialog.dart';
 
 class Createcardscreen extends StatefulWidget {
   const Createcardscreen({super.key});
@@ -44,6 +43,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   String? imgurl;
   File? imagepicker;
   String? card;
+  dynamic result;
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
@@ -51,6 +51,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     fToast = FToast();
     fToast?.init(context);
     super.initState();
+  }
+
+  getCardIndex() async {
+    _selectedIndex = await result;
+    log("card index:$_selectedIndex");
   }
 
   var receivedLoanDataRef = FirebaseFirestore.instance
@@ -208,7 +213,17 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         right: wp(0, context),
                         child: InkWell(
                           onTap: () {
-                            imagePicker();
+                            imagePicker(
+                              context,
+                              cameraOnPressed: () {
+                                Navigator.pop(context);
+                                pickImage(ImageSource.camera);
+                              },
+                              galleryOnPressed: () {
+                                Navigator.pop(context);
+                                pickImage(ImageSource.gallery);
+                              },
+                            );
                           },
                           child: Container(
                             padding: const EdgeInsets.all(5.0),
@@ -230,11 +245,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   ],
                 ),
               ),
-              (isLoading)
-                  ? const Custonloading()
-                  : SizedBox(
-                      height: hp(3, context),
-                    ),
+              SizedBox(
+                height: hp(3, context),
+              ),
               CustomTextFormField(
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _typecontroller,
@@ -277,7 +290,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               ),
               InkWell(
                 onTap: () {
-                  showimagelist();
+                  result = showimagelist(context, _selectedIndex, imageList);
+                  getCardIndex();
                 },
                 child: Text(
                   "Select Card Theme",
@@ -305,129 +319,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           ),
         ),
       ),
-    );
-  }
-
-  void imagePicker() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        content: Container(
-          color: WHITE_COLOR,
-          height: 250,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Pic Image From",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: PRIMARY_COLOR),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "CAMERA",
-                        style: TextStyle(color: WHITE_COLOR),
-                      )),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.pop(context);
-                      },
-                      child: Text("GALLERY",
-                          style: TextStyle(color: WHITE_COLOR))),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child:
-                          Text("CANCEL", style: TextStyle(color: WHITE_COLOR))),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  showimagelist() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Card's"),
-          content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return SizedBox(
-              height: hp(30, context),
-              child: ListView.builder(
-                  itemCount: imageList.length,
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        height: hp(2, context),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _selectedIndex == index
-                                ? PRIMARY_COLOR
-                                : WHITE_COLOR,
-                            width: 4,
-                          ),
-                        ),
-                        margin: EdgeInsets.only(
-                          right: wp(4, context),
-                        ),
-                        child: Image(
-                          image: AssetImage(imageList[index]),
-                          height: hp(20, context),
-                        ),
-                      ),
-                    );
-                  }),
-            );
-          }),
-        );
-      },
     );
   }
 

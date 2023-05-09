@@ -1,17 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/contect_visiting_card/card_2.dart';
 import 'package:vcard/contect_visiting_card/card_3.dart';
 import 'package:vcard/contect_visiting_card/card_4.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
 import '../contect_visiting_card/card_1.dart';
 import '../contect_visiting_card/defult_card.dart';
 
 class Contectvisitingcard extends StatefulWidget {
   final int? id;
-  Contectvisitingcard({super.key, required this.id});
+  const Contectvisitingcard({super.key, required this.id});
 
   @override
   State<Contectvisitingcard> createState() => _ContectvisitingcardState();
@@ -25,6 +28,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
   void initState() {
     super.initState();
     contactcardindex = widget.id;
+    log("contactcardindex:$contactcardindex");
     fToast = FToast();
     fToast?.init(context);
   }
@@ -38,16 +42,25 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
       Contectcardtheme4(id: contactcardindex),
       Contectdefultcard(id: contactcardindex)
     ];
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text("${Staticmenbers.cardUsers[widget.id!].type}"),
-            backgroundColor: BLUE_COLOR,
-            systemOverlayStyle: SystemUiOverlayStyle.light,
+    log("Staticmembers.listofUsers[widget.id!].card!:${Staticmembers.listofUsers[widget.id!].card!}");
+    return Scaffold(
+      backgroundColor: BACKGROUND_COLOR,
+      appBar: AppBarWidget(
+        title:
+            "${Staticmembers.listofUsers[contactcardindex!].type?.toUpperCase()}",
+        centerTitle: true,
+        leadinWidget: InkWell(
+          onTap: () {
+            Navigator.pop(context, true);
+          },
+          child: const Icon(
+            Icons.arrow_back_rounded,
+            color: WHITE_COLOR,
+            size: 25,
           ),
-          backgroundColor: BACKGROUND_COLOR,
-          body: cardList[Staticmenbers.cardUsers[widget.id!].card!]),
+        ),
+      ),
+      body: cardList[Staticmembers.listofUsers[widget.id!].card!],
     );
   }
 }

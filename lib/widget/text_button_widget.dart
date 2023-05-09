@@ -10,6 +10,7 @@ class TextButtomWidget extends StatelessWidget {
   final double? width;
   final double? height;
   final double? fontSize;
+  final Widget? icon;
   final bool isLoading;
   const TextButtomWidget({
     super.key,
@@ -19,6 +20,7 @@ class TextButtomWidget extends StatelessWidget {
     this.color,
     this.fontSize,
     this.width,
+    this.icon,
     this.height,
     this.isLoading = false,
   });
@@ -51,10 +53,17 @@ class TextButtomWidget extends StatelessWidget {
               )
             : TextButton(
                 onPressed: onPressed,
-                child: Text(
-                  "$title",
-                  style: textStyle ??
-                      TextStyle(color: WHITE_COLOR, fontSize: fontSize ?? 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon ?? const SizedBox.shrink(),
+                    Text(
+                      "$title",
+                      style: textStyle ??
+                          TextStyle(
+                              color: WHITE_COLOR, fontSize: fontSize ?? 16),
+                    ),
+                  ],
                 ),
               ),
       ),

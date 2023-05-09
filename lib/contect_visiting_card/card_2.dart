@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
 import '../widget/text_button_widget.dart';
 
 class Contectcardtheme2 extends StatefulWidget {
@@ -60,7 +60,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       ),
                       Center(
                           child: Text(
-                              "${Staticmenbers.listofUsers[contactcardindex!].name}",
+                              "${Staticmembers.listofUsers[contactcardindex!].name}",
                               style: TextStyle(fontSize: 24))),
                       SizedBox(
                         height: hp(0.10, context),
@@ -78,7 +78,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                             InkWell(
                               onTap: () {
                                 UrlLauncher.launchUrl(Uri.parse(
-                                    'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
+                                    'tel:+${Staticmembers.listofUsers[contactcardindex!].phone.toString()}'));
                               },
                               child: Image.asset(
                                 "assets/icon/call.png",
@@ -90,7 +90,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               width: wp(8, context),
                             ),
                             Text(
-                                "${Staticmenbers.listofUsers[contactcardindex!].phone}",
+                                "${Staticmembers.listofUsers[contactcardindex!].phone}",
                                 style: TextStyle(fontSize: 14))
                           ],
                         ),
@@ -105,7 +105,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                             InkWell(
                               onTap: () {
                                 UrlLauncher.launchUrl(Uri.parse(
-                                    'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
+                                    'mailto:${Staticmembers.listofUsers[contactcardindex!].email}'));
                               },
                               child: Image.asset(
                                 "assets/icon/email.png",
@@ -117,7 +117,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               width: wp(8, context),
                             ),
                             Text(
-                                "${Staticmenbers.listofUsers[contactcardindex!].email}",
+                                "${Staticmembers.listofUsers[contactcardindex!].email}",
                                 style: TextStyle(fontSize: 14))
                           ],
                         ),
@@ -132,7 +132,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                             InkWell(
                               onTap: () async {
                                 final url =
-                                    'https://${Staticmenbers.listofUsers[contactcardindex!].website}';
+                                    'https://${Staticmembers.listofUsers[contactcardindex!].website}';
 
                                 await launchUrl(Uri.parse(url));
                               },
@@ -146,7 +146,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               width: wp(8, context),
                             ),
                             Text(
-                                "${Staticmenbers.listofUsers[contactcardindex!].website}",
+                                "${Staticmembers.listofUsers[contactcardindex!].website}",
                                 style: TextStyle(fontSize: 14))
                           ],
                         ),
@@ -180,7 +180,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           onTap: () {
                             launchUrl(
                                 Uri.parse(
-                                    'https://wa.me/$Staticmenbers.listofUsers[contactcardindex!].whatsapp?text=Hi'),
+                                    'https://wa.me/$Staticmembers.listofUsers[contactcardindex!].whatsapp?text=Hi'),
                                 mode: LaunchMode.externalApplication);
                           },
                           child: Image.asset(
@@ -195,7 +195,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.launchUrl(Uri.parse(
-                                'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
+                                'https://www.facebook.com/{${Staticmembers.listofUsers[contactcardindex!].facebook}}'));
                           },
                           child: Image.asset(
                             "assets/icon/Face.png",
@@ -209,7 +209,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                         child: InkWell(
                           onTap: () {
                             UrlLauncher.launchUrl(Uri.parse(
-                                "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram"));
+                                "https://telegram.me/$Staticmembers.listofUsers[contactcardindex!].telegram"));
                           },
                           child: Image.asset(
                             "assets/icon/tele.png",
@@ -223,7 +223,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                         child: InkWell(
                           onTap: () async {
                             final url =
-                                'https://${Staticmenbers.listofUsers[contactcardindex!].link}';
+                                'https://${Staticmembers.listofUsers[contactcardindex!].link}';
 
                             await launchUrl(Uri.parse(url));
                           },
@@ -249,7 +249,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                                         color: WHITE_COLOR,
                                         fontWeight: FontWeight.bold)),
                                 content: Text(
-                                    '${Staticmenbers.listofUsers[contactcardindex!].address}',
+                                    '${Staticmembers.listofUsers[contactcardindex!].address}',
                                     style: TextStyle(
                                         fontFamily: 'Marck',
                                         fontSize: 25,
@@ -303,7 +303,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 ),
                 child: ClipOval(
                   child:
-                      Staticmenbers.listofUsers[contactcardindex!].image == ""
+                      Staticmembers.listofUsers[contactcardindex!].image == ""
                           ? Image.asset(
                               "assets/images/splash1.png",
                               width: wp(40, context),
@@ -311,7 +311,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               fit: BoxFit.fill,
                             )
                           : Image.network(
-                              "${Staticmenbers.listofUsers[contactcardindex!].image}",
+                              "${Staticmembers.listofUsers[contactcardindex!].image}",
                               width: wp(40, context),
                               height: hp(20, context),
                               fit: BoxFit.fill,
@@ -327,7 +327,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
 
   void _pushMap() async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[contactcardindex!].address}";
+        "https://www.google.com/maps/search/?api=1&query=${Staticmembers.listofUsers[contactcardindex!].address}";
 
     await launchUrl(Uri.parse(googleUrl));
   }

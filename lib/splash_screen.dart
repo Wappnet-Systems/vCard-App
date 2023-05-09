@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vcard/screens/auth_modual.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/screens/number_verification_Screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 
@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: COLOR_BACKGROUND,
+      backgroundColor: BACKGROUND_COLOR,
       body: Stack(
         children: [
           Container(

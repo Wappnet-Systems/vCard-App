@@ -2,20 +2,15 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vcard/controllers/data_controllers.dart';
+import 'package:vcard/screens/contect_visiting_card.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/string.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
-import '../controllers/data_controllers.dart';
-import '../utils/style.dart';
-import '../utils/responsive.dart';
-import '../widget/bottom_sheet_widget.dart';
-import '../widget/custom_no_data_widget.dart';
-import '../widget/decoration_widget.dart';
-import '../widget/text_button_widget.dart';
-import 'contect_visiting_card.dart';
+import 'package:vcard/widget/custom_no_data_widget.dart';
+import 'package:vcard/widget/delete_card_dialog.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -27,30 +22,33 @@ class ContactsScreen extends StatefulWidget {
 class _ContactsScreenState extends State<ContactsScreen> {
   int? cardindex;
   bool value = false;
+  bool isLoading = false;
+  List<Users> userData = [];
   @override
   void initState() {
-    getSingleUserData();
-    log('Rfresh');
-    setState(() {});
+    getContactData();
     super.initState();
   }
 
   void changeData() {
     setState(() {
-      getSingleUserData();
+      getContactData();
       value = true;
     });
   }
 
-  Future<void> getSingleUserData() async {
+  Future<void> getContactData() async {
+    setState(() {
+      isLoading = true;
+    });
+    userData.clear();
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Frind's Card")
         .get();
 
-    print("object");
-    final userData = snapshot.docs
+    userData = snapshot.docs
         .map((e) => Users(
             user: e['user'],
             name: e['Name'],
@@ -71,253 +69,267 @@ class _ContactsScreenState extends State<ContactsScreen> {
             card: e['card']))
         .toList();
 
-    print("userData $userData");
-
     setState(() {
       value = true;
+      isLoading = false;
       Staticmembers.listofUsers = userData;
-      log('message:$value');
     });
 
-    print(
-        "Staticmembers.listofUsers.length : ${Staticmembers.listofUsers.length}");
+    log("contact length : ${Staticmembers.listofUsers.length}");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: BACKGROUND_COLOR,
-        appBar: const AppBarWidget(
-          title: "Contacts",
-          centerTitle: true,
-        ),
-        body: Staticmembers.listofUsers.isNotEmpty
-            ? GridView.builder(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 15,
-                ),
-                itemCount: Staticmembers.listofUsers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () async {
-                      setState(() {
-                        cardindex = index;
-                      });
-                      final refresh = await showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    topRight: Radius.circular(15),
-                                  ),
-                                  color: BLUE_COLOR,
-                                ),
-                                height: hp(30, context),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Decorationwidget(),
-                                      SizedBox(
-                                        height: hp(1, context),
-                                      ),
-                                      Text(
-                                        "Work",
-                                        style: TextStyle(
-                                            fontSize: 20, color: WHITE_COLOR),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: wp(6.7, context)),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            // SizedBox(width: wp(7, context)),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Contectvisitingcard(
-                                                              id: cardindex,
-                                                            )));
-                                              },
-                                              child: CardWidget(
-                                                icon: Icons.remove_red_eye,
-                                                data: "View",
-                                                data1: "Open your card",
-                                                data2: "in vCard.",
-                                              ),
-                                            ),
-                                            // SizedBox(width: wp(3, context)),
-                                            InkWell(
-                                              onTap: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (ctx) => AlertDialog(
-                                                    title: const Text(
-                                                        "Are you sure you want to delete this card?"),
-                                                    content: null,
-                                                    actions: <Widget>[
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          TextButtomWidget(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                log("${Staticmembers.listofUsers[index].id}");
-                                                                final refresh = FirebaseFirestore
-                                                                    .instance
-                                                                    .collection(
-                                                                        "users")
-                                                                    .doc(FirebaseAuth
-                                                                        .instance
-                                                                        .currentUser
-                                                                        ?.uid)
-                                                                    .collection(
-                                                                        "Frind's Card")
-                                                                    .doc(Staticmembers
-                                                                        .listofUsers[
-                                                                            index]
-                                                                        .id)
-                                                                    .delete()
-                                                                    .then(
-                                                                        (value) {
-                                                                  Future.delayed(
-                                                                      Duration(
-                                                                          seconds:
-                                                                              1),
-                                                                      () {
-                                                                    Navigator.pushReplacement(
-                                                                        context,
-                                                                        MaterialPageRoute(
-                                                                            builder: (context) => Dashboardscreen(
-                                                                                  index: 2,
-                                                                                )));
-                                                                  });
-                                                                });
-                                                                if (refresh ==
-                                                                    true) {
-                                                                  changeData();
-                                                                }
-                                                              });
-                                                            },
-                                                            title: '0key',
-                                                            fontSize: 15,
-                                                            color: Colors
-                                                                .redAccent,
-                                                          ),
-                                                          TextButtomWidget(
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            title: 'Cancle',
-                                                            fontSize: 15,
-                                                            color:
-                                                                PRIMARY_COLOR,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                              child: CardWidget(
-                                                icon: Icons.delete,
-                                                data: "Delete",
-                                                data1: "Delete your",
-                                                data2: "Card.",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ));
-                          });
-                      log("refresh1:$refresh");
-                      if (refresh == true) {
-                        changeData();
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
+      backgroundColor: BACKGROUND_COLOR,
+      appBar: const AppBarWidget(
+        title: "Contacts",
+        centerTitle: true,
+      ),
+      body: Staticmembers.listofUsers.isNotEmpty
+          ? isLoading
+              ? const Center(
+                  child: SpinKitCircle(
+                    color: PRIMARY_COLOR,
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: wp(6, context),
+                    vertical: hp(3, context),
+                  ),
+                  itemCount: Staticmembers.listofUsers.length,
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return PopupMenuButton(
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
-                        color: PRIMARY_COLOR,
                       ),
-                      margin: EdgeInsets.symmetric(
-                        horizontal: wp(2, context),
+                      constraints: BoxConstraints(
+                        maxWidth: wp(28, context),
+                        maxHeight: hp(35, context),
                       ),
-                      child: Column(children: [
-                        Staticmembers.listofUsers[index].image == null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  "assets/images/splash1.png",
-                                  width: wp(45, context),
-                                  height: hp(20, context),
-                                  fit: BoxFit.fill,
+                      itemBuilder: (BuildContext context) {
+                        return <PopupMenuEntry>[
+                          PopupMenuItem(
+                            value: 1,
+                            height: hp(6, context),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.visibility_rounded,
+                                  size: 20,
+                                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.7),
+                                ),
+                                SizedBox(
+                                  width: wp(2, context),
+                                ),
+                                Text(
+                                  "View",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: COLOR_PRIMARY_LIGHT.withOpacity(0.8),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          PopupMenuItem(
+                            value: 2,
+                            height: hp(6, context),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  Icons.delete_outline_rounded,
+                                  size: 20,
+                                  color: Colors.red,
+                                ),
+                                SizedBox(
+                                  width: wp(2, context),
+                                ),
+                                const Text(
+                                  "Delete",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.red,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ];
+                      },
+                      onSelected: (value) {
+                        setState(() {
+                          cardindex = index;
+                        });
+                        value == 1
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Contectvisitingcard(
+                                    id: cardindex,
+                                  ),
                                 ),
                               )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  "${Staticmembers.listofUsers[index].image}",
-                                  width: wp(45, context),
-                                  height: hp(20, context),
-                                  fit: BoxFit.fill,
-                                  frameBuilder: (context, child, frame,
-                                      wasSynchronouslyLoaded) {
-                                    return child;
-                                  },
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Image(
-                                      image: AssetImage(
-                                          "assets/images/splash1.png"),
-                                      width: wp(45, context),
-                                      height: hp(20, context),
-                                    );
-                                  },
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    } else {
-                                      return Center(
-                                          child: Icon(
-                                        Icons.image,
-                                        size: 130,
-                                        color: WHITE_COLOR,
-                                      ));
-                                    }
-                                  },
-                                ),
-                              ),
-                        SizedBox(height: hp(0.5, context)),
-                        Center(
-                          child: Text(
-                            '${Staticmembers.listofUsers[index].type}',
-                            style: TextStyle(color: WHITE_COLOR),
-                          ),
+                            : value == 2
+                                ? deleteCard(
+                                    context,
+                                    onPressed: () {
+                                      setState(() {
+                                        log("${Staticmembers.listofUsers[index].id}");
+                                        FirebaseFirestore.instance
+                                            .collection("users")
+                                            .doc(FirebaseAuth
+                                                .instance.currentUser?.uid)
+                                            .collection("Frind's Card")
+                                            .doc(Staticmembers
+                                                .listofUsers[index].id)
+                                            .delete()
+                                            .then((value) {
+                                          Navigator.pop(context, true);
+                                          changeData();
+                                        });
+                                      });
+                                    },
+                                  )
+                                : null;
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: wp(3, context),
+                          vertical: hp(2, context),
                         ),
-                        SizedBox(height: hp(0.5, context)),
-                      ]),
-                    ),
-                  );
-                })
-            : CustomNoData(
-                iconaddress: CARD,
-              ));
+                        margin: EdgeInsets.symmetric(
+                          vertical: hp(1.5, context),
+                        ),
+                        decoration: BoxDecoration(
+                          color: WHITE_COLOR,
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: COLOR_PRIMARY_DARK.withOpacity(0.2),
+                              blurRadius: 1.0,
+                              offset: const Offset(1, -1),
+                            ),
+                            BoxShadow(
+                              color: COLOR_PRIMARY_DARK.withOpacity(0.2),
+                              blurRadius: 1.0,
+                              offset: const Offset(-1, 1),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Staticmembers.listofUsers[index].image ==
+                                      ""
+                                  ? Image.asset(
+                                      "assets/images/splash1.png",
+                                      width: wp(16, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.network(
+                                      "${Staticmembers.listofUsers[index].image}",
+                                      width: wp(16, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.cover,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
+                                        return child;
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return Center(
+                                            child: Icon(
+                                              Icons.image,
+                                              size: 60,
+                                              color: PRIMARY_COLOR
+                                                  .withOpacity(0.5),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      errorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Center(
+                                          child: Icon(
+                                            Icons.image,
+                                            size: 60,
+                                            color:
+                                                PRIMARY_COLOR.withOpacity(0.5),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                            ),
+                            SizedBox(
+                              width: wp(3, context),
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${Staticmembers.listofUsers[index].type}',
+                                    style: const TextStyle(
+                                      color: COLOR_PRIMARY_DARK,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Company: ${Staticmembers.listofUsers[index].compeny}',
+                                    style: TextStyle(
+                                      color:
+                                          COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Department: ${Staticmembers.listofUsers[index].department}',
+                                    style: TextStyle(
+                                      color:
+                                          COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Icon(
+                              Icons.menu_rounded,
+                              size: 20,
+                              color: BLUE_COLOR,
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )
+          : const CustomNoData(
+              iconaddress: CARD,
+            ),
+    );
   }
 }

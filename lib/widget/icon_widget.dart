@@ -76,15 +76,16 @@ class _IconwidgetState extends State<Iconwidget> {
                   onTap: () {
                     showDialog(
                         builder: (context) => IconTextField(
-                            icon: const Icon(
-                              FontAwesomeIcons.whatsapp,
-                              color: PRIMARY_COLOR,
+                              icon: const Icon(
+                                FontAwesomeIcons.whatsapp,
+                                color: PRIMARY_COLOR,
+                              ),
+                              hint: 'Whatsapp',
+                              textInputType: TextInputType.number,
+                              inputFormatters: [maskFormatter],
+                              textEditingController: widget.whatsappcontroller,
+                              validationfunction: numbervalidator,
                             ),
-                            hint: 'Whatsapp',
-                            textInputType: TextInputType.number,
-                            inputFormatters: [maskFormatter],
-                            textEditingController: widget.whatsappcontroller,
-                            validationfunction: numbervalidator),
                         context: context);
                   },
                   child: Column(

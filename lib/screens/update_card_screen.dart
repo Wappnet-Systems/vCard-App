@@ -5,22 +5,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vcard/controllers/data_controllers.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
-import '../controllers/data_controllers.dart';
-
-import '../utils/responsive.dart';
-import '../utils/validator.dart';
-import '../widget/custom_loadingbar_widget.dart';
-import '../widget/custom_textformfield_widget.dart';
-import '../widget/icon_widget.dart';
+import 'package:vcard/utils/validator.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
+import 'package:vcard/widget/custom_textformfield_widget.dart';
+import 'package:vcard/widget/icon_widget.dart';
+import 'package:vcard/widget/upload_image_dialog.dart';
 
 class Updatecardscreen extends StatefulWidget {
-  String? id;
-  Updatecardscreen({
+  final String? id;
+  const Updatecardscreen({
     Key? key,
     this.id,
   }) : super(key: key);
@@ -30,27 +29,31 @@ class Updatecardscreen extends StatefulWidget {
 }
 
 class _UpdatecardscreenState extends State<Updatecardscreen> {
+  //text editing controller
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _departmentController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _headlineController = TextEditingController();
+  final TextEditingController _whatsappcontroller = TextEditingController();
+  final TextEditingController _telegramcontroller = TextEditingController();
+  final TextEditingController _addresscontroller = TextEditingController();
+  final TextEditingController _linkcontroller = TextEditingController();
+  final TextEditingController _snapchatcontroller = TextEditingController();
+  final TextEditingController _websitecontroller = TextEditingController();
+  final TextEditingController _facebookcontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _numbercontroller = TextEditingController();
+  final TextEditingController _typecontroller = TextEditingController();
+
+  FToast? fToast;
   int? i = 0;
   String? imageurl;
   List<Users> singleuser = [];
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _departmentController = TextEditingController();
-  TextEditingController _companyController = TextEditingController();
-  TextEditingController _headlineController = TextEditingController();
-  TextEditingController _whatsappcontroller = TextEditingController();
-  TextEditingController _telegramcontroller = TextEditingController();
-  TextEditingController _addresscontroller = TextEditingController();
-  TextEditingController _linkcontroller = TextEditingController();
-  TextEditingController _snapchatcontroller = TextEditingController();
-  TextEditingController _websitecontroller = TextEditingController();
-  TextEditingController _facebookcontroller = TextEditingController();
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _numbercontroller = TextEditingController();
-  TextEditingController _typecontroller = TextEditingController();
-  FToast? fToast;
+  File? imagepicker;
   final _formfield = GlobalKey<FormState>();
   String? updateImageUrl;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+  dynamic result;
   @override
   void initState() {
     fToast = FToast();
@@ -112,8 +115,13 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     print("Image:${singleuser.first.image}");
   }
 
+  getCardIndex() async {
+    _selectedIndex = await result;
+    log("card index:$_selectedIndex");
+  }
+
   Future<void> updateUser() async {
-    print("Update - Image:$updateImageUrl");
+    log("Update - Image:$updateImageUrl");
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -121,9 +129,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
         .doc(widget.id);
     String? imgurl;
     print(receivedLoanDataRef.id);
-    if (Imagepicker != null) {
-      imgurl = await uploadImage(Imagepicker!);
+    if (imagepicker != null) {
+      imgurl = await uploadImage(imagepicker!);
     }
+    log("yess:$_selectedIndex");
     return receivedLoanDataRef.update({
       'Name': _nameController.text,
       'Department': _departmentController.text,
@@ -143,36 +152,40 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'type': _typecontroller.text,
       'card': _selectedIndex
     }).then((value) {
-      Navigator.push(
+      Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(
-              builder: ((context) => Dashboardscreen(
-                    index: 0,
-                  ))));
-    }).catchError((error) => print("Failed to update user: $error"));
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const Dashboardscreen(
+              index: 0,
+            ),
+            transitionDuration: const Duration(seconds: 0),
+          ),
+          (route) => false);
+    }).catchError((error) {
+      log("Failed to update user: $error");
+    });
   }
-
-  File? Imagepicker;
 
   Future pickImage(ImageSource imageType) async {
     try {
       final pick = await ImagePicker().pickImage(source: imageType);
       setState(() {
         if (pick != null) {
-          Imagepicker = File(pick.path);
-          log("Updatd Image:${Imagepicker?.path}");
-          uploadImage(Imagepicker!);
+          imagepicker = File(pick.path);
+          log("Updatd Image:${imagepicker?.path}");
+          uploadImage(imagepicker!);
         }
       });
     } catch (e) {}
   }
 
   String url = "";
-  uploadImage(File Imagepicker) async {
+  uploadImage(imagepicker) async {
     String imgId = DateTime.now().microsecondsSinceEpoch.toString();
     Reference reference =
         FirebaseStorage.instance.ref().child('images').child('users$imgId');
-    await reference.putFile(Imagepicker);
+    await reference.putFile(imagepicker);
     url = await reference.getDownloadURL();
     log("url:$url");
     setState(() {
@@ -197,309 +210,206 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
+      appBar: AppBarWidget(
+        title: "Update Card",
         centerTitle: true,
-        title: const Text("Card"),
-        actions: <Widget>[
+        leadinWidget: InkWell(
+          onTap: () {
+            Navigator.pop(context, true);
+          },
+          child: const Icon(
+            Icons.arrow_back_rounded,
+            color: WHITE_COLOR,
+            size: 25,
+          ),
+        ),
+        actions: [
           IconButton(
-              onPressed: () async {
-                if (_formfield.currentState!.validate()) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  updateUser();
-                }
-              },
-              icon: Icon(Icons.save)),
+            onPressed: () async {
+              if (_formfield.currentState!.validate()) {
+                setState(() {
+                  isLoading = true;
+                });
+                await updateUser();
+              }
+            },
+            icon: const Icon(
+              Icons.save,
+              color: WHITE_COLOR,
+            ),
+          ),
         ],
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formfield,
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  Text("Edit Card"),
-                  Divider(),
-                  SizedBox(height: 20),
-                  Stack(children: [
+        padding: EdgeInsets.symmetric(
+          horizontal: wp(6, context),
+          vertical: hp(3, context),
+        ),
+        physics: const BouncingScrollPhysics(),
+        child: Form(
+          key: _formfield,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Stack(
+                  children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: PRIMARY_COLOR, width: 5),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(100),
-                        ),
+                        border: Border.all(color: PRIMARY_COLOR, width: 2),
+                        shape: BoxShape.circle,
                       ),
-                      child: imageurl == null || imageurl == ""
-                          ? ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(100),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/splash1.png"),
-                                height: 170,
-                                width: 170,
-                              ),
-                            )
-                          : ClipOval(
-                              child: CachedNetworkImage(
-                                placeholder: (context, url) => Custonloading(),
-                                imageUrl: "$imageurl",
-
-                                width: 170,
-                                height: 170,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(70),
+                        ),
+                        child: imageurl == null || imageurl == ""
+                            ? Image.asset(
+                                "assets/images/splash1.png",
+                                width: wp(35, context),
+                                height: hp(21, context),
                                 fit: BoxFit.cover,
-                                // frameBuilder: (context, child, frame,
-                                //     wasSynchronouslyLoaded) {
-                                //   return child;
-                                // },
-                                // errorBuilder: (context, error, stackTrace) {
-                                //   return Image(
-                                //     image:
-                                //         AssetImage("assets/images/splash1.png"),
-                                //     height: 170,
-                                //     width: 170,
-                                //   );
-                                // },
-                                // loadingBuilder:
-                                //     (context, child, loadingProgress) {
-                                //   if (loadingProgress == null) {
-                                //     return child;
-                                //   } else {
-                                //     return Image(
-                                //       image: AssetImage(
-                                //           "assets/images/splash1.png"),
-                                //       height: 170,
-                                //       width: 170,
-                                //     );
-                                //   }
-                                // },
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: "$imageurl",
+                                width: wp(33, context),
+                                height: hp(20, context),
+                                fit: BoxFit.cover,
+                                placeholder: (context, url) => Container(
+                                  color: PRIMARY_COLOR,
+                                  child: const Icon(
+                                    Icons.image_rounded,
+                                    color: WHITE_COLOR,
+                                    size: 80,
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) => Container(
+                                  color: PRIMARY_COLOR,
+                                  child: const Icon(
+                                    Icons.image_rounded,
+                                    color: WHITE_COLOR,
+                                    size: 80,
+                                  ),
+                                ),
                               ),
-                            ),
+                      ),
                     ),
                     Positioned(
-                        top: 120,
-                        left: 150,
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              isphotoloading = true;
-                            });
-                            imagepicker();
-                          },
-                          child: Icon(
-                            Icons.flip_camera_ios,
-                            size: 30,
-                            color: BLUE_COLOR,
+                      bottom: hp(0, context),
+                      right: wp(0, context),
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isphotoloading = true;
+                          });
+                          imagePicker(
+                            context,
+                            cameraOnPressed: () {
+                              Navigator.pop(context);
+                              pickImage(ImageSource.camera);
+                            },
+                            galleryOnPressed: () {
+                              Navigator.pop(context);
+                              pickImage(ImageSource.gallery);
+                            },
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: PRIMARY_COLOR,
+                            border: Border.all(
+                              color: WHITE_COLOR,
+                              width: 2,
+                            ),
                           ),
-                        )),
-                  ]),
-                  (isLoading) ? Custonloading() : SizedBox(height: 25),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.emailAddress,
-                    textEditingController: _typecontroller,
-                    texteditinghinttext: 'type',
-                    customobscuretext: true,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _nameController,
-                    texteditinghinttext: 'Name',
-                    customobscuretext: true,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _departmentController,
-                    texteditinghinttext: 'Department',
-                    customobscuretext: true,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _companyController,
-                    texteditinghinttext: 'Company',
-                    customobscuretext: true,
-                    validationfunction: textvalidator,
-                  ),
-                  TextFormField(
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    style: TextStyle(color: Color(0xff000000)),
-                    cursorColor: PRIMARY_COLOR,
-                    controller: _headlineController,
-                    decoration: InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: PRIMARY_COLOR),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-                      hintText: 'Headline',
-                      hintStyle: TextStyle(
-                        color: Color(0xff000000),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
+                          child: const Icon(
+                            Icons.camera_enhance_rounded,
+                            size: 23,
+                            color: WHITE_COLOR,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    InkWell(
-                        onTap: () {
-                          showimagelist();
-                        },
-                        child: Text("Select Card Theme")),
-                  ]),
-                  SizedBox(height: 20),
-                  Iconwidget(
-                    websitecontroller: _websitecontroller,
-                    telegramcontroller: _telegramcontroller,
-                    numbercontroller: _numbercontroller,
-                    emailcontroller: _emailcontroller,
-                    textEditingController: _addresscontroller,
-                    linkcontroller: _linkcontroller,
-                    facebookcontroller: _facebookcontroller,
-                    whatsappcontroller: _whatsappcontroller,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  void imagepicker() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        content: Container(
-          color: WHITE_COLOR,
-          height: 250,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Pic Image From",
+              SizedBox(
+                height: hp(3, context),
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.emailAddress,
+                textEditingController: _typecontroller,
+                texteditinghinttext: 'Card Type',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.text,
+                textEditingController: _nameController,
+                texteditinghinttext: 'Name',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.text,
+                textEditingController: _departmentController,
+                texteditinghinttext: 'Department',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.text,
+                textEditingController: _companyController,
+                texteditinghinttext: 'Company',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              CustomTextFormField(
+                textInputType: TextInputType.multiline,
+                textEditingController: _headlineController,
+                maxLength: 250,
+                maxLines: 7,
+                texteditinghinttext: 'Headline',
+                customobscuretext: true,
+                validationfunction: textvalidator,
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              InkWell(
+                onTap: () {
+                  result = showimagelist(context, _selectedIndex, imageList);
+                  getCardIndex();
+                },
+                child: Text(
+                  "Select Card Theme",
                   style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: PRIMARY_COLOR),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
+                    fontSize: 14,
+                    color: COLOR_PRIMARY_LIGHT.withOpacity(0.7),
+                    fontWeight: FontWeight.w500,
                   ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        "CAMERA",
-                        style: TextStyle(color: WHITE_COLOR),
-                      )),
                 ),
-                SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.pop(context);
-                      },
-                      child: Text("GALLERY",
-                          style: TextStyle(color: WHITE_COLOR))),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child:
-                          Text("CANCEL", style: TextStyle(color: WHITE_COLOR))),
-                ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              Iconwidget(
+                websitecontroller: _websitecontroller,
+                telegramcontroller: _telegramcontroller,
+                numbercontroller: _numbercontroller,
+                emailcontroller: _emailcontroller,
+                textEditingController: _addresscontroller,
+                linkcontroller: _linkcontroller,
+                facebookcontroller: _facebookcontroller,
+                whatsappcontroller: _whatsappcontroller,
+              ),
+            ],
           ),
         ),
       ),
-    );
-  }
-
-  showimagelist() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text("Card's"),
-          content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return SizedBox(
-              height: hp(30, context),
-              child: ListView.builder(
-                  itemCount: imageList.length,
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        height: hp(2, context),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _selectedIndex == index
-                                ? PRIMARY_COLOR
-                                : WHITE_COLOR,
-                            width: 4,
-                          ),
-                        ),
-                        margin: EdgeInsets.only(
-                          right: wp(4, context),
-                        ),
-                        child: Image(
-                          image: AssetImage(imageList[index]),
-                          height: hp(20, context),
-                        ),
-                      ),
-                    );
-                  }),
-            );
-          }),
-        );
-      },
     );
   }
 

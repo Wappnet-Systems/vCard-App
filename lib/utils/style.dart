@@ -7,10 +7,9 @@ import '../controllers/data_controllers.dart';
 const Color PRIMARY_COLOR = Color(0Xff60ab44);
 const COLOR_PRIMARY_DARK = Color(0xff000000);
 Color COLOR_PRIMARY_LIGHT = const Color(0xff000000).withOpacity(0.7);
-const COLOR_BACKGROUND = Color(0xffFFFFFF);
 const COLOR_BACKGROUND_DARK = Color(0xffF5F6FA);
 const COLOR_SECONDARY = Color(0xffC4C4C4);
-const Color BACKGROUND_COLOR = Color(0Xfff5f4f3);
+const Color BACKGROUND_COLOR = Color(0xffFFFFFF);
 const Color WHITE_COLOR = Color(0XffFFFFFF);
 const Color BLACK_COLOR = Colors.black;
 const Color BLUE_COLOR = Color(0xff1d2e3e);
@@ -31,7 +30,7 @@ final appThemeData = {
     primaryColorLight: COLOR_PRIMARY_LIGHT,
     primaryColorDark: COLOR_PRIMARY_DARK,
     secondaryHeaderColor: PRIMARY_COLOR.withOpacity(0.5),
-    scaffoldBackgroundColor: COLOR_BACKGROUND,
+    scaffoldBackgroundColor: BACKGROUND_COLOR,
     tabBarTheme: TabBarTheme(
       unselectedLabelColor: COLOR_PRIMARY_LIGHT,
       indicator: BoxDecoration(

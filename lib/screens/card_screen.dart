@@ -2,13 +2,16 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vcard/controllers/data_controllers.dart';
+import 'package:vcard/screens/card_shere_screen.dart';
 import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/string.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
 import 'package:vcard/widget/custom_no_data_widget.dart';
+import 'package:vcard/widget/delete_card_dialog.dart';
 import 'package:vcard/widget/text_button_widget.dart';
 import 'digital_visiting_card_screen.dart';
 
@@ -43,6 +46,7 @@ class _CardscreenState extends State<Cardscreen> {
     setState(() {
       isLoading = true;
     });
+    userData.clear();
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -95,7 +99,7 @@ class _CardscreenState extends State<Cardscreen> {
       body: Staticmembers.listofUsers.isNotEmpty
           ? isLoading
               ? const Center(
-                  child: CircularProgressIndicator(
+                  child: SpinKitCircle(
                     color: PRIMARY_COLOR,
                   ),
                 )
@@ -241,7 +245,25 @@ class _CardscreenState extends State<Cardscreen> {
                                     ? openShareBottomSheet(context,
                                         Staticmembers.listofUsers[index].id)
                                     : deleteCard(
-                                        Staticmembers.listofUsers[index].id);
+                                        context,
+                                        onPressed: () {
+                                          setState(() {
+                                            log("${Staticmembers.listofUsers[index].id}");
+                                            FirebaseFirestore.instance
+                                                .collection("users")
+                                                .doc(FirebaseAuth
+                                                    .instance.currentUser?.uid)
+                                                .collection("Carddata")
+                                                .doc(Staticmembers
+                                                    .listofUsers[index].id)
+                                                .delete()
+                                                .then((value) {
+                                              Navigator.pop(context, true);
+                                              changeData();
+                                            });
+                                          });
+                                        },
+                                      );
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
@@ -377,7 +399,6 @@ class _CardscreenState extends State<Cardscreen> {
   }
 
   void openShareBottomSheet(BuildContext context, String? userId) {
-    log("tap");
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -386,83 +407,9 @@ class _CardscreenState extends State<Cardscreen> {
           topRight: Radius.circular(16),
         ),
       ),
-      builder: (BuildContext context) => CardGenerateQR(
+      builder: (BuildContext context) => cardsherescreen(
         uid: FirebaseAuth.instance.currentUser?.uid,
         cid: userId,
-      ),
-    );
-  }
-
-  deleteCard(dynamic userId) {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: wp(4, context),
-          vertical: hp(2, context),
-        ),
-        title: const Text(
-          "Delete this card?",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              color: COLOR_PRIMARY_DARK),
-        ),
-        content: Text(
-          "Are you sure you want to delete this card?",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
-          ),
-        ),
-        actions: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Flexible(
-                child: TextButtomWidget(
-                  height: hp(7, context),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  title: 'Cancle',
-                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
-                ),
-              ),
-              SizedBox(
-                width: wp(4, context),
-              ),
-              Flexible(
-                child: TextButtomWidget(
-                  height: hp(7, context),
-                  onPressed: () {
-                    setState(() {
-                      log("$userId");
-                      FirebaseFirestore.instance
-                          .collection("users")
-                          .doc(FirebaseAuth.instance.currentUser?.uid)
-                          .collection("Carddata")
-                          .doc(userId)
-                          .delete()
-                          .then((value) {
-                        Navigator.pop(context, true);
-                        changeData();
-                      });
-                    });
-                  },
-                  title: 'Delete',
-                  color: Colors.red,
-                ),
-              ),
-            ],
-          ),
-        ],
       ),
     );
   }

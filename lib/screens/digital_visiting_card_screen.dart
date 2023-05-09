@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:ui';
@@ -7,18 +8,18 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vcard/digital_card/card_1.dart';
-import 'package:vcard/digital_card/card_4.dart';
-import 'package:vcard/digital_card/defult_card.dart';
+import 'package:vcard/contect_visiting_card/card_1.dart';
+import 'package:vcard/contect_visiting_card/card_2.dart';
+import 'package:vcard/contect_visiting_card/card_3.dart';
+import 'package:vcard/contect_visiting_card/card_4.dart';
+import 'package:vcard/contect_visiting_card/defult_card.dart';
 
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:vcard/utils/style.dart';
-import '../digital_card/card_2.dart';
-import '../digital_card/card_3.dart';
+import 'package:vcard/widget/app_bar_widget.dart';
 
 class Digitalvisitingcard extends StatefulWidget {
   final int? id;
-  Digitalvisitingcard({super.key, required this.id});
+  const Digitalvisitingcard({super.key, required this.id});
 
   @override
   State<Digitalvisitingcard> createState() => _DigitalvisitingcardState();
@@ -27,17 +28,17 @@ class Digitalvisitingcard extends StatefulWidget {
 class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   int? cardindex;
   FToast? fToast;
-  GlobalKey _containerKey = GlobalKey();
+  final _containerKey = GlobalKey();
 
   @override
   void initState() {
-    super.initState();
     cardindex = widget.id;
     fToast = FToast();
     fToast?.init(context);
+    super.initState();
   }
 
-  Future<void> _captureImage() async {
+  Future<void> captureImage() async {
     RenderRepaintBoundary boundary = _containerKey.currentContext
         ?.findRenderObject() as RenderRepaintBoundary;
     ui.Image image = await boundary.toImage(pixelRatio: 3.0);
@@ -58,34 +59,44 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   @override
   Widget build(BuildContext context) {
     List<Widget> cardList = [
-      Cardtheme1(id: cardindex),
-      Cardtheme2(id: cardindex),
-      Cardtheme3(id: cardindex),
-      Cardtheme4(id: cardindex),
-      DefultCard(id: cardindex)
+      Contectcardtheme1(id: cardindex),
+      Contectcardtheme2(id: cardindex),
+      Contectcardtheme3(id: cardindex),
+      Contectcardtheme4(id: cardindex),
+      Contectdefultcard(id: cardindex)
     ];
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
+    log("card:${Staticmembers.listofUsers[widget.id!].card!}");
+    return Scaffold(
+      backgroundColor: BACKGROUND_COLOR,
+      appBar: AppBarWidget(
+        title: "${Staticmembers.listofUsers[widget.id!].type}",
         centerTitle: true,
-        title: Text("${Staticmembers.listofUsers[widget.id!].type}"),
-        backgroundColor: BLUE_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        leadinWidget: InkWell(
+          onTap: () {
+            Navigator.pop(context, true);
+          },
+          child: const Icon(
+            Icons.arrow_back_rounded,
+            color: WHITE_COLOR,
+            size: 25,
+          ),
+        ),
         actions: [
-          InkWell(
-              onTap: () async {
-                await _captureImage();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.ios_share_rounded),
-              )),
+          IconButton(
+            onPressed: () async {
+              await captureImage();
+            },
+            icon: const Icon(
+              Icons.ios_share_rounded,
+              color: WHITE_COLOR,
+            ),
+          ),
         ],
       ),
-      backgroundColor: BACKGROUND_COLOR,
       body: RepaintBoundary(
-          key: _containerKey,
-          child: cardList[Staticmembers.listofUsers[widget.id!].card!]),
-    ));
+        key: _containerKey,
+        child: cardList[Staticmembers.listofUsers[widget.id!].card!],
+      ),
+    );
   }
 }
