@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -16,6 +17,7 @@ import '../utils/validator.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_textformfield_widget.dart';
 import '../widget/icon_widget.dart';
+import '../widget/text_button_widget.dart';
 
 class Updatecardscreen extends StatefulWidget {
   String? id;
@@ -85,7 +87,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             id: e['id'],
             image: e['images'],
             type: e['type'],
-            card: e['card']))
+            card: e['card'],
+            color: e['color']))
         .toList();
 
     setState(() {
@@ -105,6 +108,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
       _selectedIndex = singleuser.first.card!;
+      _selectcolor = singleuser.first.color!;
     });
     updateImageUrl = singleuser.first.image;
     setState(() {});
@@ -188,7 +192,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     "assets/cards/card3.jpg",
     "assets/cards/card4.jpg"
   ];
-
+  int? _selectcolor;
   int? _selectedIndex;
   bool isLoading = false;
   bool isphotoloading = false;
@@ -196,24 +200,25 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Card"),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () async {
-                if (_formfield.currentState!.validate()) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  updateUser();
-                }
+      appBar: Customappbarwidget(
+          title: "Card",
+          actions: <Widget>[
+            IconButton(
+                onPressed: () async {
+                  if (_formfield.currentState!.validate()) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    updateUser();
+                  }
+                },
+                icon: Icon(Icons.save)),
+          ],
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
               },
-              icon: Icon(Icons.save)),
-        ],
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
+              child: Icon(Icons.arrow_back_sharp))),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -229,7 +234,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   Stack(children: [
                     Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: PRIMARY_COLOR, width: 5),
+                        border: Border.all(color: PRIMARY_COLOR, width: 3),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -249,41 +254,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               child: CachedNetworkImage(
                                 placeholder: (context, url) => Custonloading(),
                                 imageUrl: "$imageurl",
-
                                 width: 170,
                                 height: 170,
                                 fit: BoxFit.cover,
-                                // frameBuilder: (context, child, frame,
-                                //     wasSynchronouslyLoaded) {
-                                //   return child;
-                                // },
-                                // errorBuilder: (context, error, stackTrace) {
-                                //   return Image(
-                                //     image:
-                                //         AssetImage("assets/images/splash1.png"),
-                                //     height: 170,
-                                //     width: 170,
-                                //   );
-                                // },
-                                // loadingBuilder:
-                                //     (context, child, loadingProgress) {
-                                //   if (loadingProgress == null) {
-                                //     return child;
-                                //   } else {
-                                //     return Image(
-                                //       image: AssetImage(
-                                //           "assets/images/splash1.png"),
-                                //       height: 170,
-                                //       width: 170,
-                                //     );
-                                //   }
-                                // },
                               ),
                             ),
                     ),
                     Positioned(
-                        top: 120,
-                        left: 150,
+                        top: 140,
+                        left: 133,
                         child: InkWell(
                           onTap: () {
                             setState(() {
@@ -365,7 +344,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         onTap: () {
                           showimagelist();
                         },
-                        child: Text("Select Card Theme")),
+                        child: Text("Select Card Theme ?",
+                            style: TextStyle(color: PRIMARY_COLOR))),
+                    Spacer(),
+                    InkWell(
+                        onTap: () {
+                          showcolorlist();
+                        },
+                        child: Text("Select Card Color ?",
+                            style: TextStyle(color: PRIMARY_COLOR)))
                   ]),
                   SizedBox(height: 20),
                   Iconwidget(
@@ -465,11 +452,19 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
+          ),
           title: Text("Card's"),
           content: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
-            return SizedBox(
+            return Container(
               height: hp(30, context),
+              width: wp(50, context),
               child: ListView.builder(
                   itemCount: imageList.length,
                   scrollDirection: Axis.horizontal,
@@ -505,6 +500,74 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   }),
             );
           }),
+        );
+      },
+    );
+  }
+
+  showcolorlist() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
+          ),
+          title: Text('Pick a color'),
+          content: Container(
+            height: hp(30, context),
+            width: wp(50, context),
+            child: StatefulBuilder(
+              builder: (BuildContext context,
+                  void Function(void Function()) setState) {
+                return GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: colorList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _selectcolor = index;
+                        });
+                      },
+                      child: Container(
+                        width: wp(5, context),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: _selectcolor == index
+                                  ? PRIMARY_COLOR
+                                  : WHITE_COLOR,
+                              width: 4,
+                            ),
+                            color: colorList[index],
+                            borderRadius: BorderRadius.circular(100)),
+                      ),
+                    );
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 10),
+                );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              TextButtomWidget(
+                color: PRIMARY_COLOR,
+                fontSize: 20,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                title: 'ok',
+              ),
+            ])
+          ],
         );
       },
     );

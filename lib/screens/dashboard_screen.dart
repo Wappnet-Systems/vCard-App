@@ -53,37 +53,49 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             ),
           ),
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: PRIMARY_COLOR,
-          selectedItemColor: BLUE_COLOR,
-          selectedIconTheme: IconThemeData(color: BLUE_COLOR),
-          unselectedItemColor: WHITE_COLOR,
-          unselectedIconTheme: IconThemeData(color: WHITE_COLOR),
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.add_card),
-              label: 'Card',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.photo_camera),
-              label: 'Scan',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.contacts),
-              label: 'Contacts',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-            ),
-          ],
-          currentIndex: indexx!,
-          onTap: (int index) async {
-            setState(() {
-              indexx = index;
-            });
-          },
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(25.0),
+                topRight: Radius.circular(25.0),
+              ),
+              gradient: LinearGradient(
+                  colors: [Colors.green, PRIMARY_COLOR],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter)),
+          child: BottomNavigationBar(
+            elevation: 0.0,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.transparent,
+            selectedItemColor: WHITE_COLOR,
+            selectedIconTheme: IconThemeData(color: WHITE_COLOR),
+            unselectedItemColor: BLUE_COLOR,
+            unselectedIconTheme: IconThemeData(color: BLUE_COLOR),
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.add_card),
+                label: 'Card',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.photo_camera),
+                label: 'Scan',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.contacts),
+                label: 'Contacts',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'Settings',
+              ),
+            ],
+            currentIndex: indexx!,
+            onTap: (int index) async {
+              setState(() {
+                indexx = index;
+              });
+            },
+          ),
         ),
       ),
     );

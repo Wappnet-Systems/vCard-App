@@ -21,10 +21,10 @@ class _DecorationwidgetState extends State<Decorationwidget> {
           topRight: Radius.circular(15),
         ),
         border: Border.all(
-          color: PRIMARY_COLOR,
+          color: Colors.transparent,
           width: 10,
         ),
-        color: PRIMARY_COLOR,
+        color: Colors.transparent,
       ),
     );
   }

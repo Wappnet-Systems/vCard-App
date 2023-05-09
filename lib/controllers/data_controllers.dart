@@ -16,9 +16,11 @@ class Users {
   final String? type;
   final int? card;
   final String? user;
+  final int? color;
 
   Users(
       {required this.user,
+      required this.color,
       required this.name,
       required this.department,
       required this.compeny,

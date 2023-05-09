@@ -34,7 +34,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
         padding: const EdgeInsets.all(15.0),
         child: Container(
           width: wp(100, context),
-          height: hp(100, context),
+          height: hp(70, context),
           decoration: BoxDecoration(
             color: BLUE_COLOR,
             borderRadius: BorderRadius.circular(15),
@@ -48,15 +48,17 @@ class _Cardtheme2State extends State<Cardtheme2> {
           child: Stack(children: [
             Column(
               children: [
-                SizedBox(height: hp(15, context)),
+                SizedBox(height: hp(12, context)),
                 Container(
                   width: wp(100, context),
-                  height: hp(57, context),
-                  color: WHITE_COLOR,
+                  height: hp(47, context),
+                  color: Staticmenbers.listofUsers[cardindex!].color != null
+                      ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
+                      : WHITE_COLOR,
                   child: Column(
                     children: [
                       SizedBox(
-                        height: hp(15, context),
+                        height: hp(13, context),
                       ),
                       Center(
                           child: Text(
@@ -69,7 +71,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           child: Text("Department",
                               style: TextStyle(fontSize: 14))),
                       SizedBox(
-                        height: hp(5, context),
+                        height: hp(3, context),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 50),
@@ -82,7 +84,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/call.png",
-                                scale: 18,
+                                scale: 22,
                                 color: BLUE_COLOR,
                               ),
                             ),
@@ -109,7 +111,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/email.png",
-                                scale: 18,
+                                scale: 22,
                                 color: BLUE_COLOR,
                               ),
                             ),
@@ -138,7 +140,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/website.png",
-                                scale: 18,
+                                scale: 22,
                                 color: BLUE_COLOR,
                               ),
                             ),
@@ -186,7 +188,12 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           child: Image.asset(
                             "assets/icon/whats.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -200,7 +207,12 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           child: Image.asset(
                             "assets/icon/Face.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -214,7 +226,12 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           child: Image.asset(
                             "assets/icon/tele.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -230,7 +247,12 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           child: Image.asset(
                             "assets/icon/lin.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -284,7 +306,12 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           child: Image.asset(
                             "assets/icon/pin.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -292,27 +319,27 @@ class _Cardtheme2State extends State<Cardtheme2> {
               ],
             ),
             Positioned(
-              top: 20,
-              left: 80,
+              top: 10,
+              left: 100,
               child: Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: BLUE_COLOR, width: 5),
+                  border: Border.all(color: BLUE_COLOR, width: 3),
                   borderRadius: const BorderRadius.all(
-                    Radius.circular(100),
+                    Radius.circular(90),
                   ),
                 ),
                 child: ClipOval(
                   child: Staticmenbers.listofUsers[cardindex!].image == ""
                       ? Image.asset(
                           "assets/images/splash1.png",
-                          width: wp(40, context),
-                          height: hp(20, context),
+                          width: wp(42, context),
+                          height: hp(21, context),
                           fit: BoxFit.fill,
                         )
                       : Image.network(
                           "${Staticmenbers.listofUsers[cardindex!].image}",
-                          width: wp(40, context),
-                          height: hp(20, context),
+                          width: wp(42, context),
+                          height: hp(21, context),
                           fit: BoxFit.fill,
                         ),
                 ),

@@ -59,7 +59,9 @@ class _DefultCardState extends State<DefultCard> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   elevation: 30,
-                  color: BLUE_COLOR,
+                  color: Staticmenbers.listofUsers[cardindex!].color != null
+                      ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
+                      : BLUE_COLOR,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

@@ -44,7 +44,10 @@ class _Cardtheme3State extends State<Cardtheme3> {
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(15),
                         topLeft: Radius.circular(15)),
-                    color: WHITE_COLOR,
+                    color: Staticmenbers.listofUsers[cardindex!].color != null
+                        ? colorList[
+                            Staticmenbers.listofUsers[cardindex!].color!]
+                        : WHITE_COLOR,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black,
@@ -231,7 +234,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               child: Image.asset(
                                 "assets/icon/call.png",
                                 scale: 30,
-                                color: WHITE_COLOR,
+                                color: Staticmenbers
+                                            .listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                               ),
                             ),
                             SizedBox(
@@ -261,7 +269,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               child: Image.asset(
                                 "assets/icon/whats.png",
                                 scale: 30,
-                                color: WHITE_COLOR,
+                                color: Staticmenbers
+                                            .listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                               ),
                             ),
                           ),
@@ -289,7 +302,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               child: Image.asset(
                                 "assets/icon/email.png",
                                 scale: 30,
-                                color: WHITE_COLOR,
+                                color: Staticmenbers
+                                            .listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                               ),
                             ),
                             SizedBox(
@@ -319,7 +337,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               child: Image.asset(
                                 "assets/icon/website.png",
                                 scale: 30,
-                                color: WHITE_COLOR,
+                                color: Staticmenbers
+                                            .listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                               ),
                             ),
                             SizedBox(
@@ -347,7 +370,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               child: Image.asset(
                                 "assets/icon/Face.png",
                                 scale: 30,
-                                color: WHITE_COLOR,
+                                color: Staticmenbers
+                                            .listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR,
                               ),
                             ),
                           ),

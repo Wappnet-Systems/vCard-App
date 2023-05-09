@@ -39,7 +39,11 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                 height: hp(35, context),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: WHITE_COLOR,
+                  color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                          null
+                      ? colorList[
+                          Staticmenbers.listofUsers[contactcardindex!].color!]
+                      : WHITE_COLOR,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black,
@@ -326,7 +330,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             child: Image.asset(
                               "assets/icon/call.png",
                               scale: 30,
-                              color: WHITE_COLOR,
+                              color: Staticmenbers
+                                          .cardUsers[contactcardindex!].color !=
+                                      null
+                                  ? colorList[Staticmenbers
+                                      .listofUsers[contactcardindex!].color!]
+                                  : WHITE_COLOR,
                             ),
                           ),
                         ],
@@ -349,7 +358,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             child: Image.asset(
                               "assets/icon/whats.png",
                               scale: 30,
-                              color: WHITE_COLOR,
+                              color: Staticmenbers
+                                          .cardUsers[contactcardindex!].color !=
+                                      null
+                                  ? colorList[Staticmenbers
+                                      .listofUsers[contactcardindex!].color!]
+                                  : WHITE_COLOR,
                             ),
                           ),
                         ),
@@ -370,7 +384,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             child: Image.asset(
                               "assets/icon/email.png",
                               scale: 30,
-                              color: WHITE_COLOR,
+                              color: Staticmenbers
+                                          .cardUsers[contactcardindex!].color !=
+                                      null
+                                  ? colorList[Staticmenbers
+                                      .listofUsers[contactcardindex!].color!]
+                                  : WHITE_COLOR,
                             ),
                           ),
                         ],
@@ -393,7 +412,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             child: Image.asset(
                               "assets/icon/website.png",
                               scale: 30,
-                              color: WHITE_COLOR,
+                              color: Staticmenbers
+                                          .cardUsers[contactcardindex!].color !=
+                                      null
+                                  ? colorList[Staticmenbers
+                                      .listofUsers[contactcardindex!].color!]
+                                  : WHITE_COLOR,
                             ),
                           ),
                         ],
@@ -414,7 +438,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             child: Image.asset(
                               "assets/icon/Face.png",
                               scale: 30,
-                              color: WHITE_COLOR,
+                              color: Staticmenbers
+                                          .cardUsers[contactcardindex!].color !=
+                                      null
+                                  ? colorList[Staticmenbers
+                                      .listofUsers[contactcardindex!].color!]
+                                  : WHITE_COLOR,
                             ),
                           ),
                         ),

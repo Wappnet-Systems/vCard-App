@@ -5,14 +5,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../utils/constants_color.dart';
 import '../utils/validator.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_textformfield_widget.dart';
 import '../widget/icon_widget.dart';
+import '../widget/text_button_widget.dart';
 
 class Createcardscreen extends StatefulWidget {
   @override
@@ -75,6 +78,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
       'card': _selectedIndex ?? 4,
+      'color': _selectcolor
     }).then((value) {
       Navigator.pop(context, true);
     }).catchError((error) {
@@ -112,30 +116,32 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     "assets/cards/card4.jpg"
   ];
 
+  int? _selectcolor;
   int? _selectedIndex;
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Create Card"),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () async {
-                if (_formfield.currentState!.validate()) {
-                  setState(() {
-                    isLoading = true;
-                  });
-                  addUser();
-                }
+      appBar: Customappbarwidget(
+          title: "Create Card",
+          actions: <Widget>[
+            IconButton(
+                onPressed: () async {
+                  if (_formfield.currentState!.validate()) {
+                    setState(() {
+                      isLoading = true;
+                    });
+                    addUser();
+                  }
+                },
+                icon: Icon(Icons.save)),
+          ],
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
               },
-              icon: Icon(Icons.save)),
-        ],
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
+              child: Icon(Icons.arrow_back_sharp))),
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -152,7 +158,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     children: [
                       Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: PRIMARY_COLOR, width: 5),
+                          border: Border.all(color: PRIMARY_COLOR, width: 3),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(100),
                           ),
@@ -174,7 +180,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       ),
                       Positioned(
                           top: 140,
-                          left: 140,
+                          left: 133,
                           child: InkWell(
                             onTap: () {
                               imagepicker();
@@ -254,7 +260,17 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         onTap: () {
                           showimagelist();
                         },
-                        child: Text("Select Card Theme")),
+                        child: Text("Select Card Theme ?",
+                            style: TextStyle(color: PRIMARY_COLOR))),
+                    Spacer(),
+                    InkWell(
+                        onTap: () {
+                          showcolorlist();
+                        },
+                        child: Text(
+                          "Select Card Color ?",
+                          style: TextStyle(color: PRIMARY_COLOR),
+                        ))
                   ]),
                   SizedBox(height: 20),
                   Iconwidget(
@@ -351,49 +367,122 @@ class _CreatecardscreenState extends State<Createcardscreen> {
 
   showimagelist() {
     showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
+              ),
+              content: Container(
+                height: hp(30, context),
+                width: wp(50, context),
+                child: StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return ListView.builder(
+                      itemCount: imageList.length,
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            height: hp(10, context),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: _selectedIndex == index
+                                    ? PRIMARY_COLOR
+                                    : WHITE_COLOR,
+                                width: 4,
+                              ),
+                            ),
+                            margin: EdgeInsets.only(
+                              right: wp(4, context),
+                            ),
+                            child: Image(
+                              image: AssetImage(imageList[index]),
+                              height: hp(20, context),
+                            ),
+                          ),
+                        );
+                      });
+                }),
+              ));
+        });
+  }
+
+  showcolorlist() {
+    showDialog(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Card's"),
-          content: StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return SizedBox(
-              height: hp(30, context),
-              child: ListView.builder(
-                  itemCount: imageList.length,
-                  scrollDirection: Axis.horizontal,
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
+          ),
+          title: Text('Pick a color'),
+          content: Container(
+            height: hp(30, context),
+            width: wp(50, context),
+            child: StatefulBuilder(
+              builder: (BuildContext context,
+                  void Function(void Function()) setState) {
+                return GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: colorList.length,
+                  itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () {
                         setState(() {
-                          _selectedIndex = index;
+                          _selectcolor = index;
                         });
-                        Navigator.pop(context);
                       },
                       child: Container(
-                        height: hp(2, context),
+                        width: wp(5, context),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _selectedIndex == index
-                                ? PRIMARY_COLOR
-                                : WHITE_COLOR,
-                            width: 4,
-                          ),
-                        ),
-                        margin: EdgeInsets.only(
-                          right: wp(4, context),
-                        ),
-                        child: Image(
-                          image: AssetImage(imageList[index]),
-                          height: hp(20, context),
-                        ),
+                            border: Border.all(
+                              color: _selectcolor == index
+                                  ? PRIMARY_COLOR
+                                  : WHITE_COLOR,
+                              width: 4,
+                            ),
+                            color: colorList[index],
+                            borderRadius: BorderRadius.circular(100)),
                       ),
                     );
-                  }),
-            );
-          }),
+                  },
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 15,
+                      crossAxisSpacing: 10),
+                );
+              },
+            ),
+          ),
+          actions: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              TextButtomWidget(
+                color: PRIMARY_COLOR,
+                fontSize: 20,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                title: 'ok',
+              ),
+            ])
+          ],
         );
       },
     );

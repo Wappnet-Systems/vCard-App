@@ -65,7 +65,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers.listofUsers[cardindex!].color !=
+                                  null
+                              ? colorList[
+                                  Staticmenbers.listofUsers[cardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -95,7 +99,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers.listofUsers[cardindex!].color !=
+                                  null
+                              ? colorList[
+                                  Staticmenbers.listofUsers[cardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -146,7 +154,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers.listofUsers[cardindex!].color !=
+                                  null
+                              ? colorList[
+                                  Staticmenbers.listofUsers[cardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -233,7 +245,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers.listofUsers[cardindex!].color !=
+                                  null
+                              ? colorList[
+                                  Staticmenbers.listofUsers[cardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -360,25 +376,25 @@ class _Cardtheme1State extends State<Cardtheme1> {
             ),
             Positioned(
               top: 110,
-              left: 90,
+              left: 100,
               child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: BLUE_COLOR, width: 5),
+                    border: Border.all(color: BLUE_COLOR, width: 3),
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(100),
+                      Radius.circular(150),
                     ),
                   ),
                   child: ClipOval(
                     child: Staticmenbers.listofUsers[cardindex!].image == ""
                         ? Image.asset(
                             "assets/images/splash1.png",
-                            width: wp(40, context),
+                            width: wp(44, context),
                             height: hp(20, context),
                             fit: BoxFit.fill,
                           )
                         : Image.network(
                             "${Staticmenbers.listofUsers[cardindex!].image}",
-                            width: wp(40, context),
+                            width: wp(42, context),
                             height: hp(20, context),
                             fit: BoxFit.fill,
                           ),

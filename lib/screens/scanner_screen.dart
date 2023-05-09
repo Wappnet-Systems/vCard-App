@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -25,6 +26,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   bool value = false;
   int? contectcard;
   int? card;
+  int? color;
   String? cid;
   String? uid;
   String? name;
@@ -72,7 +74,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
             id: element['id'],
             type: element['type'],
             image: element['images'],
-            card: element['card']),
+            card: element['card'],
+            color: element['color']),
       );
     });
     print("qqqqqqq:${userData.length}");
@@ -80,6 +83,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       List.generate(userData.length, (index) {
         name = userData[index].name;
         card = userData[index].card;
+        color = userData[index].color;
         cid = cid;
         uid = uid;
         department = userData[index].department;
@@ -124,6 +128,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'type': type,
       'user': FirebaseAuth.instance.currentUser?.uid,
       'card': card,
+      'color': color,
     }).then((value) {
       Navigator.pushReplacement(
           context,
@@ -147,61 +152,60 @@ class _ScannerscreenState extends State<Scannerscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25.0)),
-                  ),
-                  builder: (BuildContext context) => GenerateQR());
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage("assets/images/splash1.png"),
-            ),
-          ),
-        ),
-        centerTitle: true,
-        title: const Text("Qr Scanner"),
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
+      appBar: Customappbarwidget(
+          title: "QR Scanner",
+          actions: null,
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(Icons.arrow_back_sharp))),
       body: value != false
           ? Center(
               child: Column(
                 children: [
                   SizedBox(height: 180),
                   Container(
-                    height: hp(22.5, context),
-                    width: wp(50, context),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: PRIMARY_COLOR,
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(45),
+                          topRight: Radius.circular(50)),
+                      boxShadow: [
+                        BoxShadow(
+                          color:
+                              color != null ? colorList[color!] : PRIMARY_COLOR,
+                          blurRadius: 1.0,
+                        ),
+                        BoxShadow(
+                          color: Color(0xffc1c4be),
+                          blurRadius: 20.0,
+                        ),
+                      ],
+                      color: color != null ? colorList[color!] : PRIMARY_COLOR,
                     ),
-                    margin: EdgeInsets.symmetric(
-                        horizontal: wp(3, context), vertical: hp(1, context)),
+                    margin: EdgeInsets.only(
+                        left: 95, right: 95, top: 10, bottom: 10),
                     child: Column(children: [
                       image == ""
                           ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(45),
+                                  topRight: Radius.circular(50)),
                               child: Image.asset(
                                 "assets/images/splash1.png",
-                                width: wp(50, context),
-                                height: hp(19, context),
+                                width: wp(42, context),
+                                height: hp(17, context),
                                 fit: BoxFit.fill,
                               ),
                             )
                           : ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(45),
+                                  topRight: Radius.circular(50)),
                               child: Image.network(
                                 "${image}",
-                                width: wp(50, context),
-                                height: hp(19, context),
+                                width: wp(52, context),
+                                height: hp(17, context),
                                 fit: BoxFit.fill,
                                 frameBuilder: (context, child, frame,
                                     wasSynchronouslyLoaded) {
@@ -211,8 +215,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                   return Image(
                                     image:
                                         AssetImage("assets/images/splash1.png"),
-                                    width: wp(50, context),
-                                    height: hp(19, context),
+                                    width: wp(42, context),
+                                    height: hp(17, context),
                                   );
                                 },
                                 loadingBuilder:

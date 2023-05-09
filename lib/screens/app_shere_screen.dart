@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/responsive.dart';
 
 import '../widget/decoration_widget.dart';
 
@@ -29,13 +30,13 @@ class _GenerateQRState extends State<GenerateQR> {
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
           ),
-          color: BLUE_COLOR,
+          color: WHITE_COLOR,
         ),
-        height: 500.0,
+        height: hp(40, context),
         child: Column(
           children: [
             Decorationwidget(),
-            SizedBox(height: 20),
+            SizedBox(height: hp(2, context)),
             Text(
               "Share vCard",
               style: TextStyle(
@@ -43,7 +44,7 @@ class _GenerateQRState extends State<GenerateQR> {
                   fontWeight: FontWeight.bold,
                   color: PRIMARY_COLOR),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: hp(2, context)),
             Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -52,23 +53,18 @@ class _GenerateQRState extends State<GenerateQR> {
                     color: Colors.green,
                     width: 4,
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: BACKGROUND_COLOR,
-                    ),
-                  ],
                 ),
                 padding: EdgeInsets.all(5),
                 child: SingleChildScrollView(
                   child: QrImage(
                     data: qrData,
-                    size: 180,
-                    backgroundColor: BACKGROUND_COLOR,
+                    size: 150,
+                    backgroundColor: WHITE_COLOR,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: hp(2, context)),
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   primary: PRIMARY_COLOR,
@@ -76,11 +72,6 @@ class _GenerateQRState extends State<GenerateQR> {
                 onPressed: _shareContent,
                 icon: const Icon(Icons.ios_share_outlined),
                 label: const Text('Share App')),
-            SizedBox(height: 20),
-            Text(
-              "vCard 1.0.0 was just released!",
-              style: TextStyle(color: PRIMARY_COLOR),
-            )
           ],
         ));
   }

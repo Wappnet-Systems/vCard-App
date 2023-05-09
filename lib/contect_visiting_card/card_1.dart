@@ -65,7 +65,12 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers
+                                      .cardUsers[contactcardindex!].color !=
+                                  null
+                              ? colorList[Staticmenbers
+                                  .listofUsers[contactcardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -95,7 +100,12 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers
+                                      .cardUsers[contactcardindex!].color !=
+                                  null
+                              ? colorList[Staticmenbers
+                                  .listofUsers[contactcardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -146,7 +156,12 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers
+                                      .cardUsers[contactcardindex!].color !=
+                                  null
+                              ? colorList[Staticmenbers
+                                  .listofUsers[contactcardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,
@@ -233,7 +248,12 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.white,
+                          color: Staticmenbers
+                                      .cardUsers[contactcardindex!].color !=
+                                  null
+                              ? colorList[Staticmenbers
+                                  .listofUsers[contactcardindex!].color!]
+                              : Colors.white,
                           offset: const Offset(0.0, 0.0),
                           blurRadius: 0.0,
                           spreadRadius: 0.0,

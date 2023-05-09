@@ -39,7 +39,9 @@ class _Cardtheme4State extends State<Cardtheme4> {
                 height: hp(35, context),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: WHITE_COLOR,
+                  color: Staticmenbers.listofUsers[cardindex!].color != null
+                      ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
+                      : WHITE_COLOR,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black,

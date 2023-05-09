@@ -10,6 +10,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../utils/constants_color.dart';
 import 'app_shere_screen.dart';
 
@@ -64,37 +65,42 @@ class _Setting_ScreenState extends State<Setting_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: InkWell(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(25.0)),
+      appBar: Customappbarwidget(
+          title: "Settings",
+          actions: null,
+          leading: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(25.0)),
+                    ),
+                    builder: (BuildContext context) => GenerateQR());
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    color: WHITE_COLOR,
+                    width: 1,
                   ),
-                  builder: (BuildContext context) => GenerateQR());
-            },
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
-              backgroundImage: AssetImage("assets/images/splash1.png"),
+                ),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/splash1.png"),
+                ),
+              ),
             ),
-          ),
-        ),
-        centerTitle: true,
-        title: const Text("Settings"),
-        backgroundColor: PRIMARY_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
+          )),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Text(
-              "vCard",
+              "V Card",
               style: TextStyle(fontSize: 25),
             ),
           ),

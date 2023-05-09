@@ -41,8 +41,11 @@ class _IconwidgetState extends State<Iconwidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        gradient: LinearGradient(
+            colors: [Colors.green, PRIMARY_COLOR],
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter),
         borderRadius: BorderRadius.circular(15),
-        color: PRIMARY_COLOR,
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -64,7 +67,6 @@ class _IconwidgetState extends State<Iconwidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // SizedBox(width: wp(5, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -280,7 +282,6 @@ class _IconwidgetState extends State<Iconwidget> {
               height: hp(5, context),
             ),
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(width: wp(3, context)),
                 InkWell(
@@ -316,7 +317,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: wp(10, context)),
+                SizedBox(width: wp(13, context)),
                 InkWell(
                   onTap: () {
                     showDialog(

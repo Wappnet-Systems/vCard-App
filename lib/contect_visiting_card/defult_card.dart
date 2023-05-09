@@ -34,12 +34,6 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text("${Staticmenbers.listofUsers[contactcardindex!].type}"),
-          backgroundColor: BLUE_COLOR,
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-        ),
         backgroundColor: BACKGROUND_COLOR,
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
@@ -61,7 +55,9 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                 borderRadius: BorderRadius.circular(20.0),
               ),
               elevation: 30,
-              color: BLUE_COLOR,
+              color: Staticmenbers.cardUsers[contactcardindex!].color != null
+                  ? colorList[Staticmenbers.cardUsers[contactcardindex!].color!]
+                  : BLUE_COLOR,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

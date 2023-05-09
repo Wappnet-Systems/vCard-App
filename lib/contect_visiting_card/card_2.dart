@@ -52,7 +52,11 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 Container(
                   width: wp(100, context),
                   height: hp(57, context),
-                  color: WHITE_COLOR,
+                  color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                          null
+                      ? colorList[
+                          Staticmenbers.listofUsers[contactcardindex!].color!]
+                      : WHITE_COLOR,
                   child: Column(
                     children: [
                       SizedBox(
@@ -186,7 +190,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           child: Image.asset(
                             "assets/icon/whats.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color: Staticmenbers
+                                        .cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[contactcardindex!].color!]
+                                : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -200,7 +209,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           child: Image.asset(
                             "assets/icon/Face.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color: Staticmenbers
+                                        .cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[contactcardindex!].color!]
+                                : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -214,7 +228,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           child: Image.asset(
                             "assets/icon/tele.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color: Staticmenbers
+                                        .cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[contactcardindex!].color!]
+                                : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -230,7 +249,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           child: Image.asset(
                             "assets/icon/lin.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color: Staticmenbers
+                                        .cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[contactcardindex!].color!]
+                                : WHITE_COLOR,
                           ),
                         ),
                       ),
@@ -284,7 +308,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           child: Image.asset(
                             "assets/icon/pin.png",
                             scale: 18,
-                            color: WHITE_COLOR,
+                            color: Staticmenbers
+                                        .cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[contactcardindex!].color!]
+                                : WHITE_COLOR,
                           ),
                         ),
                       ),
