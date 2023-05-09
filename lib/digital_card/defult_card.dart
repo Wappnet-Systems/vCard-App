@@ -1,7 +1,4 @@
-import 'dart:io';
-import 'dart:math';
 import 'dart:ui' as ui;
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +13,7 @@ import '../widget/text_button_widget.dart';
 
 class DefultCard extends StatefulWidget {
   final int? id;
+
   DefultCard({super.key, required this.id});
 
   @override
@@ -24,6 +22,7 @@ class DefultCard extends StatefulWidget {
 
 class _DefultCardState extends State<DefultCard> {
   int? cardindex;
+  int? contectcardindex;
   FToast? fToast;
 
   @override

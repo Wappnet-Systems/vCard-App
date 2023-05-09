@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:vcard/screens/auth_modual.dart';
+import 'package:vcard/screens/number_verification_Screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';

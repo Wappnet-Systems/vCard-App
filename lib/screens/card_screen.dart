@@ -8,11 +8,9 @@ import 'package:vcard/utils/string.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
-import 'package:vcard/widget/custom_no_data.dart';
+import 'package:vcard/widget/custom_no_data_widget.dart';
 import 'package:vcard/widget/text_button_widget.dart';
-
-import 'card_shere_screen.dart';
-import 'digital_visiting_card.dart';
+import 'digital_visiting_card_screen.dart';
 
 class Cardscreen extends StatefulWidget {
   const Cardscreen({super.key});
@@ -54,6 +52,7 @@ class _CardscreenState extends State<Cardscreen> {
     for (var element in snapshot.docs) {
       userData.add(
         Users(
+            user: element['user'],
             name: element['Name'],
             department: element['Department'],
             compeny: element['Company'],

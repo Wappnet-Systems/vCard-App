@@ -11,8 +11,8 @@ import 'package:vcard/widget/app_bar_widget.dart';
 import '../controllers/data_controllers.dart';
 import '../utils/style.dart';
 import '../utils/responsive.dart';
-import '../widget/bottom_sheet.dart';
-import '../widget/custom_no_data.dart';
+import '../widget/bottom_sheet_widget.dart';
+import '../widget/custom_no_data_widget.dart';
 import '../widget/decoration_widget.dart';
 import '../widget/text_button_widget.dart';
 import 'contect_visiting_card.dart';
@@ -43,7 +43,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
   }
 
   Future<void> getSingleUserData() async {
-    List<Users> userData = [];
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -51,27 +50,26 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .get();
 
     print("object");
-    snapshot.docs.forEach((element) {
-      userData.add(
-        Users(
-            name: element['Name'],
-            department: element['Department'],
-            compeny: element['Company'],
-            headline: element['HeadLine'],
-            whatsapp: element['WhatsApp'],
-            telegram: element['Telegram'],
-            website: element['Website'],
-            link: element['Link'],
-            facebook: element['Facebook'],
-            email: element['Email'],
-            phone: element['Phone'],
-            address: element['Address'],
-            id: element['id'],
-            type: element['type'],
-            image: element['images'],
-            card: element['card']),
-      );
-    });
+    final userData = snapshot.docs
+        .map((e) => Users(
+            user: e['user'],
+            name: e['Name'],
+            department: e['Department'],
+            compeny: e['Company'],
+            headline: e['HeadLine'],
+            whatsapp: e['WhatsApp'],
+            telegram: e['Telegram'],
+            website: e['Website'],
+            link: e['Link'],
+            facebook: e['Facebook'],
+            email: e['Email'],
+            phone: e['Phone'],
+            address: e['Address'],
+            id: e['id'],
+            image: e['images'],
+            type: e['type'],
+            card: e['card']))
+        .toList();
 
     print("userData $userData");
 

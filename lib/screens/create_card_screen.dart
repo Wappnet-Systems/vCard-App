@@ -13,8 +13,8 @@ import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/validator.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
 import 'package:vcard/widget/custom_loading_bar.dart';
-import 'package:vcard/widget/custom_textformfield.dart';
-import 'package:vcard/widget/icon.dart';
+import 'package:vcard/widget/custom_textformfield_widget.dart';
+import 'package:vcard/widget/icon_widget.dart';
 
 class Createcardscreen extends StatefulWidget {
   const Createcardscreen({super.key});

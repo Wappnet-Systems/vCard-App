@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:vcard/screens/card_screen.dart';
 import 'package:vcard/screens/create_card_screen.dart';
 import 'package:vcard/screens/scanner_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../utils/style.dart';
-import 'cardscreen.dart';
 import 'contacts_screen.dart';
 
 class Dashboardscreen extends StatefulWidget {

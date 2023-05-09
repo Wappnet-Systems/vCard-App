@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/auth_modual.dart';
+import 'package:vcard/screens/number_verification_Screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';

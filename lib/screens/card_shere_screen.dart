@@ -3,15 +3,20 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 
-class CardGenerateQR extends StatefulWidget {
+class cardsherescreen extends StatefulWidget {
   final String? uid;
   final String? cid;
-  const CardGenerateQR({super.key, required this.uid, required this.cid});
+  // final int? card;
+  cardsherescreen({
+    super.key,
+    required this.uid,
+    required this.cid,
+  });
   @override
-  State<CardGenerateQR> createState() => _CardGenerateQRState();
+  _CardsherescreenState createState() => _CardsherescreenState();
 }
 
-class _CardGenerateQRState extends State<CardGenerateQR> {
+class _CardsherescreenState extends State<cardsherescreen> {
   @override
   void initState() {
     super.initState();

@@ -14,9 +14,9 @@ import '../controllers/data_controllers.dart';
 
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
-import '../widget/custom_loading_bar.dart';
-import '../widget/custom_textformfield.dart';
-import '../widget/icon.dart';
+import '../widget/custom_loadingbar_widget.dart';
+import '../widget/custom_textformfield_widget.dart';
+import '../widget/icon_widget.dart';
 
 class Updatecardscreen extends StatefulWidget {
   String? id;
@@ -70,6 +70,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
 
     final userData = snapshot.docs
         .map((e) => Users(
+            user: e['user'],
             name: e['Name'],
             department: e['Department'],
             compeny: e['Company'],

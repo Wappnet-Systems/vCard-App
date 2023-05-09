@@ -4,8 +4,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/style.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
-import 'google_textformfield.dart';
-import 'icon_textfild.dart';
+import 'google_textformfield_widget.dart';
+import 'icon_textfild_widget.dart';
 
 class Iconwidget extends StatefulWidget {
   final TextEditingController? whatsappcontroller;

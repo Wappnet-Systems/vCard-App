@@ -23,6 +23,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   FToast? fToast;
   bool value = false;
   int? contectcard;
+  int? card;
   String? cid;
   String? uid;
   String? name;
@@ -41,22 +42,20 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? id;
   String? image;
   String? type;
-  int? card;
 
-  Future<void> getSingleUserData() async {
-    log("xzc:${cid}");
-    log("qwe:${uid}");
+  Future<void> getSingleUserData(String cid) async {
     List<Users> userData = [];
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
-        .doc(uid)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Carddata")
         .where('id', isEqualTo: cid)
         .get();
-    log('message:');
+
     snapshot.docs.forEach((element) {
       userData.add(
         Users(
+            user: element['user'],
             name: element['Name'],
             department: element['Department'],
             compeny: element['Company'],
@@ -75,27 +74,27 @@ class _ScannerscreenState extends State<Scannerscreen> {
             card: element['card']),
       );
     });
-
-    log("userData ${userData.length}");
+    print("qqqqqqq:${userData.length}");
     setState(() {
-      name = userData[0].name;
-      cid = cid;
-      uid = uid;
-      department = userData[0].department;
-      compeny = userData[0].compeny;
-      headline = userData[0].headline;
-      whatsapp = userData[0].whatsapp;
-      telegram = userData[0].telegram;
-      website = userData[0].website;
-      link = userData[0].link;
-      facebook = userData[0].facebook;
-      email = userData[0].email;
-      phone = userData[0].phone;
-      address = userData[0].address;
-      id = userData[0].id;
-      image = userData[0].image;
-      type = userData[0].type;
-      card = card;
+      List.generate(userData.length, (index) {
+        name = userData[index].name;
+        card = userData[index].card;
+        cid = cid;
+        uid = uid;
+        department = userData[index].department;
+        compeny = userData[index].compeny;
+        headline = userData[index].headline;
+        whatsapp = userData[index].whatsapp;
+        telegram = userData[index].telegram;
+        website = userData[index].website;
+        link = userData[index].link;
+        facebook = userData[index].facebook;
+        email = userData[index].email;
+        phone = userData[index].phone;
+        address = userData[index].address;
+        image = userData[index].image;
+        type = userData[index].type;
+      });
     });
   }
 
@@ -123,7 +122,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'images': image,
       'type': type,
       'user': FirebaseAuth.instance.currentUser?.uid,
-      'card': card
+      'card': card,
     }).then((value) {
       Navigator.pushReplacement(
         context,
@@ -306,11 +305,10 @@ class _ScannerscreenState extends State<Scannerscreen> {
       setState(() {
         uid = qrCode.substring(0, 28);
         cid = qrCode.substring(29);
-        // card = qrCode.substring(start);
         value = true;
       });
-      log("message: ${cid} ${uid} ${card}");
-      getSingleUserData();
+      print("message: ${cid} ${uid}");
+      getSingleUserData(cid!);
     } on PlatformException {}
   }
 
