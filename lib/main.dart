@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
       home: AnimatedSplashScreen(
         duration: 1500,
         splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: PRIMARY_COLOR,
+        backgroundColor: Color(0Xff60ab44),
         splashIconSize: 250,
         animationDuration: Duration(milliseconds: 1500),
         splash: Center(
@@ -85,19 +85,16 @@ class _MyAppState extends State<MyApp> {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: BACKGROUND_COLOR,
+                    color: WHITE_COLOR,
                   ))
             ],
           ),
         ),
-        nextScreen:
-
-            // Cardtheme3()
-            (widget.islogin! == true)
-                ? Dashboardscreen(
-                    index: 0,
-                  )
-                : Numberverification(),
+        nextScreen: (widget.islogin! == true)
+            ? Dashboardscreen(
+                index: 0,
+              )
+            : Numberverification(),
       ),
     );
   }

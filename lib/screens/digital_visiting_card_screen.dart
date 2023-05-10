@@ -11,6 +11,7 @@ import 'package:vcard/digital_card/card_1.dart';
 import 'package:vcard/digital_card/card_4.dart';
 import 'package:vcard/digital_card/defult_card.dart';
 import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../digital_card/card_2.dart';
 import '../digital_card/card_3.dart';
 
@@ -62,28 +63,32 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       Cardtheme4(id: cardindex),
       DefultCard(id: cardindex)
     ];
-    return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("${Staticmenbers.listofUsers[widget.id!].type}"),
-        backgroundColor: BLUE_COLOR,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        actions: [
-          InkWell(
-              onTap: () async {
-                await _captureImage();
+    return Scaffold(
+      appBar: Customappbarwidget(
+          title: "${Staticmenbers.listofUsers[widget.id!].type}",
+          actions: [
+            InkWell(
+                onTap: () async {
+                  await _captureImage();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.ios_share_rounded),
+                )),
+          ],
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
               },
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Icon(Icons.ios_share_rounded),
-              )),
-        ],
-      ),
-      backgroundColor: BACKGROUND_COLOR,
+                padding:
+                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                child: Icon(Icons.arrow_back_sharp),
+              ))),
+      backgroundColor: WHITE_COLOR,
       body: RepaintBoundary(
           key: _containerKey,
           child: cardList[Staticmenbers.listofUsers[widget.id!].card!]),
-    ));
+    );
   }
 }

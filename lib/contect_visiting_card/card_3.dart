@@ -30,7 +30,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
+      backgroundColor: WHITE_COLOR,
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

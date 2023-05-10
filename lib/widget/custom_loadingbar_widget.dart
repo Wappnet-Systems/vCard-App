@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:vcard/utils/responsive.dart';
 import '../utils/constants_color.dart';
 
 class Custonloading extends StatefulWidget {
@@ -12,20 +13,28 @@ class Custonloading extends StatefulWidget {
 class _CustonloadingState extends State<Custonloading> {
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Color(0xffc1c4be),
+            blurRadius: 10.0,
+          ),
+        ],
         borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-            topLeft: Radius.circular(20),
-            bottomRight: Radius.circular(20)),
+            bottomLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+            topLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10)),
+        color: WHITE_COLOR,
       ),
-      content: Center(
+      height: hp(8, context),
+      width: wp(20, context),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
         child: CircularProgressIndicator(
           color: PRIMARY_COLOR,
-          strokeWidth: 1.5,
+          strokeWidth: 2,
         ),
       ),
     );

@@ -11,7 +11,7 @@ import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/bottom_sheet_widget.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import '../controllers/data_controllers.dart';
+import '../model/data_controllers.dart';
 import '../widget/custom_no_data_widget.dart';
 import '../widget/decoration_widget.dart';
 import '../widget/text_button_widget.dart';
@@ -98,7 +98,8 @@ class _CardscreenState extends State<Cardscreen> {
             title: "Card",
             actions: [
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding:
+                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: InkWell(
                     onTap: () async {
                       final refresh = await Navigator.push(
@@ -114,7 +115,7 @@ class _CardscreenState extends State<Cardscreen> {
               )
             ],
             leading: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
               child: InkWell(
                 onTap: () {
                   showModalBottomSheet(
@@ -130,7 +131,7 @@ class _CardscreenState extends State<Cardscreen> {
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(
                       color: WHITE_COLOR,
-                      width: 1,
+                      width: wp(0.3, context),
                     ),
                   ),
                   child: CircleAvatar(
@@ -185,7 +186,7 @@ class _CardscreenState extends State<Cardscreen> {
                             : PRIMARY_COLOR,
                       ),
                       margin: EdgeInsets.only(
-                          left: 12, right: 12, top: 10, bottom: 10),
+                          left: 12, right: 12, top: 10, bottom: 5),
                       child: Column(children: [
                         Staticmenbers.listofUsers[index].image == ""
                             ? ClipRRect(
@@ -228,11 +229,12 @@ class _CardscreenState extends State<Cardscreen> {
                                 ),
                               ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 2),
+                          padding: const EdgeInsets.only(top: 4),
                           child: Center(
                             child: Text(
                               '${Staticmenbers.listofUsers[index].type}',
-                              style: TextStyle(color: WHITE_COLOR),
+                              style:
+                                  TextStyle(color: WHITE_COLOR, fontSize: 16),
                             ),
                           ),
                         ),

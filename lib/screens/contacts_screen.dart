@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import '../controllers/data_controllers.dart';
+import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../widget/bottom_sheet_widget.dart';
@@ -85,16 +85,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: BACKGROUND_COLOR,
+        backgroundColor: WHITE_COLOR,
         appBar: Customappbarwidget(
             title: "Contacts", actions: null, leading: Text("")),
         body: Staticmenbers.cardUsers.isNotEmpty
-            ? GridView.builder(
+            ? ListView.builder(
                 padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 15,
-                ),
                 itemCount: Staticmenbers.cardUsers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
@@ -262,8 +258,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(45),
-                            topRight: Radius.circular(50)),
+                          bottomLeft: Radius.circular(45),
+                          topRight: Radius.circular(50),
+                        ),
                         boxShadow: [
                           BoxShadow(
                             color:
@@ -283,28 +280,28 @@ class _ContactsScreenState extends State<ContactsScreen> {
                             : PRIMARY_COLOR,
                       ),
                       margin: EdgeInsets.only(
-                          left: 12, right: 12, top: 10, bottom: 10),
-                      child: Column(children: [
+                          left: 12, right: 12, top: 5, bottom: 5),
+                      child: Row(children: [
                         Staticmenbers.cardUsers[index].image == null
                             ? ClipRRect(
                                 borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(45),
-                                    topRight: Radius.circular(50)),
+                                  bottomLeft: Radius.circular(45),
+                                ),
                                 child: Image.asset(
                                   "assets/images/splash1.png",
-                                  width: wp(42, context),
-                                  height: hp(18, context),
+                                  width: wp(32, context),
+                                  height: hp(10, context),
                                   fit: BoxFit.fill,
                                 ),
                               )
                             : ClipRRect(
                                 borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(45),
-                                    topRight: Radius.circular(50)),
+                                  bottomLeft: Radius.circular(45),
+                                ),
                                 child: Image.network(
                                   "${Staticmenbers.cardUsers[index].image}",
-                                  width: wp(42, context),
-                                  height: hp(18, context),
+                                  width: wp(25, context),
+                                  height: hp(10, context),
                                   fit: BoxFit.fill,
                                   frameBuilder: (context, child, frame,
                                       wasSynchronouslyLoaded) {
@@ -314,8 +311,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                     return Image(
                                       image: AssetImage(
                                           "assets/images/splash1.png"),
-                                      width: wp(42, context),
-                                      height: hp(18, context),
+                                      width: wp(32, context),
+                                      height: hp(10, context),
                                     );
                                   },
                                   loadingBuilder:
@@ -333,15 +330,42 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                   },
                                 ),
                               ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Center(
-                            child: Text(
-                              '${Staticmenbers.cardUsers[index].type}',
-                              style: TextStyle(color: WHITE_COLOR),
-                            ),
-                          ),
-                        ),
+                        SizedBox(width: wp(3, context)),
+                        Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Staticmenbers.cardUsers[index].name == ""
+                                  ? SizedBox.shrink()
+                                  : Text(
+                                      '${Staticmenbers.cardUsers[index].name}',
+                                      style: TextStyle(
+                                          color: WHITE_COLOR, fontSize: 20),
+                                    ),
+                              Staticmenbers.cardUsers[index].phone == ""
+                                  ? SizedBox.shrink()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 5,
+                                      ),
+                                      child: Text(
+                                        '${Staticmenbers.cardUsers[index].phone}',
+                                        style: TextStyle(
+                                            color: WHITE_COLOR, fontSize: 15),
+                                      ),
+                                    ),
+                              Staticmenbers.cardUsers[index].compeny == ""
+                                  ? SizedBox.shrink()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                        top: 0.5,
+                                      ),
+                                      child: Text(
+                                        '${Staticmenbers.cardUsers[index].compeny}',
+                                        style: TextStyle(
+                                            color: WHITE_COLOR, fontSize: 15),
+                                      ),
+                                    ),
+                            ]),
                       ]),
                     ),
                   );

@@ -51,7 +51,7 @@ class _GenerateQRState extends State<GenerateQR> {
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: Colors.green,
-                    width: 4,
+                    width: wp(1, context),
                   ),
                 ),
                 padding: EdgeInsets.all(5),
@@ -67,7 +67,7 @@ class _GenerateQRState extends State<GenerateQR> {
             SizedBox(height: hp(2, context)),
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  primary: PRIMARY_COLOR,
+                  backgroundColor: PRIMARY_COLOR,
                 ),
                 onPressed: _shareContent,
                 icon: const Icon(Icons.ios_share_outlined),

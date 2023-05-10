@@ -9,7 +9,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import '../controllers/data_controllers.dart';
+import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import 'app_shere_screen.dart';
@@ -151,7 +151,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
+      backgroundColor: WHITE_COLOR,
       appBar: Customappbarwidget(
           title: "QR Scanner",
           actions: null,
@@ -164,7 +164,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
           ? Center(
               child: Column(
                 children: [
-                  SizedBox(height: 180),
+                  SizedBox(height: hp(25, context)),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -193,7 +193,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                   topRight: Radius.circular(50)),
                               child: Image.asset(
                                 "assets/images/splash1.png",
-                                width: wp(42, context),
+                                width: wp(55, context),
                                 height: hp(17, context),
                                 fit: BoxFit.fill,
                               ),
@@ -215,7 +215,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                   return Image(
                                     image:
                                         AssetImage("assets/images/splash1.png"),
-                                    width: wp(42, context),
+                                    width: wp(55, context),
                                     height: hp(17, context),
                                   );
                                 },
@@ -234,14 +234,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 },
                               ),
                             ),
-                      SizedBox(height: hp(0.5, context)),
-                      Center(
-                        child: Text(
-                          '${name}',
-                          style: TextStyle(color: WHITE_COLOR),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: Center(
+                          child: Text(
+                            '${name}',
+                            style: TextStyle(color: WHITE_COLOR, fontSize: 20),
+                          ),
                         ),
                       ),
-                      SizedBox(height: hp(0.5, context)),
                     ]),
                   ),
                   SizedBox(height: hp(1, context)),

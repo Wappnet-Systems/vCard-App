@@ -22,18 +22,18 @@ class Customappbarwidget extends StatelessWidget
     return AppBar(
       elevation: 0.0,
       centerTitle: true,
-      title: Text(title),
+      title: Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Text(title),
+      ),
       backgroundColor: Colors.transparent,
       leading: leading,
       actions: actions,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       flexibleSpace: Container(
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(25),
-                bottomRight: Radius.circular(25)),
             gradient: LinearGradient(
-                colors: [Colors.green, PRIMARY_COLOR],
+                colors: [Colors.green.shade300, Colors.green],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter)),
       ),

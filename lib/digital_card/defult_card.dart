@@ -37,9 +37,9 @@ class _DefultCardState extends State<DefultCard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: BACKGROUND_COLOR,
+        backgroundColor: WHITE_COLOR,
         body: SingleChildScrollView(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.0),
             child: Column(children: [
               Container(
                 decoration: new BoxDecoration(
@@ -59,14 +59,13 @@ class _DefultCardState extends State<DefultCard> {
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   elevation: 30,
-                  color: Staticmenbers.listofUsers[cardindex!].color != null
-                      ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
-                      : BLUE_COLOR,
+                  color: BLACK_COLOR,
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(20),
+                          padding:
+                              EdgeInsets.only(left: 35, top: 10, bottom: 10),
                           child: (Staticmenbers
                                       .listofUsers[cardindex!].compeny ==
                                   "")
@@ -82,17 +81,40 @@ class _DefultCardState extends State<DefultCard> {
                         Center(
                           child:
                               Staticmenbers.listofUsers[cardindex!].image == ""
-                                  ? Image.asset(
-                                      "assets/images/splash1.png",
-                                      width: wp(90, context),
-                                      height: hp(30, context),
-                                      fit: BoxFit.fill,
+                                  ? ClipRRect(
+                                      child: Image.asset(
+                                        "assets/images/splash1.png",
+                                        width: wp(90, context),
+                                        height: hp(30, context),
+                                        fit: BoxFit.fill,
+                                      ),
                                     )
-                                  : Image.network(
-                                      "${Staticmenbers.listofUsers[cardindex!].image}",
-                                      width: wp(90, context),
-                                      height: hp(28, context),
-                                      fit: BoxFit.fill,
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                            // bottomLeft: Radius.circular(45),
+                                            topRight: Radius.circular(50)),
+                                        border: Border.all(
+                                            color: BLACK_COLOR,
+                                            width: wp(0.1, context)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: BLACK_COLOR,
+                                            blurRadius: 5.0,
+                                          ),
+                                        ],
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(
+                                            // bottomLeft: Radius.circular(45),
+                                            topRight: Radius.circular(50)),
+                                        child: Image.network(
+                                          "${Staticmenbers.listofUsers[cardindex!].image}",
+                                          width: wp(70, context),
+                                          height: hp(25, context),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
                                     ),
                         ),
                         SizedBox(height: hp(1.5, context)),
@@ -391,8 +413,9 @@ class _DefultCardState extends State<DefultCard> {
                                 ),
                               )
                             : const SizedBox.shrink(),
-                        Container(
-                          padding: EdgeInsets.all(25),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 35, top: 10, bottom: 10),
                           child: (Staticmenbers
                                       .listofUsers[cardindex!].headline ==
                                   "")

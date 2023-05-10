@@ -23,30 +23,33 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      inputFormatters: inputFormatters,
-      keyboardType: textInputType,
-      style: TextStyle(color: Color(0xff000000)),
-      obscureText: !customobscuretext,
-      enableInteractiveSelection: false,
-      cursorColor: PRIMARY_COLOR,
-      controller: textEditingController,
-      decoration: InputDecoration(
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: PRIMARY_COLOR),
+    return Padding(
+      padding: EdgeInsets.only(left: 15, right: 15),
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        inputFormatters: inputFormatters,
+        keyboardType: textInputType,
+        style: TextStyle(color: Color(0xff000000)),
+        obscureText: !customobscuretext,
+        enableInteractiveSelection: false,
+        cursorColor: PRIMARY_COLOR,
+        controller: textEditingController,
+        decoration: InputDecoration(
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: PRIMARY_COLOR),
+          ),
+          contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+          hintText: texteditinghinttext,
+          hintStyle: TextStyle(
+            color: Color(0xff000000),
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          ),
+          prefixIcon: customprefixicon,
+          suffixIcon: custominkwell,
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-        hintText: texteditinghinttext,
-        hintStyle: TextStyle(
-          color: Color(0xff000000),
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
-        ),
-        prefixIcon: customprefixicon,
-        suffixIcon: custominkwell,
+        validator: validationfunction,
       ),
-      validator: validationfunction,
     );
   }
 }

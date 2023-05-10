@@ -10,7 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import '../controllers/data_controllers.dart';
+import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
@@ -108,7 +108,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
       _selectedIndex = singleuser.first.card!;
-      _selectcolor = singleuser.first.color!;
+      _selectcolor = singleuser.first.color;
     });
     updateImageUrl = singleuser.first.image;
     setState(() {});
@@ -199,126 +199,136 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
+      backgroundColor: WHITE_COLOR,
       appBar: Customappbarwidget(
           title: "Card",
           actions: <Widget>[
-            IconButton(
-                onPressed: () async {
-                  if (_formfield.currentState!.validate()) {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    updateUser();
-                  }
-                },
-                icon: Icon(Icons.save)),
+            Padding(
+              padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+              child: IconButton(
+                  onPressed: () async {
+                    if (_formfield.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      updateUser();
+                    }
+                  },
+                  icon: Icon(Icons.save)),
+            ),
           ],
           leading: InkWell(
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back_sharp))),
+              child: Padding(
+                padding:
+                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                child: Icon(Icons.arrow_back_sharp),
+              ))),
       body: SingleChildScrollView(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formfield,
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  Text("Edit Card"),
-                  Divider(),
-                  SizedBox(height: 20),
-                  Stack(children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: PRIMARY_COLOR, width: 3),
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(100),
-                        ),
+        child: Form(
+          key: _formfield,
+          child: Stack(children: [
+            Column(
+              children: [
+                SizedBox(height: hp(0.5, context)),
+                Text("Edit Card"),
+                Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  child: Divider(),
+                ),
+                SizedBox(height: hp(2, context)),
+                Stack(children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: PRIMARY_COLOR, width: 3),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(100),
                       ),
-                      child: imageurl == null || imageurl == ""
-                          ? ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(100),
-                              ),
-                              child: Image(
-                                image: AssetImage("assets/images/splash1.png"),
-                                height: 170,
-                                width: 170,
-                              ),
-                            )
-                          : ClipOval(
-                              child: CachedNetworkImage(
-                                placeholder: (context, url) => Custonloading(),
-                                imageUrl: "$imageurl",
-                                width: 170,
-                                height: 170,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
                     ),
-                    Positioned(
-                        top: 140,
-                        left: 133,
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              isphotoloading = true;
-                            });
-                            imagepicker();
-                          },
-                          child: Icon(
-                            Icons.flip_camera_ios,
-                            size: 30,
-                            color: BLUE_COLOR,
+                    child: imageurl == null || imageurl == ""
+                        ? ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(100),
+                            ),
+                            child: Image(
+                              image: AssetImage("assets/images/splash1.png"),
+                              width: wp(40, context),
+                              height: hp(19, context),
+                            ),
+                          )
+                        : ClipOval(
+                            child: CachedNetworkImage(
+                              placeholder: (context, url) => Custonloading(),
+                              imageUrl: "$imageurl",
+                              width: wp(40, context),
+                              height: hp(19, context),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        )),
-                  ]),
-                  (isLoading) ? Custonloading() : SizedBox(height: 25),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.emailAddress,
-                    textEditingController: _typecontroller,
-                    texteditinghinttext: 'type',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
                   ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _nameController,
-                    texteditinghinttext: 'Name',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _departmentController,
-                    texteditinghinttext: 'Department',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  CustomTextFormField(
-                    inputFormatters: null,
-                    textInputType: TextInputType.text,
-                    textEditingController: _companyController,
-                    texteditinghinttext: 'Company',
-                    customobscuretext: true,
-                    custominkwell: null,
-                    customprefixicon: null,
-                    validationfunction: textvalidator,
-                  ),
-                  TextFormField(
+                  Positioned(
+                      top: 130,
+                      left: 115,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+                            isphotoloading = true;
+                          });
+                          imagepicker();
+                        },
+                        child: Icon(
+                          Icons.flip_camera_ios,
+                          size: 30,
+                          color: BLUE_COLOR,
+                        ),
+                      )),
+                ]),
+                SizedBox(height: hp(3, context)),
+                CustomTextFormField(
+                  inputFormatters: null,
+                  textInputType: TextInputType.emailAddress,
+                  textEditingController: _typecontroller,
+                  texteditinghinttext: 'type',
+                  customobscuretext: true,
+                  custominkwell: null,
+                  customprefixicon: null,
+                  validationfunction: textvalidator,
+                ),
+                CustomTextFormField(
+                  inputFormatters: null,
+                  textInputType: TextInputType.text,
+                  textEditingController: _nameController,
+                  texteditinghinttext: 'Name',
+                  customobscuretext: true,
+                  custominkwell: null,
+                  customprefixicon: null,
+                  validationfunction: textvalidator,
+                ),
+                CustomTextFormField(
+                  inputFormatters: null,
+                  textInputType: TextInputType.text,
+                  textEditingController: _departmentController,
+                  texteditinghinttext: 'Department',
+                  customobscuretext: true,
+                  custominkwell: null,
+                  customprefixicon: null,
+                  validationfunction: textvalidator,
+                ),
+                CustomTextFormField(
+                  inputFormatters: null,
+                  textInputType: TextInputType.text,
+                  textEditingController: _companyController,
+                  texteditinghinttext: 'Company',
+                  customobscuretext: true,
+                  custominkwell: null,
+                  customprefixicon: null,
+                  validationfunction: textvalidator,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  child: TextFormField(
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     style: TextStyle(color: Color(0xff000000)),
@@ -338,8 +348,11 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                ),
+                SizedBox(height: hp(3, context)),
+                Padding(
+                  padding: EdgeInsets.only(left: 15, right: 15),
+                  child: Row(children: [
                     InkWell(
                         onTap: () {
                           showimagelist();
@@ -354,21 +367,26 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         child: Text("Select Card Color ?",
                             style: TextStyle(color: PRIMARY_COLOR)))
                   ]),
-                  SizedBox(height: 20),
-                  Iconwidget(
-                    websitecontroller: _websitecontroller,
-                    telegramcontroller: _telegramcontroller,
-                    numbercontroller: _numbercontroller,
-                    emailcontroller: _emailcontroller,
-                    textEditingController: _addresscontroller,
-                    linkcontroller: _linkcontroller,
-                    facebookcontroller: _facebookcontroller,
-                    whatsappcontroller: _whatsappcontroller,
-                  ),
-                ],
-              ),
+                ),
+                SizedBox(height: hp(3, context)),
+                Iconwidget(
+                  websitecontroller: _websitecontroller,
+                  telegramcontroller: _telegramcontroller,
+                  numbercontroller: _numbercontroller,
+                  emailcontroller: _emailcontroller,
+                  textEditingController: _addresscontroller,
+                  linkcontroller: _linkcontroller,
+                  facebookcontroller: _facebookcontroller,
+                  whatsappcontroller: _whatsappcontroller,
+                ),
+              ],
             ),
-          ),
+            Positioned(
+              child: (isLoading) ? Custonloading() : SizedBox.shrink(),
+              top: 220,
+              left: 140,
+            )
+          ]),
         ),
       ),
     );
@@ -378,11 +396,18 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20)),
+        ),
         content: Container(
           color: WHITE_COLOR,
-          height: 250,
+          height: hp(30, context),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -394,8 +419,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       color: PRIMARY_COLOR),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: hp(2, context),
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -412,7 +437,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         style: TextStyle(color: WHITE_COLOR),
                       )),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
                     color: PRIMARY_COLOR,
@@ -426,7 +451,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       child: Text("GALLERY",
                           style: TextStyle(color: WHITE_COLOR))),
                 ),
-                SizedBox(height: 15),
+                SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
                     color: PRIMARY_COLOR,

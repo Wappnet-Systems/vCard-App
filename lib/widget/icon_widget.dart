@@ -45,7 +45,8 @@ class _IconwidgetState extends State<Iconwidget> {
             colors: [Colors.green, PRIMARY_COLOR],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter),
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30), topRight: Radius.circular(30)),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -175,7 +176,7 @@ class _IconwidgetState extends State<Iconwidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                SizedBox(width: wp(2, context)),
+                SizedBox(width: wp(1, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -283,7 +284,7 @@ class _IconwidgetState extends State<Iconwidget> {
             ),
             Row(
               children: [
-                SizedBox(width: wp(3, context)),
+                SizedBox(width: wp(4, context)),
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -317,7 +318,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     ],
                   ),
                 ),
-                SizedBox(width: wp(13, context)),
+                SizedBox(width: wp(14, context)),
                 InkWell(
                   onTap: () {
                     showDialog(

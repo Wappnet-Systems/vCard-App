@@ -46,7 +46,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
             backgroundColor: BLUE_COLOR,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
-          backgroundColor: BACKGROUND_COLOR,
+          backgroundColor: WHITE_COLOR,
           body: cardList[Staticmenbers.cardUsers[widget.id!].card!]),
     );
   }

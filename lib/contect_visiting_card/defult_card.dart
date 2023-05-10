@@ -34,7 +34,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: BACKGROUND_COLOR,
+        backgroundColor: WHITE_COLOR,
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Container(

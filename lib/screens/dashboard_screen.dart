@@ -60,7 +60,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 topRight: Radius.circular(25.0),
               ),
               gradient: LinearGradient(
-                  colors: [Colors.green, PRIMARY_COLOR],
+                  colors: [Colors.green, Colors.green.shade300],
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter)),
           child: BottomNavigationBar(
@@ -73,19 +73,19 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             unselectedIconTheme: IconThemeData(color: BLUE_COLOR),
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.add_card),
+                icon: Icon(Icons.credit_card),
                 label: 'Card',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.photo_camera),
+                icon: Icon(Icons.qr_code_scanner),
                 label: 'Scan',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.contacts),
+                icon: Icon(Icons.contacts_outlined),
                 label: 'Contacts',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.settings_outlined),
                 label: 'Settings',
               ),
             ],

@@ -8,6 +8,7 @@ import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/screens/number_verification_Screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/responsive.dart';
 
 class OTPscreen extends StatefulWidget {
   const OTPscreen({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _OTPscreenState extends State<OTPscreen> {
     );
 
     return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
+      backgroundColor: WHITE_COLOR,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -66,27 +67,26 @@ class _OTPscreenState extends State<OTPscreen> {
         ),
         elevation: 0,
       ),
-      body: Container(
-        margin: EdgeInsets.only(left: 25, right: 25),
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: hp(10, context)),
               Image.asset(
-                'assets/images/OTP_verification.jpg',
-                width: 150,
-                height: 150,
+                'assets/images/OTP_verification.png',
+                width: wp(100, context),
+                height: hp(30, context),
               ),
               SizedBox(
-                height: 25,
+                height: hp(2, context),
               ),
               Text(
                 "Enter the Verification Code",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(
-                height: 10,
+                height: hp(2, context),
               ),
               Text(
                 "We need to register your phone without getting started!",
@@ -96,7 +96,7 @@ class _OTPscreenState extends State<OTPscreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 30,
+                height: hp(3, context),
               ),
               PinFieldAutoFill(
                 codeLength: 6,
@@ -105,11 +105,11 @@ class _OTPscreenState extends State<OTPscreen> {
                 },
               ),
               SizedBox(
-                height: 20,
+                height: hp(4, context),
               ),
               SizedBox(
                 width: double.infinity,
-                height: 45,
+                height: hp(7, context),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         primary: PRIMARY_COLOR,

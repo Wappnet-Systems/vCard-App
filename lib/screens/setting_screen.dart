@@ -10,6 +10,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../utils/constants_color.dart';
 import 'app_shere_screen.dart';
@@ -64,12 +65,12 @@ class _Setting_ScreenState extends State<Setting_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
+      backgroundColor: WHITE_COLOR,
       appBar: Customappbarwidget(
           title: "Settings",
           actions: null,
           leading: Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
             child: InkWell(
               onTap: () {
                 showModalBottomSheet(
@@ -98,23 +99,25 @@ class _Setting_ScreenState extends State<Setting_Screen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(15.0),
             child: Text(
               "V Card",
               style: TextStyle(fontSize: 25),
             ),
           ),
           Container(
+            padding: EdgeInsets.only(left: 15, right: 15),
             color: WHITE_COLOR,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      AppSettings.openAppSettings();
-                    },
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Divider(),
+                InkWell(
+                  onTap: () async {
+                    AppSettings.openAppSettings();
+                  },
+                  child: Container(
+                    height: hp(4, context),
                     child: Row(
                       children: [
                         Text(
@@ -124,78 +127,80 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       ],
                     ),
                   ),
-                  Divider(),
-                  Container(
-                    height: 30,
+                ),
+                Divider(),
+                Container(
+                  height: hp(4, context),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Version",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      Spacer(),
+                      Text('1.0.0+1'),
+                    ],
+                  ),
+                ),
+                Divider(),
+                InkWell(
+                  onTap: () {
+                    AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.warning,
+                        showCloseIcon: true,
+                        desc: "Logout",
+                        btnCancelOnPress: () async {},
+                        btnOkOnPress: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          prefs.remove('isLoggedIn');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Numberverification()));
+                        }).show();
+                  },
+                  child: Container(
+                    height: hp(4, context),
                     child: Row(
                       children: [
                         Text(
-                          "Version",
+                          "Log out",
                           style: TextStyle(fontSize: 18),
                         ),
-                        Spacer(),
-                        Text('1.0.0+1'),
                       ],
                     ),
                   ),
-                  Divider(),
-                  InkWell(
-                    onTap: () {
+                ),
+                Divider(),
+                InkWell(
+                  onTap: () {
+                    try {
                       AwesomeDialog(
                           context: context,
                           dialogType: DialogType.warning,
                           showCloseIcon: true,
-                          desc: "Logout",
+                          desc: "Delete Account",
                           btnCancelOnPress: () async {},
                           btnOkOnPress: () async {
                             SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
+                            _delete_user();
                             prefs.remove('isLoggedIn');
+                            log('log:${FirebaseAuth.instance.currentUser?.uid}');
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         Numberverification()));
                           }).show();
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 30,
-                          child: Text(
-                            "Log out",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  InkWell(
-                    onTap: () {
-                      try {
-                        AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.warning,
-                            showCloseIcon: true,
-                            desc: "Delete Account",
-                            btnCancelOnPress: () async {},
-                            btnOkOnPress: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              _delete_user();
-                              prefs.remove('isLoggedIn');
-                              log('log:${FirebaseAuth.instance.currentUser?.uid}');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Numberverification()));
-                            }).show();
-                      } catch (e) {
-                        print(e);
-                      }
-                    },
+                    } catch (e) {
+                      print(e);
+                    }
+                  },
+                  child: Container(
+                    height: hp(4, context),
                     child: Row(
                       children: [
                         Text(
@@ -205,8 +210,9 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                Divider(),
+              ],
             ),
           ),
         ],

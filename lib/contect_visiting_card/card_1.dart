@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/controllers/data_controllers.dart';
+import 'package:vcard/model/data_controllers.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../utils/constants_color.dart';
 import '../widget/text_button_widget.dart';
@@ -34,7 +34,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: BACKGROUND_COLOR,
+      backgroundColor: WHITE_COLOR,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Container(
