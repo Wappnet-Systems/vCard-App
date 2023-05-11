@@ -42,7 +42,7 @@ class _IconwidgetState extends State<Iconwidget> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: PRIMARY_COLOR.withOpacity(0.8),
+        color: COLOR_PRIMARY_DARK.withOpacity(0.8),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(

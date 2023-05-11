@@ -13,19 +13,20 @@ import 'package:vcard/contect_visiting_card/card_2.dart';
 import 'package:vcard/contect_visiting_card/card_3.dart';
 import 'package:vcard/contect_visiting_card/card_4.dart';
 import 'package:vcard/contect_visiting_card/defult_card.dart';
+import 'package:vcard/utils/responsive.dart';
 
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
 
-class Digitalvisitingcard extends StatefulWidget {
+class ViewVisitingCard extends StatefulWidget {
   final int? id;
-  const Digitalvisitingcard({super.key, required this.id});
+  const ViewVisitingCard({super.key, required this.id});
 
   @override
-  State<Digitalvisitingcard> createState() => _DigitalvisitingcardState();
+  State<ViewVisitingCard> createState() => _ViewVisitingCardState();
 }
 
-class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
+class _ViewVisitingCardState extends State<ViewVisitingCard> {
   int? cardindex;
   FToast? fToast;
   final _containerKey = GlobalKey();
@@ -59,7 +60,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   @override
   Widget build(BuildContext context) {
     List<Widget> cardList = [
-      Contectcardtheme1(id: cardindex),
+      ContectCardTheme1(id: cardindex),
       Contectcardtheme2(id: cardindex),
       Contectcardtheme3(id: cardindex),
       Contectcardtheme4(id: cardindex),
@@ -77,25 +78,41 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
           },
           child: const Icon(
             Icons.arrow_back_rounded,
-            color: WHITE_COLOR,
+            color: COLOR_PRIMARY_DARK,
             size: 25,
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () async {
+          InkWell(
+            onTap: () async {
               await captureImage();
             },
-            icon: const Icon(
-              Icons.ios_share_rounded,
-              color: WHITE_COLOR,
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(
+                wp(2, context),
+              ),
+              margin: EdgeInsets.symmetric(
+                horizontal: wp(2, context),
+                vertical: hp(1, context),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: PRIMARY_COLOR,
+              ),
+              child: const Icon(
+                Icons.ios_share_rounded,
+                color: COLOR_PRIMARY_DARK,
+              ),
             ),
           ),
         ],
       ),
       body: RepaintBoundary(
         key: _containerKey,
-        child: cardList[Staticmembers.listofUsers[widget.id!].card!],
+        child: cardList[0
+            // Staticmembers.listofUsers[widget.id!].card!
+            ],
       ),
     );
   }

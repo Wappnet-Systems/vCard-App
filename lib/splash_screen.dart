@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/screens/login_page.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 
@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
           : Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const Authmodual(),
+                builder: (context) => const LoginPage(),
               ),
             );
     });
@@ -47,7 +47,11 @@ class _SplashScreenState extends State<SplashScreen> {
               gradient: LinearGradient(
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
-                  colors: [PRIMARY_COLOR, Colors.white, PRIMARY_COLOR]),
+                  colors: [
+                    COLOR_PRIMARY_DARK,
+                    PRIMARY_COLOR,
+                    COLOR_PRIMARY_DARK
+                  ]),
             ),
           ),
           Positioned(
@@ -72,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.w500,
-                    color: PRIMARY_COLOR,
+                    color: COLOR_PRIMARY_DARK,
                   ),
                 )
               ],

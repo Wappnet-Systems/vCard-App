@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vcard/controllers/data_controllers.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
-import '../controllers/data_controllers.dart';
-import '../utils/style.dart';
-import '../utils/responsive.dart';
-import 'app_shere_screen.dart';
+import 'package:vcard/widget/text_button_widget.dart';
 
 class Scannerscreen extends StatefulWidget {
   const Scannerscreen({super.key});
@@ -148,9 +148,9 @@ class _ScannerscreenState extends State<Scannerscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: const AppBarWidget(
+      appBar: AppBarWidget(
         title: "Qr Scanner",
-        centerTitle: true,
+        leadingWidth: wp(4, context),
       ),
       body: value != false
           ? Center(
@@ -158,138 +158,275 @@ class _ScannerscreenState extends State<Scannerscreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 180),
                   Container(
-                    height: hp(22.5, context),
-                    width: wp(50, context),
+                    // height: hp(22.5, context),
+                    // width: wp(60, context),
+                    margin: EdgeInsets.symmetric(
+                      horizontal: wp(6, context),
+                      vertical: hp(1, context),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: wp(4, context),
+                      vertical: hp(2, context),
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: PRIMARY_COLOR,
+                      color: WHITE_COLOR,
+                      boxShadow: [
+                        BoxShadow(
+                          color: COLOR_PRIMARY_DARK.withOpacity(0.2),
+                          blurRadius: 5.0,
+                          offset: const Offset(1, -1),
+                        ),
+                        BoxShadow(
+                          color: COLOR_PRIMARY_DARK.withOpacity(0.2),
+                          blurRadius: 5.0,
+                          offset: const Offset(-1, 1),
+                        )
+                      ],
                     ),
-                    margin: EdgeInsets.symmetric(
-                        horizontal: wp(3, context), vertical: hp(1, context)),
-                    child: Column(children: [
-                      image == ""
-                          ? ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.asset(
-                                "assets/images/splash1.png",
-                                width: wp(50, context),
-                                height: hp(19, context),
-                                fit: BoxFit.fill,
-                              ),
-                            )
-                          : ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                "${image}",
-                                width: wp(50, context),
-                                height: hp(19, context),
-                                fit: BoxFit.fill,
-                                frameBuilder: (context, child, frame,
-                                    wasSynchronouslyLoaded) {
-                                  return child;
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Image(
-                                    image:
-                                        AssetImage("assets/images/splash1.png"),
-                                    width: wp(50, context),
-                                    height: hp(19, context),
-                                  );
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        image == "" || image == null
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  "assets/images/splash1.png",
+                                  width: wp(20, context),
+                                  height: hp(12, context),
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  "$image",
+                                  width: wp(25, context),
+                                  height: hp(15, context),
+                                  fit: BoxFit.cover,
+                                  frameBuilder: (context, child, frame,
+                                      wasSynchronouslyLoaded) {
                                     return child;
-                                  } else {
-                                    return Center(
-                                        child: Icon(
-                                      Icons.image,
-                                      size: 130,
-                                      color: WHITE_COLOR,
-                                    ));
-                                  }
-                                },
+                                  },
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      color: PRIMARY_COLOR.withOpacity(0.3),
+                                      child: const Icon(
+                                        Icons.image_rounded,
+                                        size: 90,
+                                        color: PRIMARY_COLOR,
+                                      ),
+                                    );
+                                  },
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return Container(
+                                        color: PRIMARY_COLOR.withOpacity(0.3),
+                                        child: const Icon(
+                                          Icons.image_rounded,
+                                          size: 90,
+                                          color: PRIMARY_COLOR,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                ),
+                              ),
+                        SizedBox(
+                          width: wp(3, context),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '${name?.toUpperCase()}',
+                              style: const TextStyle(
+                                color: COLOR_PRIMARY_DARK,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
-                      SizedBox(height: hp(0.5, context)),
-                      Center(
-                        child: Text(
-                          '${name}',
-                          style: TextStyle(color: WHITE_COLOR),
+                            SizedBox(
+                              height: hp(0.5, context),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.work_outline_rounded,
+                                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: wp(1, context),
+                                ),
+                                Text(
+                                  '$department',
+                                  style: const TextStyle(
+                                    color: COLOR_PRIMARY_DARK,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: hp(0.5, context),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.home_work_outlined,
+                                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: wp(1, context),
+                                ),
+                                Text(
+                                  '$compeny',
+                                  style: const TextStyle(
+                                    color: COLOR_PRIMARY_DARK,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: hp(0.5, context),
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on_outlined,
+                                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+                                  size: 20,
+                                ),
+                                SizedBox(
+                                  width: wp(1, context),
+                                ),
+                                SizedBox(
+                                  width: wp(48, context),
+                                  child: Text(
+                                    '$address',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      color: COLOR_PRIMARY_DARK,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(height: hp(0.5, context)),
-                    ]),
+                      ],
+                    ),
                   ),
-                  SizedBox(height: hp(1, context)),
-                  Center(
-                    child: Container(
-                        width: wp(50, context),
-                        decoration: BoxDecoration(
-                          color: PRIMARY_COLOR,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: TextButton(
-                          child: Text(
-                            'Connected',
-                            style: TextStyle(color: WHITE_COLOR),
-                          ),
-                          onPressed: () {
-                            addUser();
-                            displayCustomToast();
-                          },
-                        )),
+                  SizedBox(
+                    height: hp(3, context),
                   ),
-                  SizedBox(height: hp(1, context)),
-                  Container(
-                      width: wp(50, context),
-                      decoration: BoxDecoration(
-                        color: Colors.redAccent,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: TextButton(
-                        child: Text(
-                          'Disconnected',
-                          style: TextStyle(color: WHITE_COLOR),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Dashboardscreen(
-                                        index: 1,
-                                      )));
-                        },
-                      )),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: wp(25, context),
+                    ),
+                    child: TextButtomWidget(
+                      width: wp(30, context),
+                      height: hp(7, context),
+                      fontSize: 15,
+                      onPressed: () {
+                        addUser();
+                        displayCustomToast();
+                      },
+                      title: "Connected",
+                    ),
+                  ),
+                  SizedBox(
+                    height: hp(2, context),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: wp(25, context),
+                    ),
+                    child: TextButtomWidget(
+                      width: wp(30, context),
+                      height: hp(7, context),
+                      fontSize: 15,
+                      onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      const Dashboardscreen(
+                                index: 0,
+                              ),
+                              transitionDuration: const Duration(seconds: 0),
+                            ),
+                            (route) => false);
+                      },
+                      title: "Disconnected",
+                      color: Colors.redAccent,
+                    ),
+                  ),
                 ],
               ),
             )
           : Center(
-              child: FloatingActionButton.extended(
-                backgroundColor: PRIMARY_COLOR,
-                label: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(
-                      Icons.photo_camera,
-                      size: 20,
-                      color: WHITE_COLOR,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: wp(70, context),
+                    child: Text(
+                      "Scan QR codes in seconds with just a click of a button. Try it out now!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: COLOR_PRIMARY_DARK.withOpacity(0.8),
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                    SizedBox(
-                      width: wp(2, context),
+                  ),
+                  SizedBox(
+                    height: hp(2, context),
+                  ),
+                  FloatingActionButton.extended(
+                    backgroundColor: COLOR_PRIMARY_DARK,
+                    elevation: 1.0,
+                    label: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Icon(
+                          Icons.photo_camera,
+                          size: 20,
+                          color: WHITE_COLOR,
+                        ),
+                        SizedBox(
+                          width: wp(2, context),
+                        ),
+                        const Text(
+                          'Qr Scan',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: WHITE_COLOR,
+                              fontWeight: FontWeight.w500),
+                        )
+                      ],
                     ),
-                    const Text('Qr Scan',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: WHITE_COLOR,
-                            fontWeight: FontWeight.w500))
-                  ],
-                ),
-                onPressed: () {
-                  scanQRCode();
-                },
+                    onPressed: () {
+                      scanQRCode();
+                    },
+                  ),
+                ],
               ),
             ),
     );

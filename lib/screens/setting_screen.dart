@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/screens/login_page.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
@@ -73,9 +73,9 @@ class _SettingScreenState extends State<SettingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: const AppBarWidget(
+      appBar: AppBarWidget(
         title: 'Settings',
-        centerTitle: true,
+        leadingWidth: wp(4, context),
       ),
       body: ListView(
         padding: EdgeInsets.symmetric(
@@ -142,17 +142,17 @@ class _SettingScreenState extends State<SettingScreen> {
                     topRight: Radius.circular(20),
                   ),
                 ),
-                builder: (BuildContext context) => const GenerateQR(),
+                builder: (BuildContext context) => const ShareApp(),
               );
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.share_rounded,
               size: 20,
-              color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+              color: COLOR_PRIMARY_DARK,
             ),
-            trilingIcon: Icon(
+            trilingIcon: const Icon(
               Icons.arrow_forward_ios_rounded,
-              color: COLOR_PRIMARY_LIGHT,
+              color: COLOR_PRIMARY_DARK,
               size: 18,
             ),
           ),
@@ -168,10 +168,10 @@ class _SettingScreenState extends State<SettingScreen> {
           SettingRow(
             color: COLOR_PRIMARY_DARK,
             title: "Total Contacts",
-            icon: Icon(
+            icon: const Icon(
               Icons.account_box_rounded,
               size: 20,
-              color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
+              color: COLOR_PRIMARY_DARK,
             ),
             trilingIcon: Text(
               '0',
@@ -211,7 +211,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Authmodual(),
+                        builder: (context) => const LoginPage(),
                       ),
                     );
                   }).show();
@@ -246,7 +246,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const Authmodual(),
+                        builder: (context) => const LoginPage(),
                       ),
                     );
                   }).show();
@@ -295,7 +295,7 @@ class SettingRow extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
-                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.1),
+                  color: PRIMARY_COLOR,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: icon,

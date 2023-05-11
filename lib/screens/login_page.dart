@@ -11,15 +11,15 @@ import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_button_widget.dart';
 
-class Authmodual extends StatefulWidget {
-  const Authmodual({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
   static String verify = "";
 
   @override
-  State<Authmodual> createState() => _AuthmodualState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _AuthmodualState extends State<Authmodual> {
+class _LoginPageState extends State<LoginPage> {
   TextEditingController countryController = TextEditingController();
   String phone = "91";
   var maskFormatter = MaskTextInputFormatter(
@@ -59,23 +59,28 @@ class _AuthmodualState extends State<Authmodual> {
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                height: hp(10, context),
+                height: hp(1, context),
               ),
               Center(
                 child: Image.asset(
-                  'assets/images/Auth_modual.png',
-                  width: 150,
-                  height: 150,
+                  'assets/images/login.png',
+                  width: wp(60, context),
+                  height: hp(40, context),
                 ),
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(2, context),
               ),
               const Text(
                 "Login",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: COLOR_PRIMARY_DARK,
+                ),
               ),
               SizedBox(
                 height: hp(1, context),
@@ -100,7 +105,7 @@ class _AuthmodualState extends State<Authmodual> {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 onChanged: (phone) {
-                  print(phone.completeNumber);
+                  log(phone.completeNumber);
                 },
                 onCountryChanged: (country) {
                   phone = country.dialCode;
@@ -115,19 +120,21 @@ class _AuthmodualState extends State<Authmodual> {
                   labelText: '',
                   hintText: "Phone Number",
                   border: OutlineInputBorder(
-                    borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                    borderSide: BorderSide(
+                      color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: COLOR_PRIMARY_LIGHT,
+                      color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(
-                      color: COLOR_PRIMARY_LIGHT,
+                      color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
                     ),
                   ),
                   errorBorder: OutlineInputBorder(
@@ -139,7 +146,7 @@ class _AuthmodualState extends State<Authmodual> {
                 ),
               ),
               SizedBox(
-                height: hp(4, context),
+                height: hp(5, context),
               ),
               TextButtomWidget(
                 isLoading: isLoading,
@@ -158,21 +165,42 @@ class _AuthmodualState extends State<Authmodual> {
                         isLoading = false;
                       });
 
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                            "Phone number verification failed. Error: ${e.message}"),
-                      ));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: const Text(
+                            "Phone number verification failed.Try again!.",
+                            style: TextStyle(
+                              color: COLOR_PRIMARY_DARK,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: PRIMARY_COLOR,
+                          padding: EdgeInsets.symmetric(
+                            horizontal: wp(4, context),
+                            vertical: hp(2, context),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: wp(4, context),
+                            vertical: hp(2, context),
+                          ),
+                        ),
+                      );
                     },
                     codeSent: (String verificationId, int? resendToken) async {
-                      Authmodual.verify = verificationId;
-                      log("VerificationId::::::${Authmodual.verify}");
+                      LoginPage.verify = verificationId;
+                      log("VerificationId::::::${LoginPage.verify}");
                       setState(() {
                         isLoading = true;
                       });
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTPscreen(
+                          builder: (context) => OtpScreen(
                             phoneNumber: "+${phone + countryController.text}",
                           ),
                         ),
@@ -187,7 +215,6 @@ class _AuthmodualState extends State<Authmodual> {
                   });
                 },
                 title: "Send the Code",
-                color: PRIMARY_COLOR,
               ),
             ],
           ),

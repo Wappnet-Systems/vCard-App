@@ -2,25 +2,27 @@ import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_text_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
-import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/screens/login_page.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_button_widget.dart';
 
-class OTPscreen extends StatefulWidget {
+class OtpScreen extends StatefulWidget {
   final String? phoneNumber;
-  const OTPscreen({Key? key, this.phoneNumber}) : super(key: key);
+  const OtpScreen({Key? key, this.phoneNumber}) : super(key: key);
 
   @override
-  State<OTPscreen> createState() => _OTPscreenState();
+  State<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OTPscreenState extends State<OTPscreen> {
+class _OtpScreenState extends State<OtpScreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final otpController = TextEditingController();
+  final otpController = OtpFieldController();
   String? code;
   bool isLoading = false;
   @override
@@ -47,16 +49,15 @@ class _OTPscreenState extends State<OTPscreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              height: hp(8, context),
+              height: hp(1, context),
             ),
             Center(
               child: Image.asset(
-                'assets/images/OTP_verification.jpg',
-                width: wp(50, context),
-                height: hp(25, context),
+                'assets/images/otp.png',
+                width: wp(60, context),
+                height: hp(40, context),
               ),
             ),
-            SizedBox(height: hp(3, context)),
             const Text(
               "OTP Verification Code",
               textAlign: TextAlign.center,
@@ -66,30 +67,38 @@ class _OTPscreenState extends State<OTPscreen> {
                 color: COLOR_PRIMARY_DARK,
               ),
             ),
-            SizedBox(height: hp(1, context)),
+            SizedBox(
+              height: hp(2, context),
+            ),
             Text(
               "We just sent you a 6-digit code via SMS to confirm your phone number ${widget.phoneNumber ?? ""}.",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 15,
-                color: COLOR_PRIMARY_LIGHT,
+                color: COLOR_PRIMARY_LIGHT.withOpacity(0.6),
                 fontWeight: FontWeight.w400,
               ),
             ),
             SizedBox(
               height: hp(3, context),
             ),
-            PinFieldAutoFill(
-              codeLength: 6,
-              currentCode: code,
+            OTPTextField(
+              length: 6,
+              fieldWidth: 40,
               controller: otpController,
-              onCodeChanged: (value) {
-                code = value!;
+              width: MediaQuery.of(context).size.width,
+              keyboardType: TextInputType.number,
+              style: const TextStyle(fontSize: 20, color: COLOR_PRIMARY_DARK),
+              textFieldAlignment: MainAxisAlignment.spaceAround,
+              fieldStyle: FieldStyle.box,
+              onChanged: (otp) {
+                log("OTP:$otp");
               },
-              onCodeSubmitted: (value) {
-                code = value;
-                otpController.text = value;
-                log("code:${otpController.text}");
+              onCompleted: (pin) {
+                setState(() {
+                  code = pin;
+                });
+                log("Completed:$pin");
               },
             ),
             SizedBox(
@@ -100,13 +109,13 @@ class _OTPscreenState extends State<OTPscreen> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 try {
-                  log(Authmodual.verify);
+                  log(LoginPage.verify);
                   log(code!);
                   setState(() {
                     isLoading = true;
                   });
                   PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                      verificationId: Authmodual.verify, smsCode: "$code");
+                      verificationId: LoginPage.verify, smsCode: "$code");
 
                   await auth
                       .signInWithCredential(credential)
@@ -121,7 +130,7 @@ class _OTPscreenState extends State<OTPscreen> {
                       desc: "Login Successfully",
                     ).show();
                     await prefs.setBool('isLoggedIn', true);
-                    Future.delayed(const Duration(seconds: 3), () {
+                    Future.delayed(const Duration(seconds: 1), () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

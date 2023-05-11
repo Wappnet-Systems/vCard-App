@@ -11,6 +11,7 @@ import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
 import 'package:vcard/widget/custom_no_data_widget.dart';
 import 'package:vcard/widget/delete_card_dialog.dart';
+import 'package:vcard/widget/popup_menu_item_widget.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -82,250 +83,232 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BACKGROUND_COLOR,
-      appBar: const AppBarWidget(
+      appBar: AppBarWidget(
         title: "Contacts",
-        centerTitle: true,
+        leadingWidth: wp(4, context),
       ),
       body: Staticmembers.listofUsers.isNotEmpty
           ? isLoading
               ? const Center(
                   child: SpinKitCircle(
-                    color: PRIMARY_COLOR,
+                    color: COLOR_PRIMARY_DARK,
                   ),
                 )
-              : ListView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: wp(6, context),
-                    vertical: hp(3, context),
-                  ),
-                  itemCount: Staticmembers.listofUsers.length,
-                  physics: const BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return PopupMenuButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      constraints: BoxConstraints(
-                        maxWidth: wp(28, context),
-                        maxHeight: hp(35, context),
-                      ),
-                      itemBuilder: (BuildContext context) {
-                        return <PopupMenuEntry>[
-                          PopupMenuItem(
-                            value: 1,
-                            height: hp(6, context),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Icon(
-                                  Icons.visibility_rounded,
-                                  size: 20,
-                                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.7),
-                                ),
-                                SizedBox(
-                                  width: wp(2, context),
-                                ),
-                                Text(
-                                  "View",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: COLOR_PRIMARY_LIGHT.withOpacity(0.8),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          PopupMenuItem(
-                            value: 2,
-                            height: hp(6, context),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const Icon(
-                                  Icons.delete_outline_rounded,
-                                  size: 20,
-                                  color: Colors.red,
-                                ),
-                                SizedBox(
-                                  width: wp(2, context),
-                                ),
-                                const Text(
-                                  "Delete",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.red,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ];
-                      },
-                      onSelected: (value) {
-                        setState(() {
-                          cardindex = index;
-                        });
-                        value == 1
-                            ? Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Contectvisitingcard(
-                                    id: cardindex,
-                                  ),
-                                ),
-                              )
-                            : value == 2
-                                ? deleteCard(
-                                    context,
-                                    onPressed: () {
-                                      setState(() {
-                                        log("${Staticmembers.listofUsers[index].id}");
-                                        FirebaseFirestore.instance
-                                            .collection("users")
-                                            .doc(FirebaseAuth
-                                                .instance.currentUser?.uid)
-                                            .collection("Frind's Card")
-                                            .doc(Staticmembers
-                                                .listofUsers[index].id)
-                                            .delete()
-                                            .then((value) {
-                                          Navigator.pop(context, true);
-                                          changeData();
-                                        });
-                                      });
-                                    },
-                                  )
-                                : null;
-                      },
-                      child: Container(
+              : Column(
+                  children: [
+                    Divider(
+                      color: COLOR_PRIMARY_DARK.withOpacity(0.5),
+                      thickness: 1,
+                      height: 1,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
                         padding: EdgeInsets.symmetric(
-                          horizontal: wp(3, context),
-                          vertical: hp(2, context),
+                          horizontal: wp(6, context),
+                          vertical: hp(3, context),
                         ),
-                        margin: EdgeInsets.symmetric(
-                          vertical: hp(1.5, context),
-                        ),
-                        decoration: BoxDecoration(
-                          color: WHITE_COLOR,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: COLOR_PRIMARY_DARK.withOpacity(0.2),
-                              blurRadius: 1.0,
-                              offset: const Offset(1, -1),
+                        itemCount: Staticmembers.listofUsers.length,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return PopupMenuButton(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            BoxShadow(
-                              color: COLOR_PRIMARY_DARK.withOpacity(0.2),
-                              blurRadius: 1.0,
-                              offset: const Offset(-1, 1),
+                            constraints: BoxConstraints(
+                              maxWidth: wp(28, context),
+                              maxHeight: hp(35, context),
                             ),
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Staticmembers.listofUsers[index].image ==
-                                      ""
-                                  ? Image.asset(
-                                      "assets/images/splash1.png",
-                                      width: wp(16, context),
-                                      height: hp(10, context),
-                                      fit: BoxFit.cover,
+                            itemBuilder: (BuildContext context) {
+                              return <PopupMenuEntry>[
+                                popUpMenuItem(
+                                  context,
+                                  value: 1,
+                                  title: "View",
+                                  icon: Icon(
+                                    Icons.visibility_rounded,
+                                    size: 20,
+                                    color: COLOR_PRIMARY_LIGHT.withOpacity(0.7),
+                                  ),
+                                ),
+                                popUpMenuItem(
+                                  context,
+                                  value: 2,
+                                  title: "Delete",
+                                  textColor: Colors.redAccent,
+                                  icon: const Icon(Icons.delete_outline_rounded,
+                                      size: 20, color: Colors.redAccent),
+                                ),
+                              ];
+                            },
+                            onSelected: (value) {
+                              setState(() {
+                                cardindex = index;
+                              });
+                              value == 1
+                                  ? Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Contectvisitingcard(
+                                          id: cardindex,
+                                        ),
+                                      ),
                                     )
-                                  : Image.network(
-                                      "${Staticmembers.listofUsers[index].image}",
-                                      width: wp(16, context),
-                                      height: hp(10, context),
-                                      fit: BoxFit.cover,
-                                      frameBuilder: (context, child, frame,
-                                          wasSynchronouslyLoaded) {
-                                        return child;
-                                      },
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        } else {
-                                          return Center(
-                                            child: Icon(
-                                              Icons.image,
-                                              size: 60,
-                                              color: PRIMARY_COLOR
-                                                  .withOpacity(0.5),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return Center(
-                                          child: Icon(
-                                            Icons.image,
-                                            size: 60,
-                                            color:
-                                                PRIMARY_COLOR.withOpacity(0.5),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                            ),
-                            SizedBox(
-                              width: wp(3, context),
-                            ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    '${Staticmembers.listofUsers[index].type}',
-                                    style: const TextStyle(
-                                      color: COLOR_PRIMARY_DARK,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  : value == 2
+                                      ? deleteCard(
+                                          context,
+                                          onPressed: () {
+                                            setState(() {
+                                              log("${Staticmembers.listofUsers[index].id}");
+                                              FirebaseFirestore.instance
+                                                  .collection("users")
+                                                  .doc(FirebaseAuth.instance
+                                                      .currentUser?.uid)
+                                                  .collection("Frind's Card")
+                                                  .doc(Staticmembers
+                                                      .listofUsers[index].id)
+                                                  .delete()
+                                                  .then((value) {
+                                                Navigator.pop(context, true);
+                                                changeData();
+                                              });
+                                            });
+                                          },
+                                        )
+                                      : null;
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: wp(3, context),
+                                vertical: hp(2, context),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                vertical: hp(1.5, context),
+                              ),
+                              decoration: BoxDecoration(
+                                color: WHITE_COLOR,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: COLOR_PRIMARY_DARK.withOpacity(0.2),
+                                    blurRadius: 1.0,
+                                    offset: const Offset(1, -1),
                                   ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Company: ${Staticmembers.listofUsers[index].compeny}',
-                                    style: TextStyle(
-                                      color:
-                                          COLOR_PRIMARY_LIGHT.withOpacity(0.6),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Department: ${Staticmembers.listofUsers[index].department}',
-                                    style: TextStyle(
-                                      color:
-                                          COLOR_PRIMARY_LIGHT.withOpacity(0.6),
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                    ),
+                                  BoxShadow(
+                                    color: COLOR_PRIMARY_DARK.withOpacity(0.2),
+                                    blurRadius: 1.0,
+                                    offset: const Offset(-1, 1),
                                   ),
                                 ],
                               ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Staticmembers
+                                                .listofUsers[index].image ==
+                                            ""
+                                        ? Image.asset(
+                                            "assets/images/splash1.png",
+                                            width: wp(16, context),
+                                            height: hp(10, context),
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.network(
+                                            "${Staticmembers.listofUsers[index].image}",
+                                            width: wp(16, context),
+                                            height: hp(10, context),
+                                            fit: BoxFit.cover,
+                                            frameBuilder: (context, child,
+                                                frame, wasSynchronouslyLoaded) {
+                                              return child;
+                                            },
+                                            loadingBuilder: (context, child,
+                                                loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              } else {
+                                                return Center(
+                                                  child: Icon(
+                                                    Icons.image,
+                                                    size: 60,
+                                                    color: PRIMARY_COLOR
+                                                        .withOpacity(0.5),
+                                                  ),
+                                                );
+                                              }
+                                            },
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                              return Center(
+                                                child: Icon(
+                                                  Icons.image,
+                                                  size: 60,
+                                                  color: PRIMARY_COLOR
+                                                      .withOpacity(0.5),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                  ),
+                                  SizedBox(
+                                    width: wp(3, context),
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${Staticmembers.listofUsers[index].type}',
+                                          style: const TextStyle(
+                                            color: COLOR_PRIMARY_DARK,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Company: ${Staticmembers.listofUsers[index].compeny}',
+                                          style: TextStyle(
+                                            color: COLOR_PRIMARY_LIGHT
+                                                .withOpacity(0.6),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'Department: ${Staticmembers.listofUsers[index].department}',
+                                          style: TextStyle(
+                                            color: COLOR_PRIMARY_LIGHT
+                                                .withOpacity(0.6),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.menu_rounded,
+                                    size: 20,
+                                    color: BLUE_COLOR,
+                                  )
+                                ],
+                              ),
                             ),
-                            const Icon(
-                              Icons.menu_rounded,
-                              size: 20,
-                              color: BLUE_COLOR,
-                            )
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 )
           : const CustomNoData(
               iconaddress: CARD,

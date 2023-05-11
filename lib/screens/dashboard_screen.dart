@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/card_screen.dart';
 import 'package:vcard/screens/create_card_screen.dart';
@@ -60,7 +58,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           border: Border.all(color: WHITE_COLOR, width: 2),
         ),
         child: FloatingActionButton(
-          backgroundColor: PRIMARY_COLOR,
+          backgroundColor: COLOR_PRIMARY_DARK,
           onPressed: () {
             Navigator.push(
               context,
@@ -87,103 +85,83 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             notchMargin: 2.0,
             shape: const CircularNotchedRectangle(),
             padding: EdgeInsets.symmetric(
-              horizontal: wp(4, context),
+              horizontal: wp(6, context),
             ),
             height: hp(7, context),
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(
-                horizontal: wp(4, context),
-              ),
-              height: hp(7, context),
-              decoration: const BoxDecoration(
-                color: PRIMARY_COLOR,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentTab = 0;
+                      log("currentTab:$currentTab");
+                      currentScreen = screens[0];
+                    });
+                  },
+                  child: Icon(
+                    Icons.home_rounded,
+                    size: 25,
+                    color: currentTab == 0
+                        ? COLOR_PRIMARY_DARK
+                        : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                  ),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: wp(15, context),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          currentTab = 0;
-                          log("currentTab:$currentTab");
-                          currentScreen = screens[0];
-                        });
-                      },
-                      child: Icon(
-                        Icons.add_card,
-                        color: currentTab == 0
-                            ? WHITE_COLOR
-                            : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
-                      ),
-                    ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentTab = 1;
+                      log("currentTab:$currentTab");
+                      currentScreen = screens[1];
+                    });
+                  },
+                  child: Icon(
+                    Icons.camera,
+                    size: 25,
+                    color: currentTab == 1
+                        ? COLOR_PRIMARY_DARK
+                        : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: wp(27, context),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          currentTab = 1;
-                          log("currentTab:$currentTab");
-                          currentScreen = screens[1];
-                        });
-                      },
-                      child: Icon(
-                        Icons.camera,
-                        color: currentTab == 1
-                            ? WHITE_COLOR
-                            : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
-                      ),
-                    ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: wp(12, context),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      right: wp(15, context),
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          currentTab = 2;
-                          log("currentTab:$currentTab");
-                          currentScreen = screens[2];
-                        });
-                      },
-                      child: Icon(
-                        Icons.contacts_rounded,
-                        color: currentTab == 2
-                            ? WHITE_COLOR
-                            : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
+                  child: GestureDetector(
                     onTap: () {
                       setState(() {
-                        currentTab = 3;
+                        currentTab = 2;
                         log("currentTab:$currentTab");
-                        currentScreen = screens[3];
+                        currentScreen = screens[2];
                       });
                     },
                     child: Icon(
-                      Icons.settings,
-                      color: currentTab == 3
-                          ? WHITE_COLOR
+                      Icons.account_box_rounded,
+                      size: 25,
+                      color: currentTab == 2
+                          ? COLOR_PRIMARY_DARK
                           : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
                     ),
                   ),
-                ],
-              ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentTab = 3;
+                      log("currentTab:$currentTab");
+                      currentScreen = screens[3];
+                    });
+                  },
+                  child: Icon(
+                    Icons.settings,
+                    size: 25,
+                    color: currentTab == 3
+                        ? COLOR_PRIMARY_DARK
+                        : COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                  ),
+                ),
+              ],
             )),
       ),
     );

@@ -32,14 +32,14 @@ class TextButtomWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: isLoading
             ? color != null
-                ? PRIMARY_COLOR.withOpacity(0.5)
-                : PRIMARY_COLOR.withOpacity(0.5)
-            : color ?? PRIMARY_COLOR,
+                ? COLOR_PRIMARY_DARK
+                : COLOR_PRIMARY_DARK
+            : color ?? COLOR_PRIMARY_DARK,
         borderRadius: BorderRadius.circular(10),
       ),
       child: SizedBox(
         width: width ?? wp(80, context),
-        height: height,
+        height: height ?? hp(7.5, context),
         child: isLoading
             ? Padding(
                 padding: EdgeInsets.symmetric(
@@ -59,6 +59,7 @@ class TextButtomWidget extends StatelessWidget {
                     icon ?? const SizedBox.shrink(),
                     Text(
                       "$title",
+                      textAlign: TextAlign.center,
                       style: textStyle ??
                           TextStyle(
                               color: WHITE_COLOR, fontSize: fontSize ?? 16),

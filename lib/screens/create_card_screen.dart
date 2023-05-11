@@ -146,13 +146,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           },
           child: const Icon(
             Icons.arrow_back_rounded,
-            color: WHITE_COLOR,
+            color: COLOR_PRIMARY_DARK,
             size: 25,
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
+          InkWell(
+            onTap: () {
               log("Save");
               if (_formfield.currentState!.validate()) {
                 setState(() {
@@ -161,9 +161,21 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 addUser();
               }
             },
-            icon: const Icon(
-              Icons.save,
-              color: WHITE_COLOR,
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(wp(2, context)),
+              margin: EdgeInsets.symmetric(
+                horizontal: wp(2, context),
+                vertical: hp(1, context),
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: PRIMARY_COLOR,
+              ),
+              child: const Icon(
+                Icons.save,
+                color: COLOR_PRIMARY_DARK,
+              ),
             ),
           ),
         ],
@@ -185,19 +197,19 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(color: PRIMARY_COLOR, width: 2),
+                          border:
+                              Border.all(color: COLOR_PRIMARY_DARK, width: 2),
                           shape: BoxShape.circle),
                       child: CircleAvatar(
                         radius: 60,
-                        backgroundColor: PRIMARY_COLOR.withOpacity(0.8),
+                        backgroundColor: PRIMARY_COLOR,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(60),
                           child: imagepicker == null
-                              ? Image.asset(
-                                  "assets/images/splash1.png",
-                                  width: wp(35, context),
-                                  height: hp(21, context),
-                                  fit: BoxFit.cover,
+                              ? Icon(
+                                  Icons.image_rounded,
+                                  color: COLOR_PRIMARY_DARK.withOpacity(0.7),
+                                  size: 80,
                                 )
                               : Image.file(
                                   imagepicker!,
@@ -229,7 +241,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                             padding: const EdgeInsets.all(5.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: PRIMARY_COLOR,
+                              color: COLOR_PRIMARY_DARK,
                               border: Border.all(
                                 color: WHITE_COLOR,
                                 width: 2,
@@ -251,6 +263,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               CustomTextFormField(
                 textInputType: TextInputType.emailAddress,
                 textEditingController: _typecontroller,
+                textInputAction: TextInputAction.next,
                 texteditinghinttext: 'Card Type',
                 customobscuretext: true,
                 validationfunction: textvalidator,
@@ -258,6 +271,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               CustomTextFormField(
                 textInputType: TextInputType.text,
                 textEditingController: _nameController,
+                textInputAction: TextInputAction.next,
                 texteditinghinttext: 'Name',
                 customobscuretext: true,
                 validationfunction: textvalidator,
@@ -265,6 +279,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               CustomTextFormField(
                 textInputType: TextInputType.text,
                 textEditingController: _departmentController,
+                textInputAction: TextInputAction.next,
                 texteditinghinttext: 'Department',
                 customobscuretext: true,
                 validationfunction: textvalidator,
@@ -272,12 +287,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               CustomTextFormField(
                 textInputType: TextInputType.text,
                 textEditingController: _companyController,
+                textInputAction: TextInputAction.next,
                 texteditinghinttext: 'Company',
                 customobscuretext: true,
                 validationfunction: textvalidator,
               ),
               CustomTextFormField(
                 textInputType: TextInputType.multiline,
+                textInputAction: TextInputAction.done,
                 textEditingController: _headlineController,
                 maxLength: 250,
                 maxLines: 7,

@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool customobscuretext;
   final String? Function(String? value)? validationfunction;
   final Widget? suffixIcon;
+  final TextInputAction? textInputAction;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength, minLines, maxLines;
   const CustomTextFormField({
@@ -22,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.customobscuretext,
     required this.validationfunction,
     this.suffixIcon,
+    this.textInputAction,
     this.inputFormatters,
     this.maxLength,
     this.minLines,
@@ -34,13 +36,14 @@ class CustomTextFormField extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,
       keyboardType: textInputType,
+      textInputAction: textInputAction,
       style: const TextStyle(
         color: COLOR_PRIMARY_DARK,
         fontSize: 16,
       ),
       obscureText: !customobscuretext,
       enableInteractiveSelection: false,
-      cursorColor: PRIMARY_COLOR,
+      cursorColor: COLOR_PRIMARY_DARK,
       controller: textEditingController,
       decoration: InputDecoration(
         counterText: "",

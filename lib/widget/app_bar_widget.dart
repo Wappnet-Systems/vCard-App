@@ -7,12 +7,14 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
   final Widget? leadinWidget;
   final Widget? titleWidget;
   final bool? centerTitle;
+  final double? leadingWidth;
   final List<Widget>? actions;
   const AppBarWidget({
     super.key,
     required this.title,
     this.leadinWidget,
     this.centerTitle,
+    this.leadingWidth,
     this.titleWidget,
     this.actions,
   });
@@ -28,8 +30,9 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
       ),
       leading: leadinWidget ?? const SizedBox.shrink(),
       elevation: 0.0,
-      backgroundColor: PRIMARY_COLOR,
-      foregroundColor: PRIMARY_COLOR,
+      leadingWidth: leadingWidth,
+      backgroundColor: BACKGROUND_COLOR,
+      foregroundColor: BACKGROUND_COLOR,
       centerTitle: centerTitle ?? false,
       title: titleWidget ??
           Text(
@@ -37,7 +40,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w500,
-              color: WHITE_COLOR,
+              color: COLOR_PRIMARY_DARK,
             ),
           ),
       actions: actions,

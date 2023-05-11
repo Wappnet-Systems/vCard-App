@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../controllers/data_controllers.dart';
 
 //Colors constants
-const Color PRIMARY_COLOR = Color(0Xff60ab44);
-const COLOR_PRIMARY_DARK = Color(0xff000000);
+const Color PRIMARY_COLOR = Color(0XffDCE8FF);
+const COLOR_PRIMARY_DARK = Color(0xff2E3E5C);
 Color COLOR_PRIMARY_LIGHT = const Color(0xff000000).withOpacity(0.7);
 const COLOR_BACKGROUND_DARK = Color(0xffF5F6FA);
 const COLOR_SECONDARY = Color(0xffC4C4C4);

@@ -1,16 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vcard/contect_visiting_card/card_1.dart';
 import 'package:vcard/contect_visiting_card/card_2.dart';
 import 'package:vcard/contect_visiting_card/card_3.dart';
 import 'package:vcard/contect_visiting_card/card_4.dart';
-import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/contect_visiting_card/defult_card.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/app_bar_widget.dart';
-import '../contect_visiting_card/card_1.dart';
-import '../contect_visiting_card/defult_card.dart';
 
 class Contectvisitingcard extends StatefulWidget {
   final int? id;
@@ -36,7 +34,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
   @override
   Widget build(BuildContext context) {
     List<Widget> cardList = [
-      Contectcardtheme1(id: contactcardindex),
+      ContectCardTheme1(id: contactcardindex),
       Contectcardtheme2(id: contactcardindex),
       Contectcardtheme3(id: contactcardindex),
       Contectcardtheme4(id: contactcardindex),

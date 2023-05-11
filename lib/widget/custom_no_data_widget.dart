@@ -12,9 +12,9 @@ class CustomNoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SizedBox(
-        height: hp(15, context),
-        child: Lottie.asset(iconaddress),
+      child: Lottie.asset(
+        iconaddress,
+        height: hp(30, context),
       ),
     );
   }
