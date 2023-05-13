@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -44,7 +41,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                       ? colorList[
                           Staticmenbers.listofUsers[contactcardindex!].color!]
                       : WHITE_COLOR,
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.black,
                       blurRadius: 3.0,
@@ -56,7 +53,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                     Flexible(
                       flex: 3,
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(15),
                                 bottomLeft: Radius.circular(15))),
@@ -69,7 +66,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               child: Center(
                                 child: Text(
                                   "${Staticmenbers.listofUsers[contactcardindex!].compeny}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -82,7 +79,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(left: 50),
                               child: Text(
                                   "${Staticmenbers.listofUsers[contactcardindex!].phone}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, color: BLUE_COLOR)),
                             ),
                             SizedBox(
@@ -92,7 +89,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(left: 50),
                               child: Text(
                                   "${Staticmenbers.listofUsers[contactcardindex!].whatsapp}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, color: BLUE_COLOR)),
                             ),
                             SizedBox(
@@ -102,7 +99,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(left: 50),
                               child: Text(
                                   "${Staticmenbers.listofUsers[contactcardindex!].email}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, color: BLUE_COLOR)),
                             ),
                             SizedBox(
@@ -112,7 +109,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(left: 50),
                               child: Text(
                                   "${Staticmenbers.listofUsers[contactcardindex!].website}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, color: BLUE_COLOR)),
                             ),
                             SizedBox(
@@ -122,15 +119,15 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(left: 50),
                               child: Text(
                                   "${Staticmenbers.listofUsers[contactcardindex!].facebook}",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 12, color: BLUE_COLOR)),
                             )
                           ],
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 40, bottom: 40),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 40, bottom: 40),
                       child: VerticalDivider(
                         width: 1,
                         color: Colors.black,
@@ -140,7 +137,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                     Flexible(
                       flex: 2,
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(15),
                                 bottomRight: Radius.circular(15))),
@@ -153,7 +150,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(right: 15),
                               child: Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].name}",
-                                style: TextStyle(fontSize: 20),
+                                style: const TextStyle(fontSize: 20),
                               ),
                             ),
                             SizedBox(
@@ -163,7 +160,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               padding: const EdgeInsets.only(right: 25),
                               child: Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].department}",
-                                style: TextStyle(fontSize: 14),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             ),
                             SizedBox(
@@ -206,7 +203,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                   padding: const EdgeInsets.only(right: 20),
                                   child: InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram"));
                                     },
                                     child: Image.asset(
@@ -248,7 +245,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                                   fontWeight: FontWeight.bold)),
                                           content: Text(
                                               '${Staticmenbers.listofUsers[contactcardindex!].address}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   fontFamily: 'Marck',
                                                   fontSize: 25,
                                                   color: WHITE_COLOR,
@@ -301,7 +298,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
               child: Container(
                 width: wp(10, context),
                 height: hp(25, context),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       topRight: Radius.circular(15)),
@@ -324,7 +321,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                         children: [
                           InkWell(
                             onTap: () {
-                              UrlLauncher.launchUrl(Uri.parse(
+                              launchUrl(Uri.parse(
                                   'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
                             },
                             child: Image.asset(
@@ -378,7 +375,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                         children: [
                           InkWell(
                             onTap: () {
-                              UrlLauncher.launchUrl(Uri.parse(
+                              launchUrl(Uri.parse(
                                   'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
                             },
                             child: Image.asset(
@@ -432,8 +429,8 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                           padding: const EdgeInsets.only(left: 10),
                           child: InkWell(
                             onTap: () {
-                              UrlLauncher.launch(
-                                  'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}');
+                              launchUrl(Uri.parse(
+                                  'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
                             },
                             child: Image.asset(
                               "assets/icon/Face.png",

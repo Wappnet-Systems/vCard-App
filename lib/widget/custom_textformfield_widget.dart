@@ -11,8 +11,9 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String? value)? validationfunction;
   final InkWell? custominkwell;
   final List<TextInputFormatter>? inputFormatters;
-  CustomTextFormField(
-      {required this.textInputType,
+  const CustomTextFormField(
+      {super.key,
+      required this.textInputType,
       required this.customprefixicon,
       required this.textEditingController,
       required this.texteditinghinttext,
@@ -24,23 +25,24 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 15, right: 15),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         inputFormatters: inputFormatters,
         keyboardType: textInputType,
-        style: TextStyle(color: Color(0xff000000)),
+        style: const TextStyle(color: Color(0xff000000)),
         obscureText: !customobscuretext,
         enableInteractiveSelection: false,
         cursorColor: PRIMARY_COLOR,
         controller: textEditingController,
         decoration: InputDecoration(
-          focusedBorder: UnderlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(color: PRIMARY_COLOR),
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
           hintText: texteditinghinttext,
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Color(0xff000000),
             fontWeight: FontWeight.w400,
             fontSize: 12,

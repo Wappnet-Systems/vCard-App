@@ -4,8 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/utils/responsive.dart';
@@ -18,24 +16,26 @@ import '../widget/icon_widget.dart';
 import '../widget/text_button_widget.dart';
 
 class Createcardscreen extends StatefulWidget {
+  const Createcardscreen({super.key});
+
   @override
   State<Createcardscreen> createState() => _CreatecardscreenState();
 }
 
 class _CreatecardscreenState extends State<Createcardscreen> {
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _departmentController = TextEditingController();
-  TextEditingController _companyController = TextEditingController();
-  TextEditingController _headlineController = TextEditingController();
-  TextEditingController _whatsappcontroller = TextEditingController();
-  TextEditingController _telegramcontroller = TextEditingController();
-  TextEditingController _addresscontroller = TextEditingController();
-  TextEditingController _linkcontroller = TextEditingController();
-  TextEditingController _websitecontroller = TextEditingController();
-  TextEditingController _facebookcontroller = TextEditingController();
-  TextEditingController _emailcontroller = TextEditingController();
-  TextEditingController _numbercontroller = TextEditingController();
-  TextEditingController _typecontroller = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _departmentController = TextEditingController();
+  final TextEditingController _companyController = TextEditingController();
+  final TextEditingController _headlineController = TextEditingController();
+  final TextEditingController _whatsappcontroller = TextEditingController();
+  final TextEditingController _telegramcontroller = TextEditingController();
+  final TextEditingController _addresscontroller = TextEditingController();
+  final TextEditingController _linkcontroller = TextEditingController();
+  final TextEditingController _websitecontroller = TextEditingController();
+  final TextEditingController _facebookcontroller = TextEditingController();
+  final TextEditingController _emailcontroller = TextEditingController();
+  final TextEditingController _numbercontroller = TextEditingController();
+  final TextEditingController _typecontroller = TextEditingController();
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
 
@@ -55,8 +55,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
 
   Future<void> addUser() async {
     String? imgurl;
-    String? card;
-    print(receivedLoanDataRef.id);
     if (Imagepicker != null) {
       imgurl = await uploadImage(Imagepicker!);
     }
@@ -78,7 +76,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
       'card': _selectedIndex ?? 4,
-      'color': _selectcolor
+      'color': _selectcolor ?? 11
     }).then((value) {
       Navigator.pop(context, true);
     }).catchError((error) {
@@ -96,7 +94,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           Imagepicker = File(pick.path);
         }
       });
-    } catch (e) {}
+    } catch (e) {
+      Error();
+    }
   }
 
   Future uploadImage(File Imagepicker) async {
@@ -127,7 +127,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           title: "Create Card",
           actions: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+              padding:
+                  const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
               child: IconButton(
                   onPressed: () async {
                     if (_formfield.currentState!.validate()) {
@@ -137,14 +138,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       addUser();
                     }
                   },
-                  icon: Icon(Icons.save)),
+                  icon: const Icon(Icons.save)),
             ),
           ],
           leading: InkWell(
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Padding(
+              child: const Padding(
                 padding:
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: Icon(Icons.arrow_back_sharp),
@@ -156,9 +157,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
             Column(
               children: [
                 SizedBox(height: hp(0.5, context)),
-                Text("New Card"),
-                Padding(
-                  padding: const EdgeInsets.only(right: 15, left: 15),
+                const Text("New Card"),
+                const Padding(
+                  padding: EdgeInsets.only(right: 15, left: 15),
                   child: Divider(),
                 ),
                 SizedBox(height: hp(2, context)),
@@ -194,7 +195,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           onTap: () {
                             imagepicker();
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.flip_camera_ios,
                             size: 30,
                             color: BLUE_COLOR,
@@ -231,7 +232,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   customobscuretext: true,
                   custominkwell: null,
                   customprefixicon: null,
-                  validationfunction: textvalidator,
+                  validationfunction: null,
                 ),
                 CustomTextFormField(
                   inputFormatters: null,
@@ -241,17 +242,17 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   customobscuretext: true,
                   custominkwell: null,
                   customprefixicon: null,
-                  validationfunction: textvalidator,
+                  validationfunction: null,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: TextFormField(
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
-                    style: TextStyle(color: Color(0xff000000)),
+                    style: const TextStyle(color: Color(0xff000000)),
                     cursorColor: PRIMARY_COLOR,
                     controller: _headlineController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: PRIMARY_COLOR),
                       ),
@@ -274,14 +275,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         onTap: () {
                           showimagelist();
                         },
-                        child: Text("Select Card Theme ?",
+                        child: const Text("Select Card Theme ?",
                             style: TextStyle(color: PRIMARY_COLOR))),
-                    Spacer(),
+                    const Spacer(),
                     InkWell(
                         onTap: () {
                           showcolorlist();
                         },
-                        child: Text(
+                        child: const Text(
                           "Select Card Color ?",
                           style: TextStyle(color: PRIMARY_COLOR),
                         ))
@@ -301,9 +302,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               ],
             ),
             Positioned(
-              child: (isLoading) ? Custonloading() : SizedBox.shrink(),
               top: 220,
               left: 140,
+              child:
+                  (isLoading) ? const Custonloading() : const SizedBox.shrink(),
             )
           ]),
         ),
@@ -315,7 +317,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(20),
               topRight: Radius.circular(20),
@@ -351,7 +353,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         pickImage(ImageSource.camera);
                         Navigator.pop(context);
                       },
-                      child: Text(
+                      child: const Text(
                         "CAMERA",
                         style: TextStyle(color: WHITE_COLOR),
                       )),
@@ -367,7 +369,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         pickImage(ImageSource.gallery);
                         Navigator.pop(context);
                       },
-                      child: Text("GALLERY",
+                      child: const Text("GALLERY",
                           style: TextStyle(color: WHITE_COLOR))),
                 ),
                 SizedBox(height: hp(2, context)),
@@ -380,8 +382,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child:
-                          Text("CANCEL", style: TextStyle(color: WHITE_COLOR))),
+                      child: const Text("CANCEL",
+                          style: TextStyle(color: WHITE_COLOR))),
                 ),
               ],
             ),
@@ -396,14 +398,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-              shape: RoundedRectangleBorder(
+              shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     topRight: Radius.circular(20),
                     topLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20)),
               ),
-              content: Container(
+              content: SizedBox(
                 height: hp(30, context),
                 width: wp(50, context),
                 child: StatefulBuilder(
@@ -411,7 +413,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   return ListView.builder(
                       itemCount: imageList.length,
                       scrollDirection: Axis.horizontal,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return InkWell(
@@ -451,15 +453,15 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 topRight: Radius.circular(20),
                 topLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),
           ),
-          title: Text('Pick a color'),
-          content: Container(
+          title: const Text('Pick a color'),
+          content: SizedBox(
             height: hp(30, context),
             width: wp(50, context),
             child: StatefulBuilder(

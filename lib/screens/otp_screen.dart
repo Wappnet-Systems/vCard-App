@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/screens/number_verification_Screen.dart';
@@ -24,33 +23,10 @@ class _OTPscreenState extends State<OTPscreen> {
   @override
   void initState() {
     super.initState();
-    _listenOtp();
   }
 
   @override
   Widget build(BuildContext context) {
-    final defaultPinTheme = PinTheme(
-      width: 56,
-      height: 56,
-      textStyle: TextStyle(
-          fontSize: 20, color: PRIMARY_COLOR, fontWeight: FontWeight.w600),
-      decoration: BoxDecoration(
-        border: Border.all(color: PRIMARY_COLOR),
-        borderRadius: BorderRadius.circular(20),
-      ),
-    );
-
-    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-      border: Border.all(color: PRIMARY_COLOR),
-      borderRadius: BorderRadius.circular(8),
-    );
-
-    final submittedPinTheme = defaultPinTheme.copyWith(
-      decoration: defaultPinTheme.decoration?.copyWith(
-        color: WHITE_COLOR,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: WHITE_COLOR,
       extendBodyBehindAppBar: true,
@@ -60,7 +36,7 @@ class _OTPscreenState extends State<OTPscreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_rounded,
             color: Colors.black,
           ),
@@ -81,14 +57,14 @@ class _OTPscreenState extends State<OTPscreen> {
               SizedBox(
                 height: hp(2, context),
               ),
-              Text(
+              const Text(
                 "Enter the Verification Code",
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: hp(2, context),
               ),
-              Text(
+              const Text(
                 "We need to register your phone without getting started!",
                 style: TextStyle(
                   fontSize: 16,
@@ -112,7 +88,7 @@ class _OTPscreenState extends State<OTPscreen> {
                 height: hp(7, context),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: PRIMARY_COLOR,
+                        backgroundColor: PRIMARY_COLOR,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
@@ -155,7 +131,7 @@ class _OTPscreenState extends State<OTPscreen> {
                         Future.delayed(const Duration(seconds: 2));
                       }
                     },
-                    child: Text(
+                    child: const Text(
                       "Verify Phone Number",
                       style: TextStyle(color: WHITE_COLOR),
                     )),
@@ -165,9 +141,5 @@ class _OTPscreenState extends State<OTPscreen> {
         ),
       ),
     );
-  }
-
-  void _listenOtp() async {
-    await SmsAutoFill().listenForCode;
   }
 }

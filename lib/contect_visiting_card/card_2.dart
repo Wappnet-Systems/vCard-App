@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
@@ -38,7 +36,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
           decoration: BoxDecoration(
             color: BLUE_COLOR,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black,
                 blurRadius: 3.0,
@@ -65,11 +63,11 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[contactcardindex!].name}",
-                              style: TextStyle(fontSize: 24))),
+                              style: const TextStyle(fontSize: 24))),
                       SizedBox(
                         height: hp(0.10, context),
                       ),
-                      Center(
+                      const Center(
                           child: Text("Department",
                               style: TextStyle(fontSize: 14))),
                       SizedBox(
@@ -81,7 +79,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           children: [
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launchUrl(Uri.parse(
+                                launchUrl(Uri.parse(
                                     'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
                               },
                               child: Image.asset(
@@ -95,7 +93,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].phone}",
-                                style: TextStyle(fontSize: 14))
+                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -108,7 +106,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                           children: [
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launchUrl(Uri.parse(
+                                launchUrl(Uri.parse(
                                     'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
                               },
                               child: Image.asset(
@@ -122,7 +120,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].email}",
-                                style: TextStyle(fontSize: 14))
+                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -151,16 +149,16 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].website}",
-                                style: TextStyle(fontSize: 14))
+                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
                       SizedBox(
                         height: hp(3, context),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 8),
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                         child: Center(
                             child: Text("Headline",
                                 maxLines: 1,
@@ -171,7 +169,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                     ],
                   ),
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Wrap(
                     runSpacing: 5.0,
                     alignment: WrapAlignment.center,
@@ -203,7 +201,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () {
-                            UrlLauncher.launchUrl(Uri.parse(
+                            launchUrl(Uri.parse(
                                 'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
                           },
                           child: Image.asset(
@@ -222,7 +220,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                         padding: const EdgeInsets.all(12.0),
                         child: InkWell(
                           onTap: () {
-                            UrlLauncher.launchUrl(Uri.parse(
+                            launchUrl(Uri.parse(
                                 "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram"));
                           },
                           child: Image.asset(
@@ -274,7 +272,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                                         fontWeight: FontWeight.bold)),
                                 content: Text(
                                     '${Staticmenbers.listofUsers[contactcardindex!].address}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontFamily: 'Marck',
                                         fontSize: 25,
                                         color: WHITE_COLOR,

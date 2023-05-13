@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
@@ -36,12 +34,13 @@ class _Cardtheme2State extends State<Cardtheme2> {
           width: wp(100, context),
           height: hp(70, context),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
+            border: Border.all(color: WHITE_COLOR, width: wp(0.5, context)),
+            borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
             color: Staticmenbers.listofUsers[cardindex!].color != null
                 ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
                 : WHITE_COLOR,
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black,
                 blurRadius: 3.0,
@@ -98,21 +97,21 @@ class _Cardtheme2State extends State<Cardtheme2> {
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[cardindex!].name}",
-                              style: TextStyle(fontSize: 24))),
+                              style: const TextStyle(fontSize: 24))),
                       SizedBox(
                         height: hp(0.10, context),
                       ),
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[cardindex!].department}",
-                              style: TextStyle(fontSize: 16))),
+                              style: const TextStyle(fontSize: 16))),
                       SizedBox(
                         height: hp(0.3, context),
                       ),
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                              style: TextStyle(fontSize: 16))),
+                              style: const TextStyle(fontSize: 16))),
                       SizedBox(
                         height: hp(3, context),
                       ),
@@ -122,13 +121,13 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           children: [
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launchUrl(Uri.parse(
+                                launchUrl(Uri.parse(
                                     'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                               },
                               child: Image.asset(
                                 "assets/icon/call.png",
                                 scale: 22,
-                                color: BLACK_COLOR,
+                                color: WHITE_COLOR,
                               ),
                             ),
                             SizedBox(
@@ -136,7 +135,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                style: TextStyle(fontSize: 14))
+                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -149,13 +148,13 @@ class _Cardtheme2State extends State<Cardtheme2> {
                           children: [
                             InkWell(
                               onTap: () {
-                                UrlLauncher.launchUrl(Uri.parse(
+                                launchUrl(Uri.parse(
                                     'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
                               },
                               child: Image.asset(
                                 "assets/icon/email.png",
                                 scale: 22,
-                                color: BLACK_COLOR,
+                                color: WHITE_COLOR,
                               ),
                             ),
                             SizedBox(
@@ -163,7 +162,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[cardindex!].email}",
-                                style: TextStyle(fontSize: 14))
+                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
@@ -184,7 +183,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               child: Image.asset(
                                 "assets/icon/website.png",
                                 scale: 22,
-                                color: BLACK_COLOR,
+                                color: WHITE_COLOR,
                               ),
                             ),
                             SizedBox(
@@ -192,16 +191,16 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[cardindex!].website}",
-                                style: TextStyle(fontSize: 14))
+                                style: const TextStyle(fontSize: 14))
                           ],
                         ),
                       ),
                       SizedBox(
                         height: hp(3, context),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15, vertical: 8),
+                      const Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                         child: Center(
                             child: Text("Headline",
                                 maxLines: 1,
@@ -209,7 +208,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 11))),
                       ),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 15),
                       Wrap(
                           runSpacing: 5.0,
                           alignment: WrapAlignment.center,
@@ -228,7 +227,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/whats.png",
                                   scale: 18,
-                                  color: BLACK_COLOR,
+                                  color: WHITE_COLOR,
                                 ),
                               ),
                             ),
@@ -236,13 +235,13 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () {
-                                  UrlLauncher.launchUrl(Uri.parse(
+                                  launchUrl(Uri.parse(
                                       'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
                                 },
                                 child: Image.asset(
                                   "assets/icon/Face.png",
                                   scale: 18,
-                                  color: BLACK_COLOR,
+                                  color: WHITE_COLOR,
                                 ),
                               ),
                             ),
@@ -250,13 +249,13 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () {
-                                  UrlLauncher.launchUrl(Uri.parse(
+                                  launchUrl(Uri.parse(
                                       "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
                                 },
                                 child: Image.asset(
                                   "assets/icon/tele.png",
                                   scale: 18,
-                                  color: BLACK_COLOR,
+                                  color: WHITE_COLOR,
                                 ),
                               ),
                             ),
@@ -272,7 +271,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/lin.png",
                                   scale: 18,
-                                  color: BLACK_COLOR,
+                                  color: WHITE_COLOR,
                                 ),
                               ),
                             ),
@@ -292,7 +291,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                               fontWeight: FontWeight.bold)),
                                       content: Text(
                                           '${Staticmenbers.listofUsers[cardindex!].address}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontFamily: 'Marck',
                                               fontSize: 25,
                                               color: WHITE_COLOR,
@@ -327,7 +326,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/pin.png",
                                   scale: 18,
-                                  color: BLACK_COLOR,
+                                  color: WHITE_COLOR,
                                 ),
                               ),
                             ),

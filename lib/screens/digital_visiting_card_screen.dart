@@ -17,7 +17,7 @@ import '../digital_card/card_3.dart';
 
 class Digitalvisitingcard extends StatefulWidget {
   final int? id;
-  Digitalvisitingcard({super.key, required this.id});
+  const Digitalvisitingcard({super.key, required this.id});
 
   @override
   State<Digitalvisitingcard> createState() => _DigitalvisitingcardState();
@@ -26,7 +26,7 @@ class Digitalvisitingcard extends StatefulWidget {
 class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   int? cardindex;
   FToast? fToast;
-  GlobalKey _containerKey = GlobalKey();
+  final GlobalKey _containerKey = GlobalKey();
 
   @override
   void initState() {
@@ -47,8 +47,6 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       final directory = await getApplicationDocumentsDirectory();
       final imagePath = await File('${directory.path}/Card_image.png').create();
       await imagePath.writeAsBytes(imageBytes);
-      final image = imagePath.writeAsBytes(imageBytes);
-      print("image:$image");
       Share.shareFiles([imagePath.path],
           text: '${Staticmenbers.listofUsers[widget.id!].name}');
     }
@@ -71,8 +69,8 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                 onTap: () async {
                   await _captureImage();
                 },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Icon(Icons.ios_share_rounded),
                 )),
           ],
@@ -80,7 +78,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Padding(
+              child: const Padding(
                 padding:
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: Icon(Icons.arrow_back_sharp),

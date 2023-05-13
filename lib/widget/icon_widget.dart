@@ -32,7 +32,7 @@ class Iconwidget extends StatefulWidget {
 }
 
 class _IconwidgetState extends State<Iconwidget> {
-  var maskFormatter = new MaskTextInputFormatter(
+  var maskFormatter = MaskTextInputFormatter(
       mask: '##### #####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
@@ -40,7 +40,7 @@ class _IconwidgetState extends State<Iconwidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
             colors: [Colors.green, PRIMARY_COLOR],
             begin: Alignment.bottomCenter,
@@ -52,7 +52,7 @@ class _IconwidgetState extends State<Iconwidget> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Row(
+            const Row(
               children: [
                 Icon(Icons.add, color: WHITE_COLOR, size: 30),
                 Text(
@@ -72,7 +72,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   onTap: () {
                     showDialog(
                         builder: (context) => IconTextField(
-                            icon: Icon(
+                            icon: const Icon(
                               FontAwesomeIcons.whatsapp,
                               color: PRIMARY_COLOR,
                             ),
@@ -85,7 +85,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         FontAwesomeIcons.whatsapp,
                         color: WHITE_COLOR,
                         size: 25,
@@ -93,7 +93,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Whatsapp",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -106,7 +106,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.telegram,
                                 color: PRIMARY_COLOR,
                               ),
@@ -119,7 +119,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.telegram,
                         color: WHITE_COLOR,
                         size: 30,
@@ -127,7 +127,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Telegram",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -140,7 +140,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.email,
                                 color: PRIMARY_COLOR,
                               ),
@@ -153,7 +153,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.email,
                         color: WHITE_COLOR,
                         size: 30,
@@ -161,7 +161,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Email",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -182,7 +182,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.web,
                                 color: PRIMARY_COLOR,
                               ),
@@ -195,7 +195,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.web,
                         color: WHITE_COLOR,
                         size: 30,
@@ -203,7 +203,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Website",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -216,7 +216,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.link_sharp,
                                 color: PRIMARY_COLOR,
                               ),
@@ -229,7 +229,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.link_sharp,
                         color: WHITE_COLOR,
                         size: 30,
@@ -237,7 +237,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Link",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -250,7 +250,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.phone,
                               color: PRIMARY_COLOR,
                             ),
@@ -262,7 +262,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.phone,
                         color: WHITE_COLOR,
                         size: 30,
@@ -270,7 +270,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Phone",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -290,7 +290,7 @@ class _IconwidgetState extends State<Iconwidget> {
                     showDialog(
                         context: context,
                         builder: (context) => IconTextField(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.facebook,
                                 color: PRIMARY_COLOR,
                               ),
@@ -303,7 +303,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.facebook,
                         color: WHITE_COLOR,
                         size: 30,
@@ -311,7 +311,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Facebook",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )
@@ -331,7 +331,7 @@ class _IconwidgetState extends State<Iconwidget> {
                   },
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.add_location_rounded,
                         color: WHITE_COLOR,
                         size: 30,
@@ -339,7 +339,7 @@ class _IconwidgetState extends State<Iconwidget> {
                       SizedBox(
                         height: hp(1, context),
                       ),
-                      Text(
+                      const Text(
                         "Address",
                         style: TextStyle(color: WHITE_COLOR, fontSize: 18),
                       )

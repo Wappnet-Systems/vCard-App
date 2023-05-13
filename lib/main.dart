@@ -3,21 +3,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/number_verification_Screen.dart';
-import 'digital_card/card_1.dart';
-import 'digital_card/card_2.dart';
-import 'digital_card/card_3.dart';
-import 'digital_card/card_4.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'screens/dashboard_screen.dart';
 import 'utils/constants_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final islogin = await prefs.getBool('isLoggedIn') ?? false;
+  final islogin = prefs.getBool('isLoggedIn') ?? false;
 
   runApp(MyApp(islogin: islogin));
 }
@@ -56,9 +52,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    bool isfirsttime = false;
-    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-    print(isfirsttime);
+    final Future<FirebaseApp> initialization = Firebase.initializeApp();
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -67,21 +61,19 @@ class _MyAppState extends State<MyApp> {
       home: AnimatedSplashScreen(
         duration: 1500,
         splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: Color(0Xff60ab44),
+        backgroundColor: const Color(0Xff60ab44),
         splashIconSize: 250,
-        animationDuration: Duration(milliseconds: 1500),
+        animationDuration: const Duration(milliseconds: 1500),
         splash: Center(
           child: Column(
             children: [
-              Container(
-                child: Image.asset(
-                  "assets/images/splash1.png",
-                  height: 200,
-                  width: 200,
-                ),
+              Image.asset(
+                "assets/images/splash1.png",
+                height: 200,
+                width: 200,
               ),
-              SizedBox(height: 10),
-              Text("V Card",
+              SizedBox(height: hp(1, context)),
+              const Text("V Card",
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
@@ -94,7 +86,7 @@ class _MyAppState extends State<MyApp> {
             ? Dashboardscreen(
                 index: 0,
               )
-            : Numberverification(),
+            : const Numberverification(),
       ),
     );
   }

@@ -1,8 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
-import 'dart:ui';
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -24,7 +21,7 @@ class _NumberverificationState extends State<Numberverification> {
   TextEditingController countryController = TextEditingController();
   var phone;
 
-  var maskFormatter = new MaskTextInputFormatter(
+  var maskFormatter = MaskTextInputFormatter(
       mask: '##### #####',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
@@ -57,7 +54,7 @@ class _NumberverificationState extends State<Numberverification> {
         body: SingleChildScrollView(
           child: Stack(children: [
             Padding(
-              padding: EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15),
               child: Column(
                 children: [
                   SizedBox(height: hp(10, context)),
@@ -69,14 +66,14 @@ class _NumberverificationState extends State<Numberverification> {
                   SizedBox(
                     height: hp(3, context),
                   ),
-                  Text(
+                  const Text(
                     "Add your Phone Number",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: hp(2, context),
                   ),
-                  Text(
+                  const Text(
                     "We need to register your phone without getting started!",
                     style: TextStyle(
                       fontSize: 16,
@@ -96,18 +93,18 @@ class _NumberverificationState extends State<Numberverification> {
                         SizedBox(
                           width: hp(2, context),
                         ),
-                        Container(
+                        SizedBox(
                           width: wp(9, context),
                           child: TextField(
                             cursorColor: PRIMARY_COLOR,
                             controller: countryController,
                             keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
                           ),
                         ),
-                        Text(
+                        const Text(
                           "|",
                           style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
                         ),
@@ -122,7 +119,7 @@ class _NumberverificationState extends State<Numberverification> {
                             phone = value;
                           },
                           keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Phone",
                           ),
@@ -133,21 +130,20 @@ class _NumberverificationState extends State<Numberverification> {
                   SizedBox(
                     height: hp(4, context),
                   ),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     height: hp(7, context),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: PRIMARY_COLOR,
+                            backgroundColor: PRIMARY_COLOR,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {
                           await FirebaseAuth.instance.verifyPhoneNumber(
-                            phoneNumber: '${countryController.text + phone}',
+                            phoneNumber: countryController.text + phone,
                             verificationCompleted:
                                 (PhoneAuthCredential credential) {},
                             verificationFailed: (FirebaseAuthException e) {
-                              log("Error:::::$e");
                               setState(() {
                                 isLoading = false;
                               });
@@ -161,12 +157,11 @@ class _NumberverificationState extends State<Numberverification> {
                             codeSent: (String verificationId,
                                 int? resendToken) async {
                               Numberverification.verify = verificationId;
-                              log("VerificationId::::::${Numberverification.verify}");
 
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => OTPscreen()));
+                                      builder: (context) => const OTPscreen()));
                             },
                             codeAutoRetrievalTimeout:
                                 (String verificationId) {},
@@ -175,7 +170,7 @@ class _NumberverificationState extends State<Numberverification> {
                             isLoading = true;
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Send the code",
                           style: TextStyle(color: WHITE_COLOR),
                         )),
@@ -184,9 +179,10 @@ class _NumberverificationState extends State<Numberverification> {
               ),
             ),
             Positioned(
-              child: (isLoading) ? Custonloading() : SizedBox.shrink(),
               bottom: 85,
               left: 155,
+              child:
+                  (isLoading) ? const Custonloading() : const SizedBox.shrink(),
             )
           ]),
         ),

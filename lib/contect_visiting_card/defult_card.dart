@@ -1,18 +1,13 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';
 
 class Contectdefultcard extends StatefulWidget {
   final int? id;
-  Contectdefultcard({super.key, required this.id});
+  const Contectdefultcard({super.key, required this.id});
 
   @override
   State<Contectdefultcard> createState() => _ContectdefultcardState();
@@ -38,8 +33,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            decoration: new BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
+            decoration:  const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(30)),
               boxShadow: [
                 BoxShadow(
                   color: WHITE_COLOR,
@@ -49,7 +44,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
             ),
             child: Card(
               shape: RoundedRectangleBorder(
-                side: BorderSide(
+                side: const BorderSide(
                   color: WHITE_COLOR,
                 ),
                 borderRadius: BorderRadius.circular(20.0),
@@ -62,14 +57,14 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       child: (Staticmenbers
                                   .listofUsers[contactcardindex!].compeny ==
                               "")
                           ? Container()
                           : Text(
                               '${Staticmenbers.listofUsers[contactcardindex!].compeny}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: 'Marck',
                                   fontSize: 23,
                                   color: WHITE_COLOR,
@@ -100,7 +95,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                               ? Container()
                               : Text(
                                   '${Staticmenbers.listofUsers[contactcardindex!].name}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: 'Marck',
                                       fontSize: 25,
                                       color: WHITE_COLOR,
@@ -121,7 +116,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontFamily: 'Marck',
                                       fontSize: 20,
                                       color: WHITE_COLOR,
@@ -129,8 +124,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                             ),
                     ),
                     SizedBox(height: hp(0.5, context)),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
                       child: Divider(
                         color: WHITE_COLOR,
                         thickness: 2,
@@ -183,8 +178,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                                UrlLauncher.launch(
-                                                    'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}');
+                                               launchUrl(Uri.parse(
+                                                    'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
                                               },
                                               child: Image.asset(
                                                 "assets/icon/telephone.png",
@@ -222,8 +217,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                                UrlLauncher.launch(
-                                                    'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}');
+                                               launchUrl(Uri.parse(
+                                                    'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
                                               },
                                               child: Image.asset(
                                                 "assets/icon/mail.png",
@@ -240,8 +235,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                                UrlLauncher.launch(
-                                                    'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}');
+                                               launchUrl(Uri.parse(
+                                                    'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
                                               },
                                               child: Image.asset(
                                                 "assets/icon/facebook.png",
@@ -258,8 +253,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                                UrlLauncher.launch(
-                                                    "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram");
+                                               launchUrl(Uri.parse(
+                                                    "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram"));
                                               },
                                               child: Image.asset(
                                                 "assets/icon/telegram.png",
@@ -279,7 +274,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                                 final url =
                                                     '${Staticmenbers.listofUsers[contactcardindex!].website}';
 
-                                                await launch(url);
+                                                await launchUrl(Uri.parse(url));
                                               },
                                               child: Image.asset(
                                                 "assets/icon/web.png",
@@ -299,7 +294,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                                 final url =
                                                     '${Staticmenbers.listofUsers[contactcardindex!].link}';
 
-                                                await launch(url);
+                                                await launchUrl(Uri.parse(url));
                                               },
                                               child: Image.asset(
                                                 "assets/icon/link.png",
@@ -330,7 +325,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                                                     .bold)),
                                                     content: Text(
                                                         '${Staticmenbers.listofUsers[contactcardindex!].address}',
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontFamily: 'Marck',
                                                             fontSize: 25,
                                                             color: WHITE_COLOR,
@@ -379,14 +374,14 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           )
                         : const SizedBox.shrink(),
                     Container(
-                      padding: EdgeInsets.all(25),
+                      padding: const EdgeInsets.all(25),
                       child: (Staticmenbers
                                   .listofUsers[contactcardindex!].headline ==
                               "")
                           ? Container()
                           : Text(
                               '${Staticmenbers.listofUsers[contactcardindex!].headline}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: 'Marck',
                                   fontSize: 25,
                                   color: WHITE_COLOR,
@@ -410,7 +405,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
 
       if (await canLaunchUrl(googleUri)) {
         await launchUrl(googleUri);
-        print(googleUri);
+      
       }
     }
   }

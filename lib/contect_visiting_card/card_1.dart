@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/model/data_controllers.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../utils/constants_color.dart';
 import '../widget/text_button_widget.dart';
@@ -43,7 +40,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
           decoration: BoxDecoration(
             color: BLUE_COLOR,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.black,
                 blurRadius: 8.0,
@@ -61,7 +58,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
@@ -85,18 +82,18 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                         Center(
                             child: Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].compeny}",
-                                style: TextStyle(fontSize: 24))),
+                                style: const TextStyle(fontSize: 24))),
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: hp(3, context)),
                   Container(
                     width: wp(80, context),
                     height: hp(30, context),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
@@ -120,14 +117,14 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                         Center(
                             child: Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].name}",
-                                style: TextStyle(fontSize: 24))),
+                                style: const TextStyle(fontSize: 24))),
                         SizedBox(
                           height: hp(0.10, context),
                         ),
                         Center(
                             child: Text(
                                 "${Staticmenbers.listofUsers[contactcardindex!].department}",
-                                style: TextStyle(fontSize: 14))),
+                                style: const TextStyle(fontSize: 14))),
                         SizedBox(
                           height: hp(2, context),
                         ),
@@ -140,19 +137,19 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 11))),
+                                  style: const TextStyle(fontSize: 11))),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: hp(3, context)),
                   Container(
                     width: wp(80, context),
                     height: hp(10, context),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           blurRadius: 8.0,
                         ),
                         BoxShadow(
@@ -183,7 +180,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                   padding: const EdgeInsets.all(12.0),
                                   child: InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
                                     },
                                     child: Image.asset(
@@ -213,7 +210,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                   padding: const EdgeInsets.all(12.0),
                                   child: InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
                                     },
                                     child: Image.asset(
@@ -227,7 +224,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                   padding: const EdgeInsets.all(12.0),
                                   child: InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
                                     },
                                     child: Image.asset(
@@ -240,7 +237,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                               ])),
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: hp(3, context)),
                   Container(
                     width: wp(80, context),
                     height: hp(10, context),
@@ -275,7 +272,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                 padding: const EdgeInsets.all(12.0),
                                 child: InkWell(
                                   onTap: () {
-                                    UrlLauncher.launchUrl(Uri.parse(
+                                    launchUrl(Uri.parse(
                                         "https://telegram.me/${Staticmenbers.listofUsers[contactcardindex!].telegram}"));
                                   },
                                   child: Image.asset(
@@ -331,7 +328,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                                 fontSize: 25,
                                                 color: WHITE_COLOR,
                                                 fontWeight: FontWeight.bold)),
-                                        content: Text('',
+                                        content: const Text('',
                                             style: TextStyle(
                                                 fontFamily: 'Marck',
                                                 fontSize: 25,

@@ -1,7 +1,7 @@
 String? emailValidator(String? value) {
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-  RegExp regex = new RegExp(pattern);
+  RegExp regex = RegExp(pattern);
 
   if (value!.isEmpty) {
     return 'Please this field must be filled';
@@ -13,7 +13,7 @@ String? emailValidator(String? value) {
 
 String? numbervalidator(String? value) {
   String pattern = r'(^(?:[+0]9)?[0-9]{10}$)';
-  RegExp regExp = new RegExp(pattern);
+  RegExp regExp = RegExp(pattern);
   if (value!.isEmpty) {
     return 'Please this field must be filled';
   } else if (regExp.hasMatch(value)) {
@@ -23,18 +23,18 @@ String? numbervalidator(String? value) {
 }
 
 String? textvalidator(String? value) {
-  bool textValid = RegExp(
-          r"^[a-zA-z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-z0-9]+\.[a-zA-Z0-9]+")
+  RegExp(r"^[a-zA-z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-z0-9]+\.[a-zA-Z0-9]+")
       .hasMatch(value!);
   if (value.isEmpty) {
     return "this field can't be Empty";
   }
+  return null;
 }
 
 String? hasValidUrl(String? value) {
   String pattern =
       r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
-  RegExp regExp = new RegExp(pattern);
+  RegExp regExp = RegExp(pattern);
   if (value?.length == 0) {
     return 'Please enter https://';
   } else if (!regExp.hasMatch(value!)) {

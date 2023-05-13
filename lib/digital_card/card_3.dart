@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -33,7 +30,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
       backgroundColor: WHITE_COLOR,
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Stack(children: [
             Row(
               children: [
@@ -41,17 +38,25 @@ class _Cardtheme3State extends State<Cardtheme3> {
                   width: wp(47.5, context),
                   height: hp(35, context),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    border: Border.all(
+                        color: Staticmenbers.listofUsers[cardindex!].color !=
+                                null
+                            ? colorList[
+                                Staticmenbers.listofUsers[cardindex!].color!]
+                            : BLACK_COLOR,
+                        width: wp(0.5, context)),
+                    borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(15),
                         topLeft: Radius.circular(15)),
-                    color: Staticmenbers.listofUsers[cardindex!].color != null
-                        ? colorList[
-                            Staticmenbers.listofUsers[cardindex!].color!]
-                        : WHITE_COLOR,
+                    color: WHITE_COLOR,
                     boxShadow: [
                       BoxShadow(
-                        color: BLACK_COLOR,
-                        blurRadius: 3.0,
+                        color: Staticmenbers.listofUsers[cardindex!].color !=
+                                null
+                            ? colorList[
+                                Staticmenbers.listofUsers[cardindex!].color!]
+                            : BLACK_COLOR,
+                        blurRadius: 1.0,
                       ),
                     ],
                   ),
@@ -65,7 +70,14 @@ class _Cardtheme3State extends State<Cardtheme3> {
                         padding: const EdgeInsets.only(left: 20),
                         child: Text(
                           "${Staticmenbers.listofUsers[cardindex!].name}",
-                          style: TextStyle(fontSize: 20),
+                          style: TextStyle(
+                              fontSize: 20,
+                              color:
+                                  Staticmenbers.listofUsers[cardindex!].color !=
+                                          null
+                                      ? colorList[Staticmenbers
+                                          .listofUsers[cardindex!].color!]
+                                      : BLACK_COLOR),
                         ),
                       ),
                       SizedBox(
@@ -75,7 +87,14 @@ class _Cardtheme3State extends State<Cardtheme3> {
                         padding: const EdgeInsets.only(left: 30),
                         child: Text(
                           "${Staticmenbers.listofUsers[cardindex!].department}",
-                          style: TextStyle(fontSize: 14),
+                          style: TextStyle(
+                              fontSize: 14,
+                              color:
+                                  Staticmenbers.listofUsers[cardindex!].color !=
+                                          null
+                                      ? colorList[Staticmenbers
+                                          .listofUsers[cardindex!].color!]
+                                      : BLACK_COLOR),
                         ),
                       ),
                       SizedBox(
@@ -86,8 +105,8 @@ class _Cardtheme3State extends State<Cardtheme3> {
                           child:
                               Staticmenbers.listofUsers[cardindex!].image == ""
                                   ? ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
                                       child: Image.asset(
                                         "assets/images/splash1.png",
                                         width: wp(25, context),
@@ -96,8 +115,8 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                       ),
                                     )
                                   : ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(20)),
                                       child: Image.network(
                                         "${Staticmenbers.listofUsers[cardindex!].image}",
                                         width: wp(25, context),
@@ -117,13 +136,19 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     padding: const EdgeInsets.only(left: 25),
                                     child: InkWell(
                                       onTap: () {
-                                        UrlLauncher.launchUrl(Uri.parse(
+                                        launchUrl(Uri.parse(
                                             "https://telegram.me/${Staticmenbers.listofUsers[cardindex!].telegram}"));
                                       },
                                       child: Image.asset(
                                         "assets/icon/tele.png",
                                         scale: 30,
-                                        color: BLUE_COLOR,
+                                        color: Staticmenbers
+                                                    .listofUsers[cardindex!]
+                                                    .color !=
+                                                null
+                                            ? colorList[Staticmenbers
+                                                .listofUsers[cardindex!].color!]
+                                            : BLACK_COLOR,
                                       ),
                                     ),
                                   ),
@@ -141,7 +166,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                       child: Image.asset(
                                         "assets/icon/lin.png",
                                         scale: 30,
-                                        color: BLUE_COLOR,
+                                        color: Staticmenbers
+                                                    .listofUsers[cardindex!]
+                                                    .color !=
+                                                null
+                                            ? colorList[Staticmenbers
+                                                .listofUsers[cardindex!].color!]
+                                            : BLACK_COLOR,
                                       ),
                                     ),
                                   ),
@@ -164,7 +195,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                                         FontWeight.bold)),
                                             content: Text(
                                                 '${Staticmenbers.listofUsers[cardindex!].address}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontFamily: 'Marck',
                                                     fontSize: 25,
                                                     color: WHITE_COLOR,
@@ -200,7 +231,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                       child: Image.asset(
                                         "assets/icon/pin.png",
                                         scale: 30,
-                                        color: BLUE_COLOR,
+                                        color: Staticmenbers
+                                                    .listofUsers[cardindex!]
+                                                    .color !=
+                                                null
+                                            ? colorList[Staticmenbers
+                                                .listofUsers[cardindex!].color!]
+                                            : BLACK_COLOR,
                                       ),
                                     ),
                                   ),
@@ -214,10 +251,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                   width: wp(47.5, context),
                   height: hp(35, context),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(15),
                         topRight: Radius.circular(15)),
-                    color: BLUE_COLOR,
+                    color: Staticmenbers.listofUsers[cardindex!].color != null
+                        ? colorList[
+                            Staticmenbers.listofUsers[cardindex!].color!]
+                        : BLUE_COLOR,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black,
@@ -238,19 +278,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/call.png",
                                       scale: 30,
-                                      color: Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color !=
-                                              null
-                                          ? colorList[Staticmenbers
-                                              .listofUsers[cardindex!].color!]
-                                          : WHITE_COLOR,
+                                      color: WHITE_COLOR,
                                     ),
                                   ),
                                   SizedBox(
@@ -258,7 +292,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   ),
                                   Text(
                                       "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 10, color: WHITE_COLOR))
                                 ],
                               ),
@@ -282,13 +316,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     child: Image.asset(
                                       "assets/icon/whats.png",
                                       scale: 30,
-                                      color: Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color !=
-                                              null
-                                          ? colorList[Staticmenbers
-                                              .listofUsers[cardindex!].color!]
-                                          : WHITE_COLOR,
+                                      color: WHITE_COLOR,
                                     ),
                                   ),
                                 ),
@@ -297,7 +325,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 ),
                                 Text(
                                     "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 10, color: WHITE_COLOR))
                               ],
                             ),
@@ -312,19 +340,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/email.png",
                                       scale: 30,
-                                      color: Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color !=
-                                              null
-                                          ? colorList[Staticmenbers
-                                              .listofUsers[cardindex!].color!]
-                                          : WHITE_COLOR,
+                                      color: WHITE_COLOR,
                                     ),
                                   ),
                                   SizedBox(
@@ -332,7 +354,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   ),
                                   Text(
                                       "${Staticmenbers.listofUsers[cardindex!].email}",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 10, color: WHITE_COLOR))
                                 ],
                               ),
@@ -357,14 +379,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                         child: Image.asset(
                                           "assets/icon/website.png",
                                           scale: 30,
-                                          color: Staticmenbers
-                                                      .listofUsers[cardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color!]
-                                              : WHITE_COLOR,
+                                          color: WHITE_COLOR,
                                         ),
                                       ),
                                       SizedBox(
@@ -388,19 +403,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   padding: const EdgeInsets.only(left: 20),
                                   child: InkWell(
                                     onTap: () {
-                                      UrlLauncher.launchUrl(Uri.parse(
+                                      launchUrl(Uri.parse(
                                           'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
                                     },
                                     child: Image.asset(
                                       "assets/icon/Face.png",
                                       scale: 30,
-                                      color: Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color !=
-                                              null
-                                          ? colorList[Staticmenbers
-                                              .listofUsers[cardindex!].color!]
-                                          : WHITE_COLOR,
+                                      color: WHITE_COLOR,
                                     ),
                                   ),
                                 ),
@@ -409,7 +418,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 ),
                                 Text(
                                     "${Staticmenbers.listofUsers[cardindex!].facebook}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 10, color: WHITE_COLOR))
                               ],
                             )
@@ -426,7 +435,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                   height: hp(8, context),
                   decoration: BoxDecoration(
                     color: Colors.grey.shade600,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: BLACK_COLOR,
                         blurRadius: 3.0,
@@ -438,7 +447,8 @@ class _Cardtheme3State extends State<Cardtheme3> {
                     child: Center(
                       child: Text(
                         "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        style: TextStyle(fontSize: 14, color: WHITE_COLOR),
+                        style:
+                            const TextStyle(fontSize: 18, color: WHITE_COLOR),
                       ),
                     ),
                   ),

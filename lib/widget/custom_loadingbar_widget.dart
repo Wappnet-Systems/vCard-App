@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../utils/constants_color.dart';
 
@@ -14,7 +13,7 @@ class _CustonloadingState extends State<Custonloading> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: Color(0xffc1c4be),
@@ -30,8 +29,8 @@ class _CustonloadingState extends State<Custonloading> {
       ),
       height: hp(8, context),
       width: wp(20, context),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
+      child: const Padding(
+        padding: EdgeInsets.all(10.0),
         child: CircularProgressIndicator(
           color: PRIMARY_COLOR,
           strokeWidth: 2,

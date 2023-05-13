@@ -1,6 +1,4 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vcard/utils/constants_color.dart';
@@ -9,6 +7,8 @@ import 'package:vcard/utils/responsive.dart';
 import '../widget/decoration_widget.dart';
 
 class GenerateQR extends StatefulWidget {
+  const GenerateQR({super.key});
+
   @override
   _GenerateQRState createState() => _GenerateQRState();
 }
@@ -25,7 +25,7 @@ class _GenerateQRState extends State<GenerateQR> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
@@ -35,9 +35,9 @@ class _GenerateQRState extends State<GenerateQR> {
         height: hp(40, context),
         child: Column(
           children: [
-            Decorationwidget(),
+            const Decorationwidget(),
             SizedBox(height: hp(2, context)),
-            Text(
+            const Text(
               "Share vCard",
               style: TextStyle(
                   fontSize: 20,
@@ -54,7 +54,7 @@ class _GenerateQRState extends State<GenerateQR> {
                     width: wp(1, context),
                   ),
                 ),
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: SingleChildScrollView(
                   child: QrImage(
                     data: qrData,

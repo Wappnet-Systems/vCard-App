@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
-import '../utils/constants_color.dart';
 
 class Decorationwidget extends StatefulWidget {
   const Decorationwidget({super.key});
@@ -16,7 +12,7 @@ class _DecorationwidgetState extends State<Decorationwidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),
         ),

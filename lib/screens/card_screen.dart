@@ -1,24 +1,15 @@
 import 'dart:developer';
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:vcard/screens/create_card_screen.dart';
-import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
-import 'package:vcard/widget/bottom_sheet_widget.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../widget/custom_no_data_widget.dart';
-import '../widget/decoration_widget.dart';
-import '../widget/text_button_widget.dart';
 import 'app_shere_screen.dart';
-import 'card_shere_screen.dart';
 import 'detail_screen.dart';
-import 'digital_visiting_card_screen.dart';
 
 class Cardscreen extends StatefulWidget {
   const Cardscreen({super.key});
@@ -52,8 +43,6 @@ class _CardscreenState extends State<Cardscreen> {
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Carddata")
         .get();
-
-    print("object");
     snapshot.docs.forEach((element) {
       userData.add(
         Users(
@@ -78,16 +67,11 @@ class _CardscreenState extends State<Cardscreen> {
       );
     });
 
-    print("userData $userData");
-
     setState(() {
       value = true;
       Staticmenbers.listofUsers = userData;
       log('message:$value');
     });
-
-    print(
-        "Staticmenbers.listofUsers.length : ${Staticmenbers.listofUsers.length}");
   }
 
   @override
@@ -169,11 +153,10 @@ class _CardscreenState extends State<Cardscreen> {
                             topRight: Radius.circular(50)),
                         boxShadow: [
                           BoxShadow(
-                            color:
-                                Staticmenbers.listofUsers[index].color != null
-                                    ? colorList[
-                                        Staticmenbers.listofUsers[index].color!]
-                                    : PRIMARY_COLOR,
+                            color: Staticmenbers.listofUsers[index].color == ""
+                                ? colorList[
+                                    Staticmenbers.listofUsers[index].color!]
+                                : PRIMARY_COLOR,
                             blurRadius: 1.0,
                           ),
                           BoxShadow(
@@ -181,7 +164,7 @@ class _CardscreenState extends State<Cardscreen> {
                             blurRadius: 20.0,
                           ),
                         ],
-                        color: Staticmenbers.listofUsers[index].color != null
+                        color: Staticmenbers.listofUsers[index].color == ""
                             ? colorList[Staticmenbers.listofUsers[index].color!]
                             : PRIMARY_COLOR,
                       ),

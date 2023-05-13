@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/constants_color.dart';
@@ -13,7 +12,7 @@ class IconTextField extends StatefulWidget {
   final TextEditingController? textEditingController;
   final String? Function(String? value)? validationfunction;
   final List<TextInputFormatter>? inputFormatters;
-  IconTextField(
+  const IconTextField(
       {super.key,
       required this.icon,
       required this.hint,
@@ -42,11 +41,11 @@ class _IconTextFieldState extends State<IconTextField> {
       title: Text(widget.hint!),
       content: Form(
         key: _formfield,
-        child: new Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: double.infinity),
+            const SizedBox(width: double.infinity),
             CustomTextFormField(
                 inputFormatters: widget.inputFormatters,
                 textInputType: widget.textInputType!,
@@ -56,7 +55,7 @@ class _IconTextFieldState extends State<IconTextField> {
                 custominkwell: null,
                 customprefixicon: widget.icon,
                 validationfunction: widget.validationfunction),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             SizedBox(
                 width: double.infinity,
                 child: Row(
@@ -67,11 +66,10 @@ class _IconTextFieldState extends State<IconTextField> {
                         setState(() {
                           if (_formfield.currentState!.validate()) {
                             try {
-                              print(widget.textEditingController?.text);
                               Navigator.pop(context, true);
                               displayCustomToast();
                             } catch (e) {
-                              return null;
+                              return;
                             }
                           }
                         });
@@ -105,7 +103,7 @@ class _IconTextFieldState extends State<IconTextField> {
       ),
       child: Text(
         "Add Successfully ${widget.hint!}",
-        style: TextStyle(color: PRIMARY_COLOR),
+        style: const TextStyle(color: PRIMARY_COLOR),
       ),
     );
 

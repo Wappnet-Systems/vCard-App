@@ -1,6 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
-import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +10,10 @@ import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
-import 'app_shere_screen.dart';
+import '../widget/custom_no_data_widget.dart';
 
 class Scannerscreen extends StatefulWidget {
-  Scannerscreen({super.key});
+  const Scannerscreen({super.key});
 
   @override
   State<Scannerscreen> createState() => _ScannerscreenState();
@@ -46,11 +44,11 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? image;
   String? type;
 
-  Future<void> getSingleUserData(String cid) async {
+  Future<void> getSingleUserData(String cid, String uid) async {
     List<Users> userData = [];
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
-        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .doc(uid)
         .collection("Carddata")
         .where('id', isEqualTo: cid)
         .get();
@@ -78,7 +76,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
             color: element['color']),
       );
     });
-    print("qqqqqqq:${userData.length}");
+
     setState(() {
       List.generate(userData.length, (index) {
         name = userData[index].name;
@@ -116,7 +114,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'HeadLine': headline,
       'WhatsApp': whatsapp,
       'Telegram': telegram,
-      'Snapchat': snapchat,
       'Website': website,
       'Link': link,
       'Facebook': facebook,
@@ -159,7 +156,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
               onTap: () {
                 Navigator.pop(context);
               },
-              child: Icon(Icons.arrow_back_sharp))),
+              child: const Icon(Icons.arrow_back_sharp))),
       body: value != false
           ? Center(
               child: Column(
@@ -167,28 +164,28 @@ class _ScannerscreenState extends State<Scannerscreen> {
                   SizedBox(height: hp(25, context)),
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(45),
                           topRight: Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
                           color:
-                              color != null ? colorList[color!] : PRIMARY_COLOR,
+                              color == "" ? colorList[color!] : PRIMARY_COLOR,
                           blurRadius: 1.0,
                         ),
-                        BoxShadow(
+                        const BoxShadow(
                           color: Color(0xffc1c4be),
                           blurRadius: 20.0,
                         ),
                       ],
-                      color: color != null ? colorList[color!] : PRIMARY_COLOR,
+                      color: color == "" ? colorList[color!] : PRIMARY_COLOR,
                     ),
-                    margin: EdgeInsets.only(
+                    margin: const EdgeInsets.only(
                         left: 95, right: 95, top: 10, bottom: 10),
                     child: Column(children: [
                       image == ""
                           ? ClipRRect(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(45),
                                   topRight: Radius.circular(50)),
                               child: Image.asset(
@@ -199,11 +196,11 @@ class _ScannerscreenState extends State<Scannerscreen> {
                               ),
                             )
                           : ClipRRect(
-                              borderRadius: BorderRadius.only(
+                              borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(45),
                                   topRight: Radius.circular(50)),
                               child: Image.network(
-                                "${image}",
+                                "$image",
                                 width: wp(52, context),
                                 height: hp(17, context),
                                 fit: BoxFit.fill,
@@ -213,8 +210,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 },
                                 errorBuilder: (context, error, stackTrace) {
                                   return Image(
-                                    image:
-                                        AssetImage("assets/images/splash1.png"),
+                                    image: const AssetImage(
+                                        "assets/images/splash1.png"),
                                     width: wp(55, context),
                                     height: hp(17, context),
                                   );
@@ -224,7 +221,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                   if (loadingProgress == null) {
                                     return child;
                                   } else {
-                                    return Center(
+                                    return const Center(
                                         child: Icon(
                                       Icons.image,
                                       size: 130,
@@ -238,8 +235,9 @@ class _ScannerscreenState extends State<Scannerscreen> {
                         padding: const EdgeInsets.only(top: 3),
                         child: Center(
                           child: Text(
-                            '${name}',
-                            style: TextStyle(color: WHITE_COLOR, fontSize: 20),
+                            '$name',
+                            style: const TextStyle(
+                                color: WHITE_COLOR, fontSize: 20),
                           ),
                         ),
                       ),
@@ -254,7 +252,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
-                          child: Text(
+                          child: const Text(
                             'Connected',
                             style: TextStyle(color: WHITE_COLOR),
                           ),
@@ -272,7 +270,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextButton(
-                        child: Text(
+                        child: const Text(
                           'Disconnected',
                           style: TextStyle(color: WHITE_COLOR),
                         ),
@@ -288,18 +286,58 @@ class _ScannerscreenState extends State<Scannerscreen> {
                 ],
               ),
             )
-          : Center(
-              child: Container(
-                  child: FloatingActionButton.extended(
-                backgroundColor: PRIMARY_COLOR,
-                label: Row(
-                  children: [Icon(Icons.photo_camera), Text('Qr Scan')],
-                ),
-                onPressed: () {
+          : Column(children: [
+              SizedBox(height: hp(15, context)),
+              Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(color: BLACK_COLOR, blurRadius: 0.1)
+                      ],
+                      borderRadius: BorderRadius.circular(10)),
+                  width: wp(50, context),
+                  height: hp(8, context),
+                  child: Center(
+                      child: Text(
+                    "Scan Your QR Code",
+                    style: TextStyle(fontSize: 20),
+                  ))),
+              SizedBox(height: hp(5, context)),
+              CustomNoData(
+                iconaddress: QR,
+              ),
+              SizedBox(height: hp(5, context)),
+              InkWell(
+                onTap: () {
                   scanQRCode();
                 },
-              )),
-            ),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: PRIMARY_COLOR,
+                      boxShadow: [
+                        BoxShadow(color: BLACK_COLOR, blurRadius: 0.5)
+                      ],
+                      borderRadius: BorderRadius.circular(25)),
+                  width: wp(50, context),
+                  height: hp(6, context),
+                  child: Center(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.qr_code_scanner,
+                        size: 35,
+                      ),
+                      SizedBox(width: wp(5, context)),
+                      Text(
+                        'Qr Scan',
+                        style: TextStyle(fontSize: 20),
+                      )
+                    ],
+                  )),
+                ),
+              ),
+            ]),
     );
   }
 
@@ -312,12 +350,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
 
       setState(() {
         uid = qrCode.substring(0, 28);
+        log("$uid");
         cid = qrCode.substring(29);
+        print("Cid is $cid & $uid");
         value = true;
+        getSingleUserData(cid!, uid!);
       });
-      print("message: ${cid} ${uid}");
-      getSingleUserData(cid!);
-    } on PlatformException {}
+    } on PlatformException {
+      return;
+    }
   }
 
   displayCustomToast() {

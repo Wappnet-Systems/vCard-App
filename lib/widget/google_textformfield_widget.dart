@@ -8,7 +8,7 @@ import '../utils/constants_color.dart';
 class placesAutoCompleteTextField extends StatefulWidget {
   final String? hint;
   final TextEditingController? textEditingController;
-  placesAutoCompleteTextField(
+  const placesAutoCompleteTextField(
       {super.key, required this.hint, required this.textEditingController});
 
   @override
@@ -58,11 +58,9 @@ class _placesAutoCompleteTextFieldState
                       ),
                     ),
                     debounceTime: 800,
-                    countries: ["in", "fr"],
+                    countries: const ["in", "fr"],
                     isLatLngRequired: true,
-                    getPlaceDetailWithLatLng: (Prediction prediction) {
-                      print("placeDetails" + prediction.lng.toString());
-                    },
+                    getPlaceDetailWithLatLng: (Prediction prediction) {},
                     itmClick: (Prediction prediction) {
                       widget.textEditingController!.text =
                           prediction.description!;
@@ -83,7 +81,7 @@ class _placesAutoCompleteTextFieldState
                               Navigator.pop(context, true);
                               displayCustomToast();
                             } catch (e) {
-                              return null;
+                              return;
                             }
                           }
                         });

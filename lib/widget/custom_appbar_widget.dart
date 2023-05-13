@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../screens/app_shere_screen.dart';
-import '../utils/constants_color.dart';
-
 class Customappbarwidget extends StatelessWidget
     implements PreferredSizeWidget {
   @override

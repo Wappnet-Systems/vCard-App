@@ -2,22 +2,17 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
-import '../widget/bottom_sheet_widget.dart';
 import '../widget/custom_no_data_widget.dart';
-import '../widget/decoration_widget.dart';
 import '../widget/text_button_widget.dart';
 import 'contect_visiting_card.dart';
 
 class ContactsScreen extends StatefulWidget {
-  ContactsScreen({super.key});
+  const ContactsScreen({super.key});
 
   @override
   State<ContactsScreen> createState() => _ContactsScreenState();
@@ -48,7 +43,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .collection("Frind's Card")
         .get();
 
-    print("object");
     final userData = snapshot.docs
         .map((e) => Users(
             user: e['user'],
@@ -71,15 +65,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
             color: e['color']))
         .toList();
 
-    print("userData $userData");
-
     setState(() {
       value = true;
       Staticmenbers.cardUsers = userData;
       log('message:$value');
     });
-
-    print("Staticmenbers.cardUsers.length : ${Staticmenbers.cardUsers.length}");
   }
 
   @override
@@ -98,78 +88,90 @@ class _ContactsScreenState extends State<ContactsScreen> {
                       setState(() {
                         cardindex = index;
                       });
-                      final refresh = await showDialog(
+                      showDialog(
                           context: context,
                           builder: (context) {
                             return AlertDialog(
                               elevation: 0.0,
                               backgroundColor: Colors.transparent,
                               title: null,
-                              content: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                              content: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Contectvisitingcard(
-                                                    id: cardindex,
-                                                  )));
-                                    },
-                                    child: Container(
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.remove_red_eye,
-                                              color: WHITE_COLOR,
-                                            ),
-                                            Text(
-                                              "View",
-                                              style:
-                                                  TextStyle(color: WHITE_COLOR),
-                                            )
-                                          ]),
-                                      height: hp(7, context),
-                                      width: wp(15, context),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: Colors.amber),
-                                    ),
-                                  ),
-                                  SizedBox(width: wp(2, context)),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        showDialog(
-                                          context: context,
-                                          builder: (ctx) => AlertDialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                  bottomLeft:
-                                                      Radius.circular(20),
-                                                  topRight: Radius.circular(20),
-                                                  topLeft: Radius.circular(20),
-                                                  bottomRight:
-                                                      Radius.circular(20)),
-                                            ),
-                                            title: const Text(
-                                                "Are you sure you want to delete this card?"),
-                                            content: null,
-                                            actions: <Widget>[
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  TextButtomWidget(
-                                                    onPressed: () {
-                                                      setState(() {
-                                                        log("${Staticmenbers.cardUsers[index].id}");
-                                                        final refresh =
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Contectvisitingcard(
+                                                        id: cardindex,
+                                                      )));
+                                        },
+                                        child: Container(
+                                          child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.remove_red_eye,
+                                                  size: 18,
+                                                  color: WHITE_COLOR,
+                                                ),
+                                                Text(
+                                                  "View",
+                                                  style: TextStyle(
+                                                      color: WHITE_COLOR,
+                                                      fontSize: 12),
+                                                )
+                                              ]),
+                                          height: hp(7, context),
+                                          width: wp(15, context),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              color: Colors.amber),
+                                        ),
+                                      ),
+                                      SizedBox(width: wp(2, context)),
+                                      InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            showDialog(
+                                              context: context,
+                                              builder: (ctx) => AlertDialog(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  20),
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  20),
+                                                          bottomRight:
+                                                              Radius.circular(
+                                                                  20)),
+                                                ),
+                                                title: const Text(
+                                                    "Are you sure you want to delete this card?"),
+                                                content: null,
+                                                actions: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      TextButtomWidget(
+                                                        onPressed: () {
+                                                          setState(() {
+                                                            log("${Staticmenbers.cardUsers[index].id}");
+
                                                             FirebaseFirestore
                                                                 .instance
                                                                 .collection(
@@ -186,69 +188,72 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                                                     .id)
                                                                 .delete()
                                                                 .then((value) {
-                                                          Future.delayed(
-                                                              Duration(
-                                                                  seconds: 1),
-                                                              () {
-                                                            Navigator
-                                                                .pushReplacement(
+                                                              Future.delayed(
+                                                                  Duration(
+                                                                      seconds:
+                                                                          1),
+                                                                  () {
+                                                                Navigator.pushReplacement(
                                                                     context,
                                                                     MaterialPageRoute(
-                                                                        builder: (context) =>
-                                                                            Dashboardscreen(
+                                                                        builder: (context) => Dashboardscreen(
                                                                               index: 2,
                                                                             )));
+                                                              });
+                                                            });
                                                           });
-                                                        });
-                                                      });
-                                                    },
-                                                    title: 'Okey',
-                                                    fontSize: 15,
-                                                    color: Colors.redAccent,
+                                                        },
+                                                        title: 'Okey',
+                                                        fontSize: 15,
+                                                        color: Colors.redAccent,
+                                                      ),
+                                                      TextButtomWidget(
+                                                        onPressed: () {
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (context) =>
+                                                                      Dashboardscreen(
+                                                                          index:
+                                                                              0)));
+                                                        },
+                                                        title: 'Cancle',
+                                                        fontSize: 15,
+                                                        color: PRIMARY_COLOR,
+                                                      )
+                                                    ],
                                                   ),
-                                                  TextButtomWidget(
-                                                    onPressed: () {
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  Dashboardscreen(
-                                                                      index:
-                                                                          0)));
-                                                    },
-                                                    title: 'Cancle',
-                                                    fontSize: 15,
-                                                    color: PRIMARY_COLOR,
-                                                  )
                                                 ],
                                               ),
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                    },
-                                    child: Container(
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.delete,
-                                              color: WHITE_COLOR,
-                                            ),
-                                            Text(
-                                              "Edit",
-                                              style:
-                                                  TextStyle(color: WHITE_COLOR),
-                                            )
-                                          ]),
-                                      height: hp(7, context),
-                                      width: wp(15, context),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: Colors.lightGreen),
-                                    ),
+                                            );
+                                          });
+                                        },
+                                        child: Container(
+                                          child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.delete,
+                                                  size: 18,
+                                                  color: WHITE_COLOR,
+                                                ),
+                                                Text(
+                                                  "Delete",
+                                                  style: TextStyle(
+                                                      color: WHITE_COLOR,
+                                                      fontSize: 12),
+                                                )
+                                              ]),
+                                          height: hp(7, context),
+                                          width: wp(15, context),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(100),
+                                              color: Colors.lightGreen),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -257,28 +262,19 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(45),
-                          topRight: Radius.circular(50),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color:
-                                Staticmenbers.listofUsers[index].color != null
-                                    ? colorList[
-                                        Staticmenbers.listofUsers[index].color!]
-                                    : PRIMARY_COLOR,
-                            blurRadius: 1.0,
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(45),
+                            topRight: Radius.circular(50),
                           ),
-                          BoxShadow(
-                            color: Color(0xffc1c4be),
-                            blurRadius: 20.0,
-                          ),
-                        ],
-                        color: Staticmenbers.listofUsers[index].color != null
-                            ? colorList[Staticmenbers.listofUsers[index].color!]
-                            : PRIMARY_COLOR,
-                      ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xffc1c4be),
+                              blurRadius: 20.0,
+                            ),
+                          ],
+                          color: Staticmenbers.cardUsers[index].color == ""
+                              ? colorList[Staticmenbers.cardUsers[index].color!]
+                              : WHITE_COLOR),
                       margin: EdgeInsets.only(
                           left: 12, right: 12, top: 5, bottom: 5),
                       child: Row(children: [

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import '../utils/constants_color.dart';
 
 class TextButtomWidget extends StatelessWidget {
@@ -9,8 +6,9 @@ class TextButtomWidget extends StatelessWidget {
   final String? title;
   final Color? color;
   final double? fontSize;
-  TextButtomWidget(
-      {required this.onPressed,
+  const TextButtomWidget(
+      {super.key,
+      required this.onPressed,
       required this.fontSize,
       required this.title,
       required this.color});
@@ -22,7 +20,7 @@ class TextButtomWidget extends StatelessWidget {
         TextButton(
           onPressed: onPressed,
           child: Container(
-            padding: EdgeInsets.all(14),
+            padding: const EdgeInsets.all(14),
             color: color,
             child: Text(
               title!,

@@ -18,11 +18,11 @@ class Dashboardscreen extends StatefulWidget {
 class _DashboardscreenState extends State<Dashboardscreen> {
   int? indexx;
 
-  List<Widget> _widgetOptions = <Widget>[
-    Cardscreen(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const Cardscreen(),
     Scannerscreen(),
-    ContactsScreen(),
-    Setting_Screen()
+    const ContactsScreen(),
+    const Setting_Screen()
   ];
   @override
   void initState() {
@@ -47,15 +47,13 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Container(
-            child: Center(
-              child: _widgetOptions.elementAt(indexx!),
-            ),
+          child: Center(
+            child: _widgetOptions.elementAt(indexx!),
           ),
         ),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(25.0),
                 topRight: Radius.circular(25.0),
               ),
@@ -68,10 +66,10 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             type: BottomNavigationBarType.fixed,
             backgroundColor: Colors.transparent,
             selectedItemColor: WHITE_COLOR,
-            selectedIconTheme: IconThemeData(color: WHITE_COLOR),
+            selectedIconTheme: const IconThemeData(color: WHITE_COLOR),
             unselectedItemColor: BLUE_COLOR,
-            unselectedIconTheme: IconThemeData(color: BLUE_COLOR),
-            items: <BottomNavigationBarItem>[
+            unselectedIconTheme: const IconThemeData(color: BLUE_COLOR),
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.credit_card),
                 label: 'Card',

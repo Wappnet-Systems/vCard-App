@@ -4,9 +4,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/number_verification_Screen.dart';
@@ -23,21 +20,11 @@ class Setting_Screen extends StatefulWidget {
 }
 
 class _Setting_ScreenState extends State<Setting_Screen> {
-  bool _darkMode = false;
-
   Future<void> checkAndRequestLocationPermissions() async {
     var status = await Permission.location.status;
     if (status.isDenied) {
       await Permission.location.request();
     }
-  }
-
-  Future<void> _toggleThemeMode() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _darkMode = !_darkMode;
-    });
-    await prefs.setBool('darkMode', _darkMode);
   }
 
   Future<void> _delete_user() async {
@@ -48,7 +35,6 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     log("doc:${collection.id}");
     var snapshots = await collection.get();
     for (var doc in snapshots.docs) {
-      log("doc:${doc}");
       await doc.reference.delete();
     }
     var snapshot = FirebaseFirestore.instance
@@ -70,16 +56,17 @@ class _Setting_ScreenState extends State<Setting_Screen> {
           title: "Settings",
           actions: null,
           leading: Padding(
-            padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+            padding:
+                const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
             child: InkWell(
               onTap: () {
                 showModalBottomSheet(
                     context: context,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(25.0)),
                     ),
-                    builder: (BuildContext context) => GenerateQR());
+                    builder: (BuildContext context) => const GenerateQR());
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -89,7 +76,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     width: 1,
                   ),
                 ),
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   backgroundImage: AssetImage("assets/images/splash1.png"),
                 ),
               ),
@@ -98,27 +85,27 @@ class _Setting_ScreenState extends State<Setting_Screen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
+          const Padding(
+            padding: EdgeInsets.all(15.0),
             child: Text(
               "V Card",
               style: TextStyle(fontSize: 25),
             ),
           ),
           Container(
-            padding: EdgeInsets.only(left: 15, right: 15),
+            padding: const EdgeInsets.only(left: 15, right: 15),
             color: WHITE_COLOR,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Divider(),
+                const Divider(),
                 InkWell(
                   onTap: () async {
                     AppSettings.openAppSettings();
                   },
-                  child: Container(
+                  child: SizedBox(
                     height: hp(4, context),
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text(
                           "Permissions",
@@ -128,10 +115,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     ),
                   ),
                 ),
-                Divider(),
-                Container(
+                const Divider(),
+                SizedBox(
                   height: hp(4, context),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Text(
                         "Version",
@@ -142,7 +129,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     ],
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 InkWell(
                   onTap: () {
                     AwesomeDialog(
@@ -158,12 +145,13 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Numberverification()));
+                                  builder: (context) =>
+                                      const Numberverification()));
                         }).show();
                   },
-                  child: Container(
+                  child: SizedBox(
                     height: hp(4, context),
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text(
                           "Log out",
@@ -173,7 +161,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     ),
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 InkWell(
                   onTap: () {
                     try {
@@ -188,20 +176,20 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                                 await SharedPreferences.getInstance();
                             _delete_user();
                             prefs.remove('isLoggedIn');
-                            log('log:${FirebaseAuth.instance.currentUser?.uid}');
+
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        Numberverification()));
+                                        const Numberverification()));
                           }).show();
                     } catch (e) {
-                      print(e);
+                      Error;
                     }
                   },
-                  child: Container(
+                  child: SizedBox(
                     height: hp(4, context),
-                    child: Row(
+                    child: const Row(
                       children: [
                         Text(
                           "Delete Account",
@@ -211,7 +199,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     ),
                   ),
                 ),
-                Divider(),
+                const Divider(),
               ],
             ),
           ),

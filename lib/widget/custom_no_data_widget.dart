@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 class CustomNoData extends StatelessWidget {
   String iconaddress;
   CustomNoData({
+    super.key,
     required this.iconaddress,
   });
 
@@ -13,10 +14,10 @@ class CustomNoData extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-              height: MediaQuery.of(context).size.height * 0.15,
-              child: Lottie.asset('$iconaddress')),
           SizedBox(
+              height: MediaQuery.of(context).size.height * 0.15,
+              child: Lottie.asset(iconaddress)),
+          const SizedBox(
             height: 10,
           ),
         ],
