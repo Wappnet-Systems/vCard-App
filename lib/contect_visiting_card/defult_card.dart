@@ -33,7 +33,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20.0),
           child: Container(
-            decoration:  const BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               boxShadow: [
                 BoxShadow(
@@ -178,7 +178,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                               launchUrl(Uri.parse(
+                                                launchUrl(Uri.parse(
                                                     'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
                                               },
                                               child: Image.asset(
@@ -217,7 +217,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                               launchUrl(Uri.parse(
+                                                launchUrl(Uri.parse(
                                                     'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
                                               },
                                               child: Image.asset(
@@ -235,7 +235,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                               launchUrl(Uri.parse(
+                                                launchUrl(Uri.parse(
                                                     'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
                                               },
                                               child: Image.asset(
@@ -253,7 +253,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             padding: const EdgeInsets.all(8.0),
                                             child: InkWell(
                                               onTap: () {
-                                               launchUrl(Uri.parse(
+                                                launchUrl(Uri.parse(
                                                     "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram"));
                                               },
                                               child: Image.asset(
@@ -344,8 +344,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                                             },
                                                             title: 'Use Map',
                                                             fontSize: null,
-                                                            color:
-                                                                PRIMARY_COLOR,
+                                                            color: BLUE_COLOR,
                                                           ),
                                                           TextButtomWidget(
                                                             onPressed: () {
@@ -405,7 +404,6 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
 
       if (await canLaunchUrl(googleUri)) {
         await launchUrl(googleUri);
-      
       }
     }
   }

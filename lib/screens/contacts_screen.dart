@@ -7,6 +7,7 @@ import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
+import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_no_data_widget.dart';
 import '../widget/text_button_widget.dart';
 import 'contect_visiting_card.dart';
@@ -72,243 +73,65 @@ class _ContactsScreenState extends State<ContactsScreen> {
     });
   }
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: WHITE_COLOR,
-        appBar: Customappbarwidget(
+        appBar: const Customappbarwidget(
             title: "Contacts", actions: null, leading: Text("")),
         body: Staticmenbers.cardUsers.isNotEmpty
             ? ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                 itemCount: Staticmenbers.cardUsers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
-                    onTap: () async {
-                      setState(() {
-                        cardindex = index;
-                      });
-                      showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              elevation: 0.0,
-                              backgroundColor: Colors.transparent,
-                              title: null,
-                              content: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Contectvisitingcard(
-                                                        id: cardindex,
-                                                      )));
-                                        },
-                                        child: Container(
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.remove_red_eye,
-                                                  size: 18,
-                                                  color: WHITE_COLOR,
-                                                ),
-                                                Text(
-                                                  "View",
-                                                  style: TextStyle(
-                                                      color: WHITE_COLOR,
-                                                      fontSize: 12),
-                                                )
-                                              ]),
-                                          height: hp(7, context),
-                                          width: wp(15, context),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              color: Colors.amber),
-                                        ),
-                                      ),
-                                      SizedBox(width: wp(2, context)),
-                                      InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          bottomRight:
-                                                              Radius.circular(
-                                                                  20)),
-                                                ),
-                                                title: const Text(
-                                                    "Are you sure you want to delete this card?"),
-                                                content: null,
-                                                actions: <Widget>[
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      TextButtomWidget(
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            log("${Staticmenbers.cardUsers[index].id}");
-
-                                                            FirebaseFirestore
-                                                                .instance
-                                                                .collection(
-                                                                    "users")
-                                                                .doc(FirebaseAuth
-                                                                    .instance
-                                                                    .currentUser
-                                                                    ?.uid)
-                                                                .collection(
-                                                                    "Frind's Card")
-                                                                .doc(Staticmenbers
-                                                                    .cardUsers[
-                                                                        index]
-                                                                    .id)
-                                                                .delete()
-                                                                .then((value) {
-                                                              Future.delayed(
-                                                                  Duration(
-                                                                      seconds:
-                                                                          1),
-                                                                  () {
-                                                                Navigator.pushReplacement(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                        builder: (context) => Dashboardscreen(
-                                                                              index: 2,
-                                                                            )));
-                                                              });
-                                                            });
-                                                          });
-                                                        },
-                                                        title: 'Okey',
-                                                        fontSize: 15,
-                                                        color: Colors.redAccent,
-                                                      ),
-                                                      TextButtomWidget(
-                                                        onPressed: () {
-                                                          Navigator.pushReplacement(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                  builder: (context) =>
-                                                                      Dashboardscreen(
-                                                                          index:
-                                                                              0)));
-                                                        },
-                                                        title: 'Cancle',
-                                                        fontSize: 15,
-                                                        color: PRIMARY_COLOR,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          });
-                                        },
-                                        child: Container(
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.delete,
-                                                  size: 18,
-                                                  color: WHITE_COLOR,
-                                                ),
-                                                Text(
-                                                  "Delete",
-                                                  style: TextStyle(
-                                                      color: WHITE_COLOR,
-                                                      fontSize: 12),
-                                                )
-                                              ]),
-                                          height: hp(7, context),
-                                          width: wp(15, context),
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              color: Colors.lightGreen),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
-                    },
                     child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(45),
-                            topRight: Radius.circular(50),
-                          ),
+                      height: hp(13, context),
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                           boxShadow: [
                             BoxShadow(
                               color: Color(0xffc1c4be),
                               blurRadius: 20.0,
                             ),
                           ],
-                          color: Staticmenbers.cardUsers[index].color == ""
-                              ? colorList[Staticmenbers.cardUsers[index].color!]
-                              : WHITE_COLOR),
-                      margin: EdgeInsets.only(
+                          color: WHITE_COLOR),
+                      margin: const EdgeInsets.only(
                           left: 12, right: 12, top: 5, bottom: 5),
                       child: Row(children: [
+                        SizedBox(width: wp(2.5, context)),
                         Staticmenbers.cardUsers[index].image == null
                             ? ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(45),
-                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                                 child: Image.asset(
                                   "assets/images/splash1.png",
-                                  width: wp(32, context),
+                                  width: wp(18, context),
                                   height: hp(10, context),
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                 ),
                               )
                             : ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(45),
-                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
                                 child: Image.network(
                                   "${Staticmenbers.cardUsers[index].image}",
-                                  width: wp(25, context),
+                                  width: wp(18, context),
                                   height: hp(10, context),
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   frameBuilder: (context, child, frame,
                                       wasSynchronouslyLoaded) {
                                     return child;
                                   },
                                   errorBuilder: (context, error, stackTrace) {
                                     return Image(
-                                      image: AssetImage(
+                                      image: const AssetImage(
                                           "assets/images/splash1.png"),
-                                      width: wp(32, context),
+                                      width: wp(18, context),
                                       height: hp(10, context),
+                                      fit: BoxFit.cover,
                                     );
                                   },
                                   loadingBuilder:
@@ -316,10 +139,10 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                     if (loadingProgress == null) {
                                       return child;
                                     } else {
-                                      return Center(
+                                      return const Center(
                                           child: Icon(
                                         Icons.image,
-                                        size: 130,
+                                        size: 50,
                                         color: WHITE_COLOR,
                                       ));
                                     }
@@ -331,43 +154,240 @@ class _ContactsScreenState extends State<ContactsScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Staticmenbers.cardUsers[index].name == ""
-                                  ? SizedBox.shrink()
-                                  : Text(
-                                      '${Staticmenbers.cardUsers[index].name}',
-                                      style: TextStyle(
-                                          color: WHITE_COLOR, fontSize: 20),
-                                    ),
-                              Staticmenbers.cardUsers[index].phone == ""
-                                  ? SizedBox.shrink()
+                                  ? const SizedBox.shrink()
                                   : Padding(
                                       padding: const EdgeInsets.only(
-                                        top: 5,
+                                          top: 4, left: 20),
+                                      child: Text(
+                                        '${Staticmenbers.cardUsers[index].name}',
+                                        style: const TextStyle(
+                                            color: BLACK_COLOR, fontSize: 20),
                                       ),
+                                    ),
+                              Staticmenbers.cardUsers[index].phone == ""
+                                  ? const SizedBox.shrink()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 8, left: 20),
                                       child: Text(
                                         '${Staticmenbers.cardUsers[index].phone}',
-                                        style: TextStyle(
-                                            color: WHITE_COLOR, fontSize: 15),
+                                        style: const TextStyle(
+                                            color: BLACK_COLOR, fontSize: 15),
                                       ),
                                     ),
                               Staticmenbers.cardUsers[index].compeny == ""
-                                  ? SizedBox.shrink()
+                                  ? const SizedBox.shrink()
                                   : Padding(
                                       padding: const EdgeInsets.only(
-                                        top: 0.5,
-                                      ),
+                                          top: 0, left: 20),
                                       child: Text(
                                         '${Staticmenbers.cardUsers[index].compeny}',
-                                        style: TextStyle(
-                                            color: WHITE_COLOR, fontSize: 15),
+                                        style: const TextStyle(
+                                            color: BLACK_COLOR, fontSize: 15),
                                       ),
                                     ),
                             ]),
+                        const Spacer(),
+                        InkWell(
+                            onTap: () async {
+                              setState(() {
+                                cardindex = index;
+                              });
+                              showModalBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0.0,
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(25.0)),
+                                  ),
+                                  builder: (BuildContext context) {
+                                    return SizedBox(
+                                      height: hp(20, context),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Contectvisitingcard(
+                                                            id: cardindex,
+                                                          )));
+                                            },
+                                            child: Container(
+                                              height: hp(8, context),
+                                              width: wp(17, context),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  color: GRAY),
+                                              child: const Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.remove_red_eye,
+                                                      size: 22,
+                                                      color: BLACK_COLOR,
+                                                    ),
+                                                    Text(
+                                                      "View",
+                                                      style: TextStyle(
+                                                          color: BLACK_COLOR,
+                                                          fontSize: 14),
+                                                    )
+                                                  ]),
+                                            ),
+                                          ),
+                                          SizedBox(width: wp(5, context)),
+                                          InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (ctx) => AlertDialog(
+                                                    shape:
+                                                        const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(20),
+                                                              topRight: Radius
+                                                                  .circular(20),
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                    ),
+                                                    title: const Text(
+                                                        "Are you sure you want to delete this card?"),
+                                                    content: null,
+                                                    actions: <Widget>[
+                                                      (isLoading)
+                                                          ? const Custonloading()
+                                                          : const SizedBox
+                                                              .shrink(),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          TextButtomWidget(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                isLoading =
+                                                                    true;
+                                                                log("${Staticmenbers.cardUsers[index].id}");
+
+                                                                FirebaseFirestore
+                                                                    .instance
+                                                                    .collection(
+                                                                        "users")
+                                                                    .doc(FirebaseAuth
+                                                                        .instance
+                                                                        .currentUser
+                                                                        ?.uid)
+                                                                    .collection(
+                                                                        "Frind's Card")
+                                                                    .doc(Staticmenbers
+                                                                        .cardUsers[
+                                                                            index]
+                                                                        .id)
+                                                                    .delete()
+                                                                    .then(
+                                                                        (value) {
+                                                                  Future.delayed(
+                                                                      const Duration(
+                                                                          seconds:
+                                                                              1),
+                                                                      () {
+                                                                    Navigator.pushReplacement(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                            builder: (context) => Dashboardscreen(
+                                                                                  index: 2,
+                                                                                )));
+                                                                  });
+                                                                });
+                                                              });
+                                                            },
+                                                            title: 'Okey',
+                                                            fontSize: 15,
+                                                            color: Colors
+                                                                .redAccent,
+                                                          ),
+                                                          TextButtomWidget(
+                                                            onPressed: () {
+                                                              Navigator.pushReplacement(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          Dashboardscreen(
+                                                                              index: 0)));
+                                                            },
+                                                            title: 'Cancle',
+                                                            fontSize: 15,
+                                                            color: BLUE_COLOR,
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              });
+                                            },
+                                            child: Container(
+                                              height: hp(8, context),
+                                              width: wp(17, context),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          100),
+                                                  color: GRAY),
+                                              child: const Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.delete,
+                                                      size: 22,
+                                                      color: BLACK_COLOR,
+                                                    ),
+                                                    Text(
+                                                      "Delete",
+                                                      style: TextStyle(
+                                                          color: BLACK_COLOR,
+                                                          fontSize: 14),
+                                                    )
+                                                  ]),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Icon(Icons.more_horiz),
+                            )),
                       ]),
                     ),
                   );
                 })
-            : CustomNoData(
-                iconaddress: CARD,
+            : Container(
+                height: hp(100, context),
+                width: wp(100, context),
+                child: CustomNoData(
+                  iconaddress: CARD,
+                ),
               ));
   }
 }

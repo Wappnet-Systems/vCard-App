@@ -6,7 +6,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -149,19 +148,24 @@ class _ScannerscreenState extends State<Scannerscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: WHITE_COLOR,
-      appBar: Customappbarwidget(
-          title: "QR Scanner",
-          actions: null,
-          leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Icon(Icons.arrow_back_sharp))),
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0.0,
+        title: const Text("QR Scanner"),
+        backgroundColor: Colors.transparent,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Colors.blueGrey.shade200, BLUE_COLOR],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter)),
+        ),
+      ),
       body: value != false
           ? Center(
               child: Column(
                 children: [
-                  SizedBox(height: hp(25, context)),
+                  SizedBox(height: hp(17, context)),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -169,8 +173,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           topRight: Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
-                          color:
-                              color == "" ? colorList[color!] : PRIMARY_COLOR,
+                          color: color == "" ? colorList[color!] : BLUE_COLOR,
                           blurRadius: 1.0,
                         ),
                         const BoxShadow(
@@ -178,7 +181,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           blurRadius: 20.0,
                         ),
                       ],
-                      color: color == "" ? colorList[color!] : PRIMARY_COLOR,
+                      color: color == "" ? colorList[color!] : BLUE_COLOR,
                     ),
                     margin: const EdgeInsets.only(
                         left: 95, right: 95, top: 10, bottom: 10),
@@ -243,12 +246,12 @@ class _ScannerscreenState extends State<Scannerscreen> {
                       ),
                     ]),
                   ),
-                  SizedBox(height: hp(1, context)),
+                  SizedBox(height: hp(5, context)),
                   Center(
                     child: Container(
                         width: wp(50, context),
                         decoration: BoxDecoration(
-                          color: PRIMARY_COLOR,
+                          color: BLUE_COLOR,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
@@ -262,7 +265,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           },
                         )),
                   ),
-                  SizedBox(height: hp(1, context)),
+                  SizedBox(height: hp(3, context)),
                   Container(
                       width: wp(50, context),
                       decoration: BoxDecoration(
@@ -291,30 +294,30 @@ class _ScannerscreenState extends State<Scannerscreen> {
               Container(
                   decoration: BoxDecoration(
                       color: Colors.white,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(color: BLACK_COLOR, blurRadius: 0.1)
                       ],
                       borderRadius: BorderRadius.circular(10)),
-                  width: wp(50, context),
+                  width: wp(60, context),
                   height: hp(8, context),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     "Scan Your QR Code",
                     style: TextStyle(fontSize: 20),
                   ))),
-              SizedBox(height: hp(5, context)),
+              SizedBox(height: hp(8, context)),
               CustomNoData(
                 iconaddress: QR,
               ),
-              SizedBox(height: hp(5, context)),
+              SizedBox(height: hp(8, context)),
               InkWell(
                 onTap: () {
                   scanQRCode();
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: PRIMARY_COLOR,
-                      boxShadow: [
+                      color: BLUE_COLOR,
+                      boxShadow: const [
                         BoxShadow(color: BLACK_COLOR, blurRadius: 0.5)
                       ],
                       borderRadius: BorderRadius.circular(25)),
@@ -324,14 +327,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
                       child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.qr_code_scanner,
-                        size: 35,
+                        size: 30,
+                        color: WHITE_COLOR,
                       ),
                       SizedBox(width: wp(5, context)),
-                      Text(
+                      const Text(
                         'Qr Scan',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 17, color: WHITE_COLOR),
                       )
                     ],
                   )),
@@ -352,7 +356,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
         uid = qrCode.substring(0, 28);
         log("$uid");
         cid = qrCode.substring(29);
-        print("Cid is $cid & $uid");
         value = true;
         getSingleUserData(cid!, uid!);
       });
@@ -366,7 +369,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: PRIMARY_COLOR,
+        color: BLUE_COLOR,
       ),
       child: const Text(
         "Connected",

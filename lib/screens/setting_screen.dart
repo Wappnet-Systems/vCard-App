@@ -98,38 +98,72 @@ class _Setting_ScreenState extends State<Setting_Screen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Divider(),
                 InkWell(
                   onTap: () async {
                     AppSettings.openAppSettings();
                   },
-                  child: SizedBox(
-                    height: hp(4, context),
-                    child: const Row(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: WHITE_COLOR,
+                          blurRadius: 1.0,
+                        ),
+                        BoxShadow(
+                          color: Color(0xffc1c4be),
+                          blurRadius: 10.0,
+                        ),
+                      ],
+                      color: WHITE_COLOR,
+                    ),
+                    height: hp(9, context),
+                    child: Row(
                       children: [
-                        Text(
+                        SizedBox(width: wp(3, context)),
+                        const Text(
                           "Permissions",
                           style: TextStyle(fontSize: 18),
                         ),
+                        const Spacer(),
+                        const Icon(Icons.chevron_right_sharp)
                       ],
                     ),
                   ),
                 ),
-                const Divider(),
-                SizedBox(
-                  height: hp(4, context),
-                  child: const Row(
+                SizedBox(height: hp(1, context)),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: WHITE_COLOR,
+                        blurRadius: 1.0,
+                      ),
+                      BoxShadow(
+                        color: Color(0xffc1c4be),
+                        blurRadius: 20.0,
+                      ),
+                    ],
+                    color: WHITE_COLOR,
+                  ),
+                  height: hp(9, context),
+                  child: Row(
                     children: [
-                      Text(
+                      SizedBox(width: wp(3, context)),
+                      const Text(
                         "Version",
                         style: TextStyle(fontSize: 18),
                       ),
-                      Spacer(),
-                      Text('1.0.0+1'),
+                      const Spacer(),
+                      const Padding(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Text('1.0.0'),
+                      ),
                     ],
                   ),
                 ),
-                const Divider(),
+                SizedBox(height: hp(1, context)),
                 InkWell(
                   onTap: () {
                     AwesomeDialog(
@@ -149,19 +183,36 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                                       const Numberverification()));
                         }).show();
                   },
-                  child: SizedBox(
-                    height: hp(4, context),
-                    child: const Row(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: WHITE_COLOR,
+                          blurRadius: 1.0,
+                        ),
+                        BoxShadow(
+                          color: Color(0xffc1c4be),
+                          blurRadius: 20.0,
+                        ),
+                      ],
+                      color: WHITE_COLOR,
+                    ),
+                    height: hp(9, context),
+                    child: Row(
                       children: [
-                        Text(
+                        SizedBox(width: wp(3, context)),
+                        const Text(
                           "Log out",
                           style: TextStyle(fontSize: 18),
                         ),
+                        const Spacer(),
+                        const Icon(Icons.chevron_right_sharp)
                       ],
                     ),
                   ),
                 ),
-                const Divider(),
+                SizedBox(height: hp(1, context)),
                 InkWell(
                   onTap: () {
                     try {
@@ -187,19 +238,35 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       Error;
                     }
                   },
-                  child: SizedBox(
-                    height: hp(4, context),
-                    child: const Row(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: WHITE_COLOR,
+                          blurRadius: 1.0,
+                        ),
+                        BoxShadow(
+                          color: Color(0xffc1c4be),
+                          blurRadius: 20.0,
+                        ),
+                      ],
+                      color: WHITE_COLOR,
+                    ),
+                    height: hp(9, context),
+                    child: Row(
                       children: [
-                        Text(
+                        SizedBox(width: wp(3, context)),
+                        const Text(
                           "Delete Account",
                           style: TextStyle(fontSize: 18),
                         ),
+                        const Spacer(),
+                        const Icon(Icons.chevron_right_sharp)
                       ],
                     ),
                   ),
                 ),
-                const Divider(),
               ],
             ),
           ),

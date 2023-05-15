@@ -82,151 +82,173 @@ class _CardscreenState extends State<Cardscreen> {
             title: "Card",
             actions: [
               Padding(
-                padding:
-                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                padding: const EdgeInsets.only(
+                    top: 11, left: 10, bottom: 5, right: 7),
                 child: InkWell(
                     onTap: () async {
                       final refresh = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Createcardscreen()));
+                              builder: (context) => const Createcardscreen()));
                       log("refresh:$refresh");
                       if (refresh == true) {
                         changeData();
                       }
                     },
-                    child: Icon(Icons.add, size: 40)),
+                    child: const Icon(Icons.add, size: 40)),
               )
             ],
             leading: Padding(
-              padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+              padding:
+                  const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
               child: InkWell(
                 onTap: () {
                   showModalBottomSheet(
                       context: context,
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius:
                             BorderRadius.vertical(top: Radius.circular(25.0)),
                       ),
-                      builder: (BuildContext context) => GenerateQR());
+                      builder: (BuildContext context) => const GenerateQR());
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(60),
                     border: Border.all(
                       color: WHITE_COLOR,
                       width: wp(0.3, context),
                     ),
                   ),
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     backgroundImage: AssetImage("assets/images/splash1.png"),
                   ),
                 ),
               ),
             )),
         body: Staticmenbers.listofUsers.isNotEmpty
-            ? GridView.builder(
-                padding: EdgeInsets.all(10),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 15,
-                ),
+            ? ListView.builder(
+                padding: const EdgeInsets.all(10),
                 itemCount: Staticmenbers.listofUsers.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    onTap: () async {
-                      setState(() {
-                        cardindex = index;
-                      });
-                      final refresh = await showDialog(
-                          context: context,
-                          builder: (ctx) => Detailscreen(id: cardindex));
-                      log("refresh1:$refresh");
-                      if (refresh == true) {
-                        changeData();
-                      }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(45),
-                            topRight: Radius.circular(50)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Staticmenbers.listofUsers[index].color == ""
-                                ? colorList[
-                                    Staticmenbers.listofUsers[index].color!]
-                                : PRIMARY_COLOR,
-                            blurRadius: 1.0,
-                          ),
-                          BoxShadow(
-                            color: Color(0xffc1c4be),
-                            blurRadius: 20.0,
-                          ),
-                        ],
-                        color: Staticmenbers.listofUsers[index].color == ""
-                            ? colorList[Staticmenbers.listofUsers[index].color!]
-                            : PRIMARY_COLOR,
-                      ),
-                      margin: EdgeInsets.only(
-                          left: 12, right: 12, top: 10, bottom: 5),
-                      child: Column(children: [
-                        Staticmenbers.listofUsers[index].image == ""
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(45),
-                                    topRight: Radius.circular(50)),
-                                child: Image.asset(
-                                  "assets/images/splash1.png",
-                                  width: wp(42, context),
-                                  height: hp(17, context),
-                                  fit: BoxFit.fill,
-                                ),
-                              )
-                            : ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(45),
-                                    topRight: Radius.circular(50)),
-                                child: Image.network(
-                                  "${Staticmenbers.listofUsers[index].image}",
-                                  width: wp(42, context),
-                                  height: hp(17, context),
-                                  fit: BoxFit.fill,
-                                  frameBuilder: (context, child, frame,
-                                      wasSynchronouslyLoaded) {
-                                    return child;
-                                  },
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    } else {
-                                      return Center(
-                                          child: Icon(
-                                        Icons.image,
-                                        size: 130,
-                                        color: WHITE_COLOR,
-                                      ));
-                                    }
-                                  },
-                                ),
-                              ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Center(
-                            child: Text(
-                              '${Staticmenbers.listofUsers[index].type}',
-                              style:
-                                  TextStyle(color: WHITE_COLOR, fontSize: 16),
-                            ),
-                          ),
+                  return Container(
+                    height: hp(13, context),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: WHITE_COLOR,
+                          blurRadius: 1.0,
                         ),
-                      ]),
+                        BoxShadow(
+                          color: Color(0xffc1c4be),
+                          blurRadius: 20.0,
+                        ),
+                      ],
+                      color: WHITE_COLOR,
                     ),
+                    margin: const EdgeInsets.only(
+                        left: 8, right: 8, top: 10, bottom: 5),
+                    child: Row(children: [
+                      SizedBox(width: wp(2.5, context)),
+                      Staticmenbers.listofUsers[index].image == ""
+                          ? ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              child: Image.asset(
+                                "assets/images/splash1.png",
+                                width: wp(18, context),
+                                height: hp(10, context),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              child: Image.network(
+                                "${Staticmenbers.listofUsers[index].image}",
+                                width: wp(18, context),
+                                height: hp(10, context),
+                                fit: BoxFit.cover,
+                                frameBuilder: (context, child, frame,
+                                    wasSynchronouslyLoaded) {
+                                  return child;
+                                },
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return const Center(
+                                        child: Icon(
+                                      Icons.image,
+                                      size: 130,
+                                      color: WHITE_COLOR,
+                                    ));
+                                  }
+                                },
+                              ),
+                            ),
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4, left: 20),
+                              child: Text(
+                                '${Staticmenbers.listofUsers[index].name}',
+                                style: const TextStyle(
+                                    color: BLACK_COLOR, fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4, left: 20),
+                              child: Text(
+                                '${Staticmenbers.listofUsers[index].type}',
+                                style: const TextStyle(
+                                    color: BLACK_COLOR, fontSize: 14),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 4, left: 20),
+                              child: Text(
+                                '${Staticmenbers.listofUsers[index].department}',
+                                style: const TextStyle(
+                                    color: BLACK_COLOR, fontSize: 14),
+                              ),
+                            ),
+                          ]),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: InkWell(
+                            onTap: () async {
+                              setState(() {
+                                cardindex = index;
+                              });
+                              showModalBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0.0,
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(25.0)),
+                                  ),
+                                  builder: (BuildContext context) =>
+                                      Detailscreen(
+                                        id: cardindex,
+                                      ));
+                            },
+                            child: const Icon(Icons.more_horiz)),
+                      ),
+                    ]),
                   );
                 })
-            : CustomNoData(
-                iconaddress: CARD,
+            : Container(
+                height: hp(100, context),
+                width: wp(100, context),
+                child: CustomNoData(
+                  iconaddress: CARD,
+                ),
               ));
   }
 }

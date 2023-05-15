@@ -44,10 +44,10 @@ class _placesAutoCompleteTextFieldState
                       hintText: "Add your location",
                       icon: Icon(
                         Icons.add_location_alt_rounded,
-                        color: PRIMARY_COLOR,
+                        color: BLUE_COLOR,
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: PRIMARY_COLOR),
+                        borderSide: BorderSide(color: BLUE_COLOR),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 13, vertical: 12),
@@ -88,7 +88,7 @@ class _placesAutoCompleteTextFieldState
                       },
                       title: 'Save',
                       fontSize: 15,
-                      color: PRIMARY_COLOR,
+                      color: BLUE_COLOR,
                     ),
                     TextButtomWidget(
                       onPressed: () {
@@ -113,7 +113,7 @@ class _placesAutoCompleteTextFieldState
       ),
       child: Text(
         "Add Successfully ${widget.hint!}",
-        style: TextStyle(color: PRIMARY_COLOR),
+        style: TextStyle(color: BLUE_COLOR),
       ),
     );
 

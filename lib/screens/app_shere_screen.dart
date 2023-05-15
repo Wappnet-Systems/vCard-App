@@ -4,8 +4,6 @@ import 'package:share_plus/share_plus.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 
-import '../widget/decoration_widget.dart';
-
 class GenerateQR extends StatefulWidget {
   const GenerateQR({super.key});
 
@@ -32,17 +30,14 @@ class _GenerateQRState extends State<GenerateQR> {
           ),
           color: WHITE_COLOR,
         ),
-        height: hp(40, context),
+        height: hp(50, context),
         child: Column(
           children: [
-            const Decorationwidget(),
             SizedBox(height: hp(2, context)),
             const Text(
               "Share vCard",
               style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: PRIMARY_COLOR),
+                  fontSize: 20, fontWeight: FontWeight.bold, color: BLUE_COLOR),
             ),
             SizedBox(height: hp(2, context)),
             Center(
@@ -50,7 +45,7 @@ class _GenerateQRState extends State<GenerateQR> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
-                    color: Colors.green,
+                    color: BLUE_COLOR,
                     width: wp(1, context),
                   ),
                 ),
@@ -67,7 +62,7 @@ class _GenerateQRState extends State<GenerateQR> {
             SizedBox(height: hp(2, context)),
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: PRIMARY_COLOR,
+                  backgroundColor: BLUE_COLOR,
                 ),
                 onPressed: _shareContent,
                 icon: const Icon(Icons.ios_share_outlined),

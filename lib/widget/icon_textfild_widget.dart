@@ -76,7 +76,7 @@ class _IconTextFieldState extends State<IconTextField> {
                       },
                       title: 'Save',
                       fontSize: 15,
-                      color: PRIMARY_COLOR,
+                      color: BLUE_COLOR,
                     ),
                     TextButtomWidget(
                       onPressed: () {
@@ -103,7 +103,7 @@ class _IconTextFieldState extends State<IconTextField> {
       ),
       child: Text(
         "Add Successfully ${widget.hint!}",
-        style: const TextStyle(color: PRIMARY_COLOR),
+        style: const TextStyle(color: BLUE_COLOR),
       ),
     );
 

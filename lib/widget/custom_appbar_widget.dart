@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../utils/constants_color.dart';
+
 class Customappbarwidget extends StatelessWidget
     implements PreferredSizeWidget {
   @override
@@ -30,7 +32,7 @@ class Customappbarwidget extends StatelessWidget
       flexibleSpace: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.green.shade300, Colors.green],
+                colors: [BLUEGRAY, BLUE_COLOR],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter)),
       ),

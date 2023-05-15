@@ -20,7 +20,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
 
   final List<Widget> _widgetOptions = <Widget>[
     const Cardscreen(),
-    Scannerscreen(),
+    const Scannerscreen(),
     const ContactsScreen(),
     const Setting_Screen()
   ];
@@ -58,7 +58,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 topRight: Radius.circular(25.0),
               ),
               gradient: LinearGradient(
-                  colors: [Colors.green, Colors.green.shade300],
+                  colors: [BLUE_COLOR, BLUEGRAY],
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter)),
           child: BottomNavigationBar(
@@ -67,8 +67,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
             backgroundColor: Colors.transparent,
             selectedItemColor: WHITE_COLOR,
             selectedIconTheme: const IconThemeData(color: WHITE_COLOR),
-            unselectedItemColor: BLUE_COLOR,
-            unselectedIconTheme: const IconThemeData(color: BLUE_COLOR),
+            unselectedItemColor: BLACK_COLOR,
+            unselectedIconTheme: const IconThemeData(color: BLACK_COLOR),
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(Icons.credit_card),

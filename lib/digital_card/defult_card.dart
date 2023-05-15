@@ -368,8 +368,7 @@ class _DefultCardState extends State<DefultCard> {
                                                               },
                                                               title: 'Use Map',
                                                               fontSize: null,
-                                                              color:
-                                                                  PRIMARY_COLOR,
+                                                              color: BLUE_COLOR,
                                                             ),
                                                             TextButtomWidget(
                                                               onPressed: () {

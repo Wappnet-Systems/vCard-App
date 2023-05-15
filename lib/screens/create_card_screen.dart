@@ -168,7 +168,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: PRIMARY_COLOR, width: wp(0.5, context)),
+                            color: BLUE_COLOR, width: wp(0.5, context)),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -177,20 +177,20 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           child: Imagepicker == null
                               ? Image.asset(
                                   "assets/images/splash1.png",
-                                  width: wp(40, context),
-                                  height: hp(19, context),
+                                  width: wp(33, context),
+                                  height: hp(20, context),
                                   fit: BoxFit.cover,
                                 )
                               : Image.file(
                                   Imagepicker!,
-                                  width: wp(40, context),
-                                  height: hp(19, context),
+                                  width: wp(33, context),
+                                  height: hp(20, context),
                                   fit: BoxFit.cover,
                                 )),
                     ),
                     Positioned(
-                        top: 130,
-                        left: 115,
+                        top: 90,
+                        left: 90,
                         child: InkWell(
                           onTap: () {
                             imagepicker();
@@ -250,11 +250,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     style: const TextStyle(color: Color(0xff000000)),
-                    cursorColor: PRIMARY_COLOR,
+                    cursorColor: BLUE_COLOR,
                     controller: _headlineController,
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: PRIMARY_COLOR),
+                        borderSide: BorderSide(color: BLUE_COLOR),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 13, vertical: 12),
@@ -276,7 +276,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           showimagelist();
                         },
                         child: const Text("Select Card Theme ?",
-                            style: TextStyle(color: PRIMARY_COLOR))),
+                            style: TextStyle(color: BLUE_COLOR))),
                     const Spacer(),
                     InkWell(
                         onTap: () {
@@ -284,7 +284,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         },
                         child: const Text(
                           "Select Card Color ?",
-                          style: TextStyle(color: PRIMARY_COLOR),
+                          style: TextStyle(color: BLUE_COLOR),
                         ))
                   ]),
                 ),
@@ -337,7 +337,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: PRIMARY_COLOR),
+                      color: BLUE_COLOR),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -345,7 +345,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -361,7 +361,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -375,7 +375,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -428,7 +428,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: _selectedIndex == index
-                                    ? PRIMARY_COLOR
+                                    ? BLUE_COLOR
                                     : WHITE_COLOR,
                                 width: 4,
                               ),
@@ -482,7 +482,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         decoration: BoxDecoration(
                             border: Border.all(
                               color: _selectcolor == index
-                                  ? PRIMARY_COLOR
+                                  ? BLUE_COLOR
                                   : WHITE_COLOR,
                               width: 4,
                             ),
@@ -502,7 +502,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           actions: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               TextButtomWidget(
-                color: PRIMARY_COLOR,
+                color: BLUE_COLOR,
                 fontSize: 20,
                 onPressed: () {
                   Navigator.pop(context);
@@ -521,7 +521,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: PRIMARY_COLOR,
+        color: BLUE_COLOR,
       ),
       child: const Text(
         "Add Successfully",

@@ -173,7 +173,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                                             },
                                             title: 'Use Map',
                                             fontSize: null,
-                                            color: PRIMARY_COLOR,
+                                            color: BLUE_COLOR,
                                           ),
                                           TextButtomWidget(
                                             onPressed: () {
@@ -404,7 +404,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                   width: wp(53, context),
                   height: hp(8, context),
                   decoration: const BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black,

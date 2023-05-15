@@ -42,7 +42,7 @@ class _IconwidgetState extends State<Iconwidget> {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-            colors: [Colors.green, PRIMARY_COLOR],
+            colors: [GRAY, BLUE_COLOR],
             begin: Alignment.bottomCenter,
             end: Alignment.topCenter),
         borderRadius: BorderRadius.only(
@@ -74,7 +74,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                             icon: const Icon(
                               FontAwesomeIcons.whatsapp,
-                              color: PRIMARY_COLOR,
+                              color: BLUE_COLOR,
                             ),
                             hint: 'Whatsapp',
                             textInputType: TextInputType.number,
@@ -108,7 +108,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: const Icon(
                                 Icons.telegram,
-                                color: PRIMARY_COLOR,
+                                color: BLUE_COLOR,
                               ),
                               hint: 'Telegram',
                               textInputType: TextInputType.number,
@@ -142,7 +142,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: const Icon(
                                 Icons.email,
-                                color: PRIMARY_COLOR,
+                                color: BLUE_COLOR,
                               ),
                               hint: 'Email',
                               textInputType: TextInputType.emailAddress,
@@ -184,7 +184,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: const Icon(
                                 Icons.web,
-                                color: PRIMARY_COLOR,
+                                color: BLUE_COLOR,
                               ),
                               hint: 'Website',
                               textInputType: TextInputType.text,
@@ -218,7 +218,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: const Icon(
                                 Icons.link_sharp,
-                                color: PRIMARY_COLOR,
+                                color: BLUE_COLOR,
                               ),
                               hint: 'Link',
                               textInputType: TextInputType.text,
@@ -252,7 +252,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                             icon: const Icon(
                               Icons.phone,
-                              color: PRIMARY_COLOR,
+                              color: BLUE_COLOR,
                             ),
                             hint: 'Number',
                             textInputType: TextInputType.number,
@@ -292,7 +292,7 @@ class _IconwidgetState extends State<Iconwidget> {
                         builder: (context) => IconTextField(
                               icon: const Icon(
                                 Icons.facebook,
-                                color: PRIMARY_COLOR,
+                                color: BLUE_COLOR,
                               ),
                               hint: 'Facebook',
                               textInputType: TextInputType.text,

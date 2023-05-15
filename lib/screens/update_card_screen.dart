@@ -241,7 +241,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 Stack(children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: PRIMARY_COLOR, width: 3),
+                      border: Border.all(color: BLUE_COLOR, width: 3),
                       borderRadius: const BorderRadius.all(
                         Radius.circular(100),
                       ),
@@ -254,8 +254,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             child: Image(
                               image:
                                   const AssetImage("assets/images/splash1.png"),
-                              width: wp(40, context),
-                              height: hp(19, context),
+                              width: wp(33, context),
+                              height: hp(20, context),
                             ),
                           )
                         : ClipOval(
@@ -263,15 +263,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               placeholder: (context, url) =>
                                   const Custonloading(),
                               imageUrl: "$imageurl",
-                              width: wp(40, context),
-                              height: hp(19, context),
+                              width: wp(33, context),
+                              height: hp(20, context),
                               fit: BoxFit.cover,
                             ),
                           ),
                   ),
                   Positioned(
-                      top: 130,
-                      left: 115,
+                      top: 90,
+                      left: 90,
                       child: InkWell(
                         onTap: () {
                           setState(() {
@@ -333,11 +333,11 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     maxLines: null,
                     keyboardType: TextInputType.multiline,
                     style: const TextStyle(color: Color(0xff000000)),
-                    cursorColor: PRIMARY_COLOR,
+                    cursorColor: BLUE_COLOR,
                     controller: _headlineController,
                     decoration: const InputDecoration(
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: PRIMARY_COLOR),
+                        borderSide: BorderSide(color: BLUE_COLOR),
                       ),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 13, vertical: 12),
@@ -359,14 +359,14 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           showimagelist();
                         },
                         child: const Text("Select Card Theme ?",
-                            style: TextStyle(color: PRIMARY_COLOR))),
+                            style: TextStyle(color: BLUE_COLOR))),
                     const Spacer(),
                     InkWell(
                         onTap: () {
                           showcolorlist();
                         },
                         child: const Text("Select Card Color ?",
-                            style: TextStyle(color: PRIMARY_COLOR)))
+                            style: TextStyle(color: BLUE_COLOR)))
                   ]),
                 ),
                 SizedBox(height: hp(3, context)),
@@ -418,7 +418,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: PRIMARY_COLOR),
+                      color: BLUE_COLOR),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -426,7 +426,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -442,7 +442,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -456,7 +456,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: PRIMARY_COLOR,
+                    color: BLUE_COLOR,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -510,7 +510,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: _selectedIndex == index
-                                ? PRIMARY_COLOR
+                                ? BLUE_COLOR
                                 : WHITE_COLOR,
                             width: 4,
                           ),
@@ -566,7 +566,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         decoration: BoxDecoration(
                             border: Border.all(
                               color: _selectcolor == index
-                                  ? PRIMARY_COLOR
+                                  ? BLUE_COLOR
                                   : WHITE_COLOR,
                               width: 4,
                             ),
@@ -586,7 +586,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
           actions: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               TextButtomWidget(
-                color: PRIMARY_COLOR,
+                color: BLUE_COLOR,
                 fontSize: 20,
                 onPressed: () {
                   Navigator.pop(context);
@@ -605,7 +605,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: PRIMARY_COLOR,
+        color: BLUE_COLOR,
       ),
       child: const Text(
         "Add Successfully",

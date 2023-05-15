@@ -58,35 +58,44 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'VCard',
       theme: ThemeData(fontFamily: 'Trajan'),
-      home: AnimatedSplashScreen(
-        duration: 1500,
-        splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: const Color(0Xff60ab44),
-        splashIconSize: 250,
-        animationDuration: const Duration(milliseconds: 1500),
-        splash: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                "assets/images/splash1.png",
-                height: 200,
-                width: 200,
-              ),
-              SizedBox(height: hp(1, context)),
-              const Text("V Card",
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: WHITE_COLOR,
-                  ))
-            ],
+      home: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [BLUE_COLOR, GRAY],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
           ),
         ),
-        nextScreen: (widget.islogin! == true)
-            ? Dashboardscreen(
-                index: 0,
-              )
-            : const Numberverification(),
+        child: AnimatedSplashScreen(
+          duration: 1500,
+          splashTransition: SplashTransition.fadeTransition,
+          backgroundColor: Colors.transparent,
+          splashIconSize: 250,
+          animationDuration: const Duration(milliseconds: 1500),
+          splash: Center(
+            child: Column(
+              children: [
+                Image.asset(
+                  "assets/images/splash1.png",
+                  height: 200,
+                  width: 200,
+                ),
+                SizedBox(height: hp(1, context)),
+                const Text("V Card",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: BLACK_COLOR,
+                    ))
+              ],
+            ),
+          ),
+          nextScreen: (widget.islogin! == true)
+              ? Dashboardscreen(
+                  index: 0,
+                )
+              : const Numberverification(),
+        ),
       ),
     );
   }

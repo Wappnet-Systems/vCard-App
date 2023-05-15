@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -35,7 +36,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
               Stack(children: [
                 Container(
                     width: wp(95, context),
-                    height: hp(35, context),
+                    height: hp(37, context),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: WHITE_COLOR,
@@ -177,29 +178,18 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 ),
                                 Padding(
                                     padding: const EdgeInsets.only(right: 20),
-                                    child: Staticmenbers.listofUsers[cardindex!]
-                                                .image ==
-                                            ""
-                                        ? ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            child: Image.asset(
-                                              "assets/images/splash1.png",
-                                              width: wp(25, context),
-                                              height: hp(13, context),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )
-                                        : ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            child: Image.network(
-                                              "${Staticmenbers.listofUsers[cardindex!].image}",
-                                              width: wp(25, context),
-                                              height: hp(13, context),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          )),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              color: BLUE_COLOR, width: 2)),
+                                      child: QrImage(
+                                        data:
+                                            "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
+                                        size: 70,
+                                      ),
+                                    )),
                                 SizedBox(
                                   height: hp(3, context),
                                 ),
@@ -284,7 +274,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                                       },
                                                       title: 'Use Map',
                                                       fontSize: null,
-                                                      color: PRIMARY_COLOR,
+                                                      color: BLUE_COLOR,
                                                     ),
                                                     TextButtomWidget(
                                                       onPressed: () {

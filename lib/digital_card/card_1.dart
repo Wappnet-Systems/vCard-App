@@ -344,7 +344,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                                                   fontSize:
                                                                       null,
                                                                   color:
-                                                                      PRIMARY_COLOR,
+                                                                      BLUE_COLOR,
                                                                 ),
                                                                 TextButtomWidget(
                                                                   onPressed:

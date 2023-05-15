@@ -287,7 +287,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                                         },
                                         title: 'Use Map',
                                         fontSize: null,
-                                        color: PRIMARY_COLOR,
+                                        color: BLUE_COLOR,
                                       ),
                                       TextButtomWidget(
                                         onPressed: () {

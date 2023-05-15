@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -36,7 +37,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
               children: [
                 Container(
                   width: wp(47.5, context),
-                  height: hp(35, context),
+                  height: hp(37, context),
                   decoration: BoxDecoration(
                     border: Border.all(
                         color: Staticmenbers.listofUsers[cardindex!].color !=
@@ -101,32 +102,19 @@ class _Cardtheme3State extends State<Cardtheme3> {
                         height: hp(4, context),
                       ),
                       Padding(
-                          padding: const EdgeInsets.only(left: 25),
-                          child:
-                              Staticmenbers.listofUsers[cardindex!].image == ""
-                                  ? ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)),
-                                      child: Image.asset(
-                                        "assets/images/splash1.png",
-                                        width: wp(25, context),
-                                        height: hp(13, context),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(20)),
-                                      child: Image.network(
-                                        "${Staticmenbers.listofUsers[cardindex!].image}",
-                                        width: wp(25, context),
-                                        height: hp(13, context),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    )),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
+                          padding: const EdgeInsets.only(left: 35),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: BLUE_COLOR, width: 2)),
+                            child: QrImage(
+                              data:
+                                  "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
+                              size: 70,
+                            ),
+                          )),
+                      SizedBox(height: hp(3, context)),
                       Center(
                         child: Row(
                           children: [
@@ -212,7 +200,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                                     },
                                                     title: 'Use Map',
                                                     fontSize: null,
-                                                    color: PRIMARY_COLOR,
+                                                    color: BLUE_COLOR,
                                                   ),
                                                   TextButtomWidget(
                                                     onPressed: () {
@@ -249,7 +237,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                 ),
                 Container(
                   width: wp(47.5, context),
-                  height: hp(35, context),
+                  height: hp(37, context),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(15),
@@ -258,7 +246,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                         ? colorList[
                             Staticmenbers.listofUsers[cardindex!].color!]
                         : BLUE_COLOR,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black,
                         blurRadius: 3.0,
@@ -287,9 +275,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                       color: WHITE_COLOR,
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: wp(4, context),
-                                  ),
+                                  SizedBox(width: wp(4, context)),
                                   Text(
                                       "${Staticmenbers.listofUsers[cardindex!].phone}",
                                       style: const TextStyle(
@@ -297,9 +283,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 ],
                               ),
                       ),
-                      SizedBox(
-                        height: hp(2, context),
-                      ),
+                      SizedBox(height: hp(2, context)),
                       Staticmenbers.listofUsers[cardindex!].whatsapp == ""
                           ? const SizedBox.shrink()
                           : Row(
@@ -320,18 +304,14 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: wp(4, context),
-                                ),
+                                SizedBox(width: wp(4, context)),
                                 Text(
                                     "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
                                     style: const TextStyle(
                                         fontSize: 10, color: WHITE_COLOR))
                               ],
                             ),
-                      SizedBox(
-                        height: hp(2, context),
-                      ),
+                      SizedBox(height: hp(2, context)),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child: Staticmenbers.listofUsers[cardindex!].email == ""
@@ -359,9 +339,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 ],
                               ),
                       ),
-                      SizedBox(
-                        height: hp(2, context),
-                      ),
+                      SizedBox(height: hp(2, context)),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
                         child:
@@ -392,9 +370,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     ],
                                   ),
                       ),
-                      SizedBox(
-                        height: hp(2, context),
-                      ),
+                      SizedBox(height: hp(2, context)),
                       Staticmenbers.listofUsers[cardindex!].facebook == ""
                           ? const SizedBox.shrink()
                           : Row(

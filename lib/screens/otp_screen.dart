@@ -88,7 +88,7 @@ class _OTPscreenState extends State<OTPscreen> {
                 height: hp(7, context),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: PRIMARY_COLOR,
+                        backgroundColor: BLUE_COLOR,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {

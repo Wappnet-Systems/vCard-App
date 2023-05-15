@@ -33,11 +33,11 @@ class CustomTextFormField extends StatelessWidget {
         style: const TextStyle(color: Color(0xff000000)),
         obscureText: !customobscuretext,
         enableInteractiveSelection: false,
-        cursorColor: PRIMARY_COLOR,
+        cursorColor: BLUE_COLOR,
         controller: textEditingController,
         decoration: InputDecoration(
           focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: PRIMARY_COLOR),
+            borderSide: BorderSide(color: BLUE_COLOR),
           ),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 13, vertical: 12),

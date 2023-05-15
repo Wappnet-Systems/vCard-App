@@ -96,7 +96,7 @@ class _NumberverificationState extends State<Numberverification> {
                         SizedBox(
                           width: wp(9, context),
                           child: TextField(
-                            cursorColor: PRIMARY_COLOR,
+                            cursorColor: BLUE_COLOR,
                             controller: countryController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
@@ -106,14 +106,14 @@ class _NumberverificationState extends State<Numberverification> {
                         ),
                         const Text(
                           "|",
-                          style: TextStyle(fontSize: 33, color: PRIMARY_COLOR),
+                          style: TextStyle(fontSize: 33, color: BLUE_COLOR),
                         ),
                         SizedBox(
                           width: wp(3, context),
                         ),
                         Expanded(
                             child: TextField(
-                          cursorColor: PRIMARY_COLOR,
+                          cursorColor: BLUE_COLOR,
                           inputFormatters: [maskFormatter],
                           onChanged: (value) {
                             phone = value;
@@ -135,7 +135,7 @@ class _NumberverificationState extends State<Numberverification> {
                     height: hp(7, context),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: PRIMARY_COLOR,
+                            backgroundColor: BLUE_COLOR,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {

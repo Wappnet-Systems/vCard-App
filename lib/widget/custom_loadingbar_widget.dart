@@ -32,7 +32,7 @@ class _CustonloadingState extends State<Custonloading> {
       child: const Padding(
         padding: EdgeInsets.all(10.0),
         child: CircularProgressIndicator(
-          color: PRIMARY_COLOR,
+          color: BLUE_COLOR,
           strokeWidth: 2,
         ),
       ),

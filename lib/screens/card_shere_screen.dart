@@ -31,7 +31,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
         backgroundColor: WHITE_COLOR,
         title: null,
         content: SizedBox(
-          height: hp(30, context),
+          height: hp(40, context),
           width: wp(40, context),
           child: Column(
             children: [
@@ -40,13 +40,13 @@ class _CardsherescreenState extends State<Cardsherescreen> {
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: PRIMARY_COLOR),
+                    color: BLUE_COLOR),
               ),
               SizedBox(height: hp(2, context)),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: PRIMARY_COLOR, width: 2)),
+                    border: Border.all(color: BLUE_COLOR, width: 2)),
                 child: QrImage(
                   data: "${widget.uid} ${widget.cid}",
                   size: 150,
@@ -55,7 +55,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
               SizedBox(height: hp(3, context)),
               const Text(
                 "Point your camera at the QR code.",
-                style: TextStyle(fontSize: 13, color: PRIMARY_COLOR),
+                style: TextStyle(fontSize: 13, color: BLUE_COLOR),
               )
             ],
           ),
