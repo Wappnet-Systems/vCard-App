@@ -96,7 +96,7 @@ class _DetailscreenState extends State<Detailscreen> {
                         ]),
                   ),
                 )
-              : SizedBox.shrink(),
+              : const SizedBox.shrink(),
           SizedBox(width: wp(2, context)),
           (widget.id != null)
               ? InkWell(
@@ -127,7 +127,7 @@ class _DetailscreenState extends State<Detailscreen> {
                         ]),
                   ),
                 )
-              : SizedBox.shrink(),
+              : const SizedBox.shrink(),
           SizedBox(width: wp(2, context)),
           InkWell(
             onTap: () {

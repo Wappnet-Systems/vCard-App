@@ -100,7 +100,6 @@ class _NumberverificationState extends State<Numberverification> {
                   },
                   onCountryChanged: (country) {
                     phone = country.dialCode;
-                    print("phone:$phone");
                   },
                 ),
                 SizedBox(
@@ -115,9 +114,8 @@ class _NumberverificationState extends State<Numberverification> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () async {
-                        print("${countryController.text + phone}");
                         await FirebaseAuth.instance.verifyPhoneNumber(
-                          phoneNumber: "${phone + countryController.text}",
+                          phoneNumber: phone + countryController.text,
                           verificationCompleted:
                               (PhoneAuthCredential credential) {
                             setState(() {
