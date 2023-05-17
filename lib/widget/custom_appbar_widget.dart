@@ -10,32 +10,29 @@ class Customappbarwidget extends StatelessWidget
   final String title;
   final Widget leading;
   final List<Widget>? actions;
-  const Customappbarwidget(
-      {super.key,
-      required this.title,
-      required this.actions,
-      required this.leading});
+  const Customappbarwidget({
+    super.key,
+    required this.title,
+    this.actions,
+    required this.leading,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0.0,
+      elevation: 0.3,
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.only(top: 8),
-        child: Text(title),
+        child: Text(
+          title,
+          style: const TextStyle(color: BLACK_COLOR),
+        ),
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: WHITE_COLOR,
       leading: leading,
       actions: actions,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
-      flexibleSpace: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [BLUEGRAY, BLUE_COLOR],
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter)),
-      ),
     );
   }
 }

@@ -2,7 +2,6 @@ class Users {
   final String? name;
   final String? department;
   final String? compeny;
-  final String? headline;
   final String? whatsapp;
   final String? telegram;
   final String? website;
@@ -24,7 +23,6 @@ class Users {
       required this.name,
       required this.department,
       required this.compeny,
-      required this.headline,
       required this.whatsapp,
       required this.telegram,
       required this.website,

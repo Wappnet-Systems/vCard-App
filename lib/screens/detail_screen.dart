@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +9,14 @@ import '../utils/responsive.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/text_button_widget.dart';
 import 'card_shere_screen.dart';
+import 'contect_visiting_card.dart';
 import 'dashboard_screen.dart';
 import 'digital_visiting_card_screen.dart';
 
 class Detailscreen extends StatefulWidget {
   int? id;
-  Detailscreen({super.key, this.id});
+  int? contectid;
+  Detailscreen({super.key, this.id, this.contectid});
 
   @override
   State<Detailscreen> createState() => _DetailscreenState();
@@ -29,12 +33,16 @@ class _DetailscreenState extends State<Detailscreen> {
         children: [
           InkWell(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Digitalvisitingcard(
-                            id: widget.id,
-                          )));
+                      builder: (context) => (widget.id != null)
+                          ? Digitalvisitingcard(
+                              id: widget.id,
+                            )
+                          : Contectvisitingcard(
+                              contectid: widget.contectid,
+                            )));
             },
             child: Container(
               height: hp(8, context),
@@ -57,64 +65,69 @@ class _DetailscreenState extends State<Detailscreen> {
             ),
           ),
           SizedBox(width: wp(2, context)),
-          InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (ctx) => Cardsherescreen(
-                        uid: FirebaseAuth.instance.currentUser?.uid,
-                        cid: Staticmenbers.listofUsers[widget.id!].id,
-                      ));
-            },
-            child: Container(
-              height: hp(8, context),
-              width: wp(17, context),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: GRAY),
-              child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.share_sharp,
-                      size: 22,
-                      color: BLACK_COLOR,
-                    ),
-                    Text(
-                      "Share",
-                      style: TextStyle(color: BLACK_COLOR, fontSize: 14),
-                    )
-                  ]),
-            ),
-          ),
+          (widget.id != null)
+              ? InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                    showDialog(
+                        context: context,
+                        builder: (ctx) => Cardsherescreen(
+                              uid: FirebaseAuth.instance.currentUser?.uid,
+                              cid: Staticmenbers.listofUsers[widget.id!].id,
+                            ));
+                  },
+                  child: Container(
+                    height: hp(8, context),
+                    width: wp(17, context),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100), color: GRAY),
+                    child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.share_sharp,
+                            size: 22,
+                            color: BLACK_COLOR,
+                          ),
+                          Text(
+                            "Share",
+                            style: TextStyle(color: BLACK_COLOR, fontSize: 14),
+                          )
+                        ]),
+                  ),
+                )
+              : SizedBox.shrink(),
           SizedBox(width: wp(2, context)),
-          InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Updatecardscreen(
-                          id: Staticmenbers.listofUsers[widget.id!].id)));
-            },
-            child: Container(
-              height: hp(8, context),
-              width: wp(17, context),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: GRAY),
-              child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.edit_document,
-                      size: 22,
-                      color: BLACK_COLOR,
-                    ),
-                    Text(
-                      "Edit",
-                      style: TextStyle(color: BLACK_COLOR, fontSize: 14),
-                    )
-                  ]),
-            ),
-          ),
+          (widget.id != null)
+              ? InkWell(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Updatecardscreen(
+                                id: Staticmenbers.listofUsers[widget.id!].id)));
+                  },
+                  child: Container(
+                    height: hp(8, context),
+                    width: wp(17, context),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100), color: GRAY),
+                    child: const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.edit_document,
+                            size: 22,
+                            color: BLACK_COLOR,
+                          ),
+                          Text(
+                            "Edit",
+                            style: TextStyle(color: BLACK_COLOR, fontSize: 14),
+                          )
+                        ]),
+                  ),
+                )
+              : SizedBox.shrink(),
           SizedBox(width: wp(2, context)),
           InkWell(
             onTap: () {
@@ -141,28 +154,52 @@ class _DetailscreenState extends State<Detailscreen> {
                         children: [
                           TextButtomWidget(
                             onPressed: () {
-                              setState(() {
-                                isLoading = true;
-                                FirebaseFirestore.instance
-                                    .collection("users")
-                                    .doc(FirebaseAuth.instance.currentUser?.uid)
-                                    .collection("Carddata")
-                                    .doc(Staticmenbers
-                                        .listofUsers[widget.id!].id)
-                                    .delete()
-                                    .then((value) {
-                                  Future.delayed(const Duration(seconds: 1),
-                                      () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Dashboardscreen(
-                                                  index: 0,
-                                                )));
-                                  });
-                                });
-                              });
+                              (widget.id != null)
+                                  ? setState(() {
+                                      isLoading = true;
+                                      FirebaseFirestore.instance
+                                          .collection("users")
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid)
+                                          .collection("Carddata")
+                                          .doc(Staticmenbers
+                                              .listofUsers[widget.id!].id)
+                                          .delete()
+                                          .then((value) {
+                                        // Future.delayed(
+                                        //     const Duration(seconds: 1), () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Dashboardscreen(index: 0)));
+                                        // });
+                                      });
+                                    })
+                                  : setState(() {
+                                      isLoading = true;
+                                      log("${Staticmenbers.cardUsers[widget.contectid!].id}");
+
+                                      FirebaseFirestore.instance
+                                          .collection("users")
+                                          .doc(FirebaseAuth
+                                              .instance.currentUser?.uid)
+                                          .collection("Frind's Card")
+                                          .doc(Staticmenbers
+                                              .cardUsers[widget.contectid!].id)
+                                          .delete()
+                                          .then((value) {
+                                        // Future.delayed(
+                                        //     const Duration(seconds: 1), () {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    Dashboardscreen(
+                                                      index: 2,
+                                                    )));
+                                      });
+                                    });
                             },
                             title: 'Okey',
                             fontSize: 15,

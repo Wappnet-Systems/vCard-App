@@ -400,17 +400,6 @@ class _DefultCardState extends State<DefultCard> {
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 35, top: 10, bottom: 10),
-                        child: (Staticmenbers
-                                    .listofUsers[cardindex!].headline ==
-                                "")
-                            ? Container()
-                            : Text(
-                                '${Staticmenbers.listofUsers[cardindex!].headline}',
-                                style: TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 25,
-                                    color: WHITE_COLOR,
-                                    fontWeight: FontWeight.bold)),
                       ),
                     ]),
               ),

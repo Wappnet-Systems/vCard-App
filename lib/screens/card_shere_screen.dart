@@ -31,7 +31,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
         backgroundColor: WHITE_COLOR,
         title: null,
         content: SizedBox(
-          height: hp(40, context),
+          height: hp(35, context),
           width: wp(40, context),
           child: Column(
             children: [

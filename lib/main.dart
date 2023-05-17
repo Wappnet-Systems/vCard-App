@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'screens/dashboard_screen.dart';
 import 'utils/constants_color.dart';
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
       title: 'VCard',
       theme: ThemeData(fontFamily: 'Trajan'),
       home: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [BLUE_COLOR, GRAY],
             begin: Alignment.topCenter,

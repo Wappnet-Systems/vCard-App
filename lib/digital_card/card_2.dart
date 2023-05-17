@@ -39,7 +39,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                 bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
             color: Staticmenbers.listofUsers[cardindex!].color != null
                 ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
-                : WHITE_COLOR,
+                : BLUE_COLOR,
             boxShadow: const [
               BoxShadow(
                 color: Colors.black,
@@ -80,38 +80,35 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             null ||
                     Staticmenbers.listofUsers[cardindex!].website != "" &&
                         Staticmenbers.listofUsers[cardindex!].website != null ||
-                    Staticmenbers.listofUsers[cardindex!].address != "" &&
-                        Staticmenbers.listofUsers[cardindex!].address != null ||
-                    Staticmenbers.listofUsers[cardindex!].email != "" &&
-                        Staticmenbers.listofUsers[cardindex!].email != null ||
                     Staticmenbers.listofUsers[cardindex!].facebook != "" &&
                         Staticmenbers.listofUsers[cardindex!].facebook !=
                             null ||
                     Staticmenbers.listofUsers[cardindex!].link != "" &&
-                        Staticmenbers.listofUsers[cardindex!].link != null ||
-                    Staticmenbers.listofUsers[cardindex!].phone != "" &&
-                        Staticmenbers.listofUsers[cardindex!].phone != null
+                        Staticmenbers.listofUsers[cardindex!].link != null
                 ? Column(
                     children: [
                       SizedBox(height: hp(3, context)),
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[cardindex!].name}",
-                              style: const TextStyle(fontSize: 24))),
+                              style: const TextStyle(
+                                  fontSize: 24, color: WHITE_COLOR))),
                       SizedBox(
                         height: hp(0.10, context),
                       ),
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[cardindex!].department}",
-                              style: const TextStyle(fontSize: 16))),
+                              style: const TextStyle(
+                                  fontSize: 16, color: WHITE_COLOR))),
                       SizedBox(
                         height: hp(0.3, context),
                       ),
                       Center(
                           child: Text(
                               "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                              style: const TextStyle(fontSize: 16))),
+                              style: const TextStyle(
+                                  fontSize: 16, color: WHITE_COLOR))),
                       SizedBox(
                         height: hp(3, context),
                       ),
@@ -122,7 +119,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             InkWell(
                               onTap: () {
                                 launchUrl(Uri.parse(
-                                    'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                    'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                               },
                               child: Image.asset(
                                 "assets/icon/call.png",
@@ -135,7 +132,8 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                style: const TextStyle(fontSize: 14))
+                                style: const TextStyle(
+                                    fontSize: 14, color: WHITE_COLOR))
                           ],
                         ),
                       ),
@@ -162,7 +160,8 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[cardindex!].email}",
-                                style: const TextStyle(fontSize: 14))
+                                style: const TextStyle(
+                                    fontSize: 14, color: WHITE_COLOR))
                           ],
                         ),
                       ),
@@ -191,22 +190,10 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                             Text(
                                 "${Staticmenbers.listofUsers[cardindex!].website}",
-                                style: const TextStyle(fontSize: 14))
+                                style: const TextStyle(
+                                    fontSize: 14, color: WHITE_COLOR))
                           ],
                         ),
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                        child: Center(
-                            child: Text("Headline",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 11))),
                       ),
                       const SizedBox(height: 15),
                       Wrap(

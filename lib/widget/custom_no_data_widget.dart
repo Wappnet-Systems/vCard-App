@@ -18,7 +18,7 @@ class CustomNoData extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.15,
               child: Lottie.asset(iconaddress)),
           const SizedBox(
-            height: 10,
+            height: 50,
           ),
         ],
       ),

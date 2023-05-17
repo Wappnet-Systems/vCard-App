@@ -5,14 +5,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../utils/constants_color.dart';
+import '../utils/formatters.dart';
 import '../utils/validator.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_textformfield_widget.dart';
-import '../widget/icon_widget.dart';
+import 'more_textfield_screen.dart';
 import '../widget/text_button_widget.dart';
 
 class Createcardscreen extends StatefulWidget {
@@ -26,16 +31,16 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _departmentController = TextEditingController();
   final TextEditingController _companyController = TextEditingController();
-  final TextEditingController _headlineController = TextEditingController();
   final TextEditingController _whatsappcontroller = TextEditingController();
   final TextEditingController _telegramcontroller = TextEditingController();
   final TextEditingController _addresscontroller = TextEditingController();
-  final TextEditingController _linkcontroller = TextEditingController();
+  final TextEditingController _linkController = TextEditingController();
   final TextEditingController _websitecontroller = TextEditingController();
   final TextEditingController _facebookcontroller = TextEditingController();
   final TextEditingController _emailcontroller = TextEditingController();
   final TextEditingController _numbercontroller = TextEditingController();
   final TextEditingController _typecontroller = TextEditingController();
+
   FToast? fToast;
   final _formfield = GlobalKey<FormState>();
 
@@ -62,11 +67,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'Name': _nameController.text,
       'Department': _departmentController.text,
       'Company': _companyController.text,
-      'HeadLine': _headlineController.text,
       'WhatsApp': _whatsappcontroller.text,
       'Telegram': _telegramcontroller.text,
       'Website': _websitecontroller.text,
-      'Link': _linkcontroller.text,
+      'Link': _linkController.text,
       'Facebook': _facebookcontroller.text,
       'Email': _emailcontroller.text,
       'Phone': _numbercontroller.text,
@@ -76,9 +80,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
       'card': _selectedIndex ?? 4,
-      'color': _selectcolor ?? 11
+      'color': _selectcolor
     }).then((value) {
-      Navigator.pop(context, true);
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: ((context) => Dashboardscreen(index: 0))));
     }).catchError((error) {
       log("Failed to add user: $error");
     });
@@ -119,6 +124,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   int? _selectcolor;
   int? _selectedIndex;
   bool isLoading = false;
+  bool ismoreadddata = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +144,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       addUser();
                     }
                   },
-                  icon: const Icon(Icons.save)),
+                  icon: const Icon(
+                    Icons.save,
+                    color: BLACK_COLOR,
+                  )),
             ),
           ],
           leading: InkWell(
@@ -148,7 +157,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               child: const Padding(
                 padding:
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-                child: Icon(Icons.arrow_back_sharp),
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: BLACK_COLOR,
+                ),
               ))),
       body: SingleChildScrollView(
         child: Form(
@@ -156,12 +168,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           child: Stack(children: [
             Column(
               children: [
-                SizedBox(height: hp(0.5, context)),
-                const Text("New Card"),
-                const Padding(
-                  padding: EdgeInsets.only(right: 15, left: 15),
-                  child: Divider(),
-                ),
                 SizedBox(height: hp(2, context)),
                 Stack(
                   children: [
@@ -177,20 +183,20 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           child: Imagepicker == null
                               ? Image.asset(
                                   "assets/images/splash1.png",
-                                  width: wp(33, context),
-                                  height: hp(20, context),
+                                  width: wp(35, context),
+                                  height: hp(18, context),
                                   fit: BoxFit.cover,
                                 )
                               : Image.file(
                                   Imagepicker!,
-                                  width: wp(33, context),
-                                  height: hp(20, context),
+                                  width: wp(35, context),
+                                  height: hp(18, context),
                                   fit: BoxFit.cover,
                                 )),
                     ),
                     Positioned(
                         top: 90,
-                        left: 90,
+                        left: 100,
                         child: InkWell(
                           onTap: () {
                             imagepicker();
@@ -205,67 +211,51 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 ),
                 SizedBox(height: hp(3, context)),
                 CustomTextFormField(
+                  labelText: "Type",
                   inputFormatters: null,
                   textInputType: TextInputType.emailAddress,
                   textEditingController: _typecontroller,
-                  texteditinghinttext: 'type',
+                  texteditinghinttext: 'Card type',
                   customobscuretext: true,
-                  custominkwell: null,
+                  customsuffixIcon: null,
                   customprefixicon: null,
                   validationfunction: textvalidator,
                 ),
+                SizedBox(height: hp(2, context)),
                 CustomTextFormField(
+                  labelText: "Name",
                   inputFormatters: null,
                   textInputType: TextInputType.text,
                   textEditingController: _nameController,
                   texteditinghinttext: 'Name',
                   customobscuretext: true,
-                  custominkwell: null,
+                  customsuffixIcon: null,
                   customprefixicon: null,
                   validationfunction: textvalidator,
                 ),
+                SizedBox(height: hp(2, context)),
                 CustomTextFormField(
+                  labelText: "Profession",
                   inputFormatters: null,
                   textInputType: TextInputType.text,
                   textEditingController: _departmentController,
-                  texteditinghinttext: 'Department',
+                  texteditinghinttext: 'Profession',
                   customobscuretext: true,
-                  custominkwell: null,
+                  customsuffixIcon: null,
                   customprefixicon: null,
-                  validationfunction: null,
+                  validationfunction: textvalidator,
                 ),
+                SizedBox(height: hp(2, context)),
                 CustomTextFormField(
+                  labelText: "Company",
                   inputFormatters: null,
                   textInputType: TextInputType.text,
                   textEditingController: _companyController,
                   texteditinghinttext: 'Company',
                   customobscuretext: true,
-                  custominkwell: null,
+                  customsuffixIcon: null,
                   customprefixicon: null,
-                  validationfunction: null,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    style: const TextStyle(color: Color(0xff000000)),
-                    cursorColor: BLUE_COLOR,
-                    controller: _headlineController,
-                    decoration: const InputDecoration(
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: BLUE_COLOR),
-                      ),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-                      hintText: 'Headline',
-                      hintStyle: TextStyle(
-                        color: Color(0xff000000),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ),
+                  validationfunction: textvalidator,
                 ),
                 SizedBox(height: hp(3, context)),
                 Padding(
@@ -275,30 +265,132 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         onTap: () {
                           showimagelist();
                         },
-                        child: const Text("Select Card Theme ?",
-                            style: TextStyle(color: BLUE_COLOR))),
+                        child: Container(
+                          width: wp(40, context),
+                          height: hp(7, context),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3),
+                              border: Border.all(color: GRAY)),
+                          child: const Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text("Select Theme",
+                                  style: TextStyle(color: BLUE_COLOR)),
+                            ),
+                            Spacer(),
+                            Icon(Icons.arrow_drop_down_sharp)
+                          ]),
+                        )),
                     const Spacer(),
                     InkWell(
                         onTap: () {
                           showcolorlist();
                         },
-                        child: const Text(
-                          "Select Card Color ?",
-                          style: TextStyle(color: BLUE_COLOR),
+                        child: Container(
+                          width: wp(40, context),
+                          height: hp(7, context),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(3),
+                              border: Border.all(color: GRAY)),
+                          child: const Row(children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: Text(
+                                "Select Color",
+                                style: TextStyle(color: BLUE_COLOR),
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(Icons.arrow_drop_down_sharp)
+                          ]),
                         ))
                   ]),
                 ),
                 SizedBox(height: hp(3, context)),
-                Iconwidget(
-                  websitecontroller: _websitecontroller,
-                  telegramcontroller: _telegramcontroller,
-                  numbercontroller: _numbercontroller,
-                  emailcontroller: _emailcontroller,
-                  textEditingController: _addresscontroller,
-                  linkcontroller: _linkcontroller,
-                  facebookcontroller: _facebookcontroller,
-                  whatsappcontroller: _whatsappcontroller,
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: GooglePlaceAutoCompleteTextField(
+                      textEditingController: _addresscontroller,
+                      googleAPIKey: YOUR_GOOGLE_API_KEY,
+                      inputDecoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Address",
+                        labelStyle: TextStyle(color: BLACK_COLOR, fontSize: 12),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: BLACK_COLOR)),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+                        hintText: "Address",
+                        hintStyle: TextStyle(
+                          color: GRAY,
+                          fontSize: 10,
+                        ),
+                        prefixIcon: Icon(Icons.location_on, color: GRAY),
+                        suffixIcon: null,
+                      ),
+                      debounceTime: 800,
+                      countries: const ["in", "fr"],
+                      isLatLngRequired: true,
+                      getPlaceDetailWithLatLng: (Prediction prediction) {},
+                      itmClick: (Prediction prediction) {
+                        _addresscontroller.text = prediction.description!;
+
+                        _addresscontroller.selection =
+                            TextSelection.fromPosition(TextPosition(
+                                offset: prediction.description!.length));
+                      }),
                 ),
+                SizedBox(height: hp(2, context)),
+                CustomTextFormField(
+                  labelText: "Phone",
+                  inputFormatters: [maskFormatter],
+                  textInputType: TextInputType.phone,
+                  textEditingController: _numbercontroller,
+                  texteditinghinttext: 'Phone',
+                  customobscuretext: true,
+                  customsuffixIcon: null,
+                  customprefixicon: const Icon(
+                    Icons.phone,
+                    color: GRAY,
+                  ),
+                  validationfunction: numbervalidator,
+                ),
+                SizedBox(height: hp(2, context)),
+                CustomTextFormField(
+                  labelText: "Email",
+                  inputFormatters: null,
+                  textInputType: TextInputType.emailAddress,
+                  textEditingController: _emailcontroller,
+                  texteditinghinttext: 'Email',
+                  customobscuretext: true,
+                  customsuffixIcon: null,
+                  customprefixicon: const Icon(
+                    Icons.email,
+                    color: GRAY,
+                  ),
+                  validationfunction: emailValidator,
+                ),
+                SizedBox(height: hp(3, context)),
+                (ismoreadddata)
+                    ? MoreTextfieldscreen(
+                        websitecontroller: _websitecontroller,
+                        telegramcontroller: _telegramcontroller,
+                        facebookcontroller: _facebookcontroller,
+                        linkController: _linkController,
+                        whatsappcontroller: _whatsappcontroller,
+                      )
+                    : InkWell(
+                        onTap: () {
+                          setState(() {
+                            ismoreadddata = true;
+                          });
+                        },
+                        child: const Text(
+                          "Add more item ?",
+                          style: TextStyle(
+                              color: BOTTOM, fontWeight: FontWeight.bold),
+                        )),
+                SizedBox(height: hp(4, context)),
               ],
             ),
             Positioned(
@@ -326,7 +418,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         ),
         content: Container(
           color: WHITE_COLOR,
-          height: hp(30, context),
+          height: hp(33, context),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(

@@ -59,7 +59,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
             name: element['Name'],
             department: element['Department'],
             compeny: element['Company'],
-            headline: element['HeadLine'],
             whatsapp: element['WhatsApp'],
             telegram: element['Telegram'],
             website: element['Website'],
@@ -85,7 +84,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
         uid = uid;
         department = userData[index].department;
         compeny = userData[index].compeny;
-        headline = userData[index].headline;
         whatsapp = userData[index].whatsapp;
         telegram = userData[index].telegram;
         website = userData[index].website;
@@ -149,16 +147,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
     return Scaffold(
       backgroundColor: WHITE_COLOR,
       appBar: AppBar(
-        centerTitle: true,
-        elevation: 0.0,
-        title: const Text("QR Scanner"),
-        backgroundColor: Colors.transparent,
+        automaticallyImplyLeading: false,
+        elevation: 0.3,
+        title: const Text(
+          "QR Scanner",
+          style: TextStyle(color: BLUE_COLOR),
+        ),
+        backgroundColor: WHITE_COLOR,
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  colors: [Colors.blueGrey.shade200, BLUE_COLOR],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter)),
+          decoration: BoxDecoration(),
         ),
       ),
       body: value != false
@@ -291,20 +288,19 @@ class _ScannerscreenState extends State<Scannerscreen> {
             )
           : Column(children: [
               SizedBox(height: hp(15, context)),
-              Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      boxShadow: const [
-                        BoxShadow(color: BLACK_COLOR, blurRadius: 0.1)
-                      ],
-                      borderRadius: BorderRadius.circular(10)),
-                  width: wp(60, context),
-                  height: hp(8, context),
-                  child: const Center(
-                      child: Text(
-                    "Scan Your QR Code",
-                    style: TextStyle(fontSize: 20),
-                  ))),
+              const Center(
+                  child: Text(
+                "Scan QR Code",
+                style: TextStyle(fontSize: 20),
+              )),
+              SizedBox(height: hp(0.5, context)),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  "Get Started by scanning the QR code and get the Card.",
+                  style: TextStyle(fontSize: 12),
+                ),
+              ),
               SizedBox(height: hp(8, context)),
               CustomNoData(
                 iconaddress: QR,

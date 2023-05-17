@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../model/data_controllers.dart';
 
 const Color WHITE_COLOR = Color(0Xfffcfdfd);
+const Color BOTTOM = Color(0xFF8EC5D4);
 const Color BLACK_COLOR = Colors.black;
 const Color BLUE_COLOR = Color(0xff1d2e3e);
 const Color Gold = Color(0xfff4d354);

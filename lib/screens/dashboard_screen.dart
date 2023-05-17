@@ -1,99 +1,152 @@
-import 'dart:io';
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:vcard/screens/card_screen.dart';
 import 'package:vcard/screens/scanner_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
 import '../utils/constants_color.dart';
-import 'card_screen.dart';
 import 'contacts_screen.dart';
+import 'create_card_screen.dart';
 
 class Dashboardscreen extends StatefulWidget {
   int index;
   Dashboardscreen({super.key, required this.index});
-
   @override
-  State<Dashboardscreen> createState() => _DashboardscreenState();
+  _DashboardscreenState createState() => _DashboardscreenState();
 }
 
 class _DashboardscreenState extends State<Dashboardscreen> {
-  int? indexx;
+  PageController? _myPage;
+  int? _selectedIndex;
+  bool value = false;
 
-  final List<Widget> _widgetOptions = <Widget>[
-    const Cardscreen(),
-    const Scannerscreen(),
-    const ContactsScreen(),
-    const Setting_Screen()
-  ];
   @override
   void initState() {
-    indexx = widget.index;
+    _selectedIndex = widget.index;
     super.initState();
+    _myPage = PageController(initialPage: _selectedIndex!);
+  }
+
+  void changeData() {
+    setState(() {
+      value = true;
+    });
+  }
+
+  @override
+  void dispose() {
+    _myPage!.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        final shouldPop = await AwesomeDialog(
-            context: context,
-            dialogType: DialogType.warning,
-            showCloseIcon: true,
-            desc: "Exit",
-            btnCancelOnPress: () async {},
-            btnOkOnPress: () async {
-              exit(0);
-            }).show();
-        return shouldPop;
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: Center(
-            child: _widgetOptions.elementAt(indexx!),
-          ),
+    return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        color: BOTTOM,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 5,
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            const Spacer(),
+            IconButton(
+              iconSize: 30.0,
+              icon: Icon(
+                Icons.credit_card,
+                color: _selectedIndex == 0 ? BLUE_COLOR : WHITE_COLOR,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 0;
+                  _myPage!.jumpToPage(_selectedIndex!);
+                });
+              },
+            ),
+            const Spacer(),
+            IconButton(
+              iconSize: 30.0,
+              icon: Icon(
+                Icons.qr_code_scanner,
+                color: _selectedIndex == 1 ? BLUE_COLOR : WHITE_COLOR,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 1;
+                  _myPage!.jumpToPage(_selectedIndex!);
+                });
+              },
+            ),
+            const Spacer(flex: 5),
+            IconButton(
+              iconSize: 30.0,
+              icon: Icon(
+                Icons.contacts_outlined,
+                color: _selectedIndex == 2 ? BLUE_COLOR : WHITE_COLOR,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 2;
+                  _myPage!.jumpToPage(_selectedIndex!);
+                });
+              },
+            ),
+            const Spacer(),
+            IconButton(
+              iconSize: 30.0,
+              icon: Icon(
+                Icons.settings_outlined,
+                color: _selectedIndex == 3 ? BLUE_COLOR : WHITE_COLOR,
+              ),
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 3;
+                  _myPage!.jumpToPage(_selectedIndex!);
+                });
+              },
+            ),
+            const Spacer(),
+          ],
         ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-              ),
-              gradient: LinearGradient(
-                  colors: [BLUE_COLOR, BLUEGRAY],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter)),
-          child: BottomNavigationBar(
-            elevation: 0.0,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.transparent,
-            selectedItemColor: WHITE_COLOR,
-            selectedIconTheme: const IconThemeData(color: WHITE_COLOR),
-            unselectedItemColor: BLACK_COLOR,
-            unselectedIconTheme: const IconThemeData(color: BLACK_COLOR),
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.credit_card),
-                label: 'Card',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner),
-                label: 'Scan',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.contacts_outlined),
-                label: 'Contacts',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings_outlined),
-                label: 'Settings',
-              ),
-            ],
-            currentIndex: indexx!,
-            onTap: (int index) async {
-              setState(() {
-                indexx = index;
-              });
-            },
+      ),
+      body: PageView(
+        controller: _myPage,
+        onPageChanged: (int index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        children: const <Widget>[
+          Center(
+            child: Cardscreen(),
           ),
+          Center(
+            child: Scannerscreen(),
+          ),
+          Center(
+            child: ContactsScreen(),
+          ),
+          Center(
+            child: Setting_Screen(),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: BLUE_COLOR,
+        onPressed: () async {
+          final refresh = await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const Createcardscreen()));
+          log("refresh:$refresh");
+          if (refresh == true) {
+            changeData();
+          }
+        },
+        child: const Icon(
+          Icons.add,
+          color: WHITE_COLOR,
         ),
       ),
     );

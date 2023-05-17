@@ -70,7 +70,10 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Icon(Icons.ios_share_rounded),
+                  child: Icon(
+                    Icons.ios_share_rounded,
+                    color: BLACK_COLOR,
+                  ),
                 )),
           ],
           leading: InkWell(
@@ -80,7 +83,10 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
               child: const Padding(
                 padding:
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-                child: Icon(Icons.arrow_back_sharp),
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: BLACK_COLOR,
+                ),
               ))),
       backgroundColor: WHITE_COLOR,
       body: RepaintBoundary(

@@ -9,17 +9,19 @@ class CustomTextFormField extends StatelessWidget {
   final String texteditinghinttext;
   final bool customobscuretext;
   final String? Function(String? value)? validationfunction;
-  final InkWell? custominkwell;
+  final Icon? customsuffixIcon;
   final List<TextInputFormatter>? inputFormatters;
+  final String? labelText;
   const CustomTextFormField(
       {super.key,
+      required this.labelText,
       required this.textInputType,
       required this.customprefixicon,
       required this.textEditingController,
       required this.texteditinghinttext,
       required this.customobscuretext,
       required this.validationfunction,
-      required this.custominkwell,
+      required this.customsuffixIcon,
       required this.inputFormatters});
 
   @override
@@ -27,28 +29,33 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: TextFormField(
+        textCapitalization: TextCapitalization.words,
+        textInputAction: TextInputAction.next,
+        autocorrect: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         inputFormatters: inputFormatters,
         keyboardType: textInputType,
-        style: const TextStyle(color: Color(0xff000000)),
+        style: const TextStyle(color: BLACK_COLOR, fontSize: 12),
         obscureText: !customobscuretext,
-        enableInteractiveSelection: false,
+        enableInteractiveSelection: true,
         cursorColor: BLUE_COLOR,
         controller: textEditingController,
         decoration: InputDecoration(
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(color: BLUE_COLOR),
-          ),
+          border: const OutlineInputBorder(),
+          labelText: labelText,
+          labelStyle: const TextStyle(color: BLACK_COLOR),
+          focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: BLACK_COLOR)),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
           hintText: texteditinghinttext,
           hintStyle: const TextStyle(
-            color: Color(0xff000000),
+            color: GRAY,
             fontWeight: FontWeight.w400,
-            fontSize: 12,
+            fontSize: 10,
           ),
           prefixIcon: customprefixicon,
-          suffixIcon: custominkwell,
+          suffixIcon: customsuffixIcon,
         ),
         validator: validationfunction,
       ),

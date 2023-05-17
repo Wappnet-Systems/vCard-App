@@ -131,13 +131,14 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 8),
-                          child: Center(
-                              child: Text(
-                                  "${Staticmenbers.listofUsers[contactcardindex!].headline}",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(fontSize: 11))),
+                          // child: Center(
+                          //   child: Text(
+                          //       "${Staticmenbers.listofUsers[contactcardindex!].headline}",
+                          //       maxLines: 1,
+                          //       overflow: TextOverflow.ellipsis,
+                          //       textAlign: TextAlign.center,
+                          //       style: const TextStyle(fontSize: 11)),
+                          // ),
                         ),
                       ],
                     ),

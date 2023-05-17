@@ -372,20 +372,6 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                             ),
                           )
                         : const SizedBox.shrink(),
-                    Container(
-                      padding: const EdgeInsets.all(25),
-                      child: (Staticmenbers
-                                  .listofUsers[contactcardindex!].headline ==
-                              "")
-                          ? Container()
-                          : Text(
-                              '${Staticmenbers.listofUsers[contactcardindex!].headline}',
-                              style: const TextStyle(
-                                  fontFamily: 'Marck',
-                                  fontSize: 25,
-                                  color: WHITE_COLOR,
-                                  fontWeight: FontWeight.bold)),
-                    ),
                   ]),
             ),
           ),

@@ -2,13 +2,10 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vcard/screens/create_card_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
-import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../widget/custom_no_data_widget.dart';
-import 'app_shere_screen.dart';
 import 'detail_screen.dart';
 
 class Cardscreen extends StatefulWidget {
@@ -50,7 +47,6 @@ class _CardscreenState extends State<Cardscreen> {
             name: element['Name'],
             department: element['Department'],
             compeny: element['Company'],
-            headline: element['HeadLine'],
             whatsapp: element['WhatsApp'],
             telegram: element['Telegram'],
             website: element['Website'],
@@ -78,53 +74,12 @@ class _CardscreenState extends State<Cardscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: WHITE_COLOR,
-        appBar: Customappbarwidget(
-            title: "Card",
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 11, left: 10, bottom: 5, right: 7),
-                child: InkWell(
-                    onTap: () async {
-                      final refresh = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Createcardscreen()));
-                      log("refresh:$refresh");
-                      if (refresh == true) {
-                        changeData();
-                      }
-                    },
-                    child: const Icon(Icons.add, size: 40)),
-              )
-            ],
-            leading: Padding(
-              padding:
-                  const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-              child: InkWell(
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(25.0)),
-                      ),
-                      builder: (BuildContext context) => const GenerateQR());
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(60),
-                    border: Border.all(
-                      color: WHITE_COLOR,
-                      width: wp(0.3, context),
-                    ),
-                  ),
-                  child: const CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/splash1.png"),
-                  ),
-                ),
-              ),
-            )),
+        appBar: AppBar(
+          elevation: 0.3,
+          automaticallyImplyLeading: false,
+          title: const Text("Cards", style: TextStyle(color: BLACK_COLOR)),
+          backgroundColor: WHITE_COLOR,
+        ),
         body: Staticmenbers.listofUsers.isNotEmpty
             ? ListView.builder(
                 padding: const EdgeInsets.all(10),
@@ -137,11 +92,11 @@ class _CardscreenState extends State<Cardscreen> {
                       boxShadow: [
                         BoxShadow(
                           color: WHITE_COLOR,
-                          blurRadius: 1.0,
+                          blurRadius: 10.0,
                         ),
                         BoxShadow(
                           color: Color(0xffc1c4be),
-                          blurRadius: 20.0,
+                          blurRadius: 10.0,
                         ),
                       ],
                       color: WHITE_COLOR,
@@ -243,7 +198,7 @@ class _CardscreenState extends State<Cardscreen> {
                     ]),
                   );
                 })
-            : Container(
+            : SizedBox(
                 height: hp(100, context),
                 width: wp(100, context),
                 child: CustomNoData(

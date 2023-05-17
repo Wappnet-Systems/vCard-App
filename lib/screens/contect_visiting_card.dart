@@ -9,8 +9,8 @@ import '../contect_visiting_card/card_1.dart';
 import '../contect_visiting_card/defult_card.dart';
 
 class Contectvisitingcard extends StatefulWidget {
-  final int? id;
-  const Contectvisitingcard({super.key, required this.id});
+  final int? contectid;
+  const Contectvisitingcard({super.key, required this.contectid});
 
   @override
   State<Contectvisitingcard> createState() => _ContectvisitingcardState();
@@ -23,7 +23,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
   @override
   void initState() {
     super.initState();
-    contactcardindex = widget.id;
+    contactcardindex = widget.contectid;
     fToast = FToast();
     fToast?.init(context);
   }
@@ -41,12 +41,12 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: Text("${Staticmenbers.cardUsers[widget.id!].type}"),
+            title: Text("${Staticmenbers.cardUsers[widget.contectid!].type}"),
             backgroundColor: BLUE_COLOR,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
           backgroundColor: WHITE_COLOR,
-          body: cardList[Staticmenbers.cardUsers[widget.id!].card!]),
+          body: cardList[Staticmenbers.cardUsers[widget.contectid!].card!]),
     );
   }
 }

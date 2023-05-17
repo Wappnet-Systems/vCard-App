@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcard/screens/number_verification_Screen.dart';
+import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../utils/constants_color.dart';
@@ -52,46 +52,16 @@ class _Setting_ScreenState extends State<Setting_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: WHITE_COLOR,
-      appBar: Customappbarwidget(
-          title: "Settings",
-          actions: null,
-          leading: Padding(
-            padding:
-                const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-            child: InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(25.0)),
-                    ),
-                    builder: (BuildContext context) => const GenerateQR());
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  border: Border.all(
-                    color: WHITE_COLOR,
-                    width: 1,
-                  ),
-                ),
-                child: const CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/splash1.png"),
-                ),
-              ),
-            ),
-          )),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 0.3,
+        title: const Text("Settings", style: TextStyle(color: BLACK_COLOR)),
+        backgroundColor: WHITE_COLOR,
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              "V Card",
-              style: TextStyle(fontSize: 25),
-            ),
-          ),
+          SizedBox(height: hp(1, context)),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
             color: WHITE_COLOR,
@@ -106,10 +76,6 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       boxShadow: [
-                        BoxShadow(
-                          color: WHITE_COLOR,
-                          blurRadius: 1.0,
-                        ),
                         BoxShadow(
                           color: Color(0xffc1c4be),
                           blurRadius: 10.0,
@@ -137,12 +103,48 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                     boxShadow: [
                       BoxShadow(
-                        color: WHITE_COLOR,
-                        blurRadius: 1.0,
+                        color: Color(0xffc1c4be),
+                        blurRadius: 10.0,
                       ),
+                    ],
+                    color: WHITE_COLOR,
+                  ),
+                  height: hp(9, context),
+                  child: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0)),
+                          ),
+                          builder: (BuildContext context) =>
+                              const GenerateQR());
+                    },
+                    child: Row(
+                      children: [
+                        SizedBox(width: wp(3, context)),
+                        const Text(
+                          "App Share",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        const Spacer(),
+                        const Padding(
+                          padding: EdgeInsets.only(right: 8.0),
+                          child: Icon(Icons.share),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(height: hp(1, context)),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    boxShadow: [
                       BoxShadow(
                         color: Color(0xffc1c4be),
-                        blurRadius: 20.0,
+                        blurRadius: 10.0,
                       ),
                     ],
                     color: WHITE_COLOR,
@@ -188,12 +190,8 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       boxShadow: [
                         BoxShadow(
-                          color: WHITE_COLOR,
-                          blurRadius: 1.0,
-                        ),
-                        BoxShadow(
                           color: Color(0xffc1c4be),
-                          blurRadius: 20.0,
+                          blurRadius: 10.0,
                         ),
                       ],
                       color: WHITE_COLOR,
@@ -243,12 +241,8 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                       boxShadow: [
                         BoxShadow(
-                          color: WHITE_COLOR,
-                          blurRadius: 1.0,
-                        ),
-                        BoxShadow(
                           color: Color(0xffc1c4be),
-                          blurRadius: 20.0,
+                          blurRadius: 10.0,
                         ),
                       ],
                       color: WHITE_COLOR,
