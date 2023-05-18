@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
@@ -234,12 +235,12 @@ class _ScannerscreenState extends State<Scannerscreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 3),
                         child: Center(
-                          child: Text(
-                            '$name',
-                            style: const TextStyle(
-                                color: WHITE_COLOR, fontSize: 20),
-                          ),
-                        ),
+                            child: Textwidget(
+                          width: 123,
+                          text: '$name',
+                          fontSize: 18,
+                          selectionColor: WHITE_COLOR,
+                        )),
                       ),
                     ]),
                   ),

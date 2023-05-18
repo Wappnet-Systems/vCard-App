@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/widget/text_widget.dart';
 import '../utils/constants_color.dart';
 import '../widget/text_button_widget.dart';
 
@@ -55,19 +56,20 @@ class _Cardtheme1State extends State<Cardtheme1> {
             ),
             child: Row(children: [
               Padding(
-                padding: const EdgeInsets.only(left: 5),
+                padding: const EdgeInsets.only(left: 9),
                 child: Column(
                   children: [
                     SizedBox(height: hp(2.5, context)),
-                    Text("${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        style: TextStyle(
-                            fontSize: 20,
-                            color:
-                                Staticmenbers.listofUsers[cardindex!].color !=
-                                        null
-                                    ? colorList[Staticmenbers
-                                        .listofUsers[cardindex!].color!]
-                                    : WHITE_COLOR)),
+                    Textwidget(
+                        width: wp(36, context),
+                        text:
+                            "${Staticmenbers.listofUsers[cardindex!].compeny}",
+                        fontSize: 15,
+                        selectionColor:
+                            Staticmenbers.listofUsers[cardindex!].color != null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[cardindex!].color!]
+                                : WHITE_COLOR),
                     SizedBox(height: hp(5, context)),
                     ClipOval(
                       child: Staticmenbers.listofUsers[cardindex!].image == ""
@@ -85,63 +87,64 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             ),
                     ),
                     SizedBox(height: hp(2, context)),
-                    Text("${Staticmenbers.listofUsers[cardindex!].name}",
-                        style: TextStyle(
-                            fontSize: 24,
-                            color:
-                                Staticmenbers.listofUsers[cardindex!].color !=
-                                        null
-                                    ? colorList[Staticmenbers
-                                        .listofUsers[cardindex!].color!]
-                                    : WHITE_COLOR)),
+                    Textwidget(
+                        width: wp(35, context),
+                        text: "${Staticmenbers.listofUsers[cardindex!].name}",
+                        fontSize: 18,
+                        selectionColor:
+                            Staticmenbers.listofUsers[cardindex!].color != null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[cardindex!].color!]
+                                : WHITE_COLOR),
                     SizedBox(
                       height: hp(0.5, context),
                     ),
-                    Text("${Staticmenbers.listofUsers[cardindex!].department}",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color:
-                                Staticmenbers.listofUsers[cardindex!].color !=
-                                        null
-                                    ? colorList[Staticmenbers
-                                        .listofUsers[cardindex!].color!]
-                                    : WHITE_COLOR)),
+                    Textwidget(
+                        width: wp(35, context),
+                        text:
+                            "${Staticmenbers.listofUsers[cardindex!].department}",
+                        fontSize: 12,
+                        selectionColor:
+                            Staticmenbers.listofUsers[cardindex!].color != null
+                                ? colorList[Staticmenbers
+                                    .listofUsers[cardindex!].color!]
+                                : WHITE_COLOR),
                   ],
                 ),
               ),
+              VerticalDivider(color: Colors.transparent, width: 22),
               Column(children: [
                 (Staticmenbers.listofUsers[cardindex!].website == "")
                     ? const SizedBox.shrink()
                     : Padding(
-                        padding: const EdgeInsets.only(left: 50, top: 20),
-                        child: Text(
-                          '${Staticmenbers.listofUsers[cardindex!].website}',
-                          style: TextStyle(
-                              fontSize: 15,
-                              color:
-                                  Staticmenbers.listofUsers[cardindex!].color !=
-                                          null
-                                      ? colorList[Staticmenbers
-                                          .listofUsers[cardindex!].color!]
-                                      : WHITE_COLOR),
-                        ),
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Textwidget(
+                            width: wp(50, context),
+                            text:
+                                "${Staticmenbers.listofUsers[cardindex!].website}",
+                            fontSize: 15,
+                            selectionColor:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : WHITE_COLOR),
                       ),
                 SizedBox(height: hp(1.3, context)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 28),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Staticmenbers.listofUsers[cardindex!].color !=
-                                null
-                            ? colorList[
-                                Staticmenbers.listofUsers[cardindex!].color!]
-                            : GRAY,
-                        borderRadius: const BorderRadius.only(
-                            topRight: Radius.elliptical(70, 50),
-                            bottomLeft: Radius.circular(50),
-                            bottomRight: Radius.circular(4))),
-                    height: hp(28, context),
-                    width: wp(50, context),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Staticmenbers.listofUsers[cardindex!].color != null
+                          ? colorList[
+                              Staticmenbers.listofUsers[cardindex!].color!]
+                          : GRAY,
+                      borderRadius: const BorderRadius.only(
+                          topRight: Radius.elliptical(70, 50),
+                          bottomLeft: Radius.circular(50),
+                          bottomRight: Radius.circular(4))),
+                  height: hp(28, context),
+                  width: wp(50, context),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 5),
                     child: Column(
                       children: [
                         Row(
@@ -162,10 +165,12 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8, top: 15),
-                              child: Text(
-                                "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                style: const TextStyle(color: WHITE_COLOR),
-                              ),
+                              child: Textwidget(
+                                  width: 130,
+                                  text:
+                                      "${Staticmenbers.listofUsers[cardindex!].phone}",
+                                  fontSize: 12,
+                                  selectionColor: WHITE_COLOR),
                             ),
                           ],
                         ),
@@ -198,11 +203,12 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 : Padding(
                                     padding:
                                         const EdgeInsets.only(left: 8, top: 15),
-                                    child: Text(
-                                      "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
-                                      style:
-                                          const TextStyle(color: WHITE_COLOR),
-                                    ),
+                                    child: Textwidget(
+                                        width: 130,
+                                        text:
+                                            "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
+                                        fontSize: 12,
+                                        selectionColor: WHITE_COLOR),
                                   ),
                           ],
                         ),
@@ -224,10 +230,14 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8, top: 15),
-                              child: Text(
-                                "${Staticmenbers.listofUsers[cardindex!].email}",
-                                style: const TextStyle(
-                                    color: WHITE_COLOR, fontSize: 10),
+                              child: SizedBox(
+                                width: wp(40, context),
+                                child: Textwidget(
+                                    width: 130,
+                                    text:
+                                        "${Staticmenbers.listofUsers[cardindex!].email}",
+                                    fontSize: 12,
+                                    selectionColor: WHITE_COLOR),
                               ),
                             ),
                           ],
@@ -332,7 +342,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                                     },
                                                     title: 'Use Map',
                                                     fontSize: null,
-                                                    color: BLUE_COLOR,
+                                                    color: BLUEGRAY,
                                                   ),
                                                   TextButtomWidget(
                                                     onPressed: () {

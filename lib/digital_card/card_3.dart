@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vcard/widget/text_widget.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';
@@ -69,34 +70,34 @@ class _Cardtheme3State extends State<Cardtheme3> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
-                        child: Text(
-                          "${Staticmenbers.listofUsers[cardindex!].name}",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color:
-                                  Staticmenbers.listofUsers[cardindex!].color !=
-                                          null
-                                      ? colorList[Staticmenbers
-                                          .listofUsers[cardindex!].color!]
-                                      : BLACK_COLOR),
-                        ),
+                        child: Textwidget(
+                            width: wp(40, context),
+                            text:
+                                "${Staticmenbers.listofUsers[cardindex!].name}",
+                            fontSize: 20,
+                            selectionColor:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : BLACK_COLOR),
                       ),
                       SizedBox(
                         height: hp(1, context),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          "${Staticmenbers.listofUsers[cardindex!].department}",
-                          style: TextStyle(
-                              fontSize: 14,
-                              color:
-                                  Staticmenbers.listofUsers[cardindex!].color !=
-                                          null
-                                      ? colorList[Staticmenbers
-                                          .listofUsers[cardindex!].color!]
-                                      : BLACK_COLOR),
-                        ),
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Textwidget(
+                            width: wp(40, context),
+                            text:
+                                "${Staticmenbers.listofUsers[cardindex!].department}",
+                            fontSize: 14,
+                            selectionColor:
+                                Staticmenbers.listofUsers[cardindex!].color !=
+                                        null
+                                    ? colorList[Staticmenbers
+                                        .listofUsers[cardindex!].color!]
+                                    : BLACK_COLOR),
                       ),
                       SizedBox(
                         height: hp(4, context),
@@ -114,7 +115,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               size: 70,
                             ),
                           )),
-                      SizedBox(height: hp(3, context)),
+                      SizedBox(height: hp(4, context)),
                       Center(
                         child: Row(
                           children: [
@@ -276,10 +277,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     ),
                                   ),
                                   SizedBox(width: wp(4, context)),
-                                  Text(
-                                      "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                      style: const TextStyle(
-                                          fontSize: 10, color: WHITE_COLOR))
+                                  Textwidget(
+                                      width: wp(25, context),
+                                      text:
+                                          "${Staticmenbers.listofUsers[cardindex!].phone}",
+                                      fontSize: 10,
+                                      selectionColor: WHITE_COLOR),
                                 ],
                               ),
                       ),
@@ -305,10 +308,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   ),
                                 ),
                                 SizedBox(width: wp(4, context)),
-                                Text(
-                                    "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
-                                    style: const TextStyle(
-                                        fontSize: 10, color: WHITE_COLOR))
+                                Textwidget(
+                                    width: wp(25, context),
+                                    text:
+                                        "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
+                                    fontSize: 10,
+                                    selectionColor: WHITE_COLOR),
                               ],
                             ),
                       SizedBox(height: hp(2, context)),
@@ -332,10 +337,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   SizedBox(
                                     width: wp(4, context),
                                   ),
-                                  Text(
-                                      "${Staticmenbers.listofUsers[cardindex!].email}",
-                                      style: const TextStyle(
-                                          fontSize: 10, color: WHITE_COLOR))
+                                  Textwidget(
+                                      width: wp(30, context),
+                                      text:
+                                          "${Staticmenbers.listofUsers[cardindex!].email}",
+                                      fontSize: 10,
+                                      selectionColor: WHITE_COLOR),
                                 ],
                               ),
                       ),
@@ -363,10 +370,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                       SizedBox(
                                         width: wp(4, context),
                                       ),
-                                      Text(
-                                          "${Staticmenbers.listofUsers[cardindex!].website}",
-                                          style: const TextStyle(
-                                              fontSize: 10, color: WHITE_COLOR))
+                                      Textwidget(
+                                          width: wp(30, context),
+                                          text:
+                                              "${Staticmenbers.listofUsers[cardindex!].website}",
+                                          fontSize: 10,
+                                          selectionColor: WHITE_COLOR),
                                     ],
                                   ),
                       ),
@@ -392,10 +401,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 SizedBox(
                                   width: wp(4, context),
                                 ),
-                                Text(
-                                    "${Staticmenbers.listofUsers[cardindex!].facebook}",
-                                    style: const TextStyle(
-                                        fontSize: 10, color: WHITE_COLOR))
+                                Textwidget(
+                                    width: wp(30, context),
+                                    text:
+                                        "${Staticmenbers.listofUsers[cardindex!].facebook}",
+                                    fontSize: 10,
+                                    selectionColor: WHITE_COLOR),
                               ],
                             )
                     ],
@@ -421,11 +432,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 1),
                     child: Center(
-                      child: Text(
-                        "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        style:
-                            const TextStyle(fontSize: 18, color: WHITE_COLOR),
-                      ),
+                      child: Textwidget(
+                          width: wp(50, context),
+                          text:
+                              "${Staticmenbers.listofUsers[cardindex!].compeny}",
+                          fontSize: 18,
+                          selectionColor: WHITE_COLOR),
                     ),
                   ),
                 )),

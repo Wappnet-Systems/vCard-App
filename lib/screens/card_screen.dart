@@ -6,6 +6,7 @@ import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../model/data_controllers.dart';
 import '../widget/custom_no_data_widget.dart';
+import '../widget/text_widget.dart';
 import 'detail_screen.dart';
 
 class Cardscreen extends StatefulWidget {
@@ -86,117 +87,123 @@ class _CardscreenState extends State<Cardscreen> {
                 itemCount: Staticmenbers.listofUsers.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
-                    height: hp(13, context),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: WHITE_COLOR,
-                          blurRadius: 10.0,
-                        ),
-                        BoxShadow(
-                          color: Color(0xffc1c4be),
-                          blurRadius: 10.0,
-                        ),
-                      ],
-                      color: WHITE_COLOR,
-                    ),
-                    margin: const EdgeInsets.only(
-                        left: 8, right: 8, top: 10, bottom: 5),
-                    child: Row(children: [
-                      SizedBox(width: wp(2.5, context)),
-                      Staticmenbers.listofUsers[index].image == ""
-                          ? ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              child: Image.asset(
-                                "assets/images/splash1.png",
-                                width: wp(18, context),
-                                height: hp(10, context),
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              child: Image.network(
-                                "${Staticmenbers.listofUsers[index].image}",
-                                width: wp(18, context),
-                                height: hp(10, context),
-                                fit: BoxFit.cover,
-                                frameBuilder: (context, child, frame,
-                                    wasSynchronouslyLoaded) {
-                                  return child;
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return const Center(
-                                        child: Icon(
-                                      Icons.image,
-                                      size: 130,
-                                      color: WHITE_COLOR,
-                                    ));
-                                  }
-                                },
-                              ),
-                            ),
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4, left: 20),
-                              child: Text(
-                                '${Staticmenbers.listofUsers[index].name}',
-                                style: const TextStyle(
-                                    color: BLACK_COLOR, fontSize: 18),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4, left: 20),
-                              child: Text(
-                                '${Staticmenbers.listofUsers[index].type}',
-                                style: const TextStyle(
-                                    color: BLACK_COLOR, fontSize: 14),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4, left: 20),
-                              child: Text(
-                                '${Staticmenbers.listofUsers[index].department}',
-                                style: const TextStyle(
-                                    color: BLACK_COLOR, fontSize: 14),
-                              ),
-                            ),
-                          ]),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: InkWell(
-                            onTap: () async {
-                              setState(() {
-                                cardindex = index;
-                              });
-                              showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0.0,
-                                  context: context,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(25.0)),
-                                  ),
-                                  builder: (BuildContext context) =>
-                                      Detailscreen(
-                                        id: cardindex,
-                                      ));
-                            },
-                            child: const Icon(Icons.more_horiz)),
+                      height: hp(13, context),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: WHITE_COLOR,
+                            blurRadius: 10.0,
+                          ),
+                          BoxShadow(
+                            color: Color(0xffc1c4be),
+                            blurRadius: 10.0,
+                          ),
+                        ],
+                        color: WHITE_COLOR,
                       ),
-                    ]),
-                  );
+                      margin: const EdgeInsets.only(
+                          left: 8, right: 8, top: 5, bottom: 5),
+                      child: ListTile(
+                        leading: Staticmenbers.listofUsers[index].image == ""
+                            ? ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                child: Image.asset(
+                                  "assets/images/splash1.png",
+                                  width: wp(18, context),
+                                  height: hp(10, context),
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                child: Image.network(
+                                  "${Staticmenbers.listofUsers[index].image}",
+                                  width: wp(18, context),
+                                  height: hp(10, context),
+                                  fit: BoxFit.cover,
+                                  frameBuilder: (context, child, frame,
+                                      wasSynchronouslyLoaded) {
+                                    return child;
+                                  },
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return const Center(
+                                          child: Icon(
+                                        Icons.image,
+                                        size: 130,
+                                        color: WHITE_COLOR,
+                                      ));
+                                    }
+                                  },
+                                ),
+                              ),
+                        title: Row(children: [
+                          Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding:
+                                        const EdgeInsets.only(top: 9, left: 20),
+                                    child: Textwidget(
+                                      width: wp(40, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[index].name}',
+                                      fontSize: 20,
+                                      selectionColor: BLACK_COLOR,
+                                    )),
+                                Padding(
+                                    padding:
+                                        const EdgeInsets.only(top: 5, left: 20),
+                                    child: Textwidget(
+                                      width: wp(40, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[index].type}',
+                                      fontSize: 14,
+                                      selectionColor: BLACK_COLOR,
+                                    )),
+                                Padding(
+                                    padding:
+                                        const EdgeInsets.only(top: 3, left: 20),
+                                    child: Textwidget(
+                                      width: wp(40, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[index].department}',
+                                      fontSize: 14,
+                                      selectionColor: BLACK_COLOR,
+                                    ))
+                              ]),
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 5),
+                            child: InkWell(
+                                onTap: () async {
+                                  setState(() {
+                                    cardindex = index;
+                                  });
+                                  showModalBottomSheet(
+                                      backgroundColor: Colors.transparent,
+                                      elevation: 0.0,
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(25.0)),
+                                      ),
+                                      builder: (BuildContext context) =>
+                                          Detailscreen(
+                                            id: cardindex,
+                                          ));
+                                },
+                                child: const Icon(Icons.more_horiz)),
+                          ),
+                        ]),
+                      ));
                 })
             : SizedBox(
                 height: hp(100, context),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/widget/text_widget.dart';
 import '../utils/responsive.dart';
 import '../widget/text_button_widget.dart';
 
@@ -46,19 +47,19 @@ class _DefultCardState extends State<DefultCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.only(
-                            left: 35, top: 10, bottom: 10),
-                        child: (Staticmenbers.listofUsers[cardindex!].compeny ==
-                                "")
-                            ? Container()
-                            : Text(
-                                '${Staticmenbers.listofUsers[cardindex!].compeny}',
-                                style: const TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 23,
-                                    color: Gold,
-                                    fontWeight: FontWeight.bold)),
-                      ),
+                          padding: const EdgeInsets.only(
+                              left: 35, top: 10, bottom: 10),
+                          child:
+                              (Staticmenbers.listofUsers[cardindex!].compeny ==
+                                      "")
+                                  ? Container()
+                                  : Textwidget(
+                                      width: wp(40, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[cardindex!].compeny}',
+                                      fontSize: 23,
+                                      selectionColor: Gold,
+                                    )),
                       Center(
                         child: Staticmenbers.listofUsers[cardindex!].image == ""
                             ? ClipRRect(
@@ -96,37 +97,28 @@ class _DefultCardState extends State<DefultCard> {
                       ),
                       SizedBox(height: hp(1.5, context)),
                       Center(
-                        child:
-                            (Staticmenbers.listofUsers[cardindex!].name == "")
-                                ? Container()
-                                : Text(
-                                    '${Staticmenbers.listofUsers[cardindex!].name}',
-                                    style: const TextStyle(
-                                        fontFamily: 'Marck',
-                                        fontSize: 25,
-                                        color: Gold,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                      ),
+                          child:
+                              (Staticmenbers.listofUsers[cardindex!].name == "")
+                                  ? Container()
+                                  : Textwidget(
+                                      width: wp(40, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[cardindex!].name}',
+                                      fontSize: 25,
+                                      selectionColor: Gold,
+                                    )),
                       SizedBox(height: hp(0.5, context)),
                       Center(
                         child:
                             (Staticmenbers.listofUsers[cardindex!].department ==
                                     "")
                                 ? Container()
-                                : Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 8),
-                                    child: Text(
+                                : Textwidget(
+                                    width: wp(60, context),
+                                    text:
                                         '${Staticmenbers.listofUsers[cardindex!].department}',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                            fontFamily: 'Marck',
-                                            fontSize: 20,
-                                            color: Gold,
-                                            fontWeight: FontWeight.bold)),
+                                    fontSize: 20,
+                                    selectionColor: Gold,
                                   ),
                       ),
                       SizedBox(height: hp(0.5, context)),
