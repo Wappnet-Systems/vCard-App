@@ -43,11 +43,11 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
               color: BLUE_COLOR,
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
-                  color: Staticmenbers.listofUsers[contactcardindex!].color !=
-                          null
-                      ? colorList[
-                          Staticmenbers.listofUsers[contactcardindex!].color!]
-                      : GRAY,
+                  color:
+                      Staticmenbers.cardUsers[contactcardindex!].color != null
+                          ? colorList[
+                              Staticmenbers.cardUsers[contactcardindex!].color!]
+                          : GRAY,
                   width: wp(0.4, context)),
               boxShadow: const [
                 BoxShadow(
@@ -65,19 +65,18 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                     Textwidget(
                         width: wp(36, context),
                         text:
-                            "${Staticmenbers.listofUsers[contactcardindex!].compeny}",
+                            "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
                         fontSize: 15,
-                        selectionColor: Staticmenbers
-                                    .listofUsers[contactcardindex!].color !=
-                                null
-                            ? colorList[Staticmenbers
-                                .listofUsers[contactcardindex!].color!]
-                            : WHITE_COLOR),
+                        selectionColor:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : WHITE_COLOR),
                     SizedBox(height: hp(5, context)),
                     ClipOval(
                       child:
-                          Staticmenbers.listofUsers[contactcardindex!].image ==
-                                  ""
+                          Staticmenbers.cardUsers[contactcardindex!].image == ""
                               ? Image.asset(
                                   "assets/images/splash1.png",
                                   width: wp(23, context),
@@ -85,9 +84,9 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                   fit: BoxFit.fill,
                                 )
                               : Image.network(
-                                  "${Staticmenbers.listofUsers[contactcardindex!].image}",
-                                  width: wp(64, context),
-                                  height: hp(30, context),
+                                  "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                                  width: wp(23, context),
+                                  height: hp(11, context),
                                   fit: BoxFit.fill,
                                 ),
                     ),
@@ -95,58 +94,57 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                     Textwidget(
                         width: wp(35, context),
                         text:
-                            "${Staticmenbers.listofUsers[contactcardindex!].name}",
+                            "${Staticmenbers.cardUsers[contactcardindex!].name}",
                         fontSize: 18,
-                        selectionColor: Staticmenbers
-                                    .listofUsers[contactcardindex!].color !=
-                                null
-                            ? colorList[Staticmenbers
-                                .listofUsers[contactcardindex!].color!]
-                            : WHITE_COLOR),
+                        selectionColor:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : WHITE_COLOR),
                     SizedBox(
                       height: hp(0.5, context),
                     ),
                     Textwidget(
                         width: wp(35, context),
                         text:
-                            "${Staticmenbers.listofUsers[contactcardindex!].department}",
+                            "${Staticmenbers.cardUsers[contactcardindex!].department}",
                         fontSize: 12,
-                        selectionColor: Staticmenbers
-                                    .listofUsers[contactcardindex!].color !=
-                                null
-                            ? colorList[Staticmenbers
-                                .listofUsers[contactcardindex!].color!]
-                            : WHITE_COLOR),
+                        selectionColor:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : WHITE_COLOR),
                   ],
                 ),
               ),
               VerticalDivider(color: Colors.transparent, width: 22),
               Column(children: [
-                (Staticmenbers.listofUsers[contactcardindex!].website == "")
+                (Staticmenbers.cardUsers[contactcardindex!].website == "")
                     ? const SizedBox.shrink()
                     : Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: Textwidget(
                             width: wp(50, context),
                             text:
-                                "${Staticmenbers.listofUsers[contactcardindex!].website}",
+                                "${Staticmenbers.cardUsers[contactcardindex!].website}",
                             fontSize: 15,
                             selectionColor: Staticmenbers
-                                        .listofUsers[contactcardindex!].color !=
+                                        .cardUsers[contactcardindex!].color !=
                                     null
                                 ? colorList[Staticmenbers
-                                    .listofUsers[contactcardindex!].color!]
+                                    .cardUsers[contactcardindex!].color!]
                                 : WHITE_COLOR),
                       ),
                 SizedBox(height: hp(1.3, context)),
                 Container(
                   decoration: BoxDecoration(
-                      color:
-                          Staticmenbers.listofUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
-                              : GRAY,
+                      color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                              null
+                          ? colorList[
+                              Staticmenbers.cardUsers[contactcardindex!].color!]
+                          : GRAY,
                       borderRadius: const BorderRadius.only(
                           topRight: Radius.elliptical(70, 50),
                           bottomLeft: Radius.circular(50),
@@ -164,7 +162,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                               child: InkWell(
                                 onTap: () {
                                   launchUrl(Uri.parse(
-                                      'tel:${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
+                                      'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
                                 },
                                 child: Image.asset(
                                   "assets/icon/call.png",
@@ -178,7 +176,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                               child: Textwidget(
                                   width: 130,
                                   text:
-                                      "${Staticmenbers.listofUsers[contactcardindex!].phone}",
+                                      "${Staticmenbers.cardUsers[contactcardindex!].phone}",
                                   fontSize: 12,
                                   selectionColor: WHITE_COLOR),
                             ),
@@ -186,7 +184,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                         ),
                         Row(
                           children: [
-                            (Staticmenbers.listofUsers[contactcardindex!]
+                            (Staticmenbers.cardUsers[contactcardindex!]
                                         .whatsapp ==
                                     "")
                                 ? const SizedBox.shrink()
@@ -197,7 +195,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                       onTap: () {
                                         launchUrl(
                                             Uri.parse(
-                                                'https://wa.me/${Staticmenbers.listofUsers[contactcardindex!].whatsapp}?text=Hi'),
+                                                'https://wa.me/${Staticmenbers.cardUsers[contactcardindex!].whatsapp}?text=Hi'),
                                             mode:
                                                 LaunchMode.externalApplication);
                                       },
@@ -208,7 +206,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                       ),
                                     ),
                                   ),
-                            (Staticmenbers.listofUsers[contactcardindex!]
+                            (Staticmenbers.cardUsers[contactcardindex!]
                                         .whatsapp ==
                                     "")
                                 ? const SizedBox.shrink()
@@ -218,7 +216,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                     child: Textwidget(
                                         width: 130,
                                         text:
-                                            "${Staticmenbers.listofUsers[contactcardindex!].whatsapp}",
+                                            "${Staticmenbers.cardUsers[contactcardindex!].whatsapp}",
                                         fontSize: 12,
                                         selectionColor: WHITE_COLOR),
                                   ),
@@ -231,7 +229,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                               child: InkWell(
                                 onTap: () {
                                   launchUrl(Uri.parse(
-                                      'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
+                                      'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
                                 },
                                 child: Image.asset(
                                   "assets/icon/email.png",
@@ -247,7 +245,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                 child: Textwidget(
                                     width: 130,
                                     text:
-                                        "${Staticmenbers.listofUsers[contactcardindex!].email}",
+                                        "${Staticmenbers.cardUsers[contactcardindex!].email}",
                                     fontSize: 12,
                                     selectionColor: WHITE_COLOR),
                               ),
@@ -257,13 +255,13 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                         SizedBox(height: hp(0.5, context)),
                         QrImage(
                           data:
-                              "${Staticmenbers.listofUsers[contactcardindex!].user} ${Staticmenbers.listofUsers[contactcardindex!].id}",
+                              "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
                           size: 60,
                         ),
                         SizedBox(height: hp(2, context)),
                         Row(
                           children: [
-                            (Staticmenbers.listofUsers[contactcardindex!]
+                            (Staticmenbers.cardUsers[contactcardindex!]
                                         .facebook ==
                                     "")
                                 ? const SizedBox.shrink()
@@ -274,7 +272,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                     child: InkWell(
                                       onTap: () {
                                         launchUrl(Uri.parse(
-                                            'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
+                                            'https://www.facebook.com/{${Staticmenbers.cardUsers[contactcardindex!].facebook}}'));
                                       },
                                       child: Image.asset(
                                         "assets/icon/Face.png",
@@ -283,7 +281,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                       ),
                                     ),
                                   ),
-                            (Staticmenbers.listofUsers[contactcardindex!]
+                            (Staticmenbers.cardUsers[contactcardindex!]
                                         .telegram ==
                                     "")
                                 ? const SizedBox.shrink()
@@ -292,7 +290,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                     child: InkWell(
                                       onTap: () {
                                         launchUrl(Uri.parse(
-                                            "https://telegram.me/${Staticmenbers.listofUsers[contactcardindex!].telegram}"));
+                                            "https://telegram.me/${Staticmenbers.cardUsers[contactcardindex!].telegram}"));
                                       },
                                       child: Image.asset(
                                         "assets/icon/tele.png",
@@ -301,8 +299,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                       ),
                                     ),
                                   ),
-                            (Staticmenbers
-                                        .listofUsers[contactcardindex!].link ==
+                            (Staticmenbers.cardUsers[contactcardindex!].link ==
                                     "")
                                 ? const SizedBox.shrink()
                                 : Padding(
@@ -310,7 +307,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                     child: InkWell(
                                       onTap: () async {
                                         final url =
-                                            'https://${Staticmenbers.listofUsers[contactcardindex!].link}';
+                                            'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
 
                                         await launchUrl(Uri.parse(url));
                                       },
@@ -321,8 +318,8 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                       ),
                                     ),
                                   ),
-                            (Staticmenbers.listofUsers[contactcardindex!]
-                                        .address ==
+                            (Staticmenbers
+                                        .cardUsers[contactcardindex!].address ==
                                     "")
                                 ? const SizedBox.shrink()
                                 : Padding(
@@ -341,7 +338,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             content: Text(
-                                                '${Staticmenbers.listofUsers[contactcardindex!].address}',
+                                                '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                                 style: const TextStyle(
                                                     fontFamily: 'Marck',
                                                     fontSize: 25,
@@ -398,7 +395,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
 
   void _pushMap() async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[contactcardindex!].address}";
+        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.cardUsers[contactcardindex!].address}";
 
     await launchUrl(Uri.parse(googleUrl));
   }

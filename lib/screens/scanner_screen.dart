@@ -109,7 +109,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'Name': name,
       'Department': department,
       'Company': compeny,
-      'HeadLine': headline,
       'WhatsApp': whatsapp,
       'Telegram': telegram,
       'Website': website,

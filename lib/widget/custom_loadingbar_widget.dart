@@ -14,25 +14,19 @@ class _CustonloadingState extends State<Custonloading> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xffc1c4be),
-            blurRadius: 10.0,
-          ),
-        ],
         borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(10),
             topRight: Radius.circular(10),
             topLeft: Radius.circular(10),
             bottomRight: Radius.circular(10)),
-        color: WHITE_COLOR,
+        color: BLUE_COLOR,
       ),
       height: hp(8, context),
       width: wp(20, context),
       child: const Padding(
         padding: EdgeInsets.all(10.0),
         child: CircularProgressIndicator(
-          color: BLUE_COLOR,
+          color: WHITE_COLOR,
           strokeWidth: 2,
         ),
       ),

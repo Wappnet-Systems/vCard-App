@@ -43,19 +43,19 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                       color: WHITE_COLOR,
                       border: Border.all(
                           color: Staticmenbers
-                                      .listofUsers[contactcardindex!].color !=
+                                      .cardUsers[contactcardindex!].color !=
                                   null
                               ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
+                                  .cardUsers[contactcardindex!].color!]
                               : BLACK_COLOR,
                           width: wp(0.5, context)),
                       boxShadow: [
                         BoxShadow(
                           color: Staticmenbers
-                                      .listofUsers[contactcardindex!].color !=
+                                      .cardUsers[contactcardindex!].color !=
                                   null
                               ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
+                                  .cardUsers[contactcardindex!].color!]
                               : BLACK_COLOR,
                           blurRadius: 2.0,
                         ),
@@ -80,7 +80,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       child: Textwidget(
                                     width: wp(180, context),
                                     text:
-                                        "${Staticmenbers.listofUsers[contactcardindex!].compeny}",
+                                        "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
                                     fontSize: 18,
                                     selectionColor: BLUE_COLOR,
                                   )),
@@ -93,7 +93,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                       width: wp(50, context),
                                       text:
-                                          "${Staticmenbers.listofUsers[contactcardindex!].phone}",
+                                          "${Staticmenbers.cardUsers[contactcardindex!].phone}",
                                       fontSize: 12,
                                       selectionColor: BLUE_COLOR,
                                     )),
@@ -105,7 +105,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                       width: wp(50, context),
                                       text:
-                                          "${Staticmenbers.listofUsers[contactcardindex!].whatsapp}",
+                                          "${Staticmenbers.cardUsers[contactcardindex!].whatsapp}",
                                       fontSize: 12,
                                       selectionColor: BLUE_COLOR,
                                     )),
@@ -117,7 +117,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                       width: wp(100, context),
                                       text:
-                                          "${Staticmenbers.listofUsers[contactcardindex!].email}",
+                                          "${Staticmenbers.cardUsers[contactcardindex!].email}",
                                       fontSize: 12,
                                       selectionColor: BLUE_COLOR,
                                     )),
@@ -129,7 +129,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                       width: wp(100, context),
                                       text:
-                                          "${Staticmenbers.listofUsers[contactcardindex!].website}",
+                                          "${Staticmenbers.cardUsers[contactcardindex!].website}",
                                       fontSize: 12,
                                       selectionColor: BLUE_COLOR,
                                     )),
@@ -141,7 +141,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                         width: wp(100, context),
                                         text:
-                                            "${Staticmenbers.listofUsers[contactcardindex!].facebook}",
+                                            "${Staticmenbers.cardUsers[contactcardindex!].facebook}",
                                         fontSize: 12,
                                         selectionColor: BLUE_COLOR))
                               ],
@@ -173,7 +173,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                       width: wp(40, context),
                                       text:
-                                          "${Staticmenbers.listofUsers[contactcardindex!].name}",
+                                          "${Staticmenbers.cardUsers[contactcardindex!].name}",
                                       fontSize: 20,
                                       selectionColor: BLUE_COLOR,
                                     )),
@@ -185,7 +185,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                     child: Textwidget(
                                         width: wp(41, context),
                                         text:
-                                            "${Staticmenbers.listofUsers[contactcardindex!].department}",
+                                            "${Staticmenbers.cardUsers[contactcardindex!].department}",
                                         fontSize: 14,
                                         selectionColor: BLUE_COLOR)),
                                 SizedBox(
@@ -201,7 +201,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                               color: BLUE_COLOR, width: 2)),
                                       child: QrImage(
                                         data:
-                                            "${Staticmenbers.listofUsers[contactcardindex!].user} ${Staticmenbers.listofUsers[contactcardindex!].id}",
+                                            "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
                                         size: 70,
                                       ),
                                     )),
@@ -216,19 +216,18 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       child: InkWell(
                                         onTap: () {
                                           launchUrl(Uri.parse(
-                                              "https://telegram.me/$Staticmenbers.listofUsers[contactcardindex!].telegram"));
+                                              "https://telegram.me/$Staticmenbers.cardUsers[contactcardindex!].telegram"));
                                         },
                                         child: Image.asset(
                                           "assets/icon/tele.png",
                                           scale: 30,
                                           color: Staticmenbers
-                                                      .listofUsers[
+                                                      .cardUsers[
                                                           contactcardindex!]
                                                       .color !=
                                                   null
                                               ? colorList[Staticmenbers
-                                                  .listofUsers[
-                                                      contactcardindex!]
+                                                  .cardUsers[contactcardindex!]
                                                   .color!]
                                               : BLUE_COLOR,
                                         ),
@@ -239,7 +238,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       child: InkWell(
                                         onTap: () async {
                                           final url =
-                                              'https://${Staticmenbers.listofUsers[contactcardindex!].link}';
+                                              'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
 
                                           await launchUrl(Uri.parse(url));
                                         },
@@ -247,13 +246,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                           "assets/icon/lin.png",
                                           scale: 30,
                                           color: Staticmenbers
-                                                      .listofUsers[
+                                                      .cardUsers[
                                                           contactcardindex!]
                                                       .color !=
                                                   null
                                               ? colorList[Staticmenbers
-                                                  .listofUsers[
-                                                      contactcardindex!]
+                                                  .cardUsers[contactcardindex!]
                                                   .color!]
                                               : BLUE_COLOR,
                                         ),
@@ -275,7 +273,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                                       fontWeight:
                                                           FontWeight.bold)),
                                               content: Text(
-                                                  '${Staticmenbers.listofUsers[contactcardindex!].address}',
+                                                  '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                                   style: const TextStyle(
                                                       fontFamily: 'Marck',
                                                       fontSize: 25,
@@ -313,13 +311,12 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                           "assets/icon/pin.png",
                                           scale: 30,
                                           color: Staticmenbers
-                                                      .listofUsers[
+                                                      .cardUsers[
                                                           contactcardindex!]
                                                       .color !=
                                                   null
                                               ? colorList[Staticmenbers
-                                                  .listofUsers[
-                                                      contactcardindex!]
+                                                  .cardUsers[contactcardindex!]
                                                   .color!]
                                               : BLUE_COLOR,
                                         ),
@@ -343,19 +340,18 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                       borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(15),
                           topRight: Radius.circular(15)),
-                      color:
-                          Staticmenbers.listofUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
-                              : BLACK_COLOR,
+                      color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                              null
+                          ? colorList[
+                              Staticmenbers.cardUsers[contactcardindex!].color!]
+                          : BLACK_COLOR,
                       boxShadow: [
                         BoxShadow(
                           color: Staticmenbers
-                                      .listofUsers[contactcardindex!].color !=
+                                      .cardUsers[contactcardindex!].color !=
                                   null
                               ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
+                                  .cardUsers[contactcardindex!].color!]
                               : BLACK_COLOR,
                           blurRadius: 1.0,
                         ),
@@ -373,7 +369,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               InkWell(
                                 onTap: () {
                                   launchUrl(Uri.parse(
-                                      'tel:+${Staticmenbers.listofUsers[contactcardindex!].phone.toString()}'));
+                                      'tel:+${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
                                 },
                                 child: Image.asset(
                                   "assets/icon/call.png",
@@ -395,7 +391,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 onTap: () {
                                   launchUrl(
                                       Uri.parse(
-                                          'https://wa.me/$Staticmenbers.listofUsers[contactcardindex!].whatsapp?text=Hi'),
+                                          'https://wa.me/$Staticmenbers.cardUsers[contactcardindex!].whatsapp?text=Hi'),
                                       mode: LaunchMode.externalApplication);
                                 },
                                 child: Image.asset(
@@ -417,7 +413,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               InkWell(
                                 onTap: () {
                                   launchUrl(Uri.parse(
-                                      'mailto:${Staticmenbers.listofUsers[contactcardindex!].email}'));
+                                      'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
                                 },
                                 child: Image.asset(
                                   "assets/icon/email.png",
@@ -438,7 +434,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               InkWell(
                                 onTap: () async {
                                   final url =
-                                      'https://${Staticmenbers.listofUsers[contactcardindex!].website}';
+                                      'https://${Staticmenbers.cardUsers[contactcardindex!].website}';
 
                                   await launchUrl(Uri.parse(url));
                                 },
@@ -461,7 +457,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               child: InkWell(
                                 onTap: () {
                                   launchUrl(Uri.parse(
-                                      'https://www.facebook.com/{${Staticmenbers.listofUsers[contactcardindex!].facebook}}'));
+                                      'https://www.facebook.com/{${Staticmenbers.cardUsers[contactcardindex!].facebook}}'));
                                 },
                                 child: Image.asset(
                                   "assets/icon/Face.png",
@@ -487,19 +483,18 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                       borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(15),
                           topRight: Radius.circular(15)),
-                      color:
-                          Staticmenbers.listofUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
-                              : BLACK_COLOR,
+                      color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                              null
+                          ? colorList[
+                              Staticmenbers.cardUsers[contactcardindex!].color!]
+                          : BLACK_COLOR,
                       boxShadow: [
                         BoxShadow(
                           color: Staticmenbers
-                                      .listofUsers[contactcardindex!].color !=
+                                      .cardUsers[contactcardindex!].color !=
                                   null
                               ? colorList[Staticmenbers
-                                  .listofUsers[contactcardindex!].color!]
+                                  .cardUsers[contactcardindex!].color!]
                               : BLACK_COLOR,
                           blurRadius: 1.0,
                         ),
@@ -515,7 +510,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
 
   void _pushMap() async {
     String googleUrl =
-        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.listofUsers[contactcardindex!].address}";
+        "https://www.google.com/maps/search/?api=1&query=${Staticmenbers.cardUsers[contactcardindex!].address}";
 
     await launchUrl(Uri.parse(googleUrl));
   }

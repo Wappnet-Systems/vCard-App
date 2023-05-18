@@ -81,8 +81,8 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             )
                           : Image.network(
                               "${Staticmenbers.listofUsers[cardindex!].image}",
-                              width: wp(64, context),
-                              height: hp(30, context),
+                              width: wp(23, context),
+                              height: hp(11, context),
                               fit: BoxFit.fill,
                             ),
                     ),

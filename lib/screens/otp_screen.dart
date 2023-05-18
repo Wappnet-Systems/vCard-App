@@ -62,6 +62,8 @@ class _OTPscreenState extends State<OTPscreen> {
                 height: hp(3, context),
               ),
               PinFieldAutoFill(
+                autoFocus: true,
+                keyboardType: TextInputType.number,
                 codeLength: 6,
                 onCodeChanged: (value) {
                   code = value!;
