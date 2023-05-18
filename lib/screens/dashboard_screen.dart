@@ -55,7 +55,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               iconSize: 30.0,
               icon: Icon(
                 Icons.credit_card,
-                color: _selectedIndex == 0 ? BLUE_COLOR : WHITE_COLOR,
+                color: _selectedIndex == 0 ? WHITE_COLOR : BLUE_COLOR,
               ),
               onPressed: () {
                 setState(() {
@@ -69,7 +69,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               iconSize: 30.0,
               icon: Icon(
                 Icons.qr_code_scanner,
-                color: _selectedIndex == 1 ? BLUE_COLOR : WHITE_COLOR,
+                color: _selectedIndex == 1 ? WHITE_COLOR : BLUE_COLOR,
               ),
               onPressed: () {
                 setState(() {
@@ -83,7 +83,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               iconSize: 30.0,
               icon: Icon(
                 Icons.contacts_outlined,
-                color: _selectedIndex == 2 ? BLUE_COLOR : WHITE_COLOR,
+                color: _selectedIndex == 2 ? WHITE_COLOR : BLUE_COLOR,
               ),
               onPressed: () {
                 setState(() {
@@ -97,7 +97,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               iconSize: 30.0,
               icon: Icon(
                 Icons.settings_outlined,
-                color: _selectedIndex == 3 ? BLUE_COLOR : WHITE_COLOR,
+                color: _selectedIndex == 3 ? WHITE_COLOR : BLUE_COLOR,
               ),
               onPressed: () {
                 setState(() {

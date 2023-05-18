@@ -155,7 +155,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
         ),
         backgroundColor: WHITE_COLOR,
         flexibleSpace: Container(
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
         ),
       ),
       body: value != false
@@ -294,8 +294,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
                 style: TextStyle(fontSize: 20),
               )),
               SizedBox(height: hp(0.5, context)),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
+              const Padding(
+                padding: EdgeInsets.all(15.0),
                 child: Text(
                   "Get Started by scanning the QR code and get the Card.",
                   style: TextStyle(fontSize: 12),

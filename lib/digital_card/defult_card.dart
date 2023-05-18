@@ -397,9 +397,8 @@ class _DefultCardState extends State<DefultCard> {
                               ),
                             )
                           : const SizedBox.shrink(),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 35, top: 10, bottom: 10),
+                      const Padding(
+                        padding: EdgeInsets.only(left: 35, top: 10, bottom: 10),
                       ),
                     ]),
               ),
