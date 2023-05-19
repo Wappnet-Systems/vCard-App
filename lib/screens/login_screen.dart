@@ -48,7 +48,7 @@ class _NumberverificationState extends State<Numberverification> {
         return shouldPop;
       },
       child: Scaffold(
-        backgroundColor: WHITE_COLOR,
+        backgroundColor: whiteColor,
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left: 15, right: 15),
@@ -85,18 +85,18 @@ class _NumberverificationState extends State<Numberverification> {
                     inputFormatters: [maskFormatter],
                     dropdownIcon: const Icon(
                       Icons.arrow_drop_down,
-                      color: BLUE_COLOR,
+                      color: blueColor,
                     ),
                     disableLengthCheck: true,
-                    cursorColor: BLUE_COLOR,
+                    cursorColor: blueColor,
                     controller: countryController,
                     decoration: const InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: BLACK_COLOR)),
+                          borderSide: BorderSide(color: blackColor)),
                       contentPadding:
                           EdgeInsets.symmetric(horizontal: 13, vertical: 12),
                       hintStyle: TextStyle(
-                        color: GRAY,
+                        color: grayColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 10,
                       ),
@@ -120,14 +120,13 @@ class _NumberverificationState extends State<Numberverification> {
                     height: hp(7, context),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: BLUE_COLOR,
+                            backgroundColor: blueColor,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () async {
                           if (countryController.text.isNotEmpty) {
                             setState(() {
                               isLoading = true;
-                              print(isLoading);
                             });
                             await FirebaseAuth.instance.verifyPhoneNumber(
                               phoneNumber: phone + countryController.text,
@@ -141,7 +140,6 @@ class _NumberverificationState extends State<Numberverification> {
                                 ));
                                 setState(() {
                                   isLoading = false;
-                                  print(false);
                                 });
                               },
                               codeSent: (String verificationId,
@@ -163,7 +161,7 @@ class _NumberverificationState extends State<Numberverification> {
                             ? const Custonloading()
                             : const Text(
                                 "Send the code",
-                                style: TextStyle(color: WHITE_COLOR),
+                                style: TextStyle(color: whiteColor),
                               )),
                   )
                 ],

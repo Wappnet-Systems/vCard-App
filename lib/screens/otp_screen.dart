@@ -2,8 +2,9 @@ import 'dart:developer';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
@@ -17,6 +18,7 @@ class OTPscreen extends StatefulWidget {
 }
 
 class _OTPscreenState extends State<OTPscreen> {
+  final otpController = OtpFieldController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   var code = "";
 
@@ -28,7 +30,7 @@ class _OTPscreenState extends State<OTPscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 15, right: 15),
@@ -61,12 +63,17 @@ class _OTPscreenState extends State<OTPscreen> {
               SizedBox(
                 height: hp(3, context),
               ),
-              PinFieldAutoFill(
-                autoFocus: true,
+              OTPTextField(
                 keyboardType: TextInputType.number,
-                codeLength: 6,
-                onCodeChanged: (value) {
-                  code = value!;
+                length: 6,
+                fieldWidth: 40,
+                controller: otpController,
+                width: MediaQuery.of(context).size.width,
+                style: const TextStyle(fontSize: 20, color: blueColor),
+                textFieldAlignment: MainAxisAlignment.spaceAround,
+                fieldStyle: FieldStyle.underline,
+                onChanged: (value) {
+                  code = value;
                 },
               ),
               SizedBox(
@@ -77,10 +84,12 @@ class _OTPscreenState extends State<OTPscreen> {
                 height: hp(7, context),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: BLUE_COLOR,
+                        backgroundColor: blueColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
                       try {
                         log(Numberverification.verify);
                         log(code);
@@ -92,28 +101,27 @@ class _OTPscreenState extends State<OTPscreen> {
                         await auth
                             .signInWithCredential(credential)
                             .then((value) async {
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          await prefs.setBool('isLoggedIn', true);
                           AwesomeDialog(
                             context: context,
                             dialogType: DialogType.success,
-                            showCloseIcon: true,
+                            showCloseIcon: false,
                             desc: "Login Successfully",
                           ).show();
-                          Future.delayed(const Duration(seconds: 3));
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      Dashboardscreen(index: 0)));
+                          await prefs.setBool('isLoggedIn', true);
+                          Future.delayed(const Duration(seconds: 3), () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const Dashboardscreen(index: 0)));
+                          });
                         });
                       } catch (e) {
                         log("Error:$e");
                         AwesomeDialog(
                           context: context,
                           dialogType: DialogType.error,
-                          showCloseIcon: true,
+                          showCloseIcon: false,
                           desc: "OTP is invalid.",
                         ).show();
                         Future.delayed(const Duration(seconds: 2));
@@ -121,7 +129,7 @@ class _OTPscreenState extends State<OTPscreen> {
                     },
                     child: const Text(
                       "Verify Phone Number",
-                      style: TextStyle(color: WHITE_COLOR),
+                      style: TextStyle(color: whiteColor),
                     )),
               ),
             ],

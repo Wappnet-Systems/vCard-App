@@ -42,11 +42,11 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
           appBar: AppBar(
             centerTitle: true,
             title: Text("${Staticmenbers.cardUsers[widget.contectid!].type}"),
-            backgroundColor: BLUE_COLOR,
+            backgroundColor: blueColor,
             systemOverlayStyle: SystemUiOverlayStyle.light,
           ),
-          backgroundColor: WHITE_COLOR,
-          body: cardList[Staticmenbers.cardUsers[widget.contectid!].card!]),
+          backgroundColor: whiteColor,
+          body: cardList[Staticmenbers.cardUsers[widget.contectid!].cardJson!]),
     );
   }
 }

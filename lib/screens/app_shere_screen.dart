@@ -8,7 +8,7 @@ class GenerateQR extends StatefulWidget {
   const GenerateQR({super.key});
 
   @override
-  _GenerateQRState createState() => _GenerateQRState();
+  State<GenerateQR> createState() => _GenerateQRState();
 }
 
 class _GenerateQRState extends State<GenerateQR> {
@@ -28,7 +28,7 @@ class _GenerateQRState extends State<GenerateQR> {
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
           ),
-          color: WHITE_COLOR,
+          color: whiteColor,
         ),
         height: hp(50, context),
         child: Column(
@@ -37,7 +37,7 @@ class _GenerateQRState extends State<GenerateQR> {
             const Text(
               "Share vCard",
               style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: BLUE_COLOR),
+                  fontSize: 20, fontWeight: FontWeight.bold, color: blueColor),
             ),
             SizedBox(height: hp(2, context)),
             Center(
@@ -45,7 +45,7 @@ class _GenerateQRState extends State<GenerateQR> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     width: wp(1, context),
                   ),
                 ),
@@ -54,7 +54,7 @@ class _GenerateQRState extends State<GenerateQR> {
                   child: QrImage(
                     data: qrData,
                     size: 150,
-                    backgroundColor: WHITE_COLOR,
+                    backgroundColor: whiteColor,
                   ),
                 ),
               ),
@@ -62,7 +62,7 @@ class _GenerateQRState extends State<GenerateQR> {
             SizedBox(height: hp(2, context)),
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: BLUE_COLOR,
+                  backgroundColor: blueColor,
                 ),
                 onPressed: _shareContent,
                 icon: const Icon(Icons.ios_share_outlined),

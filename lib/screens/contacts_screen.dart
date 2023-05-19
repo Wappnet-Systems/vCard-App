@@ -38,7 +38,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection("Frind's Card")
+        .collection("Frind's cardJson")
         .get();
 
     final userData = snapshot.docs
@@ -58,7 +58,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             id: e['id'],
             image: e['images'],
             type: e['type'],
-            card: e['card'],
+            cardJson: e['cardJson'],
             color: e['color']))
         .toList();
 
@@ -74,12 +74,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: WHITE_COLOR,
+        backgroundColor: whiteColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0.3,
-          title: const Text("Contacts", style: TextStyle(color: BLACK_COLOR)),
-          backgroundColor: WHITE_COLOR,
+          title: const Text("Contacts", style: TextStyle(color: blackColor)),
+          backgroundColor: whiteColor,
         ),
         body: Staticmenbers.cardUsers.isNotEmpty
             ? ListView.builder(
@@ -97,7 +97,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 blurRadius: 10.0,
                               ),
                             ],
-                            color: WHITE_COLOR),
+                            color: whiteColor),
                         margin: const EdgeInsets.only(
                             left: 8, right: 8, top: 5, bottom: 5),
                         child: ListTile(
@@ -142,7 +142,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             child: Icon(
                                           Icons.image,
                                           size: 50,
-                                          color: WHITE_COLOR,
+                                          color: whiteColor,
                                         ));
                                       }
                                     },
@@ -162,7 +162,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             text:
                                                 '${Staticmenbers.cardUsers[index].name}',
                                             fontSize: 20,
-                                            selectionColor: BLACK_COLOR,
+                                            selectionColor: blackColor,
                                           )),
                                   Staticmenbers.cardUsers[index].phone == ""
                                       ? const SizedBox.shrink()
@@ -174,7 +174,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             text:
                                                 '${Staticmenbers.cardUsers[index].phone}',
                                             fontSize: 15,
-                                            selectionColor: BLACK_COLOR,
+                                            selectionColor: blackColor,
                                           )),
                                   Staticmenbers.cardUsers[index].compeny == ""
                                       ? const SizedBox.shrink()
@@ -186,7 +186,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             text:
                                                 '${Staticmenbers.cardUsers[index].compeny}',
                                             fontSize: 15,
-                                            selectionColor: BLACK_COLOR,
+                                            selectionColor: blackColor,
                                           )),
                                 ]),
                             const Spacer(),
@@ -219,8 +219,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
             : SizedBox(
                 height: hp(100, context),
                 width: wp(100, context),
-                child: CustomNoData(
-                  iconaddress: CARD,
+                child: const CustomNoData(
+                  iconaddress: cardJson,
                 ),
               ));
   }

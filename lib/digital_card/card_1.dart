@@ -33,23 +33,23 @@ class _Cardtheme1State extends State<Cardtheme1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Container(
             height: hp(35, context),
             decoration: BoxDecoration(
-              color: BLUE_COLOR,
+              color: blueColor,
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
                   color: Staticmenbers.listofUsers[cardindex!].color != null
                       ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
-                      : GRAY,
+                      : grayColor,
                   width: wp(0.4, context)),
               boxShadow: const [
                 BoxShadow(
-                  color: GRAY,
+                  color: grayColor,
                   blurRadius: 8.0,
                 ),
               ],
@@ -69,7 +69,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             Staticmenbers.listofUsers[cardindex!].color != null
                                 ? colorList[Staticmenbers
                                     .listofUsers[cardindex!].color!]
-                                : WHITE_COLOR),
+                                : whiteColor),
                     SizedBox(height: hp(5, context)),
                     ClipOval(
                       child: Staticmenbers.listofUsers[cardindex!].image == ""
@@ -95,7 +95,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             Staticmenbers.listofUsers[cardindex!].color != null
                                 ? colorList[Staticmenbers
                                     .listofUsers[cardindex!].color!]
-                                : WHITE_COLOR),
+                                : whiteColor),
                     SizedBox(
                       height: hp(0.5, context),
                     ),
@@ -108,11 +108,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             Staticmenbers.listofUsers[cardindex!].color != null
                                 ? colorList[Staticmenbers
                                     .listofUsers[cardindex!].color!]
-                                : WHITE_COLOR),
+                                : whiteColor),
                   ],
                 ),
               ),
-              VerticalDivider(color: Colors.transparent, width: 22),
+              const VerticalDivider(color: Colors.transparent, width: 22),
               Column(children: [
                 (Staticmenbers.listofUsers[cardindex!].website == "")
                     ? const SizedBox.shrink()
@@ -128,7 +128,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                         null
                                     ? colorList[Staticmenbers
                                         .listofUsers[cardindex!].color!]
-                                    : WHITE_COLOR),
+                                    : whiteColor),
                       ),
                 SizedBox(height: hp(1.3, context)),
                 Container(
@@ -136,7 +136,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                       color: Staticmenbers.listofUsers[cardindex!].color != null
                           ? colorList[
                               Staticmenbers.listofUsers[cardindex!].color!]
-                          : GRAY,
+                          : grayColor,
                       borderRadius: const BorderRadius.only(
                           topRight: Radius.elliptical(70, 50),
                           bottomLeft: Radius.circular(50),
@@ -159,7 +159,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 child: Image.asset(
                                   "assets/icon/call.png",
                                   scale: 30,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -170,7 +170,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                   text:
                                       "${Staticmenbers.listofUsers[cardindex!].phone}",
                                   fontSize: 12,
-                                  selectionColor: WHITE_COLOR),
+                                  selectionColor: whiteColor),
                             ),
                           ],
                         ),
@@ -193,7 +193,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                       child: Image.asset(
                                         "assets/icon/whats.png",
                                         scale: 30,
-                                        color: WHITE_COLOR,
+                                        color: whiteColor,
                                       ),
                                     ),
                                   ),
@@ -208,7 +208,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                         text:
                                             "${Staticmenbers.listofUsers[cardindex!].whatsapp}",
                                         fontSize: 12,
-                                        selectionColor: WHITE_COLOR),
+                                        selectionColor: whiteColor),
                                   ),
                           ],
                         ),
@@ -224,7 +224,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 child: Image.asset(
                                   "assets/icon/email.png",
                                   scale: 30,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -237,7 +237,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                     text:
                                         "${Staticmenbers.listofUsers[cardindex!].email}",
                                     fontSize: 12,
-                                    selectionColor: WHITE_COLOR),
+                                    selectionColor: whiteColor),
                               ),
                             ),
                           ],
@@ -266,7 +266,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                       child: Image.asset(
                                         "assets/icon/Face.png",
                                         scale: 30,
-                                        color: WHITE_COLOR,
+                                        color: whiteColor,
                                       ),
                                     ),
                                   ),
@@ -283,7 +283,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                       child: Image.asset(
                                         "assets/icon/tele.png",
                                         scale: 30,
-                                        color: WHITE_COLOR,
+                                        color: whiteColor,
                                       ),
                                     ),
                                   ),
@@ -301,7 +301,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                       child: Image.asset(
                                         "assets/icon/lin.png",
                                         scale: 30,
-                                        color: WHITE_COLOR,
+                                        color: whiteColor,
                                       ),
                                     ),
                                   ),
@@ -315,12 +315,12 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                         showDialog(
                                           context: context,
                                           builder: (ctx) => AlertDialog(
-                                            backgroundColor: BLUE_COLOR,
+                                            backgroundColor: blueColor,
                                             title: const Text("Address",
                                                 style: TextStyle(
                                                     fontFamily: 'Marck',
                                                     fontSize: 25,
-                                                    color: WHITE_COLOR,
+                                                    color: whiteColor,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             content: Text(
@@ -328,7 +328,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                                 style: const TextStyle(
                                                     fontFamily: 'Marck',
                                                     fontSize: 25,
-                                                    color: WHITE_COLOR,
+                                                    color: whiteColor,
                                                     fontWeight:
                                                         FontWeight.bold)),
                                             actions: <Widget>[
@@ -342,7 +342,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                                     },
                                                     title: 'Use Map',
                                                     fontSize: null,
-                                                    color: BLUEGRAY,
+                                                    color: bluegrayColor,
                                                   ),
                                                   TextButtomWidget(
                                                     onPressed: () {
@@ -361,7 +361,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                       child: Image.asset(
                                         "assets/icon/pin.png",
                                         scale: 28,
-                                        color: WHITE_COLOR,
+                                        color: whiteColor,
                                       ),
                                     ),
                                   ),
@@ -391,11 +391,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: WHITE_COLOR,
+        color: whiteColor,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: BLUE_COLOR),
+        style: TextStyle(color: blueColor),
       ),
     );
 

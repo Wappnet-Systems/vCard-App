@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -22,8 +24,8 @@ import 'more_textfield_screen.dart';
 import '../widget/text_button_widget.dart';
 
 class Updatecardscreen extends StatefulWidget {
-  String? id;
-  Updatecardscreen({
+  final String? id;
+  const Updatecardscreen({
     Key? key,
     this.id,
   }) : super(key: key);
@@ -87,7 +89,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             id: e['id'],
             image: e['images'],
             type: e['type'],
-            card: e['card'],
+            cardJson: e['cardJson'],
             color: e['color']))
         .toList();
 
@@ -106,7 +108,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       _telegramcontroller.text = singleuser.first.telegram!;
       _websitecontroller.text = singleuser.first.website!;
       _whatsappcontroller.text = singleuser.first.whatsapp!;
-      _selectedIndex = singleuser.first.card!;
+      _selectedIndex = singleuser.first.cardJson!;
       _selectcolor = singleuser.first.color;
     });
     updateImageUrl = singleuser.first.image;
@@ -140,11 +142,13 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? updateImageUrl,
       'type': _typecontroller.text,
-      'card': _selectedIndex,
+      'cardJson': _selectedIndex,
       'color': _selectcolor
     }).then((value) {
-      Navigator.push(context,
-          MaterialPageRoute(builder: ((context) => Dashboardscreen(index: 0))));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => const Dashboardscreen(index: 0))));
     }).catchError((error) => (error));
   }
 
@@ -195,9 +199,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       appBar: Customappbarwidget(
-          title: "Edit Card",
+          title: "Edit cardJson",
           actions: <Widget>[
             Padding(
               padding:
@@ -213,7 +217,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   },
                   icon: const Icon(
                     Icons.save,
-                    color: BLACK_COLOR,
+                    color: blackColor,
                   )),
             ),
           ],
@@ -226,7 +230,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: Icon(
                   Icons.arrow_back_sharp,
-                  color: BLACK_COLOR,
+                  color: blackColor,
                 ),
               ))),
       body: SingleChildScrollView(
@@ -239,7 +243,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 Stack(children: [
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: BLUE_COLOR, width: 3),
+                      border: Border.all(color: blueColor, width: 3),
                       borderRadius: const BorderRadius.all(
                         Radius.circular(100),
                       ),
@@ -280,7 +284,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         child: const Icon(
                           Icons.flip_camera_ios,
                           size: 30,
-                          color: BLUE_COLOR,
+                          color: blueColor,
                         ),
                       )),
                 ]),
@@ -291,7 +295,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   inputFormatters: null,
                   textInputType: TextInputType.emailAddress,
                   textEditingController: _typecontroller,
-                  texteditinghinttext: 'Card type',
+                  texteditinghinttext: 'cardJson type',
                   customobscuretext: true,
                   customsuffixIcon: null,
                   customprefixicon: null,
@@ -346,12 +350,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           height: hp(7, context),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
-                              border: Border.all(color: GRAY)),
+                              border: Border.all(color: grayColor)),
                           child: const Row(children: [
                             Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text("Select Theme",
-                                  style: TextStyle(color: BLUE_COLOR)),
+                                  style: TextStyle(color: blueColor)),
                             ),
                             Spacer(),
                             Icon(Icons.arrow_drop_down_sharp)
@@ -367,13 +371,13 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           height: hp(7, context),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
-                              border: Border.all(color: GRAY)),
+                              border: Border.all(color: grayColor)),
                           child: const Row(children: [
                             Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text(
                                 "Select Color",
-                                style: TextStyle(color: BLUE_COLOR),
+                                style: TextStyle(color: blueColor),
                               ),
                             ),
                             Spacer(),
@@ -393,7 +397,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.phone,
-                    color: GRAY,
+                    color: grayColor,
                   ),
                   validationfunction: numbervalidator,
                 ),
@@ -408,7 +412,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.email,
-                    color: GRAY,
+                    color: grayColor,
                   ),
                   validationfunction: emailValidator,
                 ),
@@ -417,21 +421,21 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: GooglePlaceAutoCompleteTextField(
                       textEditingController: _addresscontroller,
-                      googleAPIKey: YOUR_GOOGLE_API_KEY,
+                      googleAPIKey: yourgoogleapikey,
                       inputDecoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Address",
-                        labelStyle: TextStyle(color: BLACK_COLOR, fontSize: 12),
+                        labelStyle: TextStyle(color: blackColor, fontSize: 12),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: BLACK_COLOR)),
+                            borderSide: BorderSide(color: blackColor)),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 13, vertical: 12),
                         hintText: "Address",
                         hintStyle: TextStyle(
-                          color: GRAY,
+                          color: grayColor,
                           fontSize: 10,
                         ),
-                        prefixIcon: Icon(Icons.location_on, color: GRAY),
+                        prefixIcon: Icon(Icons.location_on, color: grayColor),
                         suffixIcon: null,
                       ),
                       debounceTime: 800,
@@ -464,7 +468,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         child: const Text(
                           "Add more item ?",
                           style: TextStyle(
-                              color: BOTTOM, fontWeight: FontWeight.bold),
+                              color: bottomColor, fontWeight: FontWeight.bold),
                         )),
                 SizedBox(height: hp(2, context)),
               ],
@@ -493,7 +497,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
               bottomRight: Radius.circular(20)),
         ),
         content: Container(
-          color: WHITE_COLOR,
+          color: whiteColor,
           height: hp(33, context),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -505,7 +509,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: BLUE_COLOR),
+                      color: blueColor),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -513,7 +517,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -523,13 +527,13 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       },
                       child: const Text(
                         "CAMERA",
-                        style: TextStyle(color: WHITE_COLOR),
+                        style: TextStyle(color: whiteColor),
                       )),
                 ),
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -538,12 +542,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         Navigator.pop(context);
                       },
                       child: const Text("GALLERY",
-                          style: TextStyle(color: WHITE_COLOR))),
+                          style: TextStyle(color: whiteColor))),
                 ),
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -551,7 +555,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         Navigator.pop(context);
                       },
                       child: const Text("CANCEL",
-                          style: TextStyle(color: WHITE_COLOR))),
+                          style: TextStyle(color: whiteColor))),
                 ),
               ],
             ),
@@ -573,7 +577,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 topLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),
           ),
-          title: const Text("Card's"),
+          title: const Text("cardJson's"),
           content: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
             return SizedBox(
@@ -597,8 +601,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         decoration: BoxDecoration(
                           border: Border.all(
                             color: _selectedIndex == index
-                                ? BLUE_COLOR
-                                : WHITE_COLOR,
+                                ? blueColor
+                                : whiteColor,
                             width: 4,
                           ),
                         ),
@@ -653,8 +657,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         decoration: BoxDecoration(
                             border: Border.all(
                               color: _selectcolor == index
-                                  ? BLUE_COLOR
-                                  : WHITE_COLOR,
+                                  ? blueColor
+                                  : whiteColor,
                               width: 4,
                             ),
                             color: colorList[index],
@@ -673,7 +677,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
           actions: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               TextButtomWidget(
-                color: BLUE_COLOR,
+                color: blueColor,
                 fontSize: 20,
                 onPressed: () {
                   Navigator.pop(context);
@@ -692,11 +696,11 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: BLUE_COLOR,
+        color: blueColor,
       ),
       child: const Text(
         "Add Successfully",
-        style: TextStyle(color: WHITE_COLOR),
+        style: TextStyle(color: whiteColor),
       ),
     );
 

@@ -26,10 +26,10 @@ class Customappbarwidget extends StatelessWidget
         padding: const EdgeInsets.only(top: 8),
         child: Text(
           title,
-          style: const TextStyle(color: BLACK_COLOR),
+          style: const TextStyle(color: blackColor),
         ),
       ),
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       leading: leading,
       actions: actions,
       systemOverlayStyle: SystemUiOverlayStyle.dark,

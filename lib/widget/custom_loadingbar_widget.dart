@@ -19,14 +19,14 @@ class _CustonloadingState extends State<Custonloading> {
             topRight: Radius.circular(10),
             topLeft: Radius.circular(10),
             bottomRight: Radius.circular(10)),
-        color: BLUE_COLOR,
+        color: blueColor,
       ),
       height: hp(8, context),
       width: wp(20, context),
       child: const Padding(
         padding: EdgeInsets.all(10.0),
         child: CircularProgressIndicator(
-          color: WHITE_COLOR,
+          color: whiteColor,
           strokeWidth: 2,
         ),
       ),

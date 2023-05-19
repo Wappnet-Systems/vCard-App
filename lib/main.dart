@@ -9,24 +9,18 @@ import 'utils/constants_color.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final islogin = prefs.getBool('isLoggedIn') ?? false;
 
   runApp(MyApp(islogin: islogin));
 }
 
-class DefaultFirebaseOptions {
-  static var currentPlatform;
-}
-
 class MyApp extends StatefulWidget {
-  bool? islogin;
-  MyApp({
+  final bool? islogin;
+  const MyApp({
     super.key,
-    required this.islogin,
+    this.islogin,
   });
 
   @override
@@ -52,8 +46,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final Future<FirebaseApp> initialization = Firebase.initializeApp();
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'VCard',
@@ -61,7 +53,7 @@ class _MyAppState extends State<MyApp> {
       home: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [BLUE_COLOR, GRAY],
+            colors: [blueColor, grayColor],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -85,13 +77,13 @@ class _MyAppState extends State<MyApp> {
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
-                      color: BLACK_COLOR,
+                      color: blackColor,
                     ))
               ],
             ),
           ),
-          nextScreen: (widget.islogin! == true)
-              ? Dashboardscreen(
+          nextScreen: (widget.islogin == true)
+              ? const Dashboardscreen(
                   index: 0,
                 )
               : const Numberverification(),

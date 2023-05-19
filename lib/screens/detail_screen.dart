@@ -14,9 +14,9 @@ import 'dashboard_screen.dart';
 import 'digital_visiting_card_screen.dart';
 
 class Detailscreen extends StatefulWidget {
-  int? id;
-  int? contectid;
-  Detailscreen({super.key, this.id, this.contectid});
+  final int? id;
+  final int? contectid;
+  const Detailscreen({super.key, this.id, this.contectid});
 
   @override
   State<Detailscreen> createState() => _DetailscreenState();
@@ -48,18 +48,18 @@ class _DetailscreenState extends State<Detailscreen> {
               height: hp(8, context),
               width: wp(17, context),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: GRAY),
+                  borderRadius: BorderRadius.circular(100), color: grayColor),
               child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.remove_red_eye,
                       size: 22,
-                      color: BLACK_COLOR,
+                      color: blackColor,
                     ),
                     Text(
                       "View",
-                      style: TextStyle(color: BLACK_COLOR, fontSize: 14),
+                      style: TextStyle(color: blackColor, fontSize: 14),
                     )
                   ]),
             ),
@@ -80,18 +80,19 @@ class _DetailscreenState extends State<Detailscreen> {
                     height: hp(8, context),
                     width: wp(17, context),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100), color: GRAY),
+                        borderRadius: BorderRadius.circular(100),
+                        color: grayColor),
                     child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.share_sharp,
                             size: 22,
-                            color: BLACK_COLOR,
+                            color: blackColor,
                           ),
                           Text(
                             "Share",
-                            style: TextStyle(color: BLACK_COLOR, fontSize: 14),
+                            style: TextStyle(color: blackColor, fontSize: 14),
                           )
                         ]),
                   ),
@@ -111,18 +112,19 @@ class _DetailscreenState extends State<Detailscreen> {
                     height: hp(8, context),
                     width: wp(17, context),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100), color: GRAY),
+                        borderRadius: BorderRadius.circular(100),
+                        color: grayColor),
                     child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
                             Icons.edit_document,
                             size: 22,
-                            color: BLACK_COLOR,
+                            color: blackColor,
                           ),
                           Text(
                             "Edit",
-                            style: TextStyle(color: BLACK_COLOR, fontSize: 14),
+                            style: TextStyle(color: blackColor, fontSize: 14),
                           )
                         ]),
                   ),
@@ -166,14 +168,12 @@ class _DetailscreenState extends State<Detailscreen> {
                                               .listofUsers[widget.id!].id)
                                           .delete()
                                           .then((value) {
-                                        // Future.delayed(
-                                        //     const Duration(seconds: 1), () {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Dashboardscreen(index: 0)));
-                                        // });
+                                                    const Dashboardscreen(
+                                                        index: 0)));
                                       });
                                     })
                                   : setState(() {
@@ -184,18 +184,16 @@ class _DetailscreenState extends State<Detailscreen> {
                                           .collection("users")
                                           .doc(FirebaseAuth
                                               .instance.currentUser?.uid)
-                                          .collection("Frind's Card")
+                                          .collection("Frind's cardJson")
                                           .doc(Staticmenbers
                                               .cardUsers[widget.contectid!].id)
                                           .delete()
                                           .then((value) {
-                                        // Future.delayed(
-                                        //     const Duration(seconds: 1), () {
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Dashboardscreen(
+                                                    const Dashboardscreen(
                                                       index: 2,
                                                     )));
                                       });
@@ -211,11 +209,11 @@ class _DetailscreenState extends State<Detailscreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          Dashboardscreen(index: 0)));
+                                          const Dashboardscreen(index: 0)));
                             },
                             title: 'Cancle',
                             fontSize: 15,
-                            color: BLUE_COLOR,
+                            color: blueColor,
                           )
                         ],
                       ),
@@ -228,18 +226,18 @@ class _DetailscreenState extends State<Detailscreen> {
               height: hp(8, context),
               width: wp(17, context),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: GRAY),
+                  borderRadius: BorderRadius.circular(100), color: grayColor),
               child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
                       Icons.delete,
                       size: 22,
-                      color: BLACK_COLOR,
+                      color: blackColor,
                     ),
                     Text(
                       "Delete",
-                      style: TextStyle(color: BLACK_COLOR, fontSize: 14),
+                      style: TextStyle(color: blackColor, fontSize: 14),
                     )
                   ]),
             ),

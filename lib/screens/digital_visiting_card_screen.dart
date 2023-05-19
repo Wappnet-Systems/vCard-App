@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 import 'dart:ui' as ui;
 import 'dart:ui';
@@ -72,7 +74,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.ios_share_rounded,
-                    color: BLACK_COLOR,
+                    color: blackColor,
                   ),
                 )),
           ],
@@ -85,13 +87,13 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: Icon(
                   Icons.arrow_back_sharp,
-                  color: BLACK_COLOR,
+                  color: blackColor,
                 ),
               ))),
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       body: RepaintBoundary(
           key: _containerKey,
-          child: cardList[Staticmenbers.listofUsers[widget.id!].card!]),
+          child: cardList[Staticmenbers.listofUsers[widget.id!].cardJson!]),
     );
   }
 }

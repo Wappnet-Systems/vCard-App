@@ -35,22 +35,22 @@ class CustomTextFormField extends StatelessWidget {
         autovalidateMode: AutovalidateMode.onUserInteraction,
         inputFormatters: inputFormatters,
         keyboardType: textInputType,
-        style: const TextStyle(color: BLACK_COLOR, fontSize: 12),
+        style: const TextStyle(color: blackColor, fontSize: 12),
         obscureText: !customobscuretext,
         enableInteractiveSelection: true,
-        cursorColor: BLUE_COLOR,
+        cursorColor: blueColor,
         controller: textEditingController,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: labelText,
-          labelStyle: const TextStyle(color: BLACK_COLOR),
+          labelStyle: const TextStyle(color: blackColor),
           focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: BLACK_COLOR)),
+              borderSide: BorderSide(color: blackColor)),
           contentPadding:
               const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
           hintText: texteditinghinttext,
           hintStyle: const TextStyle(
-            color: GRAY,
+            color: grayColor,
             fontWeight: FontWeight.w400,
             fontSize: 10,
           ),

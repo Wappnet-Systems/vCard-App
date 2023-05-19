@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +25,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   FToast? fToast;
   bool value = false;
   int? contectcard;
-  int? card;
+  int? cardJson;
   int? color;
   String? cid;
   String? uid;
@@ -53,7 +55,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
         .where('id', isEqualTo: cid)
         .get();
 
-    snapshot.docs.forEach((element) {
+    for (var element in snapshot.docs) {
       userData.add(
         Users(
             user: element['user'],
@@ -71,15 +73,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
             id: element['id'],
             type: element['type'],
             image: element['images'],
-            card: element['card'],
+            cardJson: element['cardJson'],
             color: element['color']),
       );
-    });
+    }
 
     setState(() {
       List.generate(userData.length, (index) {
         name = userData[index].name;
-        card = userData[index].card;
+        cardJson = userData[index].cardJson;
         color = userData[index].color;
         cid = cid;
         uid = uid;
@@ -103,7 +105,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection("Frind's Card")
+        .collection("Frind's cardJson")
         .doc(cid);
     return receivedLoanDataRef.set({
       'Name': name,
@@ -121,13 +123,13 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'images': image,
       'type': type,
       'user': FirebaseAuth.instance.currentUser?.uid,
-      'card': card,
+      'cardJson': cardJson,
       'color': color,
     }).then((value) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => Dashboardscreen(
+              builder: (context) => const Dashboardscreen(
                     index: 2,
                   )));
     }).catchError((error) {
@@ -145,15 +147,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0.3,
         title: const Text(
           "QR Scanner",
-          style: TextStyle(color: BLUE_COLOR),
+          style: TextStyle(color: blueColor),
         ),
-        backgroundColor: WHITE_COLOR,
+        backgroundColor: whiteColor,
         flexibleSpace: Container(
           decoration: const BoxDecoration(),
         ),
@@ -170,7 +172,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           topRight: Radius.circular(50)),
                       boxShadow: [
                         BoxShadow(
-                          color: color == "" ? colorList[color!] : BLUE_COLOR,
+                          color: color == "" ? colorList[color!] : blueColor,
                           blurRadius: 1.0,
                         ),
                         const BoxShadow(
@@ -178,7 +180,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           blurRadius: 20.0,
                         ),
                       ],
-                      color: color == "" ? colorList[color!] : BLUE_COLOR,
+                      color: color == "" ? colorList[color!] : blueColor,
                     ),
                     margin: const EdgeInsets.only(
                         left: 95, right: 95, top: 10, bottom: 10),
@@ -225,7 +227,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                         child: Icon(
                                       Icons.image,
                                       size: 130,
-                                      color: WHITE_COLOR,
+                                      color: whiteColor,
                                     ));
                                   }
                                 },
@@ -238,7 +240,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           width: 123,
                           text: '$name',
                           fontSize: 18,
-                          selectionColor: WHITE_COLOR,
+                          selectionColor: whiteColor,
                         )),
                       ),
                     ]),
@@ -248,13 +250,13 @@ class _ScannerscreenState extends State<Scannerscreen> {
                     child: Container(
                         width: wp(50, context),
                         decoration: BoxDecoration(
-                          color: BLUE_COLOR,
+                          color: blueColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
                           child: const Text(
                             'Connected',
-                            style: TextStyle(color: WHITE_COLOR),
+                            style: TextStyle(color: whiteColor),
                           ),
                           onPressed: () {
                             addUser();
@@ -272,13 +274,13 @@ class _ScannerscreenState extends State<Scannerscreen> {
                       child: TextButton(
                         child: const Text(
                           'Disconnected',
-                          style: TextStyle(color: WHITE_COLOR),
+                          style: TextStyle(color: whiteColor),
                         ),
                         onPressed: () {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dashboardscreen(
+                                  builder: (context) => const Dashboardscreen(
                                         index: 1,
                                       )));
                         },
@@ -297,24 +299,24 @@ class _ScannerscreenState extends State<Scannerscreen> {
               const Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text(
-                  "Get Started by scanning the QR code and get the Card.",
-                  style: TextStyle(fontSize: 12),
+                  "Get Started by scanning the QR code and get the card.",
+                  style: TextStyle(fontSize: 10),
                 ),
               ),
-              SizedBox(height: hp(8, context)),
-              CustomNoData(
-                iconaddress: QR,
+              SizedBox(height: hp(5, context)),
+              const CustomNoData(
+                iconaddress: qrJson,
               ),
-              SizedBox(height: hp(8, context)),
+              SizedBox(height: hp(2, context)),
               InkWell(
                 onTap: () {
                   scanQRCode();
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                      color: BLUE_COLOR,
+                      color: blueColor,
                       boxShadow: const [
-                        BoxShadow(color: BLACK_COLOR, blurRadius: 0.5)
+                        BoxShadow(color: blackColor, blurRadius: 0.5)
                       ],
                       borderRadius: BorderRadius.circular(25)),
                   width: wp(50, context),
@@ -326,12 +328,12 @@ class _ScannerscreenState extends State<Scannerscreen> {
                       const Icon(
                         Icons.qr_code_scanner,
                         size: 30,
-                        color: WHITE_COLOR,
+                        color: whiteColor,
                       ),
                       SizedBox(width: wp(5, context)),
                       const Text(
-                        'Qr Scan',
-                        style: TextStyle(fontSize: 17, color: WHITE_COLOR),
+                        'QR Scan',
+                        style: TextStyle(fontSize: 17, color: whiteColor),
                       )
                     ],
                   )),
@@ -365,11 +367,11 @@ class _ScannerscreenState extends State<Scannerscreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: BLUE_COLOR,
+        color: blueColor,
       ),
       child: const Text(
         "Connected",
-        style: TextStyle(color: WHITE_COLOR),
+        style: TextStyle(color: whiteColor),
       ),
     );
 

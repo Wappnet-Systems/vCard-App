@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
@@ -49,6 +50,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   void initState() {
     fToast = FToast();
     fToast?.init(context);
+
     super.initState();
   }
 
@@ -79,11 +81,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'images': imgurl ?? "",
       'type': _typecontroller.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
-      'card': _selectedIndex ?? 4,
+      'cardJson': _selectedIndex ?? 4,
       'color': _selectcolor
     }).then((value) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: ((context) => Dashboardscreen(index: 0))));
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => const Dashboardscreen(index: 0))));
     }).catchError((error) {
       log("Failed to add user: $error");
     });
@@ -115,6 +119,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   }
 
   final imageList = [
+    "assets/cards/card0.jpg",
     "assets/cards/card1.jpg",
     'assets/cards/card2.jpg',
     "assets/cards/card3.jpg",
@@ -125,10 +130,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   int? _selectedIndex;
   bool isLoading = false;
   bool ismoreadddata = false;
+
   @override
   Widget build(BuildContext context) {
+    print('build');
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       appBar: Customappbarwidget(
           title: "Create Card",
           actions: <Widget>[
@@ -146,7 +153,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   },
                   icon: const Icon(
                     Icons.save,
-                    color: BLACK_COLOR,
+                    color: blackColor,
                   )),
             ),
           ],
@@ -159,7 +166,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: Icon(
                   Icons.arrow_back_sharp,
-                  color: BLACK_COLOR,
+                  color: blackColor,
                 ),
               ))),
       body: SingleChildScrollView(
@@ -174,7 +181,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: BLUE_COLOR, width: wp(0.5, context)),
+                            color: blueColor, width: wp(0.5, context)),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -204,7 +211,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           child: const Icon(
                             Icons.flip_camera_ios,
                             size: 30,
-                            color: BLUE_COLOR,
+                            color: blueColor,
                           ),
                         )),
                   ],
@@ -215,7 +222,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   inputFormatters: null,
                   textInputType: TextInputType.emailAddress,
                   textEditingController: _typecontroller,
-                  texteditinghinttext: 'Card type',
+                  texteditinghinttext: 'card type',
                   customobscuretext: true,
                   customsuffixIcon: null,
                   customprefixicon: null,
@@ -257,25 +264,48 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   customprefixicon: null,
                   validationfunction: textvalidator,
                 ),
-                SizedBox(height: hp(3, context)),
+                SizedBox(height: hp(1, context)),
+                Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 30),
+                    child: SizedBox(
+                        height: hp(10, context),
+                        width: wp(30, context),
+                        child: Image.asset(imageList[_selectedIndex ?? 0])),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 70),
+                    child: Container(
+                      width: wp(15, context),
+                      height: hp(8, context),
+                      decoration: BoxDecoration(
+                          color: colorList[_selectcolor ?? 0],
+                          borderRadius: BorderRadius.circular(100)),
+                    ),
+                  ),
+                ]),
+                SizedBox(height: hp(1, context)),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: Row(children: [
                     InkWell(
                         onTap: () {
-                          showimagelist();
+                          setState(() {
+                            showimagelist();
+                          });
                         },
                         child: Container(
                           width: wp(40, context),
                           height: hp(7, context),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
-                              border: Border.all(color: GRAY)),
+                              border: Border.all(color: grayColor)),
                           child: const Row(children: [
                             Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text("Select Theme",
-                                  style: TextStyle(color: BLUE_COLOR)),
+                                  style: TextStyle(color: blueColor)),
                             ),
                             Spacer(),
                             Icon(Icons.arrow_drop_down_sharp)
@@ -284,24 +314,26 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     const Spacer(),
                     InkWell(
                         onTap: () {
-                          showcolorlist();
+                          setState(() {
+                            showcolorlist();
+                          });
                         },
                         child: Container(
-                          width: wp(40, context),
+                          width: wp(45, context),
                           height: hp(7, context),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(3),
-                              border: Border.all(color: GRAY)),
-                          child: const Row(children: [
-                            Padding(
+                              border: Border.all(color: grayColor)),
+                          child: Row(children: [
+                            const Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: Text(
                                 "Select Color",
-                                style: TextStyle(color: BLUE_COLOR),
+                                style: TextStyle(color: blueColor),
                               ),
                             ),
-                            Spacer(),
-                            Icon(Icons.arrow_drop_down_sharp)
+                            const Spacer(),
+                            const Icon(Icons.arrow_drop_down_sharp)
                           ]),
                         ))
                   ]),
@@ -311,21 +343,21 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: GooglePlaceAutoCompleteTextField(
                       textEditingController: _addresscontroller,
-                      googleAPIKey: YOUR_GOOGLE_API_KEY,
+                      googleAPIKey: yourgoogleapikey,
                       inputDecoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Address",
-                        labelStyle: TextStyle(color: BLACK_COLOR, fontSize: 12),
+                        labelStyle: TextStyle(color: blackColor, fontSize: 12),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: BLACK_COLOR)),
+                            borderSide: BorderSide(color: blackColor)),
                         contentPadding:
                             EdgeInsets.symmetric(horizontal: 13, vertical: 12),
                         hintText: "Address",
                         hintStyle: TextStyle(
-                          color: GRAY,
+                          color: grayColor,
                           fontSize: 10,
                         ),
-                        prefixIcon: Icon(Icons.location_on, color: GRAY),
+                        prefixIcon: Icon(Icons.location_on, color: grayColor),
                         suffixIcon: null,
                       ),
                       debounceTime: 800,
@@ -351,7 +383,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.phone,
-                    color: GRAY,
+                    color: grayColor,
                   ),
                   validationfunction: numbervalidator,
                 ),
@@ -366,7 +398,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.email,
-                    color: GRAY,
+                    color: grayColor,
                   ),
                   validationfunction: emailValidator,
                 ),
@@ -388,7 +420,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         child: const Text(
                           "Add more item ?",
                           style: TextStyle(
-                              color: BOTTOM, fontWeight: FontWeight.bold),
+                              color: bottomColor, fontWeight: FontWeight.bold),
                         )),
                 SizedBox(height: hp(4, context)),
               ],
@@ -417,7 +449,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               bottomRight: Radius.circular(20)),
         ),
         content: Container(
-          color: WHITE_COLOR,
+          color: whiteColor,
           height: hp(33, context),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -429,7 +461,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: BLUE_COLOR),
+                      color: blueColor),
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -437,7 +469,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -447,13 +479,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       },
                       child: const Text(
                         "CAMERA",
-                        style: TextStyle(color: WHITE_COLOR),
+                        style: TextStyle(color: whiteColor),
                       )),
                 ),
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -462,12 +494,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         Navigator.pop(context);
                       },
                       child: const Text("GALLERY",
-                          style: TextStyle(color: WHITE_COLOR))),
+                          style: TextStyle(color: whiteColor))),
                 ),
                 SizedBox(height: hp(2, context)),
                 Container(
                   decoration: BoxDecoration(
-                    color: BLUE_COLOR,
+                    color: blueColor,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextButton(
@@ -475,7 +507,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         Navigator.pop(context);
                       },
                       child: const Text("CANCEL",
-                          style: TextStyle(color: WHITE_COLOR))),
+                          style: TextStyle(color: whiteColor))),
                 ),
               ],
             ),
@@ -520,8 +552,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                             decoration: BoxDecoration(
                               border: Border.all(
                                 color: _selectedIndex == index
-                                    ? BLUE_COLOR
-                                    : WHITE_COLOR,
+                                    ? blueColor
+                                    : whiteColor,
                                 width: 4,
                               ),
                             ),
@@ -552,7 +584,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 topLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),
           ),
-          title: const Text('Pick a color'),
+          title: const Text('Colors'),
           content: SizedBox(
             height: hp(30, context),
             width: wp(50, context),
@@ -567,6 +599,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       onTap: () {
                         setState(() {
                           _selectcolor = index;
+                          print(index);
                         });
                       },
                       child: Container(
@@ -574,8 +607,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         decoration: BoxDecoration(
                             border: Border.all(
                               color: _selectcolor == index
-                                  ? BLUE_COLOR
-                                  : WHITE_COLOR,
+                                  ? blueColor
+                                  : bluegrayColor,
                               width: 4,
                             ),
                             color: colorList[index],
@@ -594,9 +627,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           actions: <Widget>[
             Row(mainAxisAlignment: MainAxisAlignment.end, children: [
               TextButtomWidget(
-                color: BLUE_COLOR,
+                color: blueColor,
                 fontSize: 20,
                 onPressed: () {
+                  setState(() {});
                   Navigator.pop(context);
                 },
                 title: 'ok',
@@ -613,11 +647,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: BLUE_COLOR,
+        color: blueColor,
       ),
       child: const Text(
         "Add Successfully",
-        style: TextStyle(color: WHITE_COLOR),
+        style: TextStyle(color: whiteColor),
       ),
     );
 

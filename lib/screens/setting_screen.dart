@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names, use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:app_settings/app_settings.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -39,7 +41,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     var snapshot = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection("Frind's Card");
+        .collection("Frind's cardJson");
     var sanap = await snapshot.get();
     for (var doc in sanap.docs) {
       await doc.reference.delete();
@@ -50,12 +52,12 @@ class _Setting_ScreenState extends State<Setting_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0.3,
-        title: const Text("Settings", style: TextStyle(color: BLACK_COLOR)),
-        backgroundColor: WHITE_COLOR,
+        title: const Text("Settings", style: TextStyle(color: blackColor)),
+        backgroundColor: whiteColor,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +65,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
           SizedBox(height: hp(1, context)),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            color: WHITE_COLOR,
+            color: whiteColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,7 +82,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                           blurRadius: 10.0,
                         ),
                       ],
-                      color: WHITE_COLOR,
+                      color: whiteColor,
                     ),
                     height: hp(9, context),
                     child: Row(
@@ -106,7 +108,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                         blurRadius: 10.0,
                       ),
                     ],
-                    color: WHITE_COLOR,
+                    color: whiteColor,
                   ),
                   height: hp(9, context),
                   child: InkWell(
@@ -146,7 +148,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                         blurRadius: 10.0,
                       ),
                     ],
-                    color: WHITE_COLOR,
+                    color: whiteColor,
                   ),
                   height: hp(9, context),
                   child: Row(
@@ -170,7 +172,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     AwesomeDialog(
                         context: context,
                         dialogType: DialogType.warning,
-                        showCloseIcon: true,
+                        showCloseIcon: false,
                         desc: "Logout",
                         btnCancelOnPress: () async {},
                         btnOkOnPress: () async {
@@ -193,7 +195,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                           blurRadius: 10.0,
                         ),
                       ],
-                      color: WHITE_COLOR,
+                      color: whiteColor,
                     ),
                     height: hp(9, context),
                     child: Row(
@@ -216,7 +218,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       AwesomeDialog(
                           context: context,
                           dialogType: DialogType.warning,
-                          showCloseIcon: true,
+                          showCloseIcon: false,
                           desc: "Delete Account",
                           btnCancelOnPress: () async {},
                           btnOkOnPress: () async {
@@ -244,7 +246,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                           blurRadius: 10.0,
                         ),
                       ],
-                      color: WHITE_COLOR,
+                      color: whiteColor,
                     ),
                     height: hp(9, context),
                     child: Row(

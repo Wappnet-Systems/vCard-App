@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/formatters.dart';
 import 'package:vcard/utils/validator.dart';
@@ -8,13 +7,13 @@ import '../utils/responsive.dart';
 import '../widget/custom_textformfield_widget.dart';
 
 class MoreTextfieldscreen extends StatefulWidget {
-  TextEditingController? websitecontroller;
-  TextEditingController? facebookcontroller;
-  TextEditingController? telegramcontroller;
-  TextEditingController? linkController;
-  TextEditingController? whatsappcontroller;
+  final TextEditingController? websitecontroller;
+  final TextEditingController? facebookcontroller;
+  final TextEditingController? telegramcontroller;
+  final TextEditingController? linkController;
+  final TextEditingController? whatsappcontroller;
 
-  MoreTextfieldscreen(
+  const MoreTextfieldscreen(
       {required this.linkController,
       required this.facebookcontroller,
       required this.telegramcontroller,
@@ -39,7 +38,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.web,
-          color: GRAY,
+          color: grayColor,
         ),
         validationfunction: null,
       ),
@@ -54,7 +53,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         customsuffixIcon: null,
         customprefixicon: const Icon(
           FontAwesomeIcons.whatsapp,
-          color: GRAY,
+          color: grayColor,
         ),
         validationfunction: null,
       ),
@@ -69,7 +68,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.link,
-          color: GRAY,
+          color: grayColor,
         ),
         validationfunction: null,
       ),
@@ -84,7 +83,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.facebook,
-          color: GRAY,
+          color: grayColor,
         ),
         validationfunction: null,
       ),
@@ -99,7 +98,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.telegram,
-          color: GRAY,
+          color: grayColor,
         ),
         validationfunction: numbervalidator,
       ),

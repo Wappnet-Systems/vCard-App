@@ -8,10 +8,10 @@ import 'contacts_screen.dart';
 import 'create_card_screen.dart';
 
 class Dashboardscreen extends StatefulWidget {
-  int index;
-  Dashboardscreen({super.key, required this.index});
+  final int index;
+  const Dashboardscreen({super.key, required this.index});
   @override
-  _DashboardscreenState createState() => _DashboardscreenState();
+  State<Dashboardscreen> createState() => _DashboardscreenState();
 }
 
 class _DashboardscreenState extends State<Dashboardscreen> {
@@ -51,7 +51,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: BottomAppBar(
-          color: BOTTOM,
+          color: bottomColor,
           shape: const CircularNotchedRectangle(),
           notchMargin: 5,
           child: Row(
@@ -63,7 +63,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 iconSize: 30.0,
                 icon: Icon(
                   Icons.credit_card,
-                  color: _selectedIndex == 0 ? WHITE_COLOR : BLUE_COLOR,
+                  color: _selectedIndex == 0 ? whiteColor : blueColor,
                 ),
                 onPressed: () {
                   setState(() {
@@ -77,7 +77,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 iconSize: 30.0,
                 icon: Icon(
                   Icons.qr_code_scanner,
-                  color: _selectedIndex == 1 ? WHITE_COLOR : BLUE_COLOR,
+                  color: _selectedIndex == 1 ? whiteColor : blueColor,
                 ),
                 onPressed: () {
                   setState(() {
@@ -91,7 +91,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 iconSize: 30.0,
                 icon: Icon(
                   Icons.contacts_outlined,
-                  color: _selectedIndex == 2 ? WHITE_COLOR : BLUE_COLOR,
+                  color: _selectedIndex == 2 ? whiteColor : blueColor,
                 ),
                 onPressed: () {
                   setState(() {
@@ -105,7 +105,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 iconSize: 30.0,
                 icon: Icon(
                   Icons.settings_outlined,
-                  color: _selectedIndex == 3 ? WHITE_COLOR : BLUE_COLOR,
+                  color: _selectedIndex == 3 ? whiteColor : blueColor,
                 ),
                 onPressed: () {
                   setState(() {
@@ -141,7 +141,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: BLUE_COLOR,
+          backgroundColor: blueColor,
           onPressed: () async {
             final refresh = await Navigator.push(
                 context,
@@ -154,7 +154,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
           },
           child: const Icon(
             Icons.add,
-            color: WHITE_COLOR,
+            color: whiteColor,
           ),
         ),
       ),

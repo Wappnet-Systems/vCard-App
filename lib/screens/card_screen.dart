@@ -43,7 +43,7 @@ class _CardscreenState extends State<Cardscreen> {
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Carddata")
         .get();
-    snapshot.docs.forEach((element) {
+    for (var element in snapshot.docs) {
       userData.add(
         Users(
             user: element['user'],
@@ -61,10 +61,10 @@ class _CardscreenState extends State<Cardscreen> {
             id: element['id'],
             type: element['type'],
             image: element['images'],
-            card: element['card'],
+            cardJson: element['cardJson'],
             color: element['color']),
       );
-    });
+    }
 
     setState(() {
       value = true;
@@ -90,12 +90,12 @@ class _CardscreenState extends State<Cardscreen> {
         return shouldPop;
       },
       child: Scaffold(
-          backgroundColor: WHITE_COLOR,
+          backgroundColor: whiteColor,
           appBar: AppBar(
             elevation: 0.3,
             automaticallyImplyLeading: false,
-            title: const Text("Cards", style: TextStyle(color: BLACK_COLOR)),
-            backgroundColor: WHITE_COLOR,
+            title: const Text("Cards", style: TextStyle(color: blackColor)),
+            backgroundColor: whiteColor,
           ),
           body: Staticmenbers.listofUsers.isNotEmpty
               ? ListView.builder(
@@ -108,7 +108,7 @@ class _CardscreenState extends State<Cardscreen> {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           boxShadow: [
                             BoxShadow(
-                              color: WHITE_COLOR,
+                              color: whiteColor,
                               blurRadius: 10.0,
                             ),
                             BoxShadow(
@@ -116,7 +116,7 @@ class _CardscreenState extends State<Cardscreen> {
                               blurRadius: 10.0,
                             ),
                           ],
-                          color: WHITE_COLOR,
+                          color: whiteColor,
                         ),
                         margin: const EdgeInsets.only(
                             left: 8, right: 8, top: 5, bottom: 5),
@@ -153,7 +153,7 @@ class _CardscreenState extends State<Cardscreen> {
                                             child: Icon(
                                           Icons.image,
                                           size: 130,
-                                          color: WHITE_COLOR,
+                                          color: whiteColor,
                                         ));
                                       }
                                     },
@@ -172,7 +172,7 @@ class _CardscreenState extends State<Cardscreen> {
                                         text:
                                             '${Staticmenbers.listofUsers[index].name}',
                                         fontSize: 20,
-                                        selectionColor: BLACK_COLOR,
+                                        selectionColor: blackColor,
                                       )),
                                   Padding(
                                       padding: const EdgeInsets.only(
@@ -182,7 +182,7 @@ class _CardscreenState extends State<Cardscreen> {
                                         text:
                                             '${Staticmenbers.listofUsers[index].type}',
                                         fontSize: 14,
-                                        selectionColor: BLACK_COLOR,
+                                        selectionColor: blackColor,
                                       )),
                                   Padding(
                                       padding: const EdgeInsets.only(
@@ -192,7 +192,7 @@ class _CardscreenState extends State<Cardscreen> {
                                         text:
                                             '${Staticmenbers.listofUsers[index].department}',
                                         fontSize: 14,
-                                        selectionColor: BLACK_COLOR,
+                                        selectionColor: blackColor,
                                       ))
                                 ]),
                             const Spacer(),
@@ -224,8 +224,8 @@ class _CardscreenState extends State<Cardscreen> {
               : SizedBox(
                   height: hp(100, context),
                   width: wp(100, context),
-                  child: CustomNoData(
-                    iconaddress: CARD,
+                  child: const CustomNoData(
+                    iconaddress: cardJson,
                   ),
                 )),
     );

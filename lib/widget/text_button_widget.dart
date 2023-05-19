@@ -24,7 +24,7 @@ class TextButtomWidget extends StatelessWidget {
             color: color,
             child: Text(
               title!,
-              style: TextStyle(color: WHITE_COLOR, fontSize: fontSize),
+              style: TextStyle(color: whiteColor, fontSize: fontSize),
             ),
           ),
         ),

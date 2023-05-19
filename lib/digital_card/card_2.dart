@@ -28,19 +28,19 @@ class _Cardtheme2State extends State<Cardtheme2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: WHITE_COLOR,
+      backgroundColor: whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Container(
           width: wp(100, context),
           height: hp(70, context),
           decoration: BoxDecoration(
-            border: Border.all(color: WHITE_COLOR, width: wp(0.5, context)),
+            border: Border.all(color: whiteColor, width: wp(0.5, context)),
             borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
             color: Staticmenbers.listofUsers[cardindex!].color != null
                 ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
-                : BLUE_COLOR,
+                : blueColor,
             boxShadow: const [
               BoxShadow(
                 color: Colors.black,
@@ -52,7 +52,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
             SizedBox(height: hp(3, context)),
             Container(
               decoration: BoxDecoration(
-                border: Border.all(color: BLUE_COLOR, width: 3),
+                border: Border.all(color: blueColor, width: 3),
                 borderRadius: const BorderRadius.all(
                   Radius.circular(90),
                 ),
@@ -92,7 +92,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                       Textwidget(
                         width: wp(60, context),
                         text: "${Staticmenbers.listofUsers[cardindex!].name}",
-                        selectionColor: WHITE_COLOR,
+                        selectionColor: whiteColor,
                         fontSize: 24,
                       ),
                       SizedBox(
@@ -102,7 +102,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                         width: wp(60, context),
                         text:
                             "${Staticmenbers.listofUsers[cardindex!].department}",
-                        selectionColor: WHITE_COLOR,
+                        selectionColor: whiteColor,
                         fontSize: 14,
                       ),
                       SizedBox(
@@ -112,7 +112,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                         width: wp(60, context),
                         text:
                             "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        selectionColor: WHITE_COLOR,
+                        selectionColor: whiteColor,
                         fontSize: 14,
                       ),
                       SizedBox(
@@ -130,7 +130,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               child: Image.asset(
                                 "assets/icon/call.png",
                                 scale: 22,
-                                color: WHITE_COLOR,
+                                color: whiteColor,
                               ),
                             ),
                             SizedBox(
@@ -140,7 +140,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               width: wp(60, context),
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].phone}",
-                              selectionColor: WHITE_COLOR,
+                              selectionColor: whiteColor,
                               fontSize: 14,
                             ),
                           ],
@@ -161,7 +161,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               child: Image.asset(
                                 "assets/icon/email.png",
                                 scale: 22,
-                                color: WHITE_COLOR,
+                                color: whiteColor,
                               ),
                             ),
                             SizedBox(
@@ -171,7 +171,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               width: wp(60, context),
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].email}",
-                              selectionColor: WHITE_COLOR,
+                              selectionColor: whiteColor,
                               fontSize: 14,
                             ),
                           ],
@@ -194,7 +194,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               child: Image.asset(
                                 "assets/icon/website.png",
                                 scale: 22,
-                                color: WHITE_COLOR,
+                                color: whiteColor,
                               ),
                             ),
                             SizedBox(
@@ -204,7 +204,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               width: wp(60, context),
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].website}",
-                              selectionColor: WHITE_COLOR,
+                              selectionColor: whiteColor,
                               fontSize: 14,
                             ),
                           ],
@@ -229,7 +229,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/whats.png",
                                   scale: 18,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -243,7 +243,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/Face.png",
                                   scale: 18,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -257,7 +257,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/tele.png",
                                   scale: 18,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -273,7 +273,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/lin.png",
                                   scale: 18,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -284,19 +284,19 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                   showDialog(
                                     context: context,
                                     builder: (ctx) => AlertDialog(
-                                      backgroundColor: BLUE_COLOR,
+                                      backgroundColor: blueColor,
                                       title: const Text("Address",
                                           style: TextStyle(
                                               fontFamily: 'Marck',
                                               fontSize: 25,
-                                              color: WHITE_COLOR,
+                                              color: whiteColor,
                                               fontWeight: FontWeight.bold)),
                                       content: Text(
                                           '${Staticmenbers.listofUsers[cardindex!].address}',
                                           style: const TextStyle(
                                               fontFamily: 'Marck',
                                               fontSize: 25,
-                                              color: WHITE_COLOR,
+                                              color: whiteColor,
                                               fontWeight: FontWeight.bold)),
                                       actions: <Widget>[
                                         Row(
@@ -309,7 +309,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                               },
                                               title: 'Use Map',
                                               fontSize: null,
-                                              color: BLUE_COLOR,
+                                              color: blueColor,
                                             ),
                                             TextButtomWidget(
                                               onPressed: () {
@@ -328,7 +328,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 child: Image.asset(
                                   "assets/icon/pin.png",
                                   scale: 18,
-                                  color: WHITE_COLOR,
+                                  color: whiteColor,
                                 ),
                               ),
                             ),
@@ -354,11 +354,11 @@ class _Cardtheme2State extends State<Cardtheme2> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: WHITE_COLOR,
+        color: whiteColor,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: BLUE_COLOR),
+        style: TextStyle(color: blueColor),
       ),
     );
 

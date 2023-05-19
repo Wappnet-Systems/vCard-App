@@ -28,7 +28,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
               topLeft: Radius.circular(50),
               bottomRight: Radius.circular(50)),
         ),
-        backgroundColor: WHITE_COLOR,
+        backgroundColor: whiteColor,
         title: null,
         content: SizedBox(
           height: hp(35, context),
@@ -36,17 +36,17 @@ class _CardsherescreenState extends State<Cardsherescreen> {
           child: Column(
             children: [
               const Text(
-                "Send Your Card",
+                "Send Your cardJson",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: BLUE_COLOR),
+                    color: blueColor),
               ),
               SizedBox(height: hp(2, context)),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: BLUE_COLOR, width: 2)),
+                    border: Border.all(color: blueColor, width: 2)),
                 child: QrImage(
                   data: "${widget.uid} ${widget.cid}",
                   size: 150,
@@ -54,8 +54,8 @@ class _CardsherescreenState extends State<Cardsherescreen> {
               ),
               SizedBox(height: hp(3, context)),
               const Text(
-                "Point your camera at the QR code.",
-                style: TextStyle(fontSize: 13, color: BLUE_COLOR),
+                "Point your camera at the qrJson code.",
+                style: TextStyle(fontSize: 13, color: blueColor),
               )
             ],
           ),
