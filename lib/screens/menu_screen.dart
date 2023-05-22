@@ -13,24 +13,34 @@ import 'contect_visiting_card.dart';
 import 'dashboard_screen.dart';
 import 'digital_visiting_card_screen.dart';
 
-class Detailscreen extends StatefulWidget {
+class Menuscreen extends StatefulWidget {
   final int? id;
   final int? contectid;
-  const Detailscreen({super.key, this.id, this.contectid});
+  const Menuscreen({super.key, this.id, this.contectid});
 
   @override
-  State<Detailscreen> createState() => _DetailscreenState();
+  State<Menuscreen> createState() => _MenuscreenState();
 }
 
-class _DetailscreenState extends State<Detailscreen> {
+class _MenuscreenState extends State<Menuscreen> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: hp(20, context),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+      ),
+      height: hp(45, context),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Text(
+            "Menu",
+            style: TextStyle(color: blackColor, fontSize: 16),
+          ),
+          SizedBox(height: hp(2, context)),
           InkWell(
             onTap: () {
               Navigator.pushReplacement(
@@ -45,26 +55,24 @@ class _DetailscreenState extends State<Detailscreen> {
                             )));
             },
             child: Container(
-              height: hp(8, context),
-              width: wp(17, context),
+              padding: const EdgeInsets.only(left: 20, top: 8, bottom: 8),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: grayColor),
-              child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.remove_red_eye,
-                      size: 22,
-                      color: blackColor,
-                    ),
-                    Text(
-                      "View",
-                      style: TextStyle(color: blackColor, fontSize: 14),
-                    )
-                  ]),
+                  color: blackColor, borderRadius: BorderRadius.circular(10)),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                const Icon(
+                  Icons.remove_red_eye,
+                  size: 35,
+                  color: whiteColor,
+                ),
+                SizedBox(width: wp(10, context)),
+                const Text(
+                  "View",
+                  style: TextStyle(color: whiteColor, fontSize: 16),
+                )
+              ]),
             ),
           ),
-          SizedBox(width: wp(2, context)),
+          SizedBox(height: hp(2, context)),
           (widget.id != null)
               ? InkWell(
                   onTap: () {
@@ -77,28 +85,28 @@ class _DetailscreenState extends State<Detailscreen> {
                             ));
                   },
                   child: Container(
-                    height: hp(8, context),
-                    width: wp(17, context),
+                    padding: const EdgeInsets.only(left: 20, top: 8, bottom: 8),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: grayColor),
-                    child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        color: blackColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.share_sharp,
-                            size: 22,
-                            color: blackColor,
+                            size: 35,
+                            color: whiteColor,
                           ),
+                          SizedBox(width: wp(10, context)),
                           Text(
                             "Share",
-                            style: TextStyle(color: blackColor, fontSize: 14),
+                            style: TextStyle(color: whiteColor, fontSize: 16),
                           )
                         ]),
                   ),
                 )
               : const SizedBox.shrink(),
-          SizedBox(width: wp(2, context)),
+          SizedBox(height: hp(2, context)),
           (widget.id != null)
               ? InkWell(
                   onTap: () {
@@ -109,28 +117,28 @@ class _DetailscreenState extends State<Detailscreen> {
                                 id: Staticmenbers.listofUsers[widget.id!].id)));
                   },
                   child: Container(
-                    height: hp(8, context),
-                    width: wp(17, context),
+                    padding: const EdgeInsets.only(left: 20, top: 8, bottom: 8),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: grayColor),
-                    child: const Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        color: blackColor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.edit_document,
-                            size: 22,
-                            color: blackColor,
+                            size: 35,
+                            color: whiteColor,
                           ),
+                          SizedBox(width: wp(10, context)),
                           Text(
                             "Edit",
-                            style: TextStyle(color: blackColor, fontSize: 14),
+                            style: TextStyle(color: whiteColor, fontSize: 16),
                           )
                         ]),
                   ),
                 )
               : const SizedBox.shrink(),
-          SizedBox(width: wp(2, context)),
+          SizedBox(height: hp(2, context)),
           InkWell(
             onTap: () {
               setState(() {
@@ -184,7 +192,7 @@ class _DetailscreenState extends State<Detailscreen> {
                                           .collection("users")
                                           .doc(FirebaseAuth
                                               .instance.currentUser?.uid)
-                                          .collection("Frind's cardJson")
+                                          .collection("Frind's card")
                                           .doc(Staticmenbers
                                               .cardUsers[widget.contectid!].id)
                                           .delete()
@@ -223,23 +231,21 @@ class _DetailscreenState extends State<Detailscreen> {
               });
             },
             child: Container(
-              height: hp(8, context),
-              width: wp(17, context),
+              padding: const EdgeInsets.only(left: 20, top: 8, bottom: 8),
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100), color: grayColor),
-              child: const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.delete,
-                      size: 22,
-                      color: blackColor,
-                    ),
-                    Text(
-                      "Delete",
-                      style: TextStyle(color: blackColor, fontSize: 14),
-                    )
-                  ]),
+                  color: blackColor, borderRadius: BorderRadius.circular(10)),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                Icon(
+                  Icons.delete,
+                  size: 35,
+                  color: whiteColor,
+                ),
+                SizedBox(width: wp(10, context)),
+                Text(
+                  "Delete",
+                  style: TextStyle(color: whiteColor, fontSize: 16),
+                )
+              ]),
             ),
           ),
         ],

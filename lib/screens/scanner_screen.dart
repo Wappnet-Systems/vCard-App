@@ -25,7 +25,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   FToast? fToast;
   bool value = false;
   int? contectcard;
-  int? cardJson;
+  int? card;
   int? color;
   String? cid;
   String? uid;
@@ -73,7 +73,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
             id: element['id'],
             type: element['type'],
             image: element['images'],
-            cardJson: element['cardJson'],
+            card: element['card'],
             color: element['color']),
       );
     }
@@ -81,7 +81,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
     setState(() {
       List.generate(userData.length, (index) {
         name = userData[index].name;
-        cardJson = userData[index].cardJson;
+        card = userData[index].card;
         color = userData[index].color;
         cid = cid;
         uid = uid;
@@ -105,7 +105,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection("Frind's cardJson")
+        .collection("Frind's card")
         .doc(cid);
     return receivedLoanDataRef.set({
       'Name': name,
@@ -123,7 +123,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'images': image,
       'type': type,
       'user': FirebaseAuth.instance.currentUser?.uid,
-      'cardJson': cardJson,
+      'card': card,
       'color': color,
     }).then((value) {
       Navigator.pushReplacement(
@@ -237,6 +237,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                         padding: const EdgeInsets.only(top: 3),
                         child: Center(
                             child: Textwidget(
+                          textAlign: TextAlign.start,
                           width: 123,
                           text: '$name',
                           fontSize: 18,

@@ -8,8 +8,8 @@ const Color blueColor = Color(0xff1d2e3e);
 const Color goldColor = Color(0xfff4d354);
 const Color grayColor = Color(0xffbdbdbd);
 const Color bluegrayColor = Color(0xff78909c);
-const String cardJson = 'assets/lottie/No_Data.json';
-const String qrJson = 'assets/lottie/.json';
+const String card = 'assets/lottie/No_Data.json';
+const String qrJson = 'assets/lottie/QR.json';
 const yourgoogleapikey = 'AIzaSyDJbqVkRb6llQczHvPN_WnK4pGUGt30ykM';
 
 class Staticmenbers {
@@ -18,7 +18,7 @@ class Staticmenbers {
 }
 
 final colorList = [
-  whiteColor,
+  goldColor,
   Colors.blue,
   const Color(0xffff9410),
   const Color(0xff56433d),
@@ -31,4 +31,11 @@ final colorList = [
   const Color(0xfff6c028),
   const Color(0xff960001),
   const Color(0xffb5ca1d)
+];
+
+final imageList = [
+  "assets/cards/card1.jpg",
+  'assets/cards/card2.jpg',
+  "assets/cards/card3.jpg",
+  "assets/cards/card4.jpg"
 ];

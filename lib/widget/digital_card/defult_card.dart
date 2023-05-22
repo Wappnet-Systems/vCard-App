@@ -3,8 +3,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/text_widget.dart';
-import '../utils/responsive.dart';
-import '../widget/text_button_widget.dart';
+import '../../utils/responsive.dart';
+import '../text_button_widget.dart';
 
 class DefultCard extends StatefulWidget {
   final int? id;
@@ -54,10 +54,11 @@ class _DefultCardState extends State<DefultCard> {
                                       "")
                                   ? Container()
                                   : Textwidget(
-                                      width: wp(40, context),
+                                      textAlign: TextAlign.start,
+                                      width: wp(60, context),
                                       text:
                                           '${Staticmenbers.listofUsers[cardindex!].compeny}',
-                                      fontSize: 23,
+                                      fontSize: 20,
                                       selectionColor: goldColor,
                                     )),
                       Center(
@@ -102,6 +103,7 @@ class _DefultCardState extends State<DefultCard> {
                               (Staticmenbers.listofUsers[cardindex!].name == "")
                                   ? Container()
                                   : Textwidget(
+                                      textAlign: TextAlign.center,
                                       width: wp(40, context),
                                       text:
                                           '${Staticmenbers.listofUsers[cardindex!].name}',
@@ -115,6 +117,7 @@ class _DefultCardState extends State<DefultCard> {
                                     "")
                                 ? Container()
                                 : Textwidget(
+                                    textAlign: TextAlign.center,
                                     width: wp(60, context),
                                     text:
                                         '${Staticmenbers.listofUsers[cardindex!].department}',
@@ -389,8 +392,7 @@ class _DefultCardState extends State<DefultCard> {
                             )
                           : const SizedBox.shrink(),
                       const Padding(
-                        padding:
-                            EdgeInsets.only(left: 35, top: 10, bottom: 10),
+                        padding: EdgeInsets.only(left: 35, top: 10, bottom: 10),
                       ),
                     ]),
               ),

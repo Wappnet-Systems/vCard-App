@@ -29,6 +29,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
   Widget build(BuildContext context) {
     return Column(children: [
       CustomTextFormField(
+        textCapitalization: TextCapitalization.none,
         labelText: "Website",
         inputFormatters: null,
         textInputType: TextInputType.text,
@@ -44,6 +45,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
+        textCapitalization: TextCapitalization.none,
         labelText: "WhatsApp",
         inputFormatters: [maskFormatter],
         textInputType: TextInputType.phone,
@@ -59,6 +61,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
+        textCapitalization: TextCapitalization.none,
         labelText: "Link",
         inputFormatters: null,
         textInputType: TextInputType.text,
@@ -74,6 +77,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
+        textCapitalization: TextCapitalization.none,
         labelText: "Facebook",
         inputFormatters: null,
         textInputType: TextInputType.text,
@@ -89,6 +93,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
+        textCapitalization: TextCapitalization.none,
         labelText: "Telegram",
         inputFormatters: [maskFormatter],
         textInputType: TextInputType.phone,

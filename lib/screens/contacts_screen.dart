@@ -7,7 +7,7 @@ import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_no_data_widget.dart';
-import 'detail_screen.dart';
+import 'menu_screen.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -38,7 +38,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
-        .collection("Frind's cardJson")
+        .collection("Frind's card")
         .get();
 
     final userData = snapshot.docs
@@ -58,7 +58,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             id: e['id'],
             image: e['images'],
             type: e['type'],
-            cardJson: e['cardJson'],
+            card: e['card'],
             color: e['color']))
         .toList();
 
@@ -158,6 +158,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 9, left: 20),
                                           child: Textwidget(
+                                            textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
                                                 '${Staticmenbers.cardUsers[index].name}',
@@ -170,6 +171,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 8, left: 20),
                                           child: Textwidget(
+                                            textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
                                                 '${Staticmenbers.cardUsers[index].phone}',
@@ -182,6 +184,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 0, left: 20),
                                           child: Textwidget(
+                                            textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
                                                 '${Staticmenbers.cardUsers[index].compeny}',
@@ -204,7 +207,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             top: Radius.circular(25.0)),
                                       ),
                                       builder: (BuildContext context) =>
-                                          Detailscreen(
+                                          Menuscreen(
                                             contectid: cardindex,
                                           ));
                                 },
@@ -220,7 +223,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 height: hp(100, context),
                 width: wp(100, context),
                 child: const CustomNoData(
-                  iconaddress: cardJson,
+                  iconaddress: card,
                 ),
               ));
   }

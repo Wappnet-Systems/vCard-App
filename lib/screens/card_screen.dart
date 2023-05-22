@@ -9,7 +9,7 @@ import 'package:vcard/utils/responsive.dart';
 import '../model/data_controllers.dart';
 import '../widget/custom_no_data_widget.dart';
 import '../widget/text_widget.dart';
-import 'detail_screen.dart';
+import 'menu_screen.dart';
 
 class Cardscreen extends StatefulWidget {
   const Cardscreen({super.key});
@@ -61,7 +61,7 @@ class _CardscreenState extends State<Cardscreen> {
             id: element['id'],
             type: element['type'],
             image: element['images'],
-            cardJson: element['cardJson'],
+            card: element['card'],
             color: element['color']),
       );
     }
@@ -168,6 +168,7 @@ class _CardscreenState extends State<Cardscreen> {
                                       padding: const EdgeInsets.only(
                                           top: 9, left: 20),
                                       child: Textwidget(
+                                        textAlign: TextAlign.start,
                                         width: wp(40, context),
                                         text:
                                             '${Staticmenbers.listofUsers[index].name}',
@@ -178,6 +179,7 @@ class _CardscreenState extends State<Cardscreen> {
                                       padding: const EdgeInsets.only(
                                           top: 5, left: 20),
                                       child: Textwidget(
+                                        textAlign: TextAlign.start,
                                         width: wp(40, context),
                                         text:
                                             '${Staticmenbers.listofUsers[index].type}',
@@ -188,6 +190,7 @@ class _CardscreenState extends State<Cardscreen> {
                                       padding: const EdgeInsets.only(
                                           top: 3, left: 20),
                                       child: Textwidget(
+                                        textAlign: TextAlign.start,
                                         width: wp(40, context),
                                         text:
                                             '${Staticmenbers.listofUsers[index].department}',
@@ -204,15 +207,15 @@ class _CardscreenState extends State<Cardscreen> {
                                       cardindex = index;
                                     });
                                     showModalBottomSheet(
-                                        backgroundColor: Colors.transparent,
+                                        backgroundColor: whiteColor,
                                         elevation: 0.0,
                                         context: context,
                                         shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(25.0)),
+                                              top: Radius.circular(20.0)),
                                         ),
                                         builder: (BuildContext context) =>
-                                            Detailscreen(
+                                            Menuscreen(
                                               id: cardindex,
                                             ));
                                   },
@@ -225,7 +228,7 @@ class _CardscreenState extends State<Cardscreen> {
                   height: hp(100, context),
                   width: wp(100, context),
                   child: const CustomNoData(
-                    iconaddress: cardJson,
+                    iconaddress: card,
                   ),
                 )),
     );

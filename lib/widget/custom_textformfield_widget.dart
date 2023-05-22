@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final String? Function(String? value)? validationfunction;
   final Icon? customsuffixIcon;
   final List<TextInputFormatter>? inputFormatters;
+  final TextCapitalization? textCapitalization;
   final String? labelText;
   const CustomTextFormField(
       {super.key,
@@ -22,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
       required this.customobscuretext,
       required this.validationfunction,
       required this.customsuffixIcon,
+      required this.textCapitalization,
       required this.inputFormatters});
 
   @override
@@ -29,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: TextFormField(
-        textCapitalization: TextCapitalization.words,
+        textCapitalization: textCapitalization!,
         textInputAction: TextInputAction.next,
         autocorrect: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,

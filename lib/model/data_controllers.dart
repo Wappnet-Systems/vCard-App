@@ -13,7 +13,7 @@ class Users {
   final String? id;
   final String? image;
   final String? type;
-  final int? cardJson;
+  final int? card;
   final String? user;
   final int? color;
 
@@ -34,5 +34,5 @@ class Users {
       required this.id,
       required this.type,
       required this.image,
-      required this.cardJson});
+      required this.card});
 }

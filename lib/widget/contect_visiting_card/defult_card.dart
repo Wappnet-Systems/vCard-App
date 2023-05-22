@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
-import '../utils/responsive.dart';
-import '../widget/text_button_widget.dart';
-import '../widget/text_widget.dart';
+import '../../utils/responsive.dart';
+import '../text_button_widget.dart';
+import '../text_widget.dart';
 
 class Contectdefultcard extends StatefulWidget {
   final int? id;
@@ -52,6 +52,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                   "")
                               ? Container()
                               : Textwidget(
+                                  textAlign: TextAlign.start,
                                   width: wp(40, context),
                                   text:
                                       '${Staticmenbers.listofUsers[contactcardindex!].compeny}',
@@ -103,6 +104,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                   "")
                               ? Container()
                               : Textwidget(
+                                  textAlign: TextAlign.start,
                                   width: wp(40, context),
                                   text:
                                       '${Staticmenbers.listofUsers[contactcardindex!].name}',
@@ -116,6 +118,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                 "")
                             ? Container()
                             : Textwidget(
+                                textAlign: TextAlign.start,
                                 width: wp(60, context),
                                 text:
                                     '${Staticmenbers.listofUsers[contactcardindex!].department}',
@@ -405,8 +408,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                             )
                           : const SizedBox.shrink(),
                       const Padding(
-                        padding:
-                            EdgeInsets.only(left: 35, top: 10, bottom: 10),
+                        padding: EdgeInsets.only(left: 35, top: 10, bottom: 10),
                       ),
                     ]),
               ),

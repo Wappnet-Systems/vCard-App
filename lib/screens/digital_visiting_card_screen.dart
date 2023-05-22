@@ -5,16 +5,15 @@ import 'dart:ui' as ui;
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vcard/digital_card/card_1.dart';
-import 'package:vcard/digital_card/card_4.dart';
-import 'package:vcard/digital_card/defult_card.dart';
+import 'package:vcard/widget/digital_card/card_1.dart';
+import 'package:vcard/widget/digital_card/card_4.dart';
+import 'package:vcard/widget/digital_card/defult_card.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import '../digital_card/card_2.dart';
-import '../digital_card/card_3.dart';
+import '../widget/digital_card/card_2.dart';
+import '../widget/digital_card/card_3.dart';
 
 class Digitalvisitingcard extends StatefulWidget {
   final int? id;
@@ -26,15 +25,12 @@ class Digitalvisitingcard extends StatefulWidget {
 
 class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   int? cardindex;
-  FToast? fToast;
   final GlobalKey _containerKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     cardindex = widget.id;
-    fToast = FToast();
-    fToast?.init(context);
   }
 
   Future<void> _captureImage() async {
@@ -93,7 +89,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
       backgroundColor: whiteColor,
       body: RepaintBoundary(
           key: _containerKey,
-          child: cardList[Staticmenbers.listofUsers[widget.id!].cardJson!]),
+          child: cardList[Staticmenbers.listofUsers[widget.id!].card!]),
     );
   }
 }

@@ -36,7 +36,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
           child: Column(
             children: [
               const Text(
-                "Send Your cardJson",
+                "Send Your card",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

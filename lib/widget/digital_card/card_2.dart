@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/text_widget.dart';
-import '../widget/text_button_widget.dart';
+import '../text_button_widget.dart';
 
 class Cardtheme2 extends StatefulWidget {
   final int? id;
@@ -73,56 +73,48 @@ class _Cardtheme2State extends State<Cardtheme2> {
                       ),
               ),
             ),
-            Staticmenbers.listofUsers[cardindex!].telegram != "" &&
-                        Staticmenbers.listofUsers[cardindex!].telegram !=
-                            null ||
-                    Staticmenbers.listofUsers[cardindex!].whatsapp != "" &&
-                        Staticmenbers.listofUsers[cardindex!].whatsapp !=
-                            null ||
-                    Staticmenbers.listofUsers[cardindex!].website != "" &&
-                        Staticmenbers.listofUsers[cardindex!].website != null ||
-                    Staticmenbers.listofUsers[cardindex!].facebook != "" &&
-                        Staticmenbers.listofUsers[cardindex!].facebook !=
-                            null ||
-                    Staticmenbers.listofUsers[cardindex!].link != "" &&
-                        Staticmenbers.listofUsers[cardindex!].link != null
-                ? Column(
+            Column(
+              children: [
+                SizedBox(height: hp(3, context)),
+                Textwidget(
+                  textAlign: TextAlign.center,
+                  width: wp(60, context),
+                  text: "${Staticmenbers.listofUsers[cardindex!].name}",
+                  selectionColor: whiteColor,
+                  fontSize: 24,
+                ),
+                SizedBox(
+                  height: hp(1, context),
+                ),
+                Textwidget(
+                  textAlign: TextAlign.center,
+                  width: wp(60, context),
+                  text: "${Staticmenbers.listofUsers[cardindex!].department}",
+                  selectionColor: whiteColor,
+                  fontSize: 14,
+                ),
+                SizedBox(
+                  height: hp(0.5, context),
+                ),
+                Textwidget(
+                  textAlign: TextAlign.center,
+                  width: wp(60, context),
+                  text: "${Staticmenbers.listofUsers[cardindex!].compeny}",
+                  selectionColor: whiteColor,
+                  fontSize: 14,
+                ),
+                SizedBox(
+                  height: hp(3, context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
+                  child: Row(
                     children: [
-                      SizedBox(height: hp(3, context)),
-                      Textwidget(
-                        width: wp(60, context),
-                        text: "${Staticmenbers.listofUsers[cardindex!].name}",
-                        selectionColor: whiteColor,
-                        fontSize: 24,
-                      ),
-                      SizedBox(
-                        height: hp(1, context),
-                      ),
-                      Textwidget(
-                        width: wp(60, context),
-                        text:
-                            "${Staticmenbers.listofUsers[cardindex!].department}",
-                        selectionColor: whiteColor,
-                        fontSize: 14,
-                      ),
-                      SizedBox(
-                        height: hp(0.5, context),
-                      ),
-                      Textwidget(
-                        width: wp(60, context),
-                        text:
-                            "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        selectionColor: whiteColor,
-                        fontSize: 14,
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50),
-                        child: Row(
-                          children: [
-                            InkWell(
+                      (Staticmenbers.listofUsers[cardindex!].phone == "")
+                          ? Container(
+                              height: hp(2, context),
+                            )
+                          : InkWell(
                               onTap: () {
                                 launchUrl(Uri.parse(
                                     'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
@@ -133,27 +125,36 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 color: whiteColor,
                               ),
                             ),
-                            SizedBox(
-                              width: wp(8, context),
-                            ),
-                            Textwidget(
+                      SizedBox(
+                        width: wp(8, context),
+                      ),
+                      (Staticmenbers.listofUsers[cardindex!].phone == "")
+                          ? Container(
+                              height: hp(2, context),
+                            )
+                          : Textwidget(
+                              textAlign: TextAlign.start,
                               width: wp(60, context),
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].phone}",
                               selectionColor: whiteColor,
                               fontSize: 14,
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50),
-                        child: Row(
-                          children: [
-                            InkWell(
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: hp(3, context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
+                  child: Row(
+                    children: [
+                      (Staticmenbers.listofUsers[cardindex!].email == "")
+                          ? Container(
+                              height: hp(2, context),
+                            )
+                          : InkWell(
                               onTap: () {
                                 launchUrl(Uri.parse(
                                     'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
@@ -164,27 +165,36 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 color: whiteColor,
                               ),
                             ),
-                            SizedBox(
-                              width: wp(8, context),
-                            ),
-                            Textwidget(
+                      SizedBox(
+                        width: wp(8, context),
+                      ),
+                      (Staticmenbers.listofUsers[cardindex!].email == "")
+                          ? Container(
+                              height: hp(2, context),
+                            )
+                          : Textwidget(
+                              textAlign: TextAlign.start,
                               width: wp(60, context),
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].email}",
                               selectionColor: whiteColor,
                               fontSize: 14,
                             ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50),
-                        child: Row(
-                          children: [
-                            InkWell(
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: hp(3, context),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50),
+                  child: Row(
+                    children: [
+                      (Staticmenbers.listofUsers[cardindex!].website == "")
+                          ? Container(
+                              height: hp(3, context),
+                            )
+                          : InkWell(
                               onTap: () async {
                                 final url =
                                     'https://${Staticmenbers.listofUsers[cardindex!].website}';
@@ -197,33 +207,40 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 color: whiteColor,
                               ),
                             ),
-                            SizedBox(
-                              width: wp(8, context),
-                            ),
-                            Textwidget(
+                      SizedBox(
+                        width: wp(8, context),
+                      ),
+                      (Staticmenbers.listofUsers[cardindex!].website == "")
+                          ? Container(
+                              height: hp(3, context),
+                            )
+                          : Textwidget(
+                              textAlign: TextAlign.start,
                               width: wp(60, context),
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].website}",
                               selectionColor: whiteColor,
                               fontSize: 14,
                             ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 15),
-                      Wrap(
-                          runSpacing: 5.0,
-                          alignment: WrapAlignment.center,
-                          runAlignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            Padding(
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Wrap(
+                    runSpacing: 5.0,
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      (Staticmenbers.listofUsers[cardindex!].whatsapp == "")
+                          ? const SizedBox.shrink()
+                          : Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () {
                                   launchUrl(
                                       Uri.parse(
-                                          'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                          'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
                                       mode: LaunchMode.externalApplication);
                                 },
                                 child: Image.asset(
@@ -233,7 +250,9 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 ),
                               ),
                             ),
-                            Padding(
+                      (Staticmenbers.listofUsers[cardindex!].facebook == "")
+                          ? const SizedBox.shrink()
+                          : Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () {
@@ -247,7 +266,9 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 ),
                               ),
                             ),
-                            Padding(
+                      (Staticmenbers.listofUsers[cardindex!].telegram == "")
+                          ? const SizedBox.shrink()
+                          : Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () {
@@ -261,7 +282,9 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 ),
                               ),
                             ),
-                            Padding(
+                      (Staticmenbers.listofUsers[cardindex!].link == "")
+                          ? const SizedBox.shrink()
+                          : Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () async {
@@ -277,7 +300,9 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 ),
                               ),
                             ),
-                            Padding(
+                      (Staticmenbers.listofUsers[cardindex!].address == "")
+                          ? const SizedBox.shrink()
+                          : Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: InkWell(
                                 onTap: () {
@@ -332,10 +357,9 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                 ),
                               ),
                             ),
-                          ]),
-                    ],
-                  )
-                : const SizedBox.shrink(),
+                    ])
+              ],
+            )
           ]),
         ),
       ),
