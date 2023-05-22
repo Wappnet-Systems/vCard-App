@@ -5,10 +5,12 @@ class Textwidget extends StatelessWidget {
   final TextAlign? textAlign;
   final String? text;
   final double? fontSize;
+  final FontWeight? fontWeight;
   final Color? selectionColor;
   const Textwidget(
       {super.key,
       required this.width,
+      this.fontWeight,
       required this.textAlign,
       required this.text,
       this.fontSize,
@@ -23,7 +25,8 @@ class Textwidget extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         textAlign: textAlign,
-        style: TextStyle(fontSize: fontSize, color: selectionColor),
+        style: TextStyle(
+            fontSize: fontSize, color: selectionColor, fontWeight: fontWeight),
       ),
     );
   }

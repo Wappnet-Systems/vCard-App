@@ -22,7 +22,6 @@ class _PreviewCardState extends State<PreviewCard> {
   void initState() {
     previewcard = widget.cardid;
     previewcolor = widget.colorid;
-    print(previewcolor);
     super.initState();
   }
 

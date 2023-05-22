@@ -1,11 +1,10 @@
+// ignore_for_file: unrelated_type_equality_checks, file_names
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants_color.dart';
 import '../../utils/responsive.dart';
-import '../text_button_widget.dart';
 
 class PreviewCard3 extends StatefulWidget {
   final int? id;

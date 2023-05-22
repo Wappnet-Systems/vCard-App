@@ -199,7 +199,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                     cardindex = index;
                                   });
                                   showModalBottomSheet(
-                                      backgroundColor: Colors.transparent,
+                                      backgroundColor: whiteColor,
                                       elevation: 0.0,
                                       context: context,
                                       shape: const RoundedRectangleBorder(

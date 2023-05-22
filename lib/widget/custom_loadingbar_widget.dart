@@ -12,21 +12,13 @@ class Custonloading extends StatefulWidget {
 class _CustonloadingState extends State<Custonloading> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            topLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10)),
-        color: blueColor,
-      ),
-      height: hp(8, context),
-      width: wp(20, context),
+    return SizedBox(
+      height: hp(9, context),
+      width: wp(15, context),
       child: const Padding(
         padding: EdgeInsets.all(10.0),
         child: CircularProgressIndicator(
-          color: whiteColor,
+          color: bluegrayColor,
           strokeWidth: 2,
         ),
       ),

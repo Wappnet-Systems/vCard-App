@@ -122,8 +122,9 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                   ],
                 ),
               ),
-              const VerticalDivider(color: Colors.transparent, width: 22),
-              Column(children: [
+              VerticalDivider(
+                  color: Colors.transparent, width: wp(6.25, context)),
+              Column(mainAxisAlignment: MainAxisAlignment.end, children: [
                 (Staticmenbers.cardUsers[contactcardindex!].website == "")
                     ? Container(
                         height: hp(5.2, context),

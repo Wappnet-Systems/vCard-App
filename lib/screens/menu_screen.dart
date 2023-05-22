@@ -32,11 +32,11 @@ class _MenuscreenState extends State<Menuscreen> {
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
       ),
-      height: hp(45, context),
+      height: (widget.id != null) ? hp(45, context) : hp(30, context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             "Menu",
             style: TextStyle(color: blackColor, fontSize: 16),
           ),
@@ -72,7 +72,9 @@ class _MenuscreenState extends State<Menuscreen> {
               ]),
             ),
           ),
-          SizedBox(height: hp(2, context)),
+          (widget.id != null)
+              ? SizedBox(height: hp(2, context))
+              : const SizedBox.shrink(),
           (widget.id != null)
               ? InkWell(
                   onTap: () {
@@ -92,13 +94,13 @@ class _MenuscreenState extends State<Menuscreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.share_sharp,
                             size: 35,
                             color: whiteColor,
                           ),
                           SizedBox(width: wp(10, context)),
-                          Text(
+                          const Text(
                             "Share",
                             style: TextStyle(color: whiteColor, fontSize: 16),
                           )
@@ -124,13 +126,13 @@ class _MenuscreenState extends State<Menuscreen> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.edit_document,
                             size: 35,
                             color: whiteColor,
                           ),
                           SizedBox(width: wp(10, context)),
-                          Text(
+                          const Text(
                             "Edit",
                             style: TextStyle(color: whiteColor, fontSize: 16),
                           )
@@ -235,13 +237,13 @@ class _MenuscreenState extends State<Menuscreen> {
               decoration: BoxDecoration(
                   color: blackColor, borderRadius: BorderRadius.circular(10)),
               child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                Icon(
+                const Icon(
                   Icons.delete,
                   size: 35,
                   color: whiteColor,
                 ),
                 SizedBox(width: wp(10, context)),
-                Text(
+                const Text(
                   "Delete",
                   style: TextStyle(color: whiteColor, fontSize: 16),
                 )

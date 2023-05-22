@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/responsive.dart';
@@ -136,8 +138,8 @@ class _PreviewCard1State extends State<PreviewCard1> {
                                 color: whiteColor,
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, top: 15),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 8, top: 15),
                               child: Textwidget(
                                   textAlign: TextAlign.start,
                                   width: 130,
@@ -157,8 +159,8 @@ class _PreviewCard1State extends State<PreviewCard1> {
                                 color: whiteColor,
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, top: 15),
+                            const Padding(
+                              padding: EdgeInsets.only(left: 8, top: 15),
                               child: Textwidget(
                                   textAlign: TextAlign.start,
                                   width: 130,
@@ -182,7 +184,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                               padding: const EdgeInsets.only(left: 8, top: 15),
                               child: SizedBox(
                                 width: wp(40, context),
-                                child: Textwidget(
+                                child: const Textwidget(
                                     textAlign: TextAlign.start,
                                     width: 130,
                                     text: "aman12@gmail.com",

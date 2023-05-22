@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:flutter/material.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/text_widget.dart';
@@ -18,7 +20,6 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
   @override
   void initState() {
     previewcolor = widget.id;
-    print(previewcolor);
     super.initState();
   }
 

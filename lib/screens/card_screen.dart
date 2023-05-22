@@ -102,127 +102,129 @@ class _CardscreenState extends State<Cardscreen> {
                   padding: const EdgeInsets.all(10),
                   itemCount: Staticmenbers.listofUsers.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        height: hp(13, context),
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: whiteColor,
-                              blurRadius: 10.0,
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          cardindex = index;
+                        });
+                        showModalBottomSheet(
+                            backgroundColor: whiteColor,
+                            elevation: 0.0,
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(20.0)),
                             ),
-                            BoxShadow(
-                              color: Color(0xffc1c4be),
-                              blurRadius: 10.0,
-                            ),
-                          ],
-                          color: whiteColor,
-                        ),
-                        margin: const EdgeInsets.only(
-                            left: 8, right: 8, top: 5, bottom: 5),
-                        child: ListTile(
-                          leading: Staticmenbers.listofUsers[index].image == ""
-                              ? ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: Image.asset(
-                                    "assets/images/splash1.png",
-                                    width: wp(18, context),
-                                    height: hp(10, context),
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: Image.network(
-                                    "${Staticmenbers.listofUsers[index].image}",
-                                    width: wp(18, context),
-                                    height: hp(10, context),
-                                    fit: BoxFit.cover,
-                                    frameBuilder: (context, child, frame,
-                                        wasSynchronouslyLoaded) {
-                                      return child;
-                                    },
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) {
+                            builder: (BuildContext context) => Menuscreen(
+                                  id: cardindex,
+                                ));
+                      },
+                      child: Container(
+                          height: hp(13, context),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: whiteColor,
+                                blurRadius: 10.0,
+                              ),
+                              BoxShadow(
+                                color: Color(0xffc1c4be),
+                                blurRadius: 10.0,
+                              ),
+                            ],
+                            color: whiteColor,
+                          ),
+                          margin:
+                              const EdgeInsets.only(left: 8, top: 5, bottom: 5),
+                          child: ListTile(
+                            leading: Staticmenbers.listofUsers[index].image ==
+                                    ""
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.asset(
+                                      "assets/images/splash1.png",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.network(
+                                      "${Staticmenbers.listofUsers[index].image}",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.cover,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
                                         return child;
-                                      } else {
-                                        return const Center(
-                                            child: Icon(
-                                          Icons.image,
-                                          size: 130,
-                                          color: whiteColor,
-                                        ));
-                                      }
-                                    },
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                              child: Icon(
+                                            Icons.image,
+                                            size: 130,
+                                            color: whiteColor,
+                                          ));
+                                        }
+                                      },
+                                    ),
                                   ),
-                                ),
-                          title: Row(children: [
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 9, left: 20),
-                                      child: Textwidget(
-                                        textAlign: TextAlign.start,
-                                        width: wp(40, context),
-                                        text:
-                                            '${Staticmenbers.listofUsers[index].name}',
-                                        fontSize: 20,
-                                        selectionColor: blackColor,
-                                      )),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5, left: 20),
-                                      child: Textwidget(
-                                        textAlign: TextAlign.start,
-                                        width: wp(40, context),
-                                        text:
-                                            '${Staticmenbers.listofUsers[index].type}',
-                                        fontSize: 14,
-                                        selectionColor: blackColor,
-                                      )),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 3, left: 20),
-                                      child: Textwidget(
-                                        textAlign: TextAlign.start,
-                                        width: wp(40, context),
-                                        text:
-                                            '${Staticmenbers.listofUsers[index].department}',
-                                        fontSize: 14,
-                                        selectionColor: blackColor,
-                                      ))
-                                ]),
-                            const Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: InkWell(
-                                  onTap: () async {
-                                    setState(() {
-                                      cardindex = index;
-                                    });
-                                    showModalBottomSheet(
-                                        backgroundColor: whiteColor,
-                                        elevation: 0.0,
-                                        context: context,
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(20.0)),
-                                        ),
-                                        builder: (BuildContext context) =>
-                                            Menuscreen(
-                                              id: cardindex,
-                                            ));
-                                  },
-                                  child: const Icon(Icons.more_horiz)),
-                            ),
-                          ]),
-                        ));
+                            title: Row(children: [
+                              Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 9, left: 5),
+                                        child: Textwidget(
+                                          textAlign: TextAlign.start,
+                                          width: wp(50, context),
+                                          text:
+                                              '${Staticmenbers.listofUsers[index].name}',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          selectionColor: blackColor,
+                                        )),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, left: 5),
+                                        child: Textwidget(
+                                          textAlign: TextAlign.start,
+                                          width: wp(50, context),
+                                          text:
+                                              '${Staticmenbers.listofUsers[index].type}',
+                                          fontSize: 14,
+                                          selectionColor: blackColor,
+                                        )),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, left: 5),
+                                        child: Textwidget(
+                                          textAlign: TextAlign.start,
+                                          width: wp(50, context),
+                                          text:
+                                              '${Staticmenbers.listofUsers[index].department}',
+                                          fontSize: 14,
+                                          selectionColor: blackColor,
+                                        ))
+                                  ]),
+                              const Spacer(),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Icon(Icons.more_horiz),
+                              ),
+                            ]),
+                          )),
+                    );
                   })
               : SizedBox(
                   height: hp(100, context),
