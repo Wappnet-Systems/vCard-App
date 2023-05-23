@@ -51,13 +51,7 @@ class _MyAppState extends State<MyApp> {
       title: 'VCard',
       theme: ThemeData(fontFamily: 'Trajan'),
       home: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [blueColor, grayColor],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        decoration: const BoxDecoration(color: whiteColor),
         child: AnimatedSplashScreen(
           duration: 1500,
           splashTransition: SplashTransition.fadeTransition,

@@ -109,7 +109,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       telegramcontroller.text = singleuser.first.telegram!;
       websitecontroller.text = singleuser.first.website!;
       whatsappcontroller.text = singleuser.first.whatsapp!;
-      _selectedIndex = singleuser.first.card!;
+      _selectedIndex = singleuser.first.card ?? 4;
       _selectcolor = singleuser.first.color;
     });
     updateImageUrl = singleuser.first.image;
@@ -253,8 +253,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             child: Image(
                               image:
                                   const AssetImage("assets/images/splash1.png"),
-                              width: wp(31, context),
+                              width: wp(30, context),
                               height: hp(15, context),
+                              fit: BoxFit.fill,
                             ),
                           )
                         : ClipOval(
@@ -262,15 +263,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               placeholder: (context, url) =>
                                   const Custonloading(),
                               imageUrl: "$imageurl",
-                              width: wp(31, context),
+                              width: wp(30, context),
                               height: hp(15, context),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           ),
                   ),
                   Positioned(
                       top: 80,
-                      left: 80,
+                      left: 85,
                       child: InkWell(
                         onTap: () {
                           setState(() {
@@ -278,10 +279,20 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           });
                           imagepicker();
                         },
-                        child: const Icon(
-                          Icons.flip_camera_ios,
-                          size: 30,
-                          color: blueColor,
+                        child: Container(
+                          padding: const EdgeInsets.all(1),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: blackColor, width: wp(0.7, context)),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              color: grayColor),
+                          child: const Icon(
+                            Icons.camera,
+                            size: 20,
+                            color: whiteColor,
+                          ),
                         ),
                       )),
                 ]),
@@ -339,6 +350,38 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   validationfunction: textvalidator,
                 ),
                 SizedBox(height: hp(2, context)),
+                CustomTextFormField(
+                  textCapitalization: TextCapitalization.none,
+                  labelText: "Phone",
+                  inputFormatters: [maskFormatter],
+                  textInputType: TextInputType.phone,
+                  textEditingController: numbercontroller,
+                  texteditinghinttext: 'Phone',
+                  customobscuretext: true,
+                  customsuffixIcon: null,
+                  customprefixicon: const Icon(
+                    Icons.phone,
+                    color: grayColor,
+                  ),
+                  validationfunction: numbervalidator,
+                ),
+                SizedBox(height: hp(2, context)),
+                CustomTextFormField(
+                  textCapitalization: TextCapitalization.none,
+                  labelText: "Email",
+                  inputFormatters: null,
+                  textInputType: TextInputType.emailAddress,
+                  textEditingController: emailcontroller,
+                  texteditinghinttext: 'Email',
+                  customobscuretext: true,
+                  customsuffixIcon: null,
+                  customprefixicon: const Icon(
+                    Icons.email,
+                    color: grayColor,
+                  ),
+                  validationfunction: emailValidator,
+                ),
+                SizedBox(height: hp(2, context)),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: GooglePlaceAutoCompleteTextField(
@@ -371,38 +414,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             TextSelection.fromPosition(TextPosition(
                                 offset: prediction.description!.length));
                       }),
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.none,
-                  labelText: "Phone",
-                  inputFormatters: [maskFormatter],
-                  textInputType: TextInputType.phone,
-                  textEditingController: numbercontroller,
-                  texteditinghinttext: 'Phone',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: const Icon(
-                    Icons.phone,
-                    color: grayColor,
-                  ),
-                  validationfunction: numbervalidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.none,
-                  labelText: "Email",
-                  inputFormatters: null,
-                  textInputType: TextInputType.emailAddress,
-                  textEditingController: emailcontroller,
-                  texteditinghinttext: 'Email',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: const Icon(
-                    Icons.email,
-                    color: grayColor,
-                  ),
-                  validationfunction: emailValidator,
                 ),
                 SizedBox(height: hp(1, context)),
                 Row(children: [
@@ -543,8 +554,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
               ],
             ),
             Positioned(
-              top: 200,
-              left: 140,
+              top: 220,
+              left: 160,
               child:
                   (isLoading) ? const Custonloading() : const SizedBox.shrink(),
             )
@@ -646,11 +657,11 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 topLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),
           ),
-          title: const Text("card's"),
+          title: const Text("Update Card's"),
           content: StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
             return SizedBox(
-                height: hp(30, context),
+                height: hp(35, context),
                 width: wp(50, context),
                 child: GridView.builder(
                     itemCount: imageList.length,
@@ -663,10 +674,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           setState(() {
                             _selectedIndex = index;
                           });
-                          Navigator.pop(context);
                         },
                         child: Container(
-                          height: hp(10, context),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: _selectedIndex == index
@@ -675,12 +684,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               width: 4,
                             ),
                           ),
-                          margin: EdgeInsets.only(
-                            right: wp(4, context),
-                          ),
                           child: Image(
                             image: AssetImage(imageList[index]),
-                            height: hp(20, context),
+                            height: hp(15, context),
                           ),
                         ),
                       );
@@ -688,21 +694,24 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            mainAxisSpacing: 15,
-                            crossAxisSpacing: 10)));
+                            mainAxisSpacing: 30,
+                            crossAxisSpacing: 20)));
           }),
           actions: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              TextButtomWidget(
-                color: blueColor,
-                fontSize: 20,
-                onPressed: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                },
-                title: 'ok',
-              ),
-            ])
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                TextButtomWidget(
+                  color: blueColor,
+                  fontSize: 20,
+                  onPressed: () {
+                    setState(() {});
+                    Navigator.pop(context);
+                  },
+                  title: 'ok',
+                ),
+              ]),
+            )
           ],
         );
       },
@@ -721,9 +730,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                 topLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20)),
           ),
-          title: const Text('Pick a color'),
+          title: const Text('Update color'),
           content: SizedBox(
-            height: hp(30, context),
+            height: hp(35, context),
             width: wp(50, context),
             child: StatefulBuilder(
               builder: (BuildContext context,
@@ -761,16 +770,19 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             ),
           ),
           actions: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              TextButtomWidget(
-                color: blueColor,
-                fontSize: 20,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                title: 'ok',
-              ),
-            ])
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                TextButtomWidget(
+                  color: blueColor,
+                  fontSize: 20,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  title: 'ok',
+                ),
+              ]),
+            )
           ],
         );
       },

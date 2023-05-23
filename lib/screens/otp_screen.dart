@@ -1,7 +1,7 @@
 import 'dart:developer';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +9,7 @@ import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
+import '../widget/custom_toast.dart';
 
 class OTPscreen extends StatefulWidget {
   const OTPscreen({Key? key}) : super(key: key);
@@ -21,9 +22,12 @@ class _OTPscreenState extends State<OTPscreen> {
   final otpController = OtpFieldController();
   final FirebaseAuth auth = FirebaseAuth.instance;
   var code = "";
+  FToast? fToast;
 
   @override
   void initState() {
+    fToast = FToast();
+    fToast?.init(context);
     super.initState();
   }
 
@@ -101,12 +105,7 @@ class _OTPscreenState extends State<OTPscreen> {
                         await auth
                             .signInWithCredential(credential)
                             .then((value) async {
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.success,
-                            showCloseIcon: false,
-                            desc: "Login Successfully",
-                          ).show();
+                          displayCustomToast();
                           await prefs.setBool('isLoggedIn', true);
                           Future.delayed(const Duration(seconds: 3), () {
                             Navigator.pushReplacement(
@@ -118,13 +117,6 @@ class _OTPscreenState extends State<OTPscreen> {
                         });
                       } catch (e) {
                         log("Error:$e");
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          showCloseIcon: false,
-                          desc: "OTP is invalid.",
-                        ).show();
-                        Future.delayed(const Duration(seconds: 2));
                       }
                     },
                     child: const Text(
@@ -136,6 +128,19 @@ class _OTPscreenState extends State<OTPscreen> {
           ),
         ),
       ),
+    );
+  }
+
+  displayCustomToast() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "Login Successfully",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
     );
   }
 }

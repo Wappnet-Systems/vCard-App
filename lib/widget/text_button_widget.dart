@@ -21,7 +21,8 @@ class TextButtomWidget extends StatelessWidget {
           onPressed: onPressed,
           child: Container(
             padding: const EdgeInsets.all(14),
-            color: color,
+            decoration: BoxDecoration(
+                color: color, borderRadius: BorderRadius.circular(10)),
             child: Text(
               title!,
               style: TextStyle(color: whiteColor, fontSize: fontSize),

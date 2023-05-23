@@ -105,7 +105,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
           Icons.telegram,
           color: grayColor,
         ),
-        validationfunction: numbervalidator,
+        validationfunction: null,
       ),
       SizedBox(height: hp(2, context)),
     ]);

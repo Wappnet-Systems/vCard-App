@@ -12,7 +12,9 @@ import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
+import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_no_data_widget.dart';
+import '../widget/custom_toast.dart';
 
 class Scannerscreen extends StatefulWidget {
   const Scannerscreen({super.key});
@@ -22,6 +24,7 @@ class Scannerscreen extends StatefulWidget {
 }
 
 class _ScannerscreenState extends State<Scannerscreen> {
+  List<Users> userData = [];
   FToast? fToast;
   bool value = false;
   int? contectcard;
@@ -47,7 +50,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? type;
 
   Future<void> getSingleUserData(String cid, String uid) async {
-    List<Users> userData = [];
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(uid)
@@ -144,6 +146,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
     super.initState();
   }
 
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,87 +169,111 @@ class _ScannerscreenState extends State<Scannerscreen> {
               child: Column(
                 children: [
                   SizedBox(height: hp(17, context)),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(45),
-                          topRight: Radius.circular(50)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: color == "" ? colorList[color!] : blueColor,
-                          blurRadius: 1.0,
-                        ),
-                        const BoxShadow(
-                          color: Color(0xffc1c4be),
-                          blurRadius: 20.0,
-                        ),
-                      ],
-                      color: color == "" ? colorList[color!] : blueColor,
-                    ),
-                    margin: const EdgeInsets.only(
-                        left: 95, right: 95, top: 10, bottom: 10),
-                    child: Column(children: [
-                      image == ""
-                          ? ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(45),
-                                  topRight: Radius.circular(50)),
-                              child: Image.asset(
-                                "assets/images/splash1.png",
-                                width: wp(55, context),
-                                height: hp(17, context),
-                                fit: BoxFit.fill,
+                  userData.isEmpty
+                      ? const Custonloading()
+                      : Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: whiteColor,
+                                blurRadius: 10.0,
                               ),
-                            )
-                          : ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(45),
-                                  topRight: Radius.circular(50)),
-                              child: Image.network(
-                                "$image",
-                                width: wp(52, context),
-                                height: hp(17, context),
-                                fit: BoxFit.fill,
-                                frameBuilder: (context, child, frame,
-                                    wasSynchronouslyLoaded) {
-                                  return child;
-                                },
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Image(
-                                    image: const AssetImage(
-                                        "assets/images/splash1.png"),
-                                    width: wp(55, context),
-                                    height: hp(17, context),
-                                  );
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return const Center(
-                                        child: Icon(
-                                      Icons.image,
-                                      size: 130,
-                                      color: whiteColor,
-                                    ));
-                                  }
-                                },
+                              BoxShadow(
+                                color: Color(0xffc1c4be),
+                                blurRadius: 10.0,
                               ),
-                            ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 3),
-                        child: Center(
-                            child: Textwidget(
-                          textAlign: TextAlign.center,
-                          width: 123,
-                          text: '$name',
-                          fontSize: 18,
-                          selectionColor: whiteColor,
-                        )),
-                      ),
-                    ]),
-                  ),
+                            ],
+                            color: whiteColor,
+                          ),
+                          margin: const EdgeInsets.only(
+                              left: 95, right: 95, top: 10, bottom: 10),
+                          child: Column(
+                            children: [
+                              image == ""
+                                  ? ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20)),
+                                      child: Image.asset(
+                                        "assets/images/splash1.png",
+                                        width: wp(55, context),
+                                        height: hp(17, context),
+                                        fit: BoxFit.fill,
+                                      ),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20)),
+                                      child: Image.network(
+                                        "$image",
+                                        width: wp(52, context),
+                                        height: hp(17, context),
+                                        fit: BoxFit.fill,
+                                        frameBuilder: (context, child, frame,
+                                            wasSynchronouslyLoaded) {
+                                          return child;
+                                        },
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return Image(
+                                            image: const AssetImage(
+                                                "assets/images/splash1.png"),
+                                            width: wp(55, context),
+                                            height: hp(17, context),
+                                          );
+                                        },
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          } else {
+                                            return const Center(
+                                                child: Icon(
+                                              Icons.image,
+                                              size: 130,
+                                              color: blueColor,
+                                            ));
+                                          }
+                                        },
+                                      ),
+                                    ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3, left: 1),
+                                child: Center(
+                                    child: Textwidget(
+                                  textAlign: TextAlign.start,
+                                  width: 123,
+                                  text: '$name',
+                                  fontSize: 18,
+                                  selectionColor: blueColor,
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3, left: 1),
+                                child: Center(
+                                    child: Textwidget(
+                                  textAlign: TextAlign.start,
+                                  width: 123,
+                                  text: '$department',
+                                  fontSize: 18,
+                                  selectionColor: blueColor,
+                                )),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3, left: 1),
+                                child: Center(
+                                    child: Textwidget(
+                                  textAlign: TextAlign.start,
+                                  width: 123,
+                                  text: '$compeny',
+                                  fontSize: 18,
+                                  selectionColor: blueColor,
+                                )),
+                              ),
+                            ],
+                          )),
                   SizedBox(height: hp(5, context)),
                   Center(
                     child: Container(
@@ -255,11 +283,16 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: TextButton(
-                          child: const Text(
-                            'Connected',
-                            style: TextStyle(color: whiteColor),
-                          ),
+                          child: isLoading
+                              ? const Custonloading()
+                              : const Text(
+                                  'Connected',
+                                  style: TextStyle(color: whiteColor),
+                                ),
                           onPressed: () {
+                            setState(() {
+                              isLoading = true;
+                            });
                             addUser();
                             displayCustomToast();
                           },
@@ -364,21 +397,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
   }
 
   displayCustomToast() {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: blueColor,
-      ),
-      child: const Text(
+    Widget toast = const CustomToast(
+      child: Text(
         "Connected",
         style: TextStyle(color: whiteColor),
       ),
     );
-
     fToast?.showToast(
       child: toast,
-      toastDuration: const Duration(seconds: 3),
+      toastDuration: const Duration(seconds: 2),
     );
   }
 }

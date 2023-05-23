@@ -104,7 +104,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                           leading: Staticmenbers.cardUsers[index].image == null
                               ? ClipRRect(
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
+                                      Radius.circular(10)),
                                   child: Image.asset(
                                     "assets/images/splash1.png",
                                     width: wp(18, context),
@@ -114,12 +114,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 )
                               : ClipRRect(
                                   borderRadius: const BorderRadius.all(
-                                      Radius.circular(20)),
+                                      Radius.circular(10)),
                                   child: Image.network(
                                     "${Staticmenbers.cardUsers[index].image}",
                                     width: wp(18, context),
                                     height: hp(10, context),
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     frameBuilder: (context, child, frame,
                                         wasSynchronouslyLoaded) {
                                       return child;
@@ -130,7 +130,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             "assets/images/splash1.png"),
                                         width: wp(18, context),
                                         height: hp(10, context),
-                                        fit: BoxFit.cover,
+                                        fit: BoxFit.fill,
                                       );
                                     },
                                     loadingBuilder:
@@ -193,30 +193,28 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           )),
                                 ]),
                             const Spacer(),
-                            InkWell(
-                                onTap: () async {
-                                  setState(() {
-                                    cardindex = index;
-                                  });
-                                  showModalBottomSheet(
-                                      backgroundColor: whiteColor,
-                                      elevation: 0.0,
-                                      context: context,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(25.0)),
-                                      ),
-                                      builder: (BuildContext context) =>
-                                          Menuscreen(
-                                            contectid: cardindex,
-                                          ));
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.only(right: 15),
-                                  child: Icon(Icons.more_horiz),
-                                )),
+                            const Padding(
+                              padding: EdgeInsets.only(right: 15),
+                              child: Icon(Icons.more_horiz),
+                            ),
                           ]),
                         )),
+                    onTap: () async {
+                      setState(() {
+                        cardindex = index;
+                      });
+                      showModalBottomSheet(
+                          backgroundColor: whiteColor,
+                          elevation: 0.0,
+                          context: context,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0)),
+                          ),
+                          builder: (BuildContext context) => Menuscreen(
+                                contectid: cardindex,
+                              ));
+                    },
                   );
                 })
             : SizedBox(

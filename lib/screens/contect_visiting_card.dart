@@ -5,6 +5,7 @@ import 'package:vcard/widget/contect_visiting_card/card_2.dart';
 import 'package:vcard/widget/contect_visiting_card/card_3.dart';
 import 'package:vcard/widget/contect_visiting_card/card_4.dart';
 import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../widget/contect_visiting_card/card_1.dart';
 import '../widget/contect_visiting_card/defult_card.dart';
 
@@ -39,13 +40,21 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
     ];
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text("${Staticmenbers.cardUsers[widget.contectid!].type}"),
-            backgroundColor: blueColor,
-            systemOverlayStyle: SystemUiOverlayStyle.light,
-          ),
-          backgroundColor: whiteColor,
+          appBar: Customappbarwidget(
+              leading: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                    child: Icon(
+                      Icons.arrow_back_sharp,
+                      color: blackColor,
+                    ),
+                  )),
+              title: "${Staticmenbers.cardUsers[widget.contectid!].type}",
+              actions: null),
           body: cardList[Staticmenbers.cardUsers[widget.contectid!].card!]),
     );
   }

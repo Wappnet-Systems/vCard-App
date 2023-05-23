@@ -83,6 +83,7 @@ class _CardscreenState extends State<Cardscreen> {
             showCloseIcon: false,
             title: "Exit Application",
             desc: "Do you want to exit an Applicaton?",
+            descTextStyle: const TextStyle(color: Colors.black38),
             btnCancelOnPress: () async {},
             btnOkOnPress: () async {
               exit(0);
@@ -115,9 +116,8 @@ class _CardscreenState extends State<Cardscreen> {
                               borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(20.0)),
                             ),
-                            builder: (BuildContext context) => Menuscreen(
-                                  id: cardindex,
-                                ));
+                            builder: (BuildContext context) =>
+                                Menuscreen(id: cardindex));
                       },
                       child: Container(
                           height: hp(13, context),
@@ -135,8 +135,8 @@ class _CardscreenState extends State<Cardscreen> {
                             ],
                             color: whiteColor,
                           ),
-                          margin:
-                              const EdgeInsets.only(left: 8, top: 5, bottom: 5),
+                          margin: const EdgeInsets.only(
+                              left: 5, right: 5, top: 5, bottom: 5),
                           child: ListTile(
                             leading: Staticmenbers.listofUsers[index].image ==
                                     ""
@@ -147,7 +147,7 @@ class _CardscreenState extends State<Cardscreen> {
                                       "assets/images/splash1.png",
                                       width: wp(18, context),
                                       height: hp(10, context),
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                     ),
                                   )
                                 : ClipRRect(
@@ -157,7 +157,7 @@ class _CardscreenState extends State<Cardscreen> {
                                       "${Staticmenbers.listofUsers[index].image}",
                                       width: wp(18, context),
                                       height: hp(10, context),
-                                      fit: BoxFit.cover,
+                                      fit: BoxFit.fill,
                                       frameBuilder: (context, child, frame,
                                           wasSynchronouslyLoaded) {
                                         return child;
@@ -203,7 +203,7 @@ class _CardscreenState extends State<Cardscreen> {
                                           text:
                                               '${Staticmenbers.listofUsers[index].type}',
                                           fontSize: 14,
-                                          selectionColor: blackColor,
+                                          selectionColor: grayColor,
                                         )),
                                     Padding(
                                         padding: const EdgeInsets.only(
@@ -214,7 +214,7 @@ class _CardscreenState extends State<Cardscreen> {
                                           text:
                                               '${Staticmenbers.listofUsers[index].department}',
                                           fontSize: 14,
-                                          selectionColor: blackColor,
+                                          selectionColor: grayColor,
                                         ))
                                   ]),
                               const Spacer(),

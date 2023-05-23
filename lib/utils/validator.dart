@@ -23,11 +23,15 @@ String? numbervalidator(String? value) {
 }
 
 String? textvalidator(String? value) {
-  RegExp(r"^[a-zA-z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-z0-9]+\.[a-zA-Z0-9]+")
-      .hasMatch(value!);
-  if (value.isEmpty) {
-    return "this field can't be Empty";
+  if (value == null || value.isEmpty) {
+    return "This field can't be empty";
   }
+
+  RegExp regex = RegExp(r"^[A-Za-z\s]+$");
+  if (!regex.hasMatch(value)) {
+    return "Invalid format";
+  }
+
   return null;
 }
 
@@ -36,7 +40,7 @@ String? hasValidUrl(String? value) {
       r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
   RegExp regExp = RegExp(pattern);
   if (value!.isEmpty) {
-    return 'Please enter https://';
+    return 'Please enter Website';
   } else if (!regExp.hasMatch(value)) {
     return 'Please enter valid url';
   }

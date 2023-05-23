@@ -34,16 +34,12 @@ class _PreviewCardState extends State<PreviewCard> {
       PreviewCard4(id: previewcolor),
       PreviewDefultCard(id: previewcolor)
     ];
-    return Scaffold(
-        body: Container(
+    return Container(
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-        ),
-        color: blueColor,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+        color: whiteColor,
       ),
       child: cardList[previewcard!],
-    ));
+    );
   }
 }

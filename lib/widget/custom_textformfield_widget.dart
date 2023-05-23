@@ -45,7 +45,7 @@ class CustomTextFormField extends StatelessWidget {
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: labelText,
-          labelStyle: const TextStyle(color: blackColor),
+          labelStyle: const TextStyle(color: grayColor),
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: blackColor)),
           contentPadding:
@@ -53,7 +53,6 @@ class CustomTextFormField extends StatelessWidget {
           hintText: texteditinghinttext,
           hintStyle: const TextStyle(
             color: grayColor,
-            fontWeight: FontWeight.w400,
             fontSize: 10,
           ),
           prefixIcon: customprefixicon,

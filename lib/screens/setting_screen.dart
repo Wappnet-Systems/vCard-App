@@ -62,7 +62,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: hp(1, context)),
+          SizedBox(height: hp(3, context)),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
             color: whiteColor,
@@ -73,100 +73,66 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   onTap: () async {
                     AppSettings.openAppSettings();
                   },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xffc1c4be),
-                          blurRadius: 10.0,
-                        ),
-                      ],
-                      color: whiteColor,
-                    ),
-                    height: hp(9, context),
-                    child: Row(
-                      children: [
-                        SizedBox(width: wp(3, context)),
-                        const Text(
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text(
                           "Permissions",
                           style: TextStyle(fontSize: 18),
                         ),
-                        const Spacer(),
-                        const Icon(Icons.chevron_right_sharp)
-                      ],
-                    ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.chevron_right_sharp)
+                    ],
                   ),
                 ),
-                SizedBox(height: hp(1, context)),
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xffc1c4be),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                    color: whiteColor,
-                  ),
-                  height: hp(9, context),
-                  child: InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0)),
-                          ),
-                          builder: (BuildContext context) =>
-                              const GenerateQR());
-                    },
-                    child: Row(
-                      children: [
-                        SizedBox(width: wp(3, context)),
-                        const Text(
+                const Divider(),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(25.0)),
+                        ),
+                        builder: (BuildContext context) => const GenerateQR());
+                  },
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text(
                           "App Share",
                           style: TextStyle(fontSize: 18),
                         ),
-                        const Spacer(),
-                        const Padding(
-                          padding: EdgeInsets.only(right: 8.0),
-                          child: Icon(Icons.share),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: hp(1, context)),
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0xffc1c4be),
-                        blurRadius: 10.0,
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: EdgeInsets.only(right: 8.0),
+                        child: Icon(Icons.share),
                       ),
                     ],
-                    color: whiteColor,
                   ),
-                  height: hp(9, context),
-                  child: Row(
-                    children: [
-                      SizedBox(width: wp(3, context)),
-                      const Text(
+                ),
+                const Divider(),
+                const Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 8, bottom: 8),
+                      child: Text(
                         "Version",
                         style: TextStyle(fontSize: 18),
                       ),
-                      const Spacer(),
-                      const Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Text('1.0.0'),
-                      ),
-                    ],
-                  ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.only(right: 8.0),
+                      child: Text('1.0.0'),
+                    ),
+                  ],
                 ),
-                SizedBox(height: hp(1, context)),
+                const Divider(),
                 InkWell(
                   onTap: () {
                     AwesomeDialog(
@@ -186,32 +152,21 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                                       const Numberverification()));
                         }).show();
                   },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xffc1c4be),
-                          blurRadius: 10.0,
-                        ),
-                      ],
-                      color: whiteColor,
-                    ),
-                    height: hp(9, context),
-                    child: Row(
-                      children: [
-                        SizedBox(width: wp(3, context)),
-                        const Text(
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text(
                           "Log out",
                           style: TextStyle(fontSize: 18),
                         ),
-                        const Spacer(),
-                        const Icon(Icons.chevron_right_sharp)
-                      ],
-                    ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.chevron_right_sharp)
+                    ],
                   ),
                 ),
-                SizedBox(height: hp(1, context)),
+                const Divider(),
                 InkWell(
                   onTap: () {
                     try {
@@ -237,31 +192,21 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                       Error;
                     }
                   },
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0xffc1c4be),
-                          blurRadius: 10.0,
-                        ),
-                      ],
-                      color: whiteColor,
-                    ),
-                    height: hp(9, context),
-                    child: Row(
-                      children: [
-                        SizedBox(width: wp(3, context)),
-                        const Text(
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Text(
                           "Delete Account",
                           style: TextStyle(fontSize: 18),
                         ),
-                        const Spacer(),
-                        const Icon(Icons.chevron_right_sharp)
-                      ],
-                    ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.chevron_right_sharp)
+                    ],
                   ),
                 ),
+                const Divider(),
               ],
             ),
           ),
