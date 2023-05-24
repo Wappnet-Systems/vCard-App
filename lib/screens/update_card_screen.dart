@@ -19,8 +19,10 @@ import '../utils/constants_color.dart';
 import '../utils/formatters.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
+import '../widget/address_textfield.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_textformfield_widget.dart';
+import '../widget/upload_image.dart';
 import 'more_textfield_screen.dart';
 import '../widget/text_button_widget.dart';
 
@@ -260,8 +262,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           )
                         : ClipOval(
                             child: CachedNetworkImage(
-                              placeholder: (context, url) =>
-                                  const Custonloading(),
+                              placeholder: (context, url) => const Padding(
+                                padding: EdgeInsets.all(30.0),
+                                child: Custonloading(),
+                              ),
                               imageUrl: "$imageurl",
                               width: wp(30, context),
                               height: hp(15, context),
@@ -277,7 +281,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                           setState(() {
                             isphotoloading = true;
                           });
-                          imagepicker();
+                          showDialog(
+                              context: context,
+                              builder: (ctx) => Uploadimage(onTapCamera: () {
+                                    pickImage(ImageSource.camera);
+                                    Navigator.pop(context);
+                                  }, onTapGallery: () {
+                                    pickImage(ImageSource.gallery);
+                                    Navigator.pop(context);
+                                  }));
                         },
                         child: Container(
                           padding: const EdgeInsets.all(1),
@@ -382,39 +394,14 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   validationfunction: emailValidator,
                 ),
                 SizedBox(height: hp(2, context)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: GooglePlaceAutoCompleteTextField(
-                      textEditingController: addresscontroller,
-                      googleAPIKey: yourgoogleapikey,
-                      inputDecoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Address",
-                        labelStyle: TextStyle(color: blackColor, fontSize: 12),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: blackColor)),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-                        hintText: "Address",
-                        hintStyle: TextStyle(
-                          color: grayColor,
-                          fontSize: 10,
-                        ),
-                        prefixIcon: Icon(Icons.location_on, color: grayColor),
-                        suffixIcon: null,
-                      ),
-                      debounceTime: 800,
-                      countries: const ["in", "fr"],
-                      isLatLngRequired: true,
-                      getPlaceDetailWithLatLng: (Prediction prediction) {},
-                      itmClick: (Prediction prediction) {
-                        addresscontroller.text = prediction.description!;
+                Addresstextfield(
+                    textEditingController: addresscontroller,
+                    itmClick: (Prediction prediction) {
+                      addresscontroller.text = prediction.description!;
 
-                        addresscontroller.selection =
-                            TextSelection.fromPosition(TextPosition(
-                                offset: prediction.description!.length));
-                      }),
-                ),
+                      addresscontroller.selection = TextSelection.fromPosition(
+                          TextPosition(offset: prediction.description!.length));
+                    }),
                 SizedBox(height: hp(1, context)),
                 Row(children: [
                   Padding(
@@ -560,86 +547,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   (isLoading) ? const Custonloading() : const SizedBox.shrink(),
             )
           ]),
-        ),
-      ),
-    );
-  }
-
-  void imagepicker() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-              topLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20)),
-        ),
-        content: Container(
-          color: whiteColor,
-          height: hp(33, context),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Pic Image From",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: blueColor),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: hp(2, context),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: blueColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        "CAMERA",
-                        style: TextStyle(color: whiteColor),
-                      )),
-                ),
-                SizedBox(height: hp(2, context)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: blueColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.pop(context);
-                      },
-                      child: const Text("GALLERY",
-                          style: TextStyle(color: whiteColor))),
-                ),
-                SizedBox(height: hp(2, context)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: blueColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text("CANCEL",
-                          style: TextStyle(color: whiteColor))),
-                ),
-              ],
-            ),
-          ),
         ),
       ),
     );

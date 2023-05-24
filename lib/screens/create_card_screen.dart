@@ -14,9 +14,11 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
+import 'package:vcard/widget/upload_image.dart';
 import '../utils/constants_color.dart';
 import '../utils/formatters.dart';
 import '../utils/validator.dart';
+import '../widget/address_textfield.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_textformfield_widget.dart';
 import 'more_textfield_screen.dart';
@@ -42,16 +44,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController numbercontroller = TextEditingController();
   final TextEditingController typecontroller = TextEditingController();
-
-  FToast? fToast;
   final _formfield = GlobalKey<FormState>();
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
-    fToast = FToast();
-    fToast?.init(context);
-
     super.initState();
   }
 
@@ -125,7 +122,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   bool ismoreadddata = false;
   int? previewcard;
   int? previewcolor;
-  bool isVisible = false;
+  bool selectcolor = false;
+  bool selectedIndex = false;
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +199,15 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         left: 85,
                         child: InkWell(
                           onTap: () {
-                            imagepicker();
+                            showDialog(
+                                context: context,
+                                builder: (ctx) => Uploadimage(onTapCamera: () {
+                                      pickImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    }, onTapGallery: () {
+                                      pickImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    }));
                           },
                           child: Container(
                             padding: const EdgeInsets.all(1),
@@ -318,39 +324,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   validationfunction: emailValidator,
                 ),
                 SizedBox(height: hp(2, context)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: GooglePlaceAutoCompleteTextField(
-                      textEditingController: addresscontroller,
-                      googleAPIKey: yourgoogleapikey,
-                      inputDecoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Address",
-                        labelStyle: TextStyle(color: grayColor, fontSize: 12),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: blackColor)),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-                        hintText: "Address",
-                        hintStyle: TextStyle(
-                          color: grayColor,
-                          fontSize: 10,
-                        ),
-                        prefixIcon: Icon(Icons.location_on, color: grayColor),
-                        suffixIcon: null,
-                      ),
-                      debounceTime: 800,
-                      countries: const ["in", "fr"],
-                      isLatLngRequired: true,
-                      getPlaceDetailWithLatLng: (Prediction prediction) {},
-                      itmClick: (Prediction prediction) {
-                        addresscontroller.text = prediction.description!;
+                Addresstextfield(
+                    textEditingController: addresscontroller,
+                    itmClick: (Prediction prediction) {
+                      addresscontroller.text = prediction.description!;
 
-                        addresscontroller.selection =
-                            TextSelection.fromPosition(TextPosition(
-                                offset: prediction.description!.length));
-                      }),
-                ),
+                      addresscontroller.selection = TextSelection.fromPosition(
+                          TextPosition(offset: prediction.description!.length));
+                    }),
                 SizedBox(height: hp(1, context)),
                 Row(children: [
                   Padding(
@@ -433,36 +414,38 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Visibility(
-                      visible: isVisible,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 15),
-                        child: InkWell(
-                          onTap: () {
-                            setState(() {
-                              previewcard = _selectedIndex;
-                              previewcolor = _selectcolor;
-                            });
-                            showModalBottomSheet(
-                                context: context,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20.0)),
-                                ),
-                                builder: (BuildContext context) => PreviewCard(
-                                    cardid: previewcard,
-                                    colorid: previewcolor));
-                          },
-                          child: const Text(
-                            "Preview Card ?",
-                            style: TextStyle(
-                                color: bottomColor,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Visibility(visible: isVisible, child: const Spacer()),
+                    selectedIndex == true && selectcolor == true
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  previewcard = _selectedIndex;
+                                  previewcolor = _selectcolor;
+                                });
+                                showModalBottomSheet(
+                                    context: context,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(20.0)),
+                                    ),
+                                    builder: (BuildContext context) =>
+                                        PreviewCard(
+                                            cardid: previewcard,
+                                            colorid: previewcolor));
+                              },
+                              child: const Text(
+                                "Preview Card ?",
+                                style: TextStyle(
+                                    color: bottomColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    selectedIndex == true && selectcolor == true
+                        ? const Spacer()
+                        : const SizedBox.shrink(),
                     Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: (ismoreadddata)
@@ -506,86 +489,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     );
   }
 
-  void imagepicker() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-              topLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20)),
-        ),
-        content: Container(
-          color: whiteColor,
-          height: hp(33, context),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Text(
-                  "Pic Image From",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: blueColor),
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: hp(2, context),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: blueColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.camera);
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        "CAMERA",
-                        style: TextStyle(color: whiteColor),
-                      )),
-                ),
-                SizedBox(height: hp(2, context)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: blueColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        pickImage(ImageSource.gallery);
-                        Navigator.pop(context);
-                      },
-                      child: const Text("GALLERY",
-                          style: TextStyle(color: whiteColor))),
-                ),
-                SizedBox(height: hp(2, context)),
-                Container(
-                  decoration: BoxDecoration(
-                    color: blueColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text("CANCEL",
-                          style: TextStyle(color: whiteColor))),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
   showimagelist() {
     showDialog(
         context: context,
@@ -614,7 +517,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         onTap: () {
                           setState(() {
                             _selectedIndex = index;
-                            isVisible = true;
+                            selectedIndex = true;
                           });
                         },
                         child: Container(
@@ -687,7 +590,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       onTap: () {
                         setState(() {
                           _selectcolor = index;
-                          isVisible = true;
+                          selectcolor = true;
                         });
                       },
                       child: Container(
@@ -730,25 +633,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           ],
         );
       },
-    );
-  }
-
-  displayCustomToast() {
-    Widget toast = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
-        color: blueColor,
-      ),
-      child: const Text(
-        "Add Successfully",
-        style: TextStyle(color: whiteColor),
-      ),
-    );
-
-    fToast?.showToast(
-      child: toast,
-      toastDuration: const Duration(seconds: 3),
     );
   }
 }
