@@ -1,6 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/text_widget.dart';
@@ -25,7 +26,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 30, left: 30, top: 10, bottom: 10),
+      padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
       child: Container(
         width: wp(50, context),
         height: hp(70, context),
@@ -47,7 +48,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
           SizedBox(height: hp(2, context)),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: blueColor, width: 3),
+              border: Border.all(color: whiteColor, width: 3),
               borderRadius: const BorderRadius.all(
                 Radius.circular(90),
               ),
@@ -55,21 +56,21 @@ class _PreviewCard2State extends State<PreviewCard2> {
             child: ClipOval(
                 child: Image.asset(
               "assets/images/splash1.png",
-              width: wp(31, context),
-              height: hp(15, context),
+              width: wp(24, context),
+              height: hp(12, context),
               fit: BoxFit.fill,
             )),
           ),
           Column(
             children: [
-              SizedBox(height: hp(3, context)),
+              SizedBox(height: hp(2, context)),
               Textwidget(
                 maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "Your Name",
                 selectionColor: whiteColor,
-                fontSize: 18,
+                fontSize: 20,
               ),
               SizedBox(
                 height: hp(1, context),
@@ -88,21 +89,21 @@ class _PreviewCard2State extends State<PreviewCard2> {
               Textwidget(
                 maxLines: 1,
                 textAlign: TextAlign.center,
-                width: wp(60, context),
+                width: wp(40, context),
                 text: "Company Name",
                 selectionColor: whiteColor,
-                fontSize: 10,
+                fontSize: 14,
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(1.5, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 70),
+                padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
                     Image.asset(
                       "assets/icon/call.png",
-                      scale: 30,
+                      scale: 22,
                       color: whiteColor,
                     ),
                     SizedBox(
@@ -120,15 +121,15 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 ),
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(1.5, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 70),
+                padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
                     Image.asset(
                       "assets/icon/email.png",
-                      scale: 30,
+                      scale: 22,
                       color: whiteColor,
                     ),
                     SizedBox(
@@ -146,32 +147,46 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 ),
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(1.5, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 70),
+                padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
                     Image.asset(
-                      "assets/icon/website.png",
-                      scale: 30,
+                      "assets/icon/pin.png",
+                      scale: 20,
                       color: whiteColor,
                     ),
                     SizedBox(
                       width: wp(5, context),
                     ),
                     Textwidget(
-                      maxLines: 1,
+                      maxLines: 2,
                       textAlign: TextAlign.start,
                       width: wp(40, context),
-                      text: "www.xyz.com",
+                      text: "Yourv Address",
                       selectionColor: whiteColor,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              SizedBox(height: hp(0.5, context)),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: whiteColor, width: 1)),
+                  child: QrImage(
+                    dataModuleStyle: const QrDataModuleStyle(color: whiteColor),
+                    eyeStyle: const QrEyeStyle(color: whiteColor),
+                    data: "",
+                    size: 40,
+                  ),
+                ),
+              ),
+              SizedBox(height: hp(0.5, context)),
               Wrap(
                   runSpacing: 5.0,
                   alignment: WrapAlignment.center,
@@ -182,7 +197,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
                         "assets/icon/whats.png",
-                        scale: 25,
+                        scale: 22,
                         color: whiteColor,
                       ),
                     ),
@@ -190,7 +205,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
                         "assets/icon/Face.png",
-                        scale: 25,
+                        scale: 22,
                         color: whiteColor,
                       ),
                     ),
@@ -198,7 +213,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
                         "assets/icon/tele.png",
-                        scale: 25,
+                        scale: 22,
                         color: whiteColor,
                       ),
                     ),
@@ -206,19 +221,19 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
                         "assets/icon/lin.png",
-                        scale: 25,
+                        scale: 22,
                         color: whiteColor,
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Image.asset(
-                        "assets/icon/pin.png",
-                        scale: 25,
+                        "assets/icon/website.png",
+                        scale: 22,
                         color: whiteColor,
                       ),
                     ),
-                  ]),
+                  ])
             ],
           )
         ]),

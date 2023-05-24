@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/formatters.dart';
-import 'package:vcard/utils/validator.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_textformfield_widget.dart';
 

@@ -59,85 +59,94 @@ class _PreviewCard3State extends State<PreviewCard3> {
                     SizedBox(
                       height: hp(5, context),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Textwidget(
-                        maxLines: 1,
-                        textAlign: TextAlign.start,
-                        width: wp(40, context),
-                        text: "Your Name",
-                        fontSize: 20,
-                        selectionColor: colorList[previewcolor!] == ""
-                            ? blackColor
-                            : colorList[previewcolor!],
-                      ),
+                    Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      width: wp(40, context),
+                      text: "Your Name",
+                      fontSize: 20,
+                      selectionColor: colorList[previewcolor!] == ""
+                          ? blackColor
+                          : colorList[previewcolor!],
+                    ),
+                    SizedBox(height: hp(1, context)),
+                    Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      width: wp(40, context),
+                      text: "Profession",
+                      fontSize: 14,
+                      selectionColor: colorList[previewcolor!] == ""
+                          ? blackColor
+                          : colorList[previewcolor!],
                     ),
                     SizedBox(
-                      height: hp(1, context),
+                      height: hp(3, context),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 40),
-                      child: Textwidget(
-                        maxLines: 1,
-                        textAlign: TextAlign.start,
-                        width: wp(40, context),
-                        text: "Profession",
-                        fontSize: 14,
-                        selectionColor: colorList[previewcolor!] == ""
-                            ? blackColor
-                            : colorList[previewcolor!],
-                      ),
-                    ),
-                    SizedBox(
-                      height: hp(4, context),
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.only(left: 35),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: blueColor, width: 2)),
-                          child: QrImage(
-                            data: "",
-                            size: 70,
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: colorList[previewcolor!] == ""
+                                  ? blackColor
+                                  : colorList[previewcolor!],
+                              width: 3),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(90),
                           ),
+                        ),
+                        child: ClipOval(
+                            child: Image.asset(
+                          "assets/images/splash1.png",
+                          width: wp(22, context),
+                          height: hp(11, context),
+                          fit: BoxFit.fill,
                         )),
-                    SizedBox(height: hp(4, context)),
-                    Center(
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 25),
-                            child: Image.asset(
-                              "assets/icon/tele.png",
-                              scale: 30,
-                              color: colorList[previewcolor!] == ""
-                                  ? blackColor
-                                  : colorList[previewcolor!],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Image.asset(
-                              "assets/icon/lin.png",
-                              scale: 30,
-                              color: colorList[previewcolor!] == ""
-                                  ? blackColor
-                                  : colorList[previewcolor!],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Image.asset(
-                              "assets/icon/pin.png",
-                              scale: 30,
-                              color: colorList[previewcolor!] == ""
-                                  ? blackColor
-                                  : colorList[previewcolor!],
-                            ),
-                          ),
-                        ],
                       ),
+                    ),
+                    SizedBox(height: hp(5, context)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/icon/Face.png",
+                          scale: 30,
+                          color: colorList[previewcolor!] == ""
+                              ? blackColor
+                              : colorList[previewcolor!],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Image.asset(
+                            "assets/icon/website.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Image.asset(
+                            "assets/icon/tele.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Image.asset(
+                            "assets/icon/lin.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),
@@ -150,14 +159,8 @@ class _PreviewCard3State extends State<PreviewCard3> {
                       bottomRight: Radius.circular(15),
                       topRight: Radius.circular(15)),
                   color: colorList[previewcolor!] == ""
-                      ? blueColor
+                      ? blackColor
                       : colorList[previewcolor!],
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.black,
-                      blurRadius: 3.0,
-                    ),
-                  ],
                 ),
                 child: Column(
                   children: [
@@ -185,27 +188,6 @@ class _PreviewCard3State extends State<PreviewCard3> {
                       ),
                     ),
                     SizedBox(height: hp(2, context)),
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Image.asset(
-                            "assets/icon/whats.png",
-                            scale: 30,
-                            color: whiteColor,
-                          ),
-                        ),
-                        SizedBox(width: wp(4, context)),
-                        Textwidget(
-                            maxLines: 1,
-                            textAlign: TextAlign.start,
-                            width: wp(25, context),
-                            text: "xxxxx xxxxx",
-                            fontSize: 10,
-                            selectionColor: whiteColor),
-                      ],
-                    ),
-                    SizedBox(height: hp(2, context)),
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Row(
@@ -229,35 +211,12 @@ class _PreviewCard3State extends State<PreviewCard3> {
                       ),
                     ),
                     SizedBox(height: hp(2, context)),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Row(
-                        children: [
-                          Image.asset(
-                            "assets/icon/website.png",
-                            scale: 30,
-                            color: whiteColor,
-                          ),
-                          SizedBox(
-                            width: wp(4, context),
-                          ),
-                          Textwidget(
-                              maxLines: 1,
-                              textAlign: TextAlign.start,
-                              width: wp(30, context),
-                              text: "www.xyz.com",
-                              fontSize: 10,
-                              selectionColor: whiteColor),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: hp(2, context)),
                     Row(
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: Image.asset(
-                            "assets/icon/Face.png",
+                            "assets/icon/pin.png",
                             scale: 30,
                             color: whiteColor,
                           ),
@@ -266,14 +225,27 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           width: wp(4, context),
                         ),
                         Textwidget(
-                            maxLines: 1,
+                            maxLines: 2,
                             textAlign: TextAlign.start,
                             width: wp(30, context),
-                            text: "Your ID",
+                            text: "Your Address",
                             fontSize: 10,
                             selectionColor: whiteColor),
                       ],
-                    )
+                    ),
+                    SizedBox(height: hp(2, context)),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: whiteColor, width: 2)),
+                      child: QrImage(
+                        dataModuleStyle:
+                            const QrDataModuleStyle(color: whiteColor),
+                        eyeStyle: const QrEyeStyle(color: whiteColor),
+                        data: "",
+                        size: 50,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -287,12 +259,6 @@ class _PreviewCard3State extends State<PreviewCard3> {
                 height: hp(8, context),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade600,
-                  boxShadow: const [
-                    BoxShadow(
-                      color: blackColor,
-                      blurRadius: 3.0,
-                    ),
-                  ],
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(left: 1),

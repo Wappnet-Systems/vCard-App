@@ -211,11 +211,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(20),
                                 ),
-                                color: grayColor),
+                                color: whiteColor),
                             child: const Icon(
                               Icons.camera,
                               size: 20,
-                              color: whiteColor,
+                              color: blueColor,
                             ),
                           ),
                         )),
