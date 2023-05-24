@@ -7,8 +7,10 @@ class Textwidget extends StatelessWidget {
   final double? fontSize;
   final FontWeight? fontWeight;
   final Color? selectionColor;
+  final int? maxLines;
   const Textwidget(
       {super.key,
+      required this.maxLines,
       required this.width,
       this.fontWeight,
       required this.textAlign,
@@ -22,7 +24,7 @@ class Textwidget extends StatelessWidget {
       width: width,
       child: Text(
         text!,
-        maxLines: 1,
+        maxLines: maxLines,
         overflow: TextOverflow.ellipsis,
         textAlign: textAlign,
         style: TextStyle(

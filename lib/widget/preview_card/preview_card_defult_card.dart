@@ -6,27 +6,23 @@ import 'package:vcard/widget/text_widget.dart';
 import '../../utils/responsive.dart';
 
 class PreviewDefultCard extends StatefulWidget {
-  final int? id;
-
-  const PreviewDefultCard({super.key, required this.id});
+  const PreviewDefultCard({super.key});
 
   @override
   State<PreviewDefultCard> createState() => _PreviewDefultCardState();
 }
 
 class _PreviewDefultCardState extends State<PreviewDefultCard> {
-  int? previewcolor;
-
   @override
   void initState() {
-    previewcolor = widget.id;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
+        padding:
+            const EdgeInsets.only(left: 50, right: 50, bottom: 50, top: 10),
         child: Column(children: [
           Card(
             shape: RoundedRectangleBorder(
@@ -38,46 +34,57 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
-                  padding: const EdgeInsets.only(left: 35, top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
                   child: Textwidget(
-                    textAlign: TextAlign.start,
-                    width: wp(60, context),
-                    text: 'Wappnet System Pvt. Ltd.',
-                    fontSize: 20,
-                    selectionColor: colorList[previewcolor!] == ""
-                        ? goldColor
-                        : colorList[previewcolor!],
-                  )),
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      width: wp(60, context),
+                      text: 'Wappnet System Pvt. Ltd.',
+                      fontSize: 16,
+                      selectionColor: goldColor)),
               Center(
-                  child: ClipRRect(
-                child: Image.asset(
-                  "assets/images/splash1.png",
-                  width: wp(90, context),
-                  height: hp(30, context),
-                  fit: BoxFit.fill,
+                  child: Container(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.only(topRight: Radius.circular(50)),
+                  border: Border.all(color: goldColor, width: wp(0.1, context)),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: goldColor,
+                      blurRadius: 5.0,
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius:
+                      const BorderRadius.only(topRight: Radius.circular(50)),
+                  child: Image.asset(
+                    "assets/images/splash1.png",
+                    width: wp(50, context),
+                    height: hp(20, context),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               )),
               SizedBox(height: hp(1.5, context)),
               Center(
                   child: Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.start,
                 width: wp(40, context),
                 text: 'Aman Patel',
                 fontSize: 25,
-                selectionColor: colorList[previewcolor!] == ""
-                    ? colorList[previewcolor!]
-                    : goldColor,
+                selectionColor: goldColor,
               )),
               SizedBox(height: hp(0.5, context)),
               Center(
                 child: Textwidget(
-                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
                   width: wp(60, context),
                   text: 'Android Developer',
                   fontSize: 20,
-                  selectionColor: colorList[previewcolor!] == ""
-                      ? colorList[previewcolor!]
-                      : goldColor,
+                  selectionColor: goldColor,
                 ),
               ),
               SizedBox(height: hp(0.5, context)),
@@ -105,9 +112,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/call.png",
                             scale: 17,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -115,9 +120,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/whats.png",
                             scale: 15,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -125,9 +128,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/email.png",
                             scale: 15,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -135,9 +136,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/Face.png",
                             scale: 17,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -145,9 +144,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/tele.png",
                             scale: 16,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -155,9 +152,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/website.png",
                             scale: 15,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -165,9 +160,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/lin.png",
                             scale: 16,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                         Padding(
@@ -175,9 +168,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                           child: Image.asset(
                             "assets/icon/pin.png",
                             scale: 15,
-                            color: colorList[previewcolor!] == ""
-                                ? colorList[previewcolor!]
-                                : goldColor,
+                            color: goldColor,
                           ),
                         ),
                       ]),

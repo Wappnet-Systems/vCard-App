@@ -158,6 +158,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 9, left: 20),
                                           child: Textwidget(
+                                            maxLines: 1,
                                             textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
@@ -171,6 +172,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 8, left: 20),
                                           child: Textwidget(
+                                            maxLines: 1,
                                             textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
@@ -184,6 +186,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                           padding: const EdgeInsets.only(
                                               top: 0, left: 20),
                                           child: Textwidget(
+                                            maxLines: 1,
                                             textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:

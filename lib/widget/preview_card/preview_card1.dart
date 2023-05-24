@@ -55,6 +55,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                 children: [
                   SizedBox(height: hp(2.5, context)),
                   Textwidget(
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     width: wp(36, context),
                     text: "Company Name",
@@ -73,6 +74,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                   )),
                   SizedBox(height: hp(2, context)),
                   Textwidget(
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     width: wp(35, context),
                     text: "Your Name",
@@ -85,6 +87,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                     height: hp(0.5, context),
                   ),
                   Textwidget(
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     width: wp(35, context),
                     text: "Profession",
@@ -101,6 +104,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Textwidget(
+                  maxLines: 1,
                   textAlign: TextAlign.start,
                   width: wp(50, context),
                   text: "www.xyz.com",
@@ -139,6 +143,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                           const Padding(
                             padding: EdgeInsets.only(left: 8, top: 15),
                             child: Textwidget(
+                                maxLines: 1,
                                 textAlign: TextAlign.start,
                                 width: 130,
                                 text: "xxxxx xxxxx",
@@ -160,6 +165,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                           const Padding(
                             padding: EdgeInsets.only(left: 8, top: 15),
                             child: Textwidget(
+                                maxLines: 1,
                                 textAlign: TextAlign.start,
                                 width: 130,
                                 text: "xxxxx xxxxx",
@@ -183,6 +189,7 @@ class _PreviewCard1State extends State<PreviewCard1> {
                             child: SizedBox(
                               width: wp(40, context),
                               child: const Textwidget(
+                                  maxLines: 1,
                                   textAlign: TextAlign.start,
                                   width: 130,
                                   text: "xyz12@gmail.com",

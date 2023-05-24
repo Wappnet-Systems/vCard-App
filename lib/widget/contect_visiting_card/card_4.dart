@@ -28,509 +28,528 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Stack(
-            children: [
-              Stack(children: [
-                Container(
-                    width: wp(95, context),
-                    height: hp(37, context),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: whiteColor,
-                      border: Border.all(
-                          color: Staticmenbers
-                                      .cardUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .cardUsers[contactcardindex!].color!]
-                              : blackColor,
-                          width: wp(0.5, context)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Staticmenbers
-                                      .cardUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .cardUsers[contactcardindex!].color!]
-                              : blackColor,
-                          blurRadius: 2.0,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: <Widget>[
-                        Flexible(
-                          flex: 3,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(15),
-                                    bottomLeft: Radius.circular(15))),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: hp(3, context)),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 2, top: 22),
-                                  child: Center(
-                                      child: Textwidget(
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Stack(
+          children: [
+            Stack(children: [
+              Container(
+                  width: wp(95, context),
+                  height: hp(37, context),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: whiteColor,
+                    border: Border.all(
+                        color:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : blackColor,
+                        width: wp(0.5, context)),
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : blackColor,
+                        blurRadius: 2.0,
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  bottomLeft: Radius.circular(15))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: hp(1, context)),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 5, top: 22),
+                                child: Center(
+                                    child: Textwidget(
+                                  maxLines: 1,
+                                  textAlign: TextAlign.start,
+                                  width: wp(180, context),
+                                  text:
+                                      "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
+                                  fontSize: 16,
+                                  selectionColor: blueColor,
+                                )),
+                              ),
+                              SizedBox(
+                                height: hp(4.3, context),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 40),
+                                  child: Textwidget(
+                                    maxLines: 1,
                                     textAlign: TextAlign.start,
-                                    width: wp(180, context),
+                                    width: wp(50, context),
                                     text:
-                                        "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
-                                    fontSize: 18,
+                                        "${Staticmenbers.cardUsers[contactcardindex!].phone}",
+                                    fontSize: 12,
                                     selectionColor: blueColor,
                                   )),
-                                ),
-                                SizedBox(
-                                  height: hp(5, context),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 50),
-                                    child: Textwidget(
-                                      textAlign: TextAlign.start,
-                                      width: wp(50, context),
-                                      text:
-                                          "${Staticmenbers.cardUsers[contactcardindex!].phone}",
-                                      fontSize: 12,
-                                      selectionColor: blueColor,
-                                    )),
-                                SizedBox(
-                                  height: hp(2, context),
-                                ),
-                                Staticmenbers.cardUsers[contactcardindex!]
-                                            .whatsapp ==
-                                        ""
-                                    ? const SizedBox.shrink()
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 50),
-                                        child: Textwidget(
-                                          textAlign: TextAlign.start,
-                                          width: wp(50, context),
-                                          text:
-                                              "${Staticmenbers.cardUsers[contactcardindex!].whatsapp}",
-                                          fontSize: 12,
-                                          selectionColor: blueColor,
-                                        )),
-                                SizedBox(
-                                  height: hp(2.2, context),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(left: 50),
-                                    child: Textwidget(
-                                      textAlign: TextAlign.start,
-                                      width: wp(100, context),
-                                      text:
-                                          "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                                      fontSize: 12,
-                                      selectionColor: blueColor,
-                                    )),
-                                SizedBox(
-                                  height: hp(2.3, context),
-                                ),
-                                Staticmenbers.cardUsers[contactcardindex!]
-                                            .website ==
-                                        ""
-                                    ? const SizedBox.shrink()
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 50),
-                                        child: Textwidget(
-                                          textAlign: TextAlign.start,
-                                          width: wp(100, context),
-                                          text:
-                                              "${Staticmenbers.cardUsers[contactcardindex!].website}",
-                                          fontSize: 12,
-                                          selectionColor: blueColor,
-                                        )),
-                                SizedBox(
-                                  height: hp(2.5, context),
-                                ),
-                                Staticmenbers.cardUsers[contactcardindex!]
-                                            .facebook ==
-                                        ""
-                                    ? const SizedBox.shrink()
-                                    : Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 50),
-                                        child: Textwidget(
-                                            textAlign: TextAlign.start,
-                                            width: wp(100, context),
-                                            text:
-                                                "${Staticmenbers.cardUsers[contactcardindex!].facebook}",
-                                            fontSize: 12,
-                                            selectionColor: blueColor))
-                              ],
-                            ),
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 40, bottom: 40),
-                          child: VerticalDivider(
-                            width: 1,
-                            color: Colors.black,
-                            thickness: 0.5,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 3,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15))),
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: hp(5, context),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: Textwidget(
-                                      textAlign: TextAlign.center,
-                                      width: wp(40, context),
-                                      text:
-                                          "${Staticmenbers.cardUsers[contactcardindex!].name}",
-                                      fontSize: 20,
-                                      selectionColor: blueColor,
-                                    )),
-                                SizedBox(
-                                  height: hp(1, context),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: Textwidget(
-                                        textAlign: TextAlign.center,
-                                        width: wp(41, context),
+                              SizedBox(
+                                height: hp(3, context),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(left: 40),
+                                  child: Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    width: wp(100, context),
+                                    text:
+                                        "${Staticmenbers.cardUsers[contactcardindex!].email}",
+                                    fontSize: 12,
+                                    selectionColor: blueColor,
+                                  )),
+                              SizedBox(
+                                height: hp(3.5, context),
+                              ),
+                              Staticmenbers.cardUsers[contactcardindex!]
+                                          .address ==
+                                      ""
+                                  ? const SizedBox.shrink()
+                                  : Padding(
+                                      padding: const EdgeInsets.only(left: 40),
+                                      child: Textwidget(
+                                        maxLines: 2,
+                                        textAlign: TextAlign.start,
+                                        width: wp(50, context),
                                         text:
-                                            "${Staticmenbers.cardUsers[contactcardindex!].department}",
-                                        fontSize: 14,
-                                        selectionColor: blueColor)),
-                                SizedBox(
-                                  height: hp(5, context),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.only(right: 20),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          border: Border.all(
-                                              color: blueColor, width: 2)),
-                                      child: QrImage(
-                                        data:
-                                            "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
-                                        size: 70,
-                                      ),
-                                    )),
-                                SizedBox(
-                                  height: hp(5, context),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Staticmenbers.cardUsers[contactcardindex!]
-                                                .telegram ==
-                                            ""
-                                        ? const SizedBox.shrink()
-                                        : Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 25),
-                                            child: InkWell(
-                                              onTap: () {
-                                                launchUrl(Uri.parse(
-                                                    "https://telegram.me/$Staticmenbers.cardUsers[contactcardindex!].telegram"));
-                                              },
-                                              child: Image.asset(
-                                                "assets/icon/tele.png",
-                                                scale: 30,
-                                                color: Staticmenbers
-                                                            .cardUsers[
-                                                                contactcardindex!]
-                                                            .color !=
-                                                        null
-                                                    ? colorList[Staticmenbers
-                                                        .cardUsers[
-                                                            contactcardindex!]
-                                                        .color!]
-                                                    : blueColor,
-                                              ),
-                                            ),
-                                          ),
-                                    Staticmenbers.cardUsers[contactcardindex!]
-                                                .link ==
-                                            ""
-                                        ? const SizedBox.shrink()
-                                        : Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 25),
-                                            child: InkWell(
-                                              onTap: () async {
-                                                final url =
-                                                    'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
-
-                                                await launchUrl(Uri.parse(url));
-                                              },
-                                              child: Image.asset(
-                                                "assets/icon/lin.png",
-                                                scale: 30,
-                                                color: Staticmenbers
-                                                            .cardUsers[
-                                                                contactcardindex!]
-                                                            .color !=
-                                                        null
-                                                    ? colorList[Staticmenbers
-                                                        .cardUsers[
-                                                            contactcardindex!]
-                                                        .color!]
-                                                    : blueColor,
-                                              ),
-                                            ),
-                                          ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 25),
-                                      child: InkWell(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (ctx) => AlertDialog(
-                                              backgroundColor: blueColor,
-                                              title: const Text("Address",
-                                                  style: TextStyle(
-                                                      fontFamily: 'Marck',
-                                                      fontSize: 25,
-                                                      color: whiteColor,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              content: Text(
-                                                  '${Staticmenbers.cardUsers[contactcardindex!].address}',
-                                                  style: const TextStyle(
-                                                      fontFamily: 'Marck',
-                                                      fontSize: 25,
-                                                      color: whiteColor,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              actions: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    TextButtomWidget(
-                                                      onPressed: () {
-                                                        _pushMap();
-                                                      },
-                                                      title: 'Use Map',
-                                                      fontSize: null,
-                                                      color: blueColor,
-                                                    ),
-                                                    TextButtomWidget(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      title: 'Cancle',
-                                                      fontSize: 15,
-                                                      color: Colors.redAccent,
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/pin.png",
-                                          scale: 30,
-                                          color: Staticmenbers
-                                                      .cardUsers[
-                                                          contactcardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .cardUsers[contactcardindex!]
-                                                  .color!]
-                                              : blueColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: Container(
-                    width: wp(10, context),
-                    height: hp(25, context),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(15),
-                          topRight: Radius.circular(15)),
-                      color: Staticmenbers.cardUsers[contactcardindex!].color !=
-                              null
-                          ? colorList[
-                              Staticmenbers.cardUsers[contactcardindex!].color!]
-                          : blackColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Staticmenbers
-                                      .cardUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .cardUsers[contactcardindex!].color!]
-                              : blackColor,
-                          blurRadius: 1.0,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: hp(2, context),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Row(
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  launchUrl(Uri.parse(
-                                      'tel:+${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
-                                },
-                                child: Image.asset(
-                                  "assets/icon/call.png",
-                                  scale: 30,
-                                  color: whiteColor,
+                                            "${Staticmenbers.cardUsers[contactcardindex!].address}",
+                                        fontSize: 10,
+                                        selectionColor: blueColor,
+                                      )),
+                              SizedBox(height: hp(3, context)),
+                              Center(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: blueColor, width: 2)),
+                                  child: QrImage(
+                                    data:
+                                        "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
+                                    size: 50,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: hp(2, context),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.only(top: 40, bottom: 40),
+                        child: VerticalDivider(
+                          width: 1,
+                          color: Colors.black,
+                          thickness: 0.5,
                         ),
-                        Staticmenbers.cardUsers[contactcardindex!].whatsapp ==
-                                ""
-                            ? const SizedBox.shrink()
-                            : Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: InkWell(
-                                  onTap: () {
-                                    launchUrl(
-                                        Uri.parse(
-                                            'https://wa.me/$Staticmenbers.cardUsers[contactcardindex!].whatsapp?text=Hi'),
-                                        mode: LaunchMode.externalApplication);
-                                  },
-                                  child: Image.asset(
-                                    "assets/icon/whats.png",
-                                    scale: 30,
-                                    color: whiteColor,
+                      ),
+                      Flexible(
+                        flex: 3,
+                        child: Container(
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  bottomRight: Radius.circular(15))),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: hp(5, context),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                    width: wp(40, context),
+                                    text:
+                                        "${Staticmenbers.cardUsers[contactcardindex!].name}",
+                                    fontSize: 20,
+                                    selectionColor: blueColor,
+                                  )),
+                              SizedBox(
+                                height: hp(1, context),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: Textwidget(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.center,
+                                      width: wp(41, context),
+                                      text:
+                                          "${Staticmenbers.cardUsers[contactcardindex!].department}",
+                                      fontSize: 14,
+                                      selectionColor: blueColor)),
+                              SizedBox(height: hp(3, context)),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Staticmenbers
+                                                    .cardUsers[
+                                                        contactcardindex!]
+                                                    .color !=
+                                                null
+                                            ? colorList[Staticmenbers
+                                                .cardUsers[contactcardindex!]
+                                                .color!]
+                                            : blackColor,
+                                        width: 3),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(90),
+                                    ),
+                                  ),
+                                  child: ClipOval(
+                                    child: Staticmenbers
+                                                .cardUsers[contactcardindex!]
+                                                .image ==
+                                            ""
+                                        ? Image.asset(
+                                            "assets/images/splash1.png",
+                                            width: wp(22, context),
+                                            height: hp(11, context),
+                                            fit: BoxFit.fill,
+                                          )
+                                        : Image.network(
+                                            "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                                            width: wp(22, context),
+                                            height: hp(11, context),
+                                            fit: BoxFit.fill,
+                                          ),
                                   ),
                                 ),
                               ),
-                        SizedBox(
-                          height: hp(2, context),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
-                            },
-                            child: Image.asset(
-                              "assets/icon/email.png",
-                              scale: 30,
-                              color: whiteColor,
-                            ),
+                              SizedBox(height: hp(5, context)),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Staticmenbers.cardUsers[contactcardindex!]
+                                              .website ==
+                                          ""
+                                      ? const SizedBox.shrink()
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 15),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              final url =
+                                                  'https://${Staticmenbers.cardUsers[contactcardindex!].website}';
+
+                                              await launchUrl(Uri.parse(url));
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon/website.png",
+                                              scale: 30,
+                                              color: Staticmenbers
+                                                          .cardUsers[
+                                                              contactcardindex!]
+                                                          .color !=
+                                                      null
+                                                  ? colorList[Staticmenbers
+                                                      .cardUsers[
+                                                          contactcardindex!]
+                                                      .color!]
+                                                  : blueColor,
+                                            ),
+                                          ),
+                                        ),
+                                  Staticmenbers.cardUsers[contactcardindex!]
+                                              .telegram ==
+                                          ""
+                                      ? const SizedBox.shrink()
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 15),
+                                          child: InkWell(
+                                            onTap: () {
+                                              launchUrl(Uri.parse(
+                                                  "https://telegram.me/$Staticmenbers.cardUsers[contactcardindex!].telegram"));
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon/tele.png",
+                                              scale: 30,
+                                              color: Staticmenbers
+                                                          .cardUsers[
+                                                              contactcardindex!]
+                                                          .color !=
+                                                      null
+                                                  ? colorList[Staticmenbers
+                                                      .cardUsers[
+                                                          contactcardindex!]
+                                                      .color!]
+                                                  : blueColor,
+                                            ),
+                                          ),
+                                        ),
+                                  Staticmenbers.cardUsers[contactcardindex!]
+                                              .link ==
+                                          ""
+                                      ? const SizedBox.shrink()
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 15),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              final url =
+                                                  'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
+
+                                              await launchUrl(Uri.parse(url));
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon/lin.png",
+                                              scale: 30,
+                                              color: Staticmenbers
+                                                          .cardUsers[
+                                                              contactcardindex!]
+                                                          .color !=
+                                                      null
+                                                  ? colorList[Staticmenbers
+                                                      .cardUsers[
+                                                          contactcardindex!]
+                                                      .color!]
+                                                  : blueColor,
+                                            ),
+                                          ),
+                                        ),
+                                  Staticmenbers.cardUsers[contactcardindex!]
+                                              .whatsapp ==
+                                          ""
+                                      ? const SizedBox.shrink()
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 15),
+                                          child: InkWell(
+                                            onTap: () {
+                                              launchUrl(
+                                                  Uri.parse(
+                                                      'https://wa.me/$Staticmenbers.cardUsers[contactcardindex!].whatsapp?text=Hi'),
+                                                  mode: LaunchMode
+                                                      .externalApplication);
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon/whats.png",
+                                              scale: 30,
+                                              color: Staticmenbers
+                                                          .cardUsers[
+                                                              contactcardindex!]
+                                                          .color !=
+                                                      null
+                                                  ? colorList[Staticmenbers
+                                                      .cardUsers[
+                                                          contactcardindex!]
+                                                      .color!]
+                                                  : blueColor,
+                                            ),
+                                          ),
+                                        ),
+                                  Staticmenbers.cardUsers[contactcardindex!]
+                                              .facebook ==
+                                          ""
+                                      ? const SizedBox.shrink()
+                                      : Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: InkWell(
+                                            onTap: () {
+                                              launchUrl(Uri.parse(
+                                                  'https://www.facebook.com/{${Staticmenbers.cardUsers[contactcardindex!].facebook}}'));
+                                            },
+                                            child: Image.asset(
+                                              "assets/icon/Face.png",
+                                              scale: 30,
+                                              color: Staticmenbers
+                                                          .cardUsers[
+                                                              contactcardindex!]
+                                                          .color !=
+                                                      null
+                                                  ? colorList[Staticmenbers
+                                                      .cardUsers[
+                                                          contactcardindex!]
+                                                      .color!]
+                                                  : blueColor,
+                                            ),
+                                          ),
+                                        ),
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                        SizedBox(
-                          height: hp(2, context),
+                      ),
+                    ],
+                  )),
+              Positioned(
+                top: 65,
+                left: 0,
+                child: Container(
+                  width: wp(10, context),
+                  height: hp(18, context),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomRight: Radius.circular(15),
+                        topRight: Radius.circular(15)),
+                    color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                            null
+                        ? colorList[
+                            Staticmenbers.cardUsers[contactcardindex!].color!]
+                        : blackColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : blackColor,
+                        blurRadius: 1.0,
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: hp(2, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: InkWell(
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                'tel:+${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
+                          },
+                          child: Image.asset(
+                            "assets/icon/call.png",
+                            scale: 30,
+                            color: whiteColor,
+                          ),
                         ),
-                        Staticmenbers.cardUsers[contactcardindex!].website == ""
-                            ? const SizedBox.shrink()
-                            : Padding(
-                                padding: const EdgeInsets.only(left: 5),
-                                child: InkWell(
-                                  onTap: () async {
-                                    final url =
-                                        'https://${Staticmenbers.cardUsers[contactcardindex!].website}';
-
-                                    await launchUrl(Uri.parse(url));
-                                  },
-                                  child: Image.asset(
-                                    "assets/icon/website.png",
-                                    scale: 30,
-                                    color: whiteColor,
-                                  ),
+                      ),
+                      SizedBox(
+                        height: hp(3, context),
+                      ),
+                      Staticmenbers.cardUsers[contactcardindex!].email == ""
+                          ? const SizedBox.shrink()
+                          : Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: InkWell(
+                                onTap: () {
+                                  launchUrl(Uri.parse(
+                                      'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
+                                },
+                                child: Image.asset(
+                                  "assets/icon/email.png",
+                                  scale: 30,
+                                  color: whiteColor,
                                 ),
                               ),
-                        SizedBox(
-                          height: hp(2, context),
-                        ),
-                        Staticmenbers.cardUsers[contactcardindex!].facebook ==
-                                ""
-                            ? const SizedBox.shrink()
-                            : Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: InkWell(
-                                  onTap: () {
-                                    launchUrl(Uri.parse(
-                                        'https://www.facebook.com/{${Staticmenbers.cardUsers[contactcardindex!].facebook}}'));
-                                  },
-                                  child: Image.asset(
-                                    "assets/icon/Face.png",
-                                    scale: 30,
-                                    color: whiteColor,
+                            ),
+                      SizedBox(
+                        height: hp(3, context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5),
+                        child: InkWell(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AlertDialog(
+                                backgroundColor: blueColor,
+                                title: const Text("Address",
+                                    style: TextStyle(
+                                        fontFamily: 'Marck',
+                                        fontSize: 25,
+                                        color: whiteColor,
+                                        fontWeight: FontWeight.bold)),
+                                content: Text(
+                                    '${Staticmenbers.cardUsers[contactcardindex!].address}',
+                                    style: const TextStyle(
+                                        fontFamily: 'Marck',
+                                        fontSize: 25,
+                                        color: whiteColor,
+                                        fontWeight: FontWeight.bold)),
+                                actions: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      TextButtomWidget(
+                                        onPressed: () {
+                                          _pushMap();
+                                        },
+                                        title: 'Use Map',
+                                        fontSize: null,
+                                        color: blueColor,
+                                      ),
+                                      TextButtomWidget(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        title: 'Cancle',
+                                        fontSize: 15,
+                                        color: Colors.redAccent,
+                                      )
+                                    ],
                                   ),
-                                ),
-                              )
-                      ],
-                    ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: Image.asset(
+                            "assets/icon/pin.png",
+                            scale: 30,
+                            color: whiteColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ]),
-              Positioned(
-                  top: 0,
-                  right: 0,
-                  child: Container(
-                    width: wp(10, context),
-                    height: hp(25, context),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(15),
-                          topRight: Radius.circular(15)),
-                      color: Staticmenbers.cardUsers[contactcardindex!].color !=
-                              null
-                          ? colorList[
-                              Staticmenbers.cardUsers[contactcardindex!].color!]
-                          : blackColor,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Staticmenbers
-                                      .cardUsers[contactcardindex!].color !=
-                                  null
-                              ? colorList[Staticmenbers
-                                  .cardUsers[contactcardindex!].color!]
-                              : blackColor,
-                          blurRadius: 1.0,
-                        ),
-                      ],
-                    ),
-                  ))
-            ],
-          ),
+              ),
+            ]),
+            Positioned(
+                top: 65,
+                right: 0,
+                child: Container(
+                  width: wp(10, context),
+                  height: hp(18, context),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15),
+                        topLeft: Radius.circular(15)),
+                    color: Staticmenbers.cardUsers[contactcardindex!].color !=
+                            null
+                        ? colorList[
+                            Staticmenbers.cardUsers[contactcardindex!].color!]
+                        : blackColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : blackColor,
+                        blurRadius: 1.0,
+                      ),
+                    ],
+                  ),
+                ))
+          ],
         ),
       ),
     );

@@ -109,7 +109,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       telegramcontroller.text = singleuser.first.telegram!;
       websitecontroller.text = singleuser.first.website!;
       whatsappcontroller.text = singleuser.first.whatsapp!;
-      _selectedIndex = singleuser.first.card ?? 4;
+      _selectedIndex = singleuser.first.card;
       _selectcolor = singleuser.first.color;
     });
     updateImageUrl = singleuser.first.image;
@@ -423,7 +423,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         ? SizedBox(
                             height: hp(10, context),
                             width: wp(30, context),
-                            child: Image.asset(imageList[_selectedIndex ?? 0]))
+                            child: Image.asset(cardList[_selectedIndex ?? 0]))
                         : const SizedBox.shrink(),
                   ),
                   const Spacer(),
@@ -685,7 +685,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             ),
                           ),
                           child: Image(
-                            image: AssetImage(imageList[index]),
+                            image: AssetImage(cardList[index]),
                             height: hp(15, context),
                           ),
                         ),
@@ -705,8 +705,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   color: blueColor,
                   fontSize: 20,
                   onPressed: () {
-                    setState(() {});
-                    Navigator.pop(context);
+                    setState(() {
+                      Navigator.pop(context);
+                    });
                   },
                   title: 'ok',
                 ),
@@ -777,7 +778,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   color: blueColor,
                   fontSize: 20,
                   onPressed: () {
-                    Navigator.pop(context);
+                    setState(() {
+                      Navigator.pop(context);
+                    });
                   },
                   title: 'ok',
                 ),

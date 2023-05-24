@@ -186,6 +186,7 @@ class _CardscreenState extends State<Cardscreen> {
                                         padding: const EdgeInsets.only(
                                             top: 9, left: 5),
                                         child: Textwidget(
+                                          maxLines: 1,
                                           textAlign: TextAlign.start,
                                           width: wp(50, context),
                                           text:
@@ -198,6 +199,7 @@ class _CardscreenState extends State<Cardscreen> {
                                         padding: const EdgeInsets.only(
                                             top: 5, left: 5),
                                         child: Textwidget(
+                                          maxLines: 1,
                                           textAlign: TextAlign.start,
                                           width: wp(50, context),
                                           text:
@@ -209,6 +211,7 @@ class _CardscreenState extends State<Cardscreen> {
                                         padding: const EdgeInsets.only(
                                             top: 5, left: 5),
                                         child: Textwidget(
+                                          maxLines: 1,
                                           textAlign: TextAlign.start,
                                           width: wp(50, context),
                                           text:

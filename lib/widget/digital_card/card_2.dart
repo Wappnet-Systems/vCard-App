@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
@@ -50,7 +51,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
           SizedBox(height: hp(3, context)),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: blueColor, width: 3),
+              border: Border.all(color: whiteColor, width: 3),
               borderRadius: const BorderRadius.all(
                 Radius.circular(90),
               ),
@@ -59,14 +60,14 @@ class _Cardtheme2State extends State<Cardtheme2> {
               child: Staticmenbers.listofUsers[cardindex!].image == ""
                   ? Image.asset(
                       "assets/images/splash1.png",
-                      width: wp(42, context),
-                      height: hp(21, context),
+                      width: wp(36, context),
+                      height: hp(18, context),
                       fit: BoxFit.fill,
                     )
                   : Image.network(
                       "${Staticmenbers.listofUsers[cardindex!].image}",
-                      width: wp(42, context),
-                      height: hp(21, context),
+                      width: wp(36, context),
+                      height: hp(18, context),
                       fit: BoxFit.fill,
                     ),
             ),
@@ -75,16 +76,18 @@ class _Cardtheme2State extends State<Cardtheme2> {
             children: [
               SizedBox(height: hp(3, context)),
               Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "${Staticmenbers.listofUsers[cardindex!].name}",
                 selectionColor: whiteColor,
-                fontSize: 24,
+                fontSize: 20,
               ),
               SizedBox(
                 height: hp(1, context),
               ),
               Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "${Staticmenbers.listofUsers[cardindex!].department}",
@@ -95,6 +98,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                 height: hp(0.5, context),
               ),
               Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "${Staticmenbers.listofUsers[cardindex!].compeny}",
@@ -102,10 +106,10 @@ class _Cardtheme2State extends State<Cardtheme2> {
                 fontSize: 14,
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(2, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 50),
+                padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
                     (Staticmenbers.listofUsers[cardindex!].phone == "")
@@ -124,13 +128,14 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                           ),
                     SizedBox(
-                      width: wp(8, context),
+                      width: wp(5, context),
                     ),
                     (Staticmenbers.listofUsers[cardindex!].phone == "")
                         ? Container(
                             height: hp(2, context),
                           )
                         : Textwidget(
+                            maxLines: 1,
                             textAlign: TextAlign.start,
                             width: wp(60, context),
                             text:
@@ -142,10 +147,10 @@ class _Cardtheme2State extends State<Cardtheme2> {
                 ),
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(2, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 50),
+                padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
                     (Staticmenbers.listofUsers[cardindex!].email == "")
@@ -164,13 +169,14 @@ class _Cardtheme2State extends State<Cardtheme2> {
                             ),
                           ),
                     SizedBox(
-                      width: wp(8, context),
+                      width: wp(5, context),
                     ),
                     (Staticmenbers.listofUsers[cardindex!].email == "")
                         ? Container(
                             height: hp(2, context),
                           )
                         : Textwidget(
+                            maxLines: 1,
                             textAlign: TextAlign.start,
                             width: wp(60, context),
                             text:
@@ -182,48 +188,102 @@ class _Cardtheme2State extends State<Cardtheme2> {
                 ),
               ),
               SizedBox(
-                height: hp(3, context),
+                height: hp(2, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 50),
+                padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
-                    (Staticmenbers.listofUsers[cardindex!].website == "")
+                    (Staticmenbers.listofUsers[cardindex!].address == "")
                         ? Container(
-                            height: hp(3, context),
+                            height: hp(2, context),
                           )
                         : InkWell(
-                            onTap: () async {
-                              final url =
-                                  'https://${Staticmenbers.listofUsers[cardindex!].website}';
-
-                              await launchUrl(Uri.parse(url));
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                  backgroundColor: blueColor,
+                                  title: const Text("Address",
+                                      style: TextStyle(
+                                          fontFamily: 'Marck',
+                                          fontSize: 25,
+                                          color: whiteColor,
+                                          fontWeight: FontWeight.bold)),
+                                  content: Text(
+                                      '${Staticmenbers.listofUsers[cardindex!].address}',
+                                      style: const TextStyle(
+                                          fontFamily: 'Marck',
+                                          fontSize: 25,
+                                          color: whiteColor,
+                                          fontWeight: FontWeight.bold)),
+                                  actions: <Widget>[
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        TextButtomWidget(
+                                          onPressed: () {
+                                            _pushMap();
+                                          },
+                                          title: 'Use Map',
+                                          fontSize: null,
+                                          color: blueColor,
+                                        ),
+                                        TextButtomWidget(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          title: 'Cancle',
+                                          fontSize: 15,
+                                          color: Colors.redAccent,
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
                             },
                             child: Image.asset(
-                              "assets/icon/website.png",
-                              scale: 22,
+                              "assets/icon/pin.png",
+                              scale: 20,
                               color: whiteColor,
                             ),
                           ),
                     SizedBox(
-                      width: wp(8, context),
+                      width: wp(5, context),
                     ),
-                    (Staticmenbers.listofUsers[cardindex!].website == "")
+                    (Staticmenbers.listofUsers[cardindex!].address == "")
                         ? Container(
-                            height: hp(3, context),
+                            height: hp(2, context),
                           )
                         : Textwidget(
+                            maxLines: 2,
                             textAlign: TextAlign.start,
                             width: wp(60, context),
                             text:
-                                "${Staticmenbers.listofUsers[cardindex!].website}",
+                                "${Staticmenbers.listofUsers[cardindex!].address}",
                             selectionColor: whiteColor,
-                            fontSize: 14,
+                            fontSize: 12,
                           ),
                   ],
                 ),
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: hp(2, context)),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: whiteColor, width: 1)),
+                  child: QrImage(
+                    dataModuleStyle: const QrDataModuleStyle(color: whiteColor),
+                    eyeStyle: const QrEyeStyle(color: whiteColor),
+                    data:
+                        "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
+                    size: 60,
+                  ),
+                ),
+              ),
+              SizedBox(height: hp(0.5, context)),
               Wrap(
                   runSpacing: 5.0,
                   alignment: WrapAlignment.center,
@@ -243,7 +303,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/whats.png",
-                                scale: 18,
+                                scale: 20,
                                 color: whiteColor,
                               ),
                             ),
@@ -259,7 +319,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/Face.png",
-                                scale: 18,
+                                scale: 20,
                                 color: whiteColor,
                               ),
                             ),
@@ -275,7 +335,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/tele.png",
-                                scale: 18,
+                                scale: 20,
                                 color: whiteColor,
                               ),
                             ),
@@ -293,64 +353,25 @@ class _Cardtheme2State extends State<Cardtheme2> {
                               },
                               child: Image.asset(
                                 "assets/icon/lin.png",
-                                scale: 18,
+                                scale: 20,
                                 color: whiteColor,
                               ),
                             ),
                           ),
-                    (Staticmenbers.listofUsers[cardindex!].address == "")
+                    (Staticmenbers.listofUsers[cardindex!].website == "")
                         ? const SizedBox.shrink()
                         : Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: InkWell(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (ctx) => AlertDialog(
-                                    backgroundColor: blueColor,
-                                    title: const Text("Address",
-                                        style: TextStyle(
-                                            fontFamily: 'Marck',
-                                            fontSize: 25,
-                                            color: whiteColor,
-                                            fontWeight: FontWeight.bold)),
-                                    content: Text(
-                                        '${Staticmenbers.listofUsers[cardindex!].address}',
-                                        style: const TextStyle(
-                                            fontFamily: 'Marck',
-                                            fontSize: 25,
-                                            color: whiteColor,
-                                            fontWeight: FontWeight.bold)),
-                                    actions: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButtomWidget(
-                                            onPressed: () {
-                                              _pushMap();
-                                            },
-                                            title: 'Use Map',
-                                            fontSize: null,
-                                            color: blueColor,
-                                          ),
-                                          TextButtomWidget(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            title: 'Cancle',
-                                            fontSize: 15,
-                                            color: Colors.redAccent,
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                );
+                              onTap: () async {
+                                final url =
+                                    'https://${Staticmenbers.listofUsers[cardindex!].website}';
+
+                                await launchUrl(Uri.parse(url));
                               },
                               child: Image.asset(
-                                "assets/icon/pin.png",
-                                scale: 18,
+                                "assets/icon/website.png",
+                                scale: 20,
                                 color: whiteColor,
                               ),
                             ),

@@ -243,6 +243,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 padding: const EdgeInsets.only(top: 3, left: 1),
                                 child: Center(
                                     child: Textwidget(
+                                  maxLines: 1,
                                   textAlign: TextAlign.start,
                                   width: 123,
                                   text: '$name',
@@ -254,6 +255,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 padding: const EdgeInsets.only(top: 3, left: 1),
                                 child: Center(
                                     child: Textwidget(
+                                  maxLines: 1,
                                   textAlign: TextAlign.start,
                                   width: 123,
                                   text: '$department',
@@ -265,6 +267,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 padding: const EdgeInsets.only(top: 3, left: 1),
                                 child: Center(
                                     child: Textwidget(
+                                  maxLines: 1,
                                   textAlign: TextAlign.start,
                                   width: 123,
                                   text: '$compeny',

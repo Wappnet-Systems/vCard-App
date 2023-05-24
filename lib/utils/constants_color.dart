@@ -32,10 +32,19 @@ final colorList = [
   const Color(0xff960001),
   const Color(0xffb5ca1d)
 ];
-
+// create card image list
 final imageList = [
   "assets/cards/card1.jpg",
   'assets/cards/card2.jpg',
   "assets/cards/card3.jpg",
   "assets/cards/card4.jpg"
+];
+
+// update card image list
+final cardList = [
+  "assets/cards/card1.jpg",
+  'assets/cards/card2.jpg',
+  "assets/cards/card3.jpg",
+  "assets/cards/card4.jpg",
+  "assets/cards/card5.jpg"
 ];

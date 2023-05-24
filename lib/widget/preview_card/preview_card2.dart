@@ -64,6 +64,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
             children: [
               SizedBox(height: hp(3, context)),
               Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "Your Name",
@@ -74,6 +75,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 height: hp(1, context),
               ),
               Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "Profession",
@@ -84,6 +86,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 height: hp(0.5, context),
               ),
               Textwidget(
+                maxLines: 1,
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "Company Name",
@@ -106,6 +109,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       width: wp(5, context),
                     ),
                     Textwidget(
+                      maxLines: 1,
                       textAlign: TextAlign.start,
                       width: wp(40, context),
                       text: "xxxxx xxxxx",
@@ -131,6 +135,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       width: wp(5, context),
                     ),
                     Textwidget(
+                      maxLines: 1,
                       textAlign: TextAlign.start,
                       width: wp(40, context),
                       text: "xyz12@gmail.com",
@@ -156,6 +161,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                       width: wp(5, context),
                     ),
                     Textwidget(
+                      maxLines: 1,
                       textAlign: TextAlign.start,
                       width: wp(40, context),
                       text: "www.xyz.com",

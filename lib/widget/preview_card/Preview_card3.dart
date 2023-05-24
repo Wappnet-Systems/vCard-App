@@ -62,6 +62,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Textwidget(
+                        maxLines: 1,
                         textAlign: TextAlign.start,
                         width: wp(40, context),
                         text: "Your Name",
@@ -77,6 +78,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                     Padding(
                       padding: const EdgeInsets.only(left: 40),
                       child: Textwidget(
+                        maxLines: 1,
                         textAlign: TextAlign.start,
                         width: wp(40, context),
                         text: "Profession",
@@ -173,6 +175,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           ),
                           SizedBox(width: wp(4, context)),
                           Textwidget(
+                              maxLines: 1,
                               textAlign: TextAlign.start,
                               width: wp(25, context),
                               text: "xxxxx xxxxx",
@@ -194,6 +197,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                         ),
                         SizedBox(width: wp(4, context)),
                         Textwidget(
+                            maxLines: 1,
                             textAlign: TextAlign.start,
                             width: wp(25, context),
                             text: "xxxxx xxxxx",
@@ -215,6 +219,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             width: wp(4, context),
                           ),
                           Textwidget(
+                              maxLines: 1,
                               textAlign: TextAlign.start,
                               width: wp(30, context),
                               text: "xyz12@gmail.com",
@@ -237,6 +242,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             width: wp(4, context),
                           ),
                           Textwidget(
+                              maxLines: 1,
                               textAlign: TextAlign.start,
                               width: wp(30, context),
                               text: "www.xyz.com",
@@ -260,6 +266,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           width: wp(4, context),
                         ),
                         Textwidget(
+                            maxLines: 1,
                             textAlign: TextAlign.start,
                             width: wp(30, context),
                             text: "Your ID",
@@ -291,6 +298,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                   padding: const EdgeInsets.only(left: 1),
                   child: Center(
                     child: Textwidget(
+                        maxLines: 1,
                         textAlign: TextAlign.start,
                         width: wp(50, context),
                         text: "Company Name",

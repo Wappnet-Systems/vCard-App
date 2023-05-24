@@ -32,7 +32,7 @@ class _PreviewCardState extends State<PreviewCard> {
       PreviewCard2(id: previewcolor),
       PreviewCard3(id: previewcolor),
       PreviewCard4(id: previewcolor),
-      PreviewDefultCard(id: previewcolor)
+      PreviewDefultCard()
     ];
     return Container(
       decoration: const BoxDecoration(
