@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
@@ -14,7 +13,6 @@ import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_no_data_widget.dart';
-import '../widget/custom_toast.dart';
 
 class Scannerscreen extends StatefulWidget {
   const Scannerscreen({super.key});
@@ -25,7 +23,6 @@ class Scannerscreen extends StatefulWidget {
 
 class _ScannerscreenState extends State<Scannerscreen> {
   List<Users> userData = [];
-  FToast? fToast;
   bool value = false;
   int? contectcard;
   int? card;
@@ -141,8 +138,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
 
   @override
   void initState() {
-    fToast = FToast();
-    fToast?.init(context);
     super.initState();
   }
 
@@ -172,6 +167,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                   userData.isEmpty
                       ? const Custonloading()
                       : Container(
+                          height: hp(13, context),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             boxShadow: [
@@ -187,100 +183,97 @@ class _ScannerscreenState extends State<Scannerscreen> {
                             color: whiteColor,
                           ),
                           margin: const EdgeInsets.only(
-                              left: 95, right: 95, top: 10, bottom: 10),
-                          child: Column(
-                            children: [
-                              image == ""
-                                  ? ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20)),
-                                      child: Image.asset(
-                                        "assets/images/splash1.png",
-                                        width: wp(55, context),
-                                        height: hp(17, context),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20)),
-                                      child: Image.network(
-                                        "$image",
-                                        width: wp(52, context),
-                                        height: hp(17, context),
-                                        fit: BoxFit.fill,
-                                        frameBuilder: (context, child, frame,
-                                            wasSynchronouslyLoaded) {
-                                          return child;
-                                        },
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return Image(
-                                            image: const AssetImage(
-                                                "assets/images/splash1.png"),
-                                            width: wp(55, context),
-                                            height: hp(17, context),
-                                          );
-                                        },
-                                        loadingBuilder:
-                                            (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          } else {
-                                            return const Center(
-                                                child: Icon(
-                                              Icons.image,
-                                              size: 130,
-                                              color: blueColor,
-                                            ));
-                                          }
-                                        },
-                                      ),
+                              left: 15, right: 15, top: 5, bottom: 5),
+                          child: ListTile(
+                            leading: image == ""
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.asset(
+                                      "assets/images/splash1.png",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.fill,
                                     ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3, left: 1),
-                                child: Center(
-                                    child: Textwidget(
-                                  maxLines: 1,
-                                  textAlign: TextAlign.start,
-                                  width: 123,
-                                  text: '$name',
-                                  fontSize: 18,
-                                  selectionColor: blueColor,
-                                )),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.network(
+                                      "$image",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.fill,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
+                                        return child;
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                              child: Icon(
+                                            Icons.image,
+                                            size: 130,
+                                            color: whiteColor,
+                                          ));
+                                        }
+                                      },
+                                    ),
+                                  ),
+                            title: Row(children: [
+                              Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 9, left: 5),
+                                        child: Textwidget(
+                                          maxLines: 1,
+                                          textAlign: TextAlign.start,
+                                          width: wp(50, context),
+                                          text: '$name',
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          selectionColor: blackColor,
+                                        )),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, left: 5),
+                                        child: Textwidget(
+                                          maxLines: 1,
+                                          textAlign: TextAlign.start,
+                                          width: wp(50, context),
+                                          text: '$type',
+                                          fontSize: 14,
+                                          selectionColor: grayColor,
+                                        )),
+                                    Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 5, left: 5),
+                                        child: Textwidget(
+                                          maxLines: 1,
+                                          textAlign: TextAlign.start,
+                                          width: wp(50, context),
+                                          text: '$department',
+                                          fontSize: 14,
+                                          selectionColor: grayColor,
+                                        ))
+                                  ]),
+                              const Spacer(),
+                              const Padding(
+                                padding: EdgeInsets.only(right: 5),
+                                child: Icon(Icons.more_horiz),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3, left: 1),
-                                child: Center(
-                                    child: Textwidget(
-                                  maxLines: 1,
-                                  textAlign: TextAlign.start,
-                                  width: 123,
-                                  text: '$department',
-                                  fontSize: 18,
-                                  selectionColor: blueColor,
-                                )),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3, left: 1),
-                                child: Center(
-                                    child: Textwidget(
-                                  maxLines: 1,
-                                  textAlign: TextAlign.start,
-                                  width: 123,
-                                  text: '$compeny',
-                                  fontSize: 18,
-                                  selectionColor: blueColor,
-                                )),
-                              ),
-                            ],
+                            ]),
                           )),
                   SizedBox(height: hp(5, context)),
                   Center(
                     child: Container(
-                        width: wp(50, context),
+                        width: wp(90, context),
                         decoration: BoxDecoration(
                           color: blueColor,
                           borderRadius: BorderRadius.circular(10),
@@ -297,13 +290,12 @@ class _ScannerscreenState extends State<Scannerscreen> {
                               isLoading = true;
                             });
                             addUser();
-                            displayCustomToast();
                           },
                         )),
                   ),
                   SizedBox(height: hp(3, context)),
                   Container(
-                      width: wp(50, context),
+                      width: wp(90, context),
                       decoration: BoxDecoration(
                         color: Colors.redAccent,
                         borderRadius: BorderRadius.circular(10),
@@ -397,18 +389,5 @@ class _ScannerscreenState extends State<Scannerscreen> {
     } on PlatformException {
       return;
     }
-  }
-
-  displayCustomToast() {
-    Widget toast = const CustomToast(
-      child: Text(
-        "Connected",
-        style: TextStyle(color: whiteColor),
-      ),
-    );
-    fToast?.showToast(
-      child: toast,
-      toastDuration: const Duration(seconds: 2),
-    );
   }
 }

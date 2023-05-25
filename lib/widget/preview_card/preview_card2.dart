@@ -26,10 +26,10 @@ class _PreviewCard2State extends State<PreviewCard2> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 30, left: 30, top: 10),
+      padding: const EdgeInsets.only(right: 30, left: 30, top: 15, bottom: 10),
       child: Container(
-        width: wp(50, context),
-        height: hp(70, context),
+        width: wp(80, context),
+        height: hp(52, context),
         decoration: BoxDecoration(
           border: Border.all(color: whiteColor, width: wp(0.5, context)),
           borderRadius: const BorderRadius.only(
@@ -45,7 +45,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
           ],
         ),
         child: Column(children: [
-          SizedBox(height: hp(2, context)),
+          SizedBox(height: hp(1, context)),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: whiteColor, width: 3),
@@ -63,7 +63,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
           ),
           Column(
             children: [
-              SizedBox(height: hp(2, context)),
+              SizedBox(height: hp(1, context)),
               Textwidget(
                 maxLines: 1,
                 textAlign: TextAlign.center,
@@ -73,7 +73,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 fontSize: 20,
               ),
               SizedBox(
-                height: hp(1, context),
+                height: hp(0.5, context),
               ),
               Textwidget(
                 maxLines: 1,
@@ -95,7 +95,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 fontSize: 14,
               ),
               SizedBox(
-                height: hp(1.5, context),
+                height: hp(1, context),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 60),
@@ -121,7 +121,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 ),
               ),
               SizedBox(
-                height: hp(1.5, context),
+                height: hp(1, context),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 60),
@@ -147,7 +147,7 @@ class _PreviewCard2State extends State<PreviewCard2> {
                 ),
               ),
               SizedBox(
-                height: hp(1.5, context),
+                height: hp(1, context),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 60),

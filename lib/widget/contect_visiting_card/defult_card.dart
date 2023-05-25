@@ -76,8 +76,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           ),
                           child: Image.asset(
                             "assets/images/splash1.png",
-                            width: wp(60, context),
-                            height: hp(22, context),
+                            width: wp(45, context),
+                            height: hp(20, context),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -100,8 +100,8 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                               topRight: Radius.circular(50)),
                           child: Image.network(
                             "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                            width: wp(60, context),
-                            height: hp(22, context),
+                            width: wp(45, context),
+                            height: hp(20, context),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -143,7 +143,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                   (Staticmenbers.cardUsers[contactcardindex!].phone == "")
                       ? const SizedBox.shrink()
                       : Padding(
-                          padding: const EdgeInsets.only(left: 55),
+                          padding: const EdgeInsets.only(left: 40),
                           child: InkWell(
                             onTap: () {
                               launchUrl(Uri.parse(
@@ -173,7 +173,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                   (Staticmenbers.cardUsers[contactcardindex!].email == "")
                       ? const SizedBox.shrink()
                       : Padding(
-                          padding: const EdgeInsets.only(left: 55),
+                          padding: const EdgeInsets.only(left: 40),
                           child: InkWell(
                             onTap: () {
                               launchUrl(Uri.parse(
@@ -191,7 +191,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                     child: Textwidget(
                         maxLines: 1,
                         textAlign: TextAlign.start,
-                        width: wp(40, context),
+                        width: wp(60, context),
                         text:
                             "${Staticmenbers.cardUsers[contactcardindex!].email}",
                         fontSize: 16,
@@ -203,7 +203,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                   (Staticmenbers.cardUsers[contactcardindex!].address == "")
                       ? const SizedBox.shrink()
                       : Padding(
-                          padding: const EdgeInsets.only(left: 55),
+                          padding: const EdgeInsets.only(left: 40),
                           child: InkWell(
                             onTap: () {
                               showDialog(
@@ -261,7 +261,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                     child: Textwidget(
                         maxLines: 2,
                         textAlign: TextAlign.start,
-                        width: wp(50, context),
+                        width: wp(60, context),
                         text:
                             "${Staticmenbers.cardUsers[contactcardindex!].address}",
                         fontSize: 14,

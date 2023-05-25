@@ -37,24 +37,22 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
       Contectcardtheme4(id: contactcardindex),
       Contectdefultcard(id: contactcardindex)
     ];
-    return SafeArea(
-      child: Scaffold(
-          appBar: Customappbarwidget(
-              leading: InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: const Padding(
-                    padding:
-                        EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-                    child: Icon(
-                      Icons.arrow_back_sharp,
-                      color: blackColor,
-                    ),
-                  )),
-              title: "${Staticmenbers.cardUsers[widget.contectid!].type}",
-              actions: null),
-          body: cardList[Staticmenbers.cardUsers[widget.contectid!].card!]),
-    );
+    return Scaffold(
+        appBar: Customappbarwidget(
+            leading: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: const Padding(
+                  padding:
+                      EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                  child: Icon(
+                    Icons.arrow_back_sharp,
+                    color: blackColor,
+                  ),
+                )),
+            title: "${Staticmenbers.cardUsers[widget.contectid!].type}",
+            actions: null),
+        body: cardList[Staticmenbers.cardUsers[widget.contectid!].card!]);
   }
 }

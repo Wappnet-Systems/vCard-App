@@ -70,20 +70,36 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                 .cardUsers[contactcardindex!].color!]
                             : whiteColor),
                 SizedBox(height: hp(4, context)),
-                ClipOval(
-                  child: Staticmenbers.cardUsers[contactcardindex!].image == ""
-                      ? Image.asset(
-                          "assets/images/splash1.png",
-                          width: wp(23, context),
-                          height: hp(11, context),
-                          fit: BoxFit.fill,
-                        )
-                      : Image.network(
-                          "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                          width: wp(23, context),
-                          height: hp(11, context),
-                          fit: BoxFit.fill,
-                        ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color:
+                            Staticmenbers.cardUsers[contactcardindex!].color !=
+                                    null
+                                ? colorList[Staticmenbers
+                                    .cardUsers[contactcardindex!].color!]
+                                : blackColor,
+                        width: wp(0.2, context)),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(90),
+                    ),
+                  ),
+                  child: ClipOval(
+                    child:
+                        Staticmenbers.cardUsers[contactcardindex!].image == ""
+                            ? Image.asset(
+                                "assets/images/splash1.png",
+                                width: wp(23, context),
+                                height: hp(11, context),
+                                fit: BoxFit.fill,
+                              )
+                            : Image.network(
+                                "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                                width: wp(23, context),
+                                height: hp(11, context),
+                                fit: BoxFit.fill,
+                              ),
+                  ),
                 ),
                 SizedBox(height: hp(2, context)),
                 Textwidget(

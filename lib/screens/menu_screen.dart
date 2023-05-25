@@ -1,13 +1,12 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/update_card_screen.dart';
+import 'package:vcard/widget/custom_alartdialog.dart';
+import 'package:vcard/widget/text_widget.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_bottom _card.dart';
-import '../widget/custom_loadingbar_widget.dart';
-import '../widget/text_button_widget.dart';
 import 'card_shere_screen.dart';
 import 'contect_visiting_card.dart';
 import 'dashboard_screen.dart';
@@ -82,104 +81,72 @@ class _MenuscreenState extends State<Menuscreen> {
                         SizedBox(width: wp(3, context)),
                         InkWell(
                           onTap: () {
+                            Navigator.of(context).pop;
                             setState(() {
                               showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(20),
-                                        topRight: Radius.circular(20),
-                                        topLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20)),
-                                  ),
-                                  title: const Text(
-                                      "Are you sure you want to delete this card?"),
-                                  content: null,
-                                  actions: <Widget>[
-                                    (isLoading)
-                                        ? const Custonloading()
-                                        : const SizedBox.shrink(),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            (widget.id != null)
-                                                ? setState(() {
-                                                    isLoading = true;
-                                                    FirebaseFirestore.instance
-                                                        .collection("users")
-                                                        .doc(FirebaseAuth
-                                                            .instance
-                                                            .currentUser
-                                                            ?.uid)
-                                                        .collection("Carddata")
-                                                        .doc(Staticmenbers
-                                                            .listofUsers[
-                                                                widget.id!]
-                                                            .id)
-                                                        .delete()
-                                                        .then((value) {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const Dashboardscreen(
-                                                                      index:
-                                                                          0)));
-                                                    });
-                                                  })
-                                                : setState(() {
-                                                    isLoading = true;
-                                                    log("${Staticmenbers.cardUsers[widget.contectid!].id}");
-
-                                                    FirebaseFirestore.instance
-                                                        .collection("users")
-                                                        .doc(FirebaseAuth
-                                                            .instance
-                                                            .currentUser
-                                                            ?.uid)
-                                                        .collection(
-                                                            "Frind's card")
-                                                        .doc(Staticmenbers
-                                                            .cardUsers[widget
-                                                                .contectid!]
-                                                            .id)
-                                                        .delete()
-                                                        .then((value) {
-                                                      Navigator.pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  const Dashboardscreen(
-                                                                    index: 2,
-                                                                  )));
-                                                    });
-                                                  });
-                                          },
-                                          title: 'Okey',
-                                          fontSize: 15,
-                                          color: Colors.redAccent,
+                                  context: context,
+                                  builder: (ctx) => CustomAlartDialog(
+                                        title: const Textwidget(
+                                            textAlign: TextAlign.start,
+                                            text: "Delete"),
+                                        content: const Textwidget(
+                                          maxLines: 2,
+                                          textAlign: TextAlign.start,
+                                          text:
+                                              "Are you sure you want to delete this card?",
+                                          selectionColor: grayColor,
                                         ),
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const Dashboardscreen(
-                                                            index: 0)));
-                                          },
-                                          title: 'Cancle',
-                                          fontSize: 15,
-                                          color: blueColor,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
+                                        onPressedNo: () {
+                                          Navigator.pop(context);
+                                        },
+                                        onPressedYes: () {
+                                          (widget.id != null)
+                                              ? setState(() {
+                                                  isLoading = true;
+                                                  FirebaseFirestore.instance
+                                                      .collection("users")
+                                                      .doc(FirebaseAuth.instance
+                                                          .currentUser?.uid)
+                                                      .collection("Carddata")
+                                                      .doc(Staticmenbers
+                                                          .listofUsers[
+                                                              widget.id!]
+                                                          .id)
+                                                      .delete()
+                                                      .then((value) {
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const Dashboardscreen(
+                                                                    index: 0)));
+                                                  });
+                                                })
+                                              : setState(() {
+                                                  isLoading = true;
+                                                  FirebaseFirestore.instance
+                                                      .collection("users")
+                                                      .doc(FirebaseAuth.instance
+                                                          .currentUser?.uid)
+                                                      .collection(
+                                                          "Frind's card")
+                                                      .doc(Staticmenbers
+                                                          .cardUsers[
+                                                              widget.contectid!]
+                                                          .id)
+                                                      .delete()
+                                                      .then((value) {
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const Dashboardscreen(
+                                                                  index: 2,
+                                                                )));
+                                                  });
+                                                });
+                                        },
+                                      ));
                             });
                           },
                           child: const CardWidget(

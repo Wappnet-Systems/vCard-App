@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:vcard/utils/constants_color.dart';
-import 'package:vcard/utils/formatters.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import 'otp_screen.dart';
@@ -67,7 +66,7 @@ class _NumberverificationState extends State<Numberverification> {
                     height: hp(3, context),
                   ),
                   const Text(
-                    "Login in",
+                    "Login",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
@@ -82,12 +81,11 @@ class _NumberverificationState extends State<Numberverification> {
                   ),
                   SizedBox(height: hp(4, context)),
                   IntlPhoneField(
-                    inputFormatters: [maskFormatter],
                     dropdownIcon: const Icon(
                       Icons.arrow_drop_down,
                       color: blueColor,
                     ),
-                    disableLengthCheck: true,
+                    disableLengthCheck: false,
                     cursorColor: blueColor,
                     controller: countryController,
                     decoration: const InputDecoration(

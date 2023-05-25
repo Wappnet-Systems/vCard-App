@@ -63,10 +63,10 @@ class _MyAppState extends State<MyApp> {
               children: [
                 Image.asset(
                   "assets/images/splash1.png",
-                  height: 200,
-                  width: 200,
+                  height: hp(25, context),
+                  width: wp(130, context),
                 ),
-                SizedBox(height: hp(1, context)),
+                SizedBox(height: hp(3, context)),
                 const Text("V Card",
                     style: TextStyle(
                       fontSize: 30,

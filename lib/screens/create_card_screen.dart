@@ -6,8 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
@@ -174,7 +172,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                            color: blueColor, width: wp(0.7, context)),
+                            color: blueColor, width: wp(0.5, context)),
                         borderRadius: const BorderRadius.all(
                           Radius.circular(100),
                         ),
@@ -213,7 +211,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                             padding: const EdgeInsets.all(1),
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: blackColor, width: wp(0.7, context)),
+                                    color: blueColor, width: wp(0.5, context)),
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(20),
                                 ),

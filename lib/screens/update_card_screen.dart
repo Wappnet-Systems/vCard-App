@@ -8,7 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
@@ -132,7 +131,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'Name': nameController.text,
       'Department': departmentController.text,
       'Company': companyController.text,
-      'HeadLine': headlineController.text,
       'WhatsApp': whatsappcontroller.text,
       'Telegram': telegramcontroller.text,
       'Snapchat': snapchatcontroller.text,
@@ -232,323 +230,355 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   color: blackColor,
                 ),
               ))),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formfield,
-          child: Stack(children: [
-            Column(
-              children: [
-                SizedBox(height: hp(2, context)),
-                Stack(children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: blueColor, width: 3),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
-                      ),
-                    ),
-                    child: imageurl == null || imageurl == ""
-                        ? ClipRRect(
+      body: emailcontroller.text == "" &&
+              nameController.text == "" &&
+              departmentController.text == "" &&
+              companyController.text == ""
+          ? const Center(child: Custonloading())
+          : SingleChildScrollView(
+              child: Form(
+                key: _formfield,
+                child: Stack(children: [
+                  Column(
+                    children: [
+                      SizedBox(height: hp(2, context)),
+                      Stack(children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: blueColor, width: wp(0.5, context)),
                             borderRadius: const BorderRadius.all(
                               Radius.circular(100),
                             ),
-                            child: Image(
-                              image:
-                                  const AssetImage("assets/images/splash1.png"),
-                              width: wp(30, context),
-                              height: hp(15, context),
-                              fit: BoxFit.fill,
-                            ),
-                          )
-                        : ClipOval(
-                            child: CachedNetworkImage(
-                              placeholder: (context, url) => const Padding(
-                                padding: EdgeInsets.all(30.0),
-                                child: Custonloading(),
-                              ),
-                              imageUrl: "$imageurl",
-                              width: wp(30, context),
-                              height: hp(15, context),
-                              fit: BoxFit.fill,
-                            ),
                           ),
-                  ),
-                  Positioned(
-                      top: 80,
-                      left: 85,
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            isphotoloading = true;
-                          });
-                          showDialog(
-                              context: context,
-                              builder: (ctx) => Uploadimage(onTapCamera: () {
-                                    pickImage(ImageSource.camera);
-                                    Navigator.pop(context);
-                                  }, onTapGallery: () {
-                                    pickImage(ImageSource.gallery);
-                                    Navigator.pop(context);
-                                  }));
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: blackColor, width: wp(0.7, context)),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                              color: whiteColor),
-                          child: const Icon(
-                            Icons.camera,
-                            size: 20,
-                            color: blueColor,
-                          ),
+                          child: imageurl == null || imageurl == ""
+                              ? ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                  child: Image(
+                                    image: const AssetImage(
+                                        "assets/images/splash1.png"),
+                                    width: wp(30, context),
+                                    height: hp(15, context),
+                                    fit: BoxFit.fill,
+                                  ),
+                                )
+                              : ClipOval(
+                                  child: CachedNetworkImage(
+                                    placeholder: (context, url) =>
+                                        const Padding(
+                                      padding: EdgeInsets.all(30.0),
+                                      child: Center(
+                                          child: Icon(
+                                        Icons.image,
+                                        size: 50,
+                                        color: whiteColor,
+                                      )),
+                                    ),
+                                    imageUrl: "$imageurl",
+                                    width: wp(30, context),
+                                    height: hp(15, context),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                         ),
-                      )),
-                ]),
-                SizedBox(height: hp(3, context)),
-                SizedBox(height: hp(3, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.words,
-                  labelText: "Type",
-                  inputFormatters: null,
-                  textInputType: TextInputType.emailAddress,
-                  textEditingController: typecontroller,
-                  texteditinghinttext: 'card type',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: null,
-                  validationfunction: textvalidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.words,
-                  labelText: "Name",
-                  inputFormatters: null,
-                  textInputType: TextInputType.text,
-                  textEditingController: nameController,
-                  texteditinghinttext: 'Name',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: null,
-                  validationfunction: textvalidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.words,
-                  labelText: "Profession",
-                  inputFormatters: null,
-                  textInputType: TextInputType.text,
-                  textEditingController: departmentController,
-                  texteditinghinttext: 'Profession',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: null,
-                  validationfunction: textvalidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.words,
-                  labelText: "Company",
-                  inputFormatters: null,
-                  textInputType: TextInputType.text,
-                  textEditingController: companyController,
-                  texteditinghinttext: 'Company',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: null,
-                  validationfunction: textvalidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.none,
-                  labelText: "Phone",
-                  inputFormatters: [maskFormatter],
-                  textInputType: TextInputType.phone,
-                  textEditingController: numbercontroller,
-                  texteditinghinttext: 'Phone',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: const Icon(
-                    Icons.phone,
-                    color: grayColor,
-                  ),
-                  validationfunction: numbervalidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.none,
-                  labelText: "Email",
-                  inputFormatters: null,
-                  textInputType: TextInputType.emailAddress,
-                  textEditingController: emailcontroller,
-                  texteditinghinttext: 'Email',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: const Icon(
-                    Icons.email,
-                    color: grayColor,
-                  ),
-                  validationfunction: emailValidator,
-                ),
-                SizedBox(height: hp(2, context)),
-                Addresstextfield(
-                    textEditingController: addresscontroller,
-                    itmClick: (Prediction prediction) {
-                      addresscontroller.text = prediction.description!;
-
-                      addresscontroller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: prediction.description!.length));
-                    }),
-                SizedBox(height: hp(1, context)),
-                Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30),
-                    child: _selectedIndex != null
-                        ? SizedBox(
-                            height: hp(10, context),
-                            width: wp(30, context),
-                            child: Image.asset(cardList[_selectedIndex ?? 0]))
-                        : const SizedBox.shrink(),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 70),
-                    child: _selectcolor != null
-                        ? Container(
-                            width: wp(16, context),
-                            height: hp(8, context),
-                            decoration: BoxDecoration(
-                                color: colorList[_selectcolor ?? 0],
-                                borderRadius: BorderRadius.circular(100)),
-                          )
-                        : const SizedBox.shrink(),
-                  ),
-                ]),
-                SizedBox(height: hp(1, context)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Row(children: [
-                    InkWell(
-                        onTap: () {
-                          setState(() {
-                            showimagelist();
-                          });
-                        },
-                        child: Container(
-                          width: wp(40, context),
-                          height: hp(7, context),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              border: Border.all(color: grayColor)),
-                          child: const Row(children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text("Select Theme",
-                                  style: TextStyle(color: blueColor)),
-                            ),
-                            Spacer(),
-                            Icon(Icons.arrow_drop_down_sharp)
-                          ]),
-                        )),
-                    const Spacer(),
-                    InkWell(
-                        onTap: () {
-                          setState(() {
-                            showcolorlist();
-                          });
-                        },
-                        child: Container(
-                          width: wp(40, context),
-                          height: hp(7, context),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              border: Border.all(color: grayColor)),
-                          child: const Row(children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 10),
-                              child: Text(
-                                "Select Color",
-                                style: TextStyle(color: blueColor),
-                              ),
-                            ),
-                            Spacer(),
-                            Icon(Icons.arrow_drop_down_sharp)
-                          ]),
-                        ))
-                  ]),
-                ),
-                SizedBox(height: hp(2, context)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: InkWell(
-                        onTap: () {
-                          setState(() {
-                            previewcard = _selectedIndex;
-                            previewcolor = _selectcolor;
-                          });
-                          showModalBottomSheet(
-                              context: context,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25.0)),
-                              ),
-                              builder: (BuildContext context) => PreviewCard(
-                                  cardid: previewcard, colorid: previewcolor));
-                        },
-                        child: const Text(
-                          "Preview Card ?",
-                          style: TextStyle(
-                              color: bottomColor, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: (ismoreadddata)
-                          ? const SizedBox.shrink()
-                          : InkWell(
+                        Positioned(
+                            top: 80,
+                            left: 85,
+                            child: InkWell(
                               onTap: () {
                                 setState(() {
-                                  ismoreadddata = true;
+                                  isphotoloading = true;
+                                });
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) =>
+                                        Uploadimage(onTapCamera: () {
+                                          pickImage(ImageSource.camera);
+                                          Navigator.pop(context);
+                                        }, onTapGallery: () {
+                                          pickImage(ImageSource.gallery);
+                                          Navigator.pop(context);
+                                        }));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(1),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: blackColor,
+                                        width: wp(0.5, context)),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    color: whiteColor),
+                                child: const Icon(
+                                  Icons.camera,
+                                  size: 20,
+                                  color: blueColor,
+                                ),
+                              ),
+                            )),
+                      ]),
+                      SizedBox(height: hp(3, context)),
+                      SizedBox(height: hp(3, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        labelText: "Type",
+                        inputFormatters: null,
+                        textInputType: TextInputType.emailAddress,
+                        textEditingController: typecontroller,
+                        texteditinghinttext: 'card type',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.badge_outlined,
+                          color: grayColor,
+                        ),
+                        validationfunction: textvalidator,
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        labelText: "Name",
+                        inputFormatters: null,
+                        textInputType: TextInputType.text,
+                        textEditingController: nameController,
+                        texteditinghinttext: 'Name',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.person,
+                          color: grayColor,
+                        ),
+                        validationfunction: textvalidator,
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        labelText: "Profession",
+                        inputFormatters: null,
+                        textInputType: TextInputType.text,
+                        textEditingController: departmentController,
+                        texteditinghinttext: 'Profession',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.work_rounded,
+                          color: grayColor,
+                        ),
+                        validationfunction: textvalidator,
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.words,
+                        labelText: "Company",
+                        inputFormatters: null,
+                        textInputType: TextInputType.text,
+                        textEditingController: companyController,
+                        texteditinghinttext: 'Company',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.apartment_sharp,
+                          color: grayColor,
+                        ),
+                        validationfunction: textvalidator,
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Phone",
+                        inputFormatters: [maskFormatter],
+                        textInputType: TextInputType.phone,
+                        textEditingController: numbercontroller,
+                        texteditinghinttext: 'Phone',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.phone,
+                          color: grayColor,
+                        ),
+                        validationfunction: numbervalidator,
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Email",
+                        inputFormatters: null,
+                        textInputType: TextInputType.emailAddress,
+                        textEditingController: emailcontroller,
+                        texteditinghinttext: 'Email',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.email,
+                          color: grayColor,
+                        ),
+                        validationfunction: emailValidator,
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      Addresstextfield(
+                          textEditingController: addresscontroller,
+                          itmClick: (Prediction prediction) {
+                            addresscontroller.text = prediction.description!;
+
+                            addresscontroller.selection =
+                                TextSelection.fromPosition(TextPosition(
+                                    offset: prediction.description!.length));
+                          }),
+                      SizedBox(height: hp(1, context)),
+                      Row(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 30),
+                          child: _selectedIndex != null
+                              ? SizedBox(
+                                  height: hp(10, context),
+                                  width: wp(30, context),
+                                  child: Image.asset(
+                                      cardList[_selectedIndex ?? 0]))
+                              : const SizedBox.shrink(),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 70),
+                          child: _selectcolor != null
+                              ? Container(
+                                  width: wp(16, context),
+                                  height: hp(8, context),
+                                  decoration: BoxDecoration(
+                                      color: colorList[_selectcolor ?? 0],
+                                      borderRadius: BorderRadius.circular(100)),
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+                      ]),
+                      SizedBox(height: hp(1, context)),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: Row(children: [
+                          InkWell(
+                              onTap: () {
+                                setState(() {
+                                  showimagelist();
                                 });
                               },
+                              child: Container(
+                                width: wp(40, context),
+                                height: hp(7, context),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    border: Border.all(color: grayColor)),
+                                child: const Row(children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text("Select Theme",
+                                        style: TextStyle(color: blueColor)),
+                                  ),
+                                  Spacer(),
+                                  Icon(Icons.arrow_drop_down_sharp)
+                                ]),
+                              )),
+                          const Spacer(),
+                          InkWell(
+                              onTap: () {
+                                setState(() {
+                                  showcolorlist();
+                                });
+                              },
+                              child: Container(
+                                width: wp(40, context),
+                                height: hp(7, context),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(3),
+                                    border: Border.all(color: grayColor)),
+                                child: const Row(children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      "Select Color",
+                                      style: TextStyle(color: blueColor),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Icon(Icons.arrow_drop_down_sharp)
+                                ]),
+                              ))
+                        ]),
+                      ),
+                      SizedBox(height: hp(2, context)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  previewcard = _selectedIndex;
+                                  previewcolor = _selectcolor;
+                                });
+                                showModalBottomSheet(
+                                    context: context,
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0)),
+                                    ),
+                                    builder: (BuildContext context) =>
+                                        PreviewCard(
+                                            cardid: previewcard,
+                                            colorid: previewcolor));
+                              },
                               child: const Text(
-                                "Add more item ?",
+                                "Preview Card ?",
                                 style: TextStyle(
                                     color: bottomColor,
                                     fontWeight: FontWeight.bold),
-                              )),
-                    ),
-                  ],
-                ),
-                SizedBox(height: hp(4, context)),
-                (ismoreadddata)
-                    ? MoreTextfieldscreen(
-                        websitecontroller: websitecontroller,
-                        telegramcontroller: telegramcontroller,
-                        facebookcontroller: facebookcontroller,
-                        linkController: linkController,
-                        whatsappcontroller: whatsappcontroller,
-                      )
-                    : const SizedBox.shrink(),
-              ],
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 15),
+                            child: (ismoreadddata)
+                                ? const SizedBox.shrink()
+                                : InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        ismoreadddata = true;
+                                      });
+                                    },
+                                    child: const Text(
+                                      "Add more item ?",
+                                      style: TextStyle(
+                                          color: bottomColor,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: hp(4, context)),
+                      (ismoreadddata)
+                          ? MoreTextfieldscreen(
+                              websitecontroller: websitecontroller,
+                              telegramcontroller: telegramcontroller,
+                              facebookcontroller: facebookcontroller,
+                              linkController: linkController,
+                              whatsappcontroller: whatsappcontroller,
+                            )
+                          : const SizedBox.shrink(),
+                    ],
+                  ),
+                  Positioned(
+                    top: 220,
+                    left: 160,
+                    child: (isLoading)
+                        ? const Custonloading()
+                        : const SizedBox.shrink(),
+                  )
+                ]),
+              ),
             ),
-            Positioned(
-              top: 220,
-              left: 160,
-              child:
-                  (isLoading) ? const Custonloading() : const SizedBox.shrink(),
-            )
-          ]),
-        ),
-      ),
     );
   }
 

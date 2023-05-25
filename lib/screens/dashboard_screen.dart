@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:vcard/screens/card_screen.dart';
 import 'package:vcard/screens/scanner_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
 import '../utils/constants_color.dart';
+import 'card_screen.dart';
 import 'contacts_screen.dart';
 import 'create_card_screen.dart';
 
@@ -15,15 +15,16 @@ class Dashboardscreen extends StatefulWidget {
 }
 
 class _DashboardscreenState extends State<Dashboardscreen> {
-  PageController? _myPage;
-  int? _selectedIndex;
+  int _selectedIndex = 0;
+  Widget? currentScreen;
   bool value = false;
+  late PageStorageBucket pageBucket;
 
   @override
   void initState() {
+    pageBucket = PageStorageBucket();
     _selectedIndex = widget.index;
     super.initState();
-    _myPage = PageController(initialPage: _selectedIndex!);
   }
 
   void changeData() {
@@ -32,9 +33,14 @@ class _DashboardscreenState extends State<Dashboardscreen> {
     });
   }
 
+  final screen = [
+    const Cardscreen(),
+    const Scannerscreen(),
+    const ContactsScreen(),
+    const Setting_Screen()
+  ];
   @override
   void dispose() {
-    _myPage!.dispose();
     super.dispose();
   }
 
@@ -44,12 +50,15 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       onWillPop: () async {
         setState(() {
           _selectedIndex = 0;
-          _myPage!.jumpToPage(_selectedIndex!);
         });
         return false;
       },
       child: Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        body: PageStorage(
+          bucket: pageBucket,
+          child: currentScreen = screen[_selectedIndex],
+        ),
         bottomNavigationBar: BottomAppBar(
           color: bottomColor,
           shape: const CircularNotchedRectangle(),
@@ -68,7 +77,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 0;
-                    _myPage!.jumpToPage(_selectedIndex!);
+                    currentScreen = screen[0];
                   });
                 },
               ),
@@ -82,7 +91,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 1;
-                    _myPage!.jumpToPage(_selectedIndex!);
+                    currentScreen = screen[1];
                   });
                 },
               ),
@@ -96,7 +105,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 2;
-                    _myPage!.jumpToPage(_selectedIndex!);
+                    currentScreen = screen[2];
                   });
                 },
               ),
@@ -110,35 +119,13 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 3;
-                    _myPage!.jumpToPage(_selectedIndex!);
+                    currentScreen = screen[3];
                   });
                 },
               ),
               const Spacer(),
             ],
           ),
-        ),
-        body: PageView(
-          controller: _myPage,
-          onPageChanged: (int index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          children: const <Widget>[
-            Center(
-              child: Cardscreen(),
-            ),
-            Center(
-              child: Scannerscreen(),
-            ),
-            Center(
-              child: ContactsScreen(),
-            ),
-            Center(
-              child: Setting_Screen(),
-            ),
-          ],
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: blueColor,

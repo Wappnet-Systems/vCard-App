@@ -48,15 +48,6 @@ class _Cardtheme3State extends State<Cardtheme3> {
                       bottomLeft: Radius.circular(15),
                       topLeft: Radius.circular(15)),
                   color: whiteColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Staticmenbers.listofUsers[cardindex!].color != null
-                          ? colorList[
-                              Staticmenbers.listofUsers[cardindex!].color!]
-                          : blackColor,
-                      blurRadius: 1.0,
-                    ),
-                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,7 +93,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                       ? colorList[Staticmenbers
                                           .listofUsers[cardindex!].color!]
                                       : blackColor,
-                              width: 3),
+                              width: wp(0.2, context)),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(90),
                           ),

@@ -54,7 +54,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
               ),
               SizedBox(height: hp(3, context)),
               const Text(
-                "Point your camera at the qrJson code.",
+                "Point your camera at the QR code.",
                 style: TextStyle(fontSize: 13, color: blueColor),
               )
             ],

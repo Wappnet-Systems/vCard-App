@@ -156,7 +156,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                       ? const SizedBox.shrink()
                                       : Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 9, left: 20),
+                                              top: 9, left: 5),
                                           child: Textwidget(
                                             maxLines: 1,
                                             textAlign: TextAlign.start,
@@ -170,7 +170,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                       ? const SizedBox.shrink()
                                       : Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 8, left: 20),
+                                              top: 5, left: 5),
                                           child: Textwidget(
                                             maxLines: 1,
                                             textAlign: TextAlign.start,
@@ -178,13 +178,13 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             text:
                                                 '${Staticmenbers.cardUsers[index].phone}',
                                             fontSize: 15,
-                                            selectionColor: blackColor,
+                                            selectionColor: grayColor,
                                           )),
                                   Staticmenbers.cardUsers[index].compeny == ""
                                       ? const SizedBox.shrink()
                                       : Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 0, left: 20),
+                                              top: 5, left: 5),
                                           child: Textwidget(
                                             maxLines: 1,
                                             textAlign: TextAlign.start,
@@ -192,7 +192,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             text:
                                                 '${Staticmenbers.cardUsers[index].compeny}',
                                             fontSize: 15,
-                                            selectionColor: blackColor,
+                                            selectionColor: grayColor,
                                           )),
                                 ]),
                             const Spacer(),

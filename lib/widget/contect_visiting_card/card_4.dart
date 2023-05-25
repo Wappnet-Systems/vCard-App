@@ -210,7 +210,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                                 .cardUsers[contactcardindex!]
                                                 .color!]
                                             : blackColor,
-                                        width: 3),
+                                        width: wp(0.2, context)),
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(90),
                                     ),

@@ -2,7 +2,6 @@
 
 import 'dart:developer';
 import 'package:app_settings/app_settings.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,9 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/widget/custom_alartdialog.dart';
 import '../utils/constants_color.dart';
+import '../widget/text_widget.dart';
 import 'app_shere_screen.dart';
 
 class Setting_Screen extends StatefulWidget {
@@ -135,22 +136,30 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                 const Divider(),
                 InkWell(
                   onTap: () {
-                    AwesomeDialog(
+                    showDialog(
                         context: context,
-                        dialogType: DialogType.warning,
-                        showCloseIcon: false,
-                        desc: "Logout",
-                        btnCancelOnPress: () async {},
-                        btnOkOnPress: () async {
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          prefs.remove('isLoggedIn');
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const Numberverification()));
-                        }).show();
+                        builder: (ctx) => CustomAlartDialog(
+                            title: const Textwidget(
+                                textAlign: TextAlign.start, text: "Log Out"),
+                            content: const Textwidget(
+                              maxLines: 2,
+                              textAlign: TextAlign.start,
+                              text: "Are you sure you want to logout?",
+                              selectionColor: grayColor,
+                            ),
+                            onPressedNo: () {
+                              Navigator.pop(context);
+                            },
+                            onPressedYes: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.remove('isLoggedIn');
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Numberverification()));
+                            }));
                   },
                   child: const Row(
                     children: [
@@ -169,28 +178,33 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                 const Divider(),
                 InkWell(
                   onTap: () {
-                    try {
-                      AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.warning,
-                          showCloseIcon: false,
-                          desc: "Delete Account",
-                          btnCancelOnPress: () async {},
-                          btnOkOnPress: () async {
-                            SharedPreferences prefs =
-                                await SharedPreferences.getInstance();
-                            _delete_user();
-                            prefs.remove('isLoggedIn');
-
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Numberverification()));
-                          }).show();
-                    } catch (e) {
-                      Error;
-                    }
+                    showDialog(
+                        context: context,
+                        builder: (ctx) => CustomAlartDialog(
+                            title: const Textwidget(
+                                textAlign: TextAlign.start,
+                                text: "Delete Account"),
+                            content: const Textwidget(
+                              maxLines: 2,
+                              textAlign: TextAlign.start,
+                              text: "Are you sure you want to Delete Account?",
+                              selectionColor: grayColor,
+                            ),
+                            onPressedNo: () {
+                              Navigator.pop(context);
+                            },
+                            onPressedYes: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              _delete_user();
+                              prefs.remove('isLoggedIn');
+                              _delete_user();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const Numberverification()));
+                            }));
                   },
                   child: const Row(
                     children: [

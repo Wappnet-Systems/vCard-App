@@ -107,7 +107,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                                   ? colorList[Staticmenbers
                                       .cardUsers[contactcardindex!].color!]
                                   : blackColor,
-                              width: 3),
+                              width: wp(0.2, context)),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(90),
                           ),

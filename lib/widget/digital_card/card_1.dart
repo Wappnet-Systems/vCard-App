@@ -68,20 +68,34 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 Staticmenbers.listofUsers[cardindex!].color!]
                             : whiteColor),
                 SizedBox(height: hp(4, context)),
-                ClipOval(
-                  child: Staticmenbers.listofUsers[cardindex!].image == ""
-                      ? Image.asset(
-                          "assets/images/splash1.png",
-                          width: wp(23, context),
-                          height: hp(11, context),
-                          fit: BoxFit.fill,
-                        )
-                      : Image.network(
-                          "${Staticmenbers.listofUsers[cardindex!].image}",
-                          width: wp(23, context),
-                          height: hp(11, context),
-                          fit: BoxFit.fill,
-                        ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: Staticmenbers.listofUsers[cardindex!].color !=
+                                null
+                            ? colorList[
+                                Staticmenbers.listofUsers[cardindex!].color!]
+                            : whiteColor,
+                        width: wp(0.2, context)),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(90),
+                    ),
+                  ),
+                  child: ClipOval(
+                    child: Staticmenbers.listofUsers[cardindex!].image == ""
+                        ? Image.asset(
+                            "assets/images/splash1.png",
+                            width: wp(22, context),
+                            height: hp(11, context),
+                            fit: BoxFit.fill,
+                          )
+                        : Image.network(
+                            "${Staticmenbers.listofUsers[cardindex!].image}",
+                            width: wp(22, context),
+                            height: hp(11, context),
+                            fit: BoxFit.fill,
+                          ),
+                  ),
                 ),
                 SizedBox(height: hp(2, context)),
                 Textwidget(

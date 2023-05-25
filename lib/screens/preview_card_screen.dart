@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/widget/preview_card/preview_card1.dart';
 import 'package:vcard/widget/preview_card/preview_card2.dart';
 import 'package:vcard/widget/preview_card/Preview_card3.dart';
@@ -34,12 +33,10 @@ class _PreviewCardState extends State<PreviewCard> {
       PreviewCard4(id: previewcolor),
       const PreviewDefultCard()
     ];
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-        color: whiteColor,
-      ),
-      child: cardList[previewcard!],
+    return Wrap(
+      children: [
+        cardList[previewcard!],
+      ],
     );
   }
 }

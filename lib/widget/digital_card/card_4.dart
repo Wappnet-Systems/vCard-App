@@ -205,7 +205,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                             ? colorList[Staticmenbers
                                                 .listofUsers[cardindex!].color!]
                                             : blackColor,
-                                        width: 3),
+                                        width: wp(0.2, context)),
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(90),
                                     ),

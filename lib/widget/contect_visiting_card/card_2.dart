@@ -51,7 +51,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
           SizedBox(height: hp(3, context)),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: whiteColor, width: 3),
+              border: Border.all(color: whiteColor, width: wp(0.2, context)),
               borderRadius: const BorderRadius.all(
                 Radius.circular(90),
               ),

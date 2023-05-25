@@ -9,6 +9,7 @@ import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
+import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_toast.dart';
 
 class OTPscreen extends StatefulWidget {
@@ -23,12 +24,19 @@ class _OTPscreenState extends State<OTPscreen> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   var code = "";
   FToast? fToast;
+  bool isLoading = false;
 
   @override
   void initState() {
     fToast = FToast();
     fToast?.init(context);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    otpController.clear();
+    super.dispose();
   }
 
   @override
@@ -101,28 +109,33 @@ class _OTPscreenState extends State<OTPscreen> {
                             PhoneAuthProvider.credential(
                                 verificationId: Numberverification.verify,
                                 smsCode: code);
+                        setState(() {
+                          isLoading = true;
+                        });
 
                         await auth
                             .signInWithCredential(credential)
                             .then((value) async {
-                          displayCustomToast();
                           await prefs.setBool('isLoggedIn', true);
-                          Future.delayed(const Duration(seconds: 3), () {
+                          Future.delayed(const Duration(seconds: 1), () {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         const Dashboardscreen(index: 0)));
+                            displayCustomToast();
                           });
                         });
                       } catch (e) {
                         log("Error:$e");
                       }
                     },
-                    child: const Text(
-                      "Verify Phone Number",
-                      style: TextStyle(color: whiteColor),
-                    )),
+                    child: isLoading
+                        ? const Custonloading()
+                        : const Text(
+                            "Verify Phone Number",
+                            style: TextStyle(color: whiteColor),
+                          )),
               ),
             ],
           ),
