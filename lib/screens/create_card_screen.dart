@@ -43,7 +43,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController numbercontroller = TextEditingController();
   final TextEditingController typecontroller = TextEditingController();
-  final TextEditingController controller = TextEditingController();
   final _formfield = GlobalKey<FormState>();
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -59,7 +58,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       .doc();
 
   Future<void> addUser() async {
-    print("object111111111111111111111$controller");
     String? imgurl;
     if (Imagepicker != null) {
       imgurl = await uploadImage(Imagepicker!);
@@ -75,6 +73,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'Facebook': facebookcontroller.text,
       'Email': emailcontroller.text,
       'Phone': numbercontroller.text,
+      'country': countryCode,
       'Address': addresscontroller.text,
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? "",
@@ -125,9 +124,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   int? previewcolor;
   bool selectcolor = false;
   bool selectedIndex = false;
-  String? phone;
-  String? countryCode;
-  String? countryFlag;
+  String countryCode = 'IN';
 
   @override
   Widget build(BuildContext context) {
@@ -325,34 +322,16 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         borderSide: BorderSide(),
                       ),
                     ),
-                    initialCountryCode: 'IN',
+                    initialCountryCode: countryCode,
                     onChanged: (phone) {
                       log(phone.completeNumber);
                     },
-                    onCountryChanged: (country) {
-                      setState(() {
-                        countryCode = phone;
-                        countryFlag = phone;
-                        controller.text = '$countryFlag $countryCode';
-                      });
+                    onCountryChanged: (phone) {
+                      countryCode = phone.code;
+                      print("qqqqqqqqqqqqqqq${countryCode}");
                     },
                   ),
                 ),
-                // CustomTextFormField(
-                //   textCapitalization: TextCapitalization.none,
-                //   labelText: "Phone",
-                //   inputFormatters: [maskFormatter],
-                //   textInputType: TextInputType.phone,
-                //   textEditingController: numbercontroller,
-                //   texteditinghinttext: 'Phone',
-                //   customobscuretext: true,
-                //   customsuffixIcon: null,
-                //   customprefixicon: const Icon(
-                //     Icons.phone,
-                //     color: grayColor,
-                //   ),
-                //   validationfunction: numbervalidator,
-                // ),
                 SizedBox(height: hp(2, context)),
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.none,

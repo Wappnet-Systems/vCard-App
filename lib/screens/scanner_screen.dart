@@ -72,6 +72,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
             facebook: element['Facebook'],
             email: element['Email'],
             phone: element['Phone'],
+            country: element['country'],
             address: element['Address'],
             id: element['id'],
             type: element['type'],
@@ -406,7 +407,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
           displayCustomToast1();
           value = false;
         }
-        print("22222222:${qrCode}");
       });
     } on PlatformException {
       return;
@@ -416,7 +416,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   displayCustomToast() {
     Widget toast = const CustomToast(
       child: Text(
-        "Do not save this card.",
+        "You cannot save your own card.",
         style: TextStyle(color: whiteColor),
       ),
     );
@@ -429,7 +429,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   displayCustomToast1() {
     Widget toast = const CustomToast(
       child: Text(
-        "Do not Scan this Code.",
+        "This QR Code is invalid.",
         style: TextStyle(color: whiteColor),
       ),
     );

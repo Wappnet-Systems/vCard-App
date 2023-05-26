@@ -13,6 +13,7 @@ class Users {
   final String? id;
   final String? image;
   final String? type;
+  final String? country;
   final int? card;
   final String? user;
   final int? color;
@@ -20,6 +21,7 @@ class Users {
   Users(
       {required this.user,
       required this.color,
+      required this.country,
       required this.name,
       required this.department,
       required this.compeny,

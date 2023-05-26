@@ -57,6 +57,7 @@ class _CardscreenState extends State<Cardscreen> {
             facebook: element['Facebook'],
             email: element['Email'],
             phone: element['Phone'],
+            country: element['country'],
             address: element['Address'],
             id: element['id'],
             type: element['type'],

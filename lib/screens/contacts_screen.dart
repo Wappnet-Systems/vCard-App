@@ -54,6 +54,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             facebook: e['Facebook'],
             email: e['Email'],
             phone: e['Phone'],
+            country: e['country'],
             address: e['Address'],
             id: e['id'],
             image: e['images'],

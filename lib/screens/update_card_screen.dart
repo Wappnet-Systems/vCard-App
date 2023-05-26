@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -11,13 +12,13 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
-import '../utils/formatters.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
@@ -60,12 +61,33 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   final _formfield = GlobalKey<FormState>();
   String? updateImageUrl;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
+  List<dynamic> countries = [];
+  int? _selectcolor;
+  int? _selectedIndex;
+  bool isLoading = false;
+  bool isphotoloading = false;
+  bool ismoreadddata = false;
+  int? previewcard;
+  int? previewcolor;
+  String? selectedCountryCode;
+
   @override
   void initState() {
     fToast = FToast();
     fToast?.init(context);
+    loadCountryData();
     getSingleUserData();
     super.initState();
+  }
+
+  Future<List<dynamic>> readCountryJson() async {
+    final String data = await rootBundle.loadString('countries.json');
+    return json.decode(data);
+  }
+
+  void loadCountryData() async {
+    countries = await readCountryJson();
+    setState(() {});
   }
 
   Future<void> getSingleUserData() async {
@@ -89,6 +111,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             facebook: e['Facebook'],
             email: e['Email'],
             phone: e['Phone'],
+            country: e['country'],
             address: e['Address'],
             id: e['id'],
             image: e['images'],
@@ -114,6 +137,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       whatsappcontroller.text = singleuser.first.whatsapp!;
       _selectedIndex = singleuser.first.card;
       _selectcolor = singleuser.first.color;
+      selectedCountryCode = singleuser.first.country!;
     });
     updateImageUrl = singleuser.first.image;
     setState(() {});
@@ -188,14 +212,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     return imageurl;
   }
 
-  int? _selectcolor;
-  int? _selectedIndex;
-  bool isLoading = false;
-  bool isphotoloading = false;
-  bool ismoreadddata = false;
-  int? previewcard;
-  int? previewcolor;
-  String phone = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -418,30 +434,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               borderSide: BorderSide(),
                             ),
                           ),
-                          initialCountryCode: 'IN',
+                          initialCountryCode: selectedCountryCode,
                           onChanged: (phone) {
                             log(phone.completeNumber);
                           },
-                          onCountryChanged: (country) {
-                            phone = country.dialCode;
+                          onCountryChanged: (countryCode) {
+                            selectedCountryCode = countryCode.code;
                           },
                         ),
                       ),
-                      // CustomTextFormField(
-                      //   textCapitalization: TextCapitalization.none,
-                      //   labelText: "Phone",
-                      //   inputFormatters: [maskFormatter],
-                      //   textInputType: TextInputType.phone,
-                      //   textEditingController: numbercontroller,
-                      //   texteditinghinttext: 'Phone',
-                      //   customobscuretext: true,
-                      //   customsuffixIcon: null,
-                      //   customprefixicon: const Icon(
-                      //     Icons.phone,
-                      //     color: grayColor,
-                      //   ),
-                      //   validationfunction: numbervalidator,
-                      // ),
                       SizedBox(height: hp(2, context)),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.none,
