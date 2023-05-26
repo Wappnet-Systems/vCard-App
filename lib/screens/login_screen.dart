@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/widget/custom_alartdialog.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import 'otp_screen.dart';
 
@@ -34,17 +34,20 @@ class _NumberverificationState extends State<Numberverification> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final shouldPop = await AwesomeDialog(
+        final shouldPop = await showDialog<bool>(
             context: context,
-            dialogType: DialogType.warning,
-            showCloseIcon: false,
-            title: "Exit Application",
-            desc: "Do you want to exit an Applicaton?",
-            btnCancelOnPress: () async {},
-            btnOkOnPress: () async {
-              exit(0);
-            }).show();
-        return shouldPop;
+            builder: (context) {
+              return CustomAlartDialog(
+                  title: const Text("Exit Application"),
+                  content: const Text("Do you want to exit an Applicaton?"),
+                  onPressedNo: () {
+                    Navigator.pop(context);
+                  },
+                  onPressedYes: () {
+                    exit(0);
+                  });
+            });
+        return shouldPop!;
       },
       child: Scaffold(
         backgroundColor: whiteColor,
@@ -89,6 +92,7 @@ class _NumberverificationState extends State<Numberverification> {
                     cursorColor: blueColor,
                     controller: countryController,
                     decoration: const InputDecoration(
+                      counterText: '',
                       focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: blackColor)),
                       contentPadding:
@@ -110,9 +114,7 @@ class _NumberverificationState extends State<Numberverification> {
                       phone = country.dialCode;
                     },
                   ),
-                  SizedBox(
-                    height: hp(4, context),
-                  ),
+                  SizedBox(height: hp(4, context)),
                   SizedBox(
                     width: double.infinity,
                     height: hp(7, context),

@@ -7,9 +7,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
@@ -193,6 +195,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   bool ismoreadddata = false;
   int? previewcard;
   int? previewcolor;
+  String phone = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -386,21 +389,59 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         validationfunction: textvalidator,
                       ),
                       SizedBox(height: hp(2, context)),
-                      CustomTextFormField(
-                        textCapitalization: TextCapitalization.none,
-                        labelText: "Phone",
-                        inputFormatters: [maskFormatter],
-                        textInputType: TextInputType.phone,
-                        textEditingController: numbercontroller,
-                        texteditinghinttext: 'Phone',
-                        customobscuretext: true,
-                        customsuffixIcon: null,
-                        customprefixicon: const Icon(
-                          Icons.phone,
-                          color: grayColor,
+                      Padding(
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        child: IntlPhoneField(
+                          invalidNumberMessage: "this field can't be empty",
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          dropdownIcon: const Icon(
+                            Icons.arrow_drop_down,
+                            color: blueColor,
+                          ),
+                          disableLengthCheck: false,
+                          cursorColor: blueColor,
+                          controller: numbercontroller,
+                          decoration: const InputDecoration(
+                            counterText: '',
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: blackColor)),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 15),
+                            hintStyle: TextStyle(
+                              color: grayColor,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10,
+                            ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(),
+                            ),
+                          ),
+                          initialCountryCode: 'IN',
+                          onChanged: (phone) {
+                            log(phone.completeNumber);
+                          },
+                          onCountryChanged: (country) {
+                            phone = country.dialCode;
+                          },
                         ),
-                        validationfunction: numbervalidator,
                       ),
+                      // CustomTextFormField(
+                      //   textCapitalization: TextCapitalization.none,
+                      //   labelText: "Phone",
+                      //   inputFormatters: [maskFormatter],
+                      //   textInputType: TextInputType.phone,
+                      //   textEditingController: numbercontroller,
+                      //   texteditinghinttext: 'Phone',
+                      //   customobscuretext: true,
+                      //   customsuffixIcon: null,
+                      //   customprefixicon: const Icon(
+                      //     Icons.phone,
+                      //     color: grayColor,
+                      //   ),
+                      //   validationfunction: numbervalidator,
+                      // ),
                       SizedBox(height: hp(2, context)),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.none,

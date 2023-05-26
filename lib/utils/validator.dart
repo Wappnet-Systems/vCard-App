@@ -40,9 +40,14 @@ String? hasValidUrl(String? value) {
       r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
   RegExp regExp = RegExp(pattern);
   if (value!.isEmpty) {
-    return 'Please enter Website';
+    return '  Please enter Website';
   } else if (!regExp.hasMatch(value)) {
     return 'Please enter valid url';
   }
   return null;
+}
+
+bool qrvalidateString(String input) {
+  final alphanumericRegExp = RegExp(r'^[a-zA-Z0-9]+$');
+  return alphanumericRegExp.hasMatch(input);
 }

@@ -6,15 +6,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import 'package:vcard/widget/upload_image.dart';
 import '../utils/constants_color.dart';
-import '../utils/formatters.dart';
 import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
 import '../widget/custom_loadingbar_widget.dart';
@@ -42,6 +43,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController numbercontroller = TextEditingController();
   final TextEditingController typecontroller = TextEditingController();
+  final TextEditingController controller = TextEditingController();
   final _formfield = GlobalKey<FormState>();
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -57,6 +59,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       .doc();
 
   Future<void> addUser() async {
+    print("object111111111111111111111$controller");
     String? imgurl;
     if (Imagepicker != null) {
       imgurl = await uploadImage(Imagepicker!);
@@ -122,6 +125,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   int? previewcolor;
   bool selectcolor = false;
   bool selectedIndex = false;
+  String? phone;
+  String? countryCode;
+  String? countryFlag;
 
   @override
   Widget build(BuildContext context) {
@@ -290,21 +296,63 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   validationfunction: textvalidator,
                 ),
                 SizedBox(height: hp(2, context)),
-                CustomTextFormField(
-                  textCapitalization: TextCapitalization.none,
-                  labelText: "Phone",
-                  inputFormatters: [maskFormatter],
-                  textInputType: TextInputType.phone,
-                  textEditingController: numbercontroller,
-                  texteditinghinttext: 'Phone',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
-                  customprefixicon: const Icon(
-                    Icons.phone,
-                    color: grayColor,
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: IntlPhoneField(
+                    invalidNumberMessage: "this field can't be empty",
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    dropdownIcon: const Icon(
+                      Icons.arrow_drop_down,
+                      color: blueColor,
+                    ),
+                    disableLengthCheck: false,
+                    cursorColor: blueColor,
+                    controller: numbercontroller,
+                    decoration: const InputDecoration(
+                      counterText: '',
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: blackColor)),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      hintStyle: TextStyle(
+                        color: grayColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 10,
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                    ),
+                    initialCountryCode: 'IN',
+                    onChanged: (phone) {
+                      log(phone.completeNumber);
+                    },
+                    onCountryChanged: (country) {
+                      setState(() {
+                        countryCode = phone;
+                        countryFlag = phone;
+                        controller.text = '$countryFlag $countryCode';
+                      });
+                    },
                   ),
-                  validationfunction: numbervalidator,
                 ),
+                // CustomTextFormField(
+                //   textCapitalization: TextCapitalization.none,
+                //   labelText: "Phone",
+                //   inputFormatters: [maskFormatter],
+                //   textInputType: TextInputType.phone,
+                //   textEditingController: numbercontroller,
+                //   texteditinghinttext: 'Phone',
+                //   customobscuretext: true,
+                //   customsuffixIcon: null,
+                //   customprefixicon: const Icon(
+                //     Icons.phone,
+                //     color: grayColor,
+                //   ),
+                //   validationfunction: numbervalidator,
+                // ),
                 SizedBox(height: hp(2, context)),
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.none,

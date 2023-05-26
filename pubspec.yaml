@@ -47,7 +47,6 @@ dependencies:
   url_launcher: ^6.1.10
   fluttertoast: ^8.2.1
   shared_preferences: ^2.1.0
-  awesome_dialog: ^3.0.2
   font_awesome_flutter: ^10.4.0
   image_picker: ^0.8.7+1
   lottie: ^2.3.1

@@ -6,13 +6,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants_color.dart';
 import '../utils/responsive.dart';
+import '../utils/validator.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_no_data_widget.dart';
+import '../widget/custom_toast.dart';
 
 class Scannerscreen extends StatefulWidget {
   const Scannerscreen({super.key});
@@ -45,6 +48,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? id;
   String? image;
   String? type;
+  FToast? fToast;
 
   Future<void> getSingleUserData(String cid, String uid) async {
     final snapshot = await FirebaseFirestore.instance
@@ -138,6 +142,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
 
   @override
   void initState() {
+    fToast = FToast();
+    fToast?.init(context);
     super.initState();
   }
 
@@ -285,11 +291,18 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                   'Connected',
                                   style: TextStyle(color: whiteColor),
                                 ),
-                          onPressed: () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            addUser();
+                          onPressed: () async {
+                            if (FirebaseAuth.instance.currentUser?.uid == uid) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              displayCustomToast();
+                            } else {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              addUser();
+                            }
                           },
                         )),
                   ),
@@ -383,11 +396,46 @@ class _ScannerscreenState extends State<Scannerscreen> {
         uid = qrCode.substring(0, 28);
         log("$uid");
         cid = qrCode.substring(29);
-        value = true;
-        getSingleUserData(cid!, uid!);
+        bool isValid1 = qrvalidateString(uid!);
+        bool isValid2 = qrvalidateString(cid!);
+
+        if (isValid1 == true && isValid2 == true) {
+          getSingleUserData(cid!, uid!);
+          value = true;
+        } else {
+          displayCustomToast1();
+          value = false;
+        }
+        print("22222222:${qrCode}");
       });
     } on PlatformException {
       return;
     }
+  }
+
+  displayCustomToast() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "Do not save this card.",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  displayCustomToast1() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "Do not Scan this Code.",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
   }
 }

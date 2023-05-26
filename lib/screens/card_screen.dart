@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard/utils/constants_color.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../model/data_controllers.dart';
+import '../widget/custom_alartdialog.dart';
 import '../widget/custom_no_data_widget.dart';
 import '../widget/text_widget.dart';
 import 'menu_screen.dart';
@@ -77,18 +77,20 @@ class _CardscreenState extends State<Cardscreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final shouldPop = await AwesomeDialog(
+        final shouldPop = await showDialog<bool>(
             context: context,
-            dialogType: DialogType.warning,
-            showCloseIcon: false,
-            title: "Exit Application",
-            desc: "Do you want to exit an Applicaton?",
-            descTextStyle: const TextStyle(color: Colors.black38),
-            btnCancelOnPress: () async {},
-            btnOkOnPress: () async {
-              exit(0);
-            }).show();
-        return shouldPop;
+            builder: (context) {
+              return CustomAlartDialog(
+                  title: const Text("Exit Application"),
+                  content: const Text("Do you want to exit an Applicaton?"),
+                  onPressedNo: () {
+                    Navigator.pop(context);
+                  },
+                  onPressedYes: () {
+                    exit(0);
+                  });
+            });
+        return shouldPop!;
       },
       child: Scaffold(
           backgroundColor: whiteColor,
