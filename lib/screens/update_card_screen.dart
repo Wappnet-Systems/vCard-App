@@ -67,7 +67,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   bool ismoreadddata = false;
   int? previewcard;
   int? previewcolor;
-  String? selectedCountryCode = "+1";
+  String? selectedCountryCode = "1";
   String? Countryshortcode = "US";
   Country? selected;
 
@@ -157,6 +157,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'Facebook': facebookcontroller.text,
       'Email': emailcontroller.text,
       'Phone': numbercontroller.text,
+      'country': selectedCountryCode,
       'Address': addresscontroller.text,
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? updateImageUrl,
@@ -241,10 +242,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   color: blackColor,
                 ),
               ))),
-      body: emailcontroller.text == "" &&
-              nameController.text == "" &&
-              departmentController.text == "" &&
-              companyController.text == ""
+      body: emailcontroller.text == ""
           ? const Center(child: Custonloading())
           : SingleChildScrollView(
               child: Form(
@@ -442,6 +440,20 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         validationfunction: emailValidator,
                       ),
                       SizedBox(height: hp(2, context)),
+                      CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Website",
+                        inputFormatters: null,
+                        textInputType: TextInputType.text,
+                        textEditingController: websitecontroller,
+                        texteditinghinttext: 'Website',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.web,
+                          color: grayColor,
+                        ),
+                      ),
                       Addresstextfield(
                           textEditingController: addresscontroller,
                           itmClick: (Prediction prediction) {

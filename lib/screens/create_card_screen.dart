@@ -131,7 +131,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   int? previewcolor;
   bool selectcolor = false;
   bool selectedIndex = false;
-  String countryCode = 'IN';
+  String? countryCode = '91';
+  String? Countryshortcode = "IN";
 
   @override
   Widget build(BuildContext context) {
@@ -324,7 +325,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         borderSide: BorderSide(),
                       ),
                     ),
-                    initialCountryCode: countryCode,
+                    initialCountryCode: Countryshortcode,
                     onChanged: (phone) {
                       log(phone.completeNumber);
                     },
@@ -347,17 +348,13 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   validationfunction: emailValidator,
                 ),
                 SizedBox(height: hp(2, context)),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Addresstextfield(
-                      textEditingController: addresscontroller,
-                      itmClick: (Prediction prediction) {
-                        addresscontroller.text = prediction.description!;
-                        addresscontroller.selection =
-                            TextSelection.fromPosition(TextPosition(
-                                offset: prediction.description!.length));
-                      }),
-                ),
+                Addresstextfield(
+                    textEditingController: addresscontroller,
+                    itmClick: (Prediction prediction) {
+                      addresscontroller.text = prediction.description!;
+                      addresscontroller.selection = TextSelection.fromPosition(
+                          TextPosition(offset: prediction.description!.length));
+                    }),
                 SizedBox(height: hp(1, context)),
                 Row(children: [
                   Padding(

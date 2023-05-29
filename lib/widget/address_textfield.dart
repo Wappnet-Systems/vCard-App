@@ -17,7 +17,7 @@ class Addresstextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(),
+      padding: const EdgeInsets.only(left: 15, right: 15),
       child: GooglePlaceAutoCompleteTextField(
           textStyle: const TextStyle(fontSize: 12, color: blackColor),
           textEditingController: textEditingController,
