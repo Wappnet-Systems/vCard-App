@@ -6,14 +6,18 @@ import '../utils/constants_color.dart';
 
 class Addresstextfield extends StatelessWidget {
   final TextEditingController textEditingController;
+  final InputBorder? focusedBorder;
   final Function(Prediction)? itmClick;
   const Addresstextfield(
-      {super.key, required this.textEditingController, required this.itmClick});
+      {super.key,
+      required this.textEditingController,
+      required this.itmClick,
+      this.focusedBorder});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
+      padding: const EdgeInsets.only(),
       child: GooglePlaceAutoCompleteTextField(
           textStyle: const TextStyle(fontSize: 12, color: blackColor),
           textEditingController: textEditingController,

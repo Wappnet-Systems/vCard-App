@@ -43,7 +43,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                           ? colorList[
                               Staticmenbers.listofUsers[cardindex!].color!]
                           : blackColor,
-                      width: wp(0.5, context)),
+                      width: wp(0.3, context)),
                   borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       topLeft: Radius.circular(15)),
@@ -182,14 +182,14 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   ),
                                 ),
                               ),
-                        Staticmenbers.listofUsers[cardindex!].link == ""
+                        Staticmenbers.listofUsers[cardindex!].linkdin == ""
                             ? const SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: InkWell(
                                   onTap: () async {
                                     final url =
-                                        'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                        'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
 
                                     await launchUrl(Uri.parse(url));
                                   },
@@ -235,7 +235,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 InkWell(
                                   onTap: () {
                                     launchUrl(Uri.parse(
-                                        'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                        'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                                   },
                                   child: Image.asset(
                                     "assets/icon/call.png",
@@ -299,19 +299,19 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     showDialog(
                                       context: context,
                                       builder: (ctx) => AlertDialog(
-                                        backgroundColor: blueColor,
+                                        backgroundColor: whiteColor,
                                         title: const Text("Address",
                                             style: TextStyle(
                                                 fontFamily: 'Marck',
                                                 fontSize: 25,
-                                                color: whiteColor,
+                                                color: blueColor,
                                                 fontWeight: FontWeight.bold)),
                                         content: Text(
                                             '${Staticmenbers.listofUsers[cardindex!].address}',
                                             style: const TextStyle(
                                                 fontFamily: 'Marck',
-                                                fontSize: 25,
-                                                color: whiteColor,
+                                                fontSize: 20,
+                                                color: grayColor,
                                                 fontWeight: FontWeight.bold)),
                                         actions: <Widget>[
                                           Row(
@@ -386,10 +386,13 @@ class _Cardtheme3State extends State<Cardtheme3> {
                 width: wp(53, context),
                 height: hp(8, context),
                 decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
                   color: Colors.grey.shade600,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 1),
+                  padding: const EdgeInsets.only(left: 3),
                   child: Center(
                     child: Textwidget(
                         maxLines: 1,
@@ -397,7 +400,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                         width: wp(50, context),
                         text:
                             "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        fontSize: 18,
+                        fontSize: 16,
                         selectionColor: whiteColor),
                   ),
                 ),

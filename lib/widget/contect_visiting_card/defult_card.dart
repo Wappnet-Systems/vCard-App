@@ -147,7 +147,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           child: InkWell(
                             onTap: () {
                               launchUrl(Uri.parse(
-                                  'tel:+${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
+                                  'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
                             },
                             child: Image.asset(
                               "assets/icon/call.png",
@@ -209,19 +209,19 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                  backgroundColor: blueColor,
+                                  backgroundColor: whiteColor,
                                   title: const Text("Address",
                                       style: TextStyle(
                                           fontFamily: 'Marck',
                                           fontSize: 25,
-                                          color: whiteColor,
+                                          color: blueColor,
                                           fontWeight: FontWeight.bold)),
                                   content: Text(
                                       '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                       style: const TextStyle(
                                           fontFamily: 'Marck',
-                                          fontSize: 25,
-                                          color: whiteColor,
+                                          fontSize: 20,
+                                          color: grayColor,
                                           fontWeight: FontWeight.bold)),
                                   actions: <Widget>[
                                     Row(
@@ -232,7 +232,6 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                             _pushMap();
                                           },
                                           title: 'Use Map',
-                                          fontSize: null,
                                           color: blueColor,
                                         ),
                                         TextButtomWidget(
@@ -354,14 +353,14 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           ),
                         ),
                       ),
-                (Staticmenbers.cardUsers[contactcardindex!].link == "")
+                (Staticmenbers.cardUsers[contactcardindex!].linkdin == "")
                     ? const SizedBox.shrink()
                     : Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: InkWell(
                           onTap: () async {
                             final url =
-                                'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
+                                'https://www.linkedin.com//${Staticmenbers.cardUsers[contactcardindex!].linkdin}';
 
                             await launchUrl(Uri.parse(url));
                           },

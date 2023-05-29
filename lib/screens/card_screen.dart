@@ -53,7 +53,7 @@ class _CardscreenState extends State<Cardscreen> {
             whatsapp: element['WhatsApp'],
             telegram: element['Telegram'],
             website: element['Website'],
-            link: element['Link'],
+            linkdin: element['Linkdin'],
             facebook: element['Facebook'],
             email: element['Email'],
             phone: element['Phone'],

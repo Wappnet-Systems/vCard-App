@@ -9,11 +9,11 @@ class MoreTextfieldscreen extends StatefulWidget {
   final TextEditingController? websitecontroller;
   final TextEditingController? facebookcontroller;
   final TextEditingController? telegramcontroller;
-  final TextEditingController? linkController;
+  final TextEditingController? linkdinController;
   final TextEditingController? whatsappcontroller;
 
   const MoreTextfieldscreen(
-      {required this.linkController,
+      {required this.linkdinController,
       required this.facebookcontroller,
       required this.telegramcontroller,
       required this.websitecontroller,
@@ -40,7 +40,6 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
           Icons.web,
           color: grayColor,
         ),
-        validationfunction: null,
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
@@ -51,44 +50,36 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         textEditingController: widget.whatsappcontroller!,
         texteditinghinttext: 'WhatsApp',
         customobscuretext: true,
-        customsuffixIcon: null,
         customprefixicon: const Icon(
           FontAwesomeIcons.whatsapp,
           color: grayColor,
         ),
-        validationfunction: null,
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
         textCapitalization: TextCapitalization.none,
-        labelText: "Link",
-        inputFormatters: null,
+        labelText: "Linkdin",
         textInputType: TextInputType.text,
-        textEditingController: widget.linkController!,
-        texteditinghinttext: 'Link',
+        textEditingController: widget.linkdinController!,
+        texteditinghinttext: 'Linkdin',
         customobscuretext: true,
-        customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.link,
           color: grayColor,
         ),
-        validationfunction: null,
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
         textCapitalization: TextCapitalization.none,
         labelText: "Facebook",
-        inputFormatters: null,
         textInputType: TextInputType.text,
         textEditingController: widget.facebookcontroller!,
         texteditinghinttext: 'Facebook',
         customobscuretext: true,
-        customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.facebook,
           color: grayColor,
         ),
-        validationfunction: null,
       ),
       SizedBox(height: hp(2, context)),
       CustomTextFormField(
@@ -99,12 +90,10 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
         textEditingController: widget.telegramcontroller!,
         texteditinghinttext: 'Telegram',
         customobscuretext: true,
-        customsuffixIcon: null,
         customprefixicon: const Icon(
           Icons.telegram,
           color: grayColor,
         ),
-        validationfunction: null,
       ),
       SizedBox(height: hp(2, context)),
     ]);

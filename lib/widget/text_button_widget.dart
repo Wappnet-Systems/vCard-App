@@ -9,7 +9,7 @@ class TextButtomWidget extends StatelessWidget {
   const TextButtomWidget(
       {super.key,
       required this.onPressed,
-      required this.fontSize,
+      this.fontSize,
       required this.title,
       required this.color});
 

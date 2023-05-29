@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
 
 import 'dart:developer';
 import 'dart:io';
@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -20,6 +21,7 @@ import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_textformfield_widget.dart';
+import '../widget/custom_toast.dart';
 import 'more_textfield_screen.dart';
 import '../widget/text_button_widget.dart';
 
@@ -37,17 +39,20 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   final TextEditingController whatsappcontroller = TextEditingController();
   final TextEditingController telegramcontroller = TextEditingController();
   final TextEditingController addresscontroller = TextEditingController();
-  final TextEditingController linkController = TextEditingController();
+  final TextEditingController linkdinController = TextEditingController();
   final TextEditingController websitecontroller = TextEditingController();
   final TextEditingController facebookcontroller = TextEditingController();
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController numbercontroller = TextEditingController();
   final TextEditingController typecontroller = TextEditingController();
   final _formfield = GlobalKey<FormState>();
+  FToast? fToast;
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
+    fToast = FToast();
+    fToast?.init(context);
     super.initState();
   }
 
@@ -59,9 +64,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
 
   Future<void> addUser() async {
     String? imgurl;
+
     if (Imagepicker != null) {
       imgurl = await uploadImage(Imagepicker!);
     }
+
     return receivedLoanDataRef.set({
       'Name': nameController.text,
       'Department': departmentController.text,
@@ -69,7 +76,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       'WhatsApp': whatsappcontroller.text,
       'Telegram': telegramcontroller.text,
       'Website': websitecontroller.text,
-      'Link': linkController.text,
+      'Linkdin': linkdinController.text,
       'Facebook': facebookcontroller.text,
       'Email': emailcontroller.text,
       'Phone': numbercontroller.text,
@@ -138,11 +145,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
               child: IconButton(
                   onPressed: () async {
-                    if (_formfield.currentState!.validate()) {
+                    if (_formfield.currentState!.validate() &&
+                        addresscontroller.text != "") {
                       setState(() {
                         isLoading = true;
                       });
                       addUser();
+                    } else {
+                      displayCustomToast();
                     }
                   },
                   icon: const Icon(
@@ -232,12 +242,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.words,
                   labelText: "Type",
-                  inputFormatters: null,
                   textInputType: TextInputType.emailAddress,
                   textEditingController: typecontroller,
                   texteditinghinttext: 'Card type',
                   customobscuretext: true,
-                  customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.badge_outlined,
                     color: grayColor,
@@ -248,12 +256,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.words,
                   labelText: "Name",
-                  inputFormatters: null,
                   textInputType: TextInputType.text,
                   textEditingController: nameController,
                   texteditinghinttext: 'Name',
                   customobscuretext: true,
-                  customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.person,
                     color: grayColor,
@@ -264,12 +270,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.words,
                   labelText: "Profession",
-                  inputFormatters: null,
                   textInputType: TextInputType.text,
                   textEditingController: departmentController,
                   texteditinghinttext: 'Profession',
                   customobscuretext: true,
-                  customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.work_rounded,
                     color: grayColor,
@@ -280,12 +284,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.words,
                   labelText: "Company",
-                  inputFormatters: null,
                   textInputType: TextInputType.text,
                   textEditingController: companyController,
                   texteditinghinttext: 'Company',
                   customobscuretext: true,
-                  customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.apartment_sharp,
                     color: grayColor,
@@ -296,7 +298,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: IntlPhoneField(
-                    invalidNumberMessage: "this field can't be empty",
+                    invalidNumberMessage: "This field can't be empty",
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                     ],
@@ -327,7 +329,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       log(phone.completeNumber);
                     },
                     onCountryChanged: (phone) {
-                      countryCode = phone.code;
+                      countryCode = phone.dialCode;
                       print("qqqqqqqqqqqqqqq${countryCode}");
                     },
                   ),
@@ -336,12 +338,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.none,
                   labelText: "Email",
-                  inputFormatters: null,
                   textInputType: TextInputType.emailAddress,
                   textEditingController: emailcontroller,
                   texteditinghinttext: 'Email',
-                  customobscuretext: true,
-                  customsuffixIcon: null,
                   customprefixicon: const Icon(
                     Icons.email,
                     color: grayColor,
@@ -349,14 +348,17 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   validationfunction: emailValidator,
                 ),
                 SizedBox(height: hp(2, context)),
-                Addresstextfield(
-                    textEditingController: addresscontroller,
-                    itmClick: (Prediction prediction) {
-                      addresscontroller.text = prediction.description!;
-
-                      addresscontroller.selection = TextSelection.fromPosition(
-                          TextPosition(offset: prediction.description!.length));
-                    }),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Addresstextfield(
+                      textEditingController: addresscontroller,
+                      itmClick: (Prediction prediction) {
+                        addresscontroller.text = prediction.description!;
+                        addresscontroller.selection =
+                            TextSelection.fromPosition(TextPosition(
+                                offset: prediction.description!.length));
+                      }),
+                ),
                 SizedBox(height: hp(1, context)),
                 Row(children: [
                   Padding(
@@ -496,7 +498,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         websitecontroller: websitecontroller,
                         telegramcontroller: telegramcontroller,
                         facebookcontroller: facebookcontroller,
-                        linkController: linkController,
+                        linkdinController: linkdinController,
                         whatsappcontroller: whatsappcontroller,
                       )
                     : const SizedBox.shrink(),
@@ -658,6 +660,32 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           ],
         );
       },
+    );
+  }
+
+  displayCustomToast() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "Address field can't be Empty",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  displayCustomToast1() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "This QR Code is invalid.",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
     );
   }
 }

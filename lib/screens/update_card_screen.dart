@@ -50,7 +50,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   final TextEditingController whatsappcontroller = TextEditingController();
   final TextEditingController telegramcontroller = TextEditingController();
   final TextEditingController addresscontroller = TextEditingController();
-  final TextEditingController linkController = TextEditingController();
+  final TextEditingController linkdinController = TextEditingController();
   final TextEditingController snapchatcontroller = TextEditingController();
   final TextEditingController websitecontroller = TextEditingController();
   final TextEditingController facebookcontroller = TextEditingController();
@@ -61,7 +61,6 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   final _formfield = GlobalKey<FormState>();
   String? updateImageUrl;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
-  List<dynamic> countries = [];
   int? _selectcolor;
   int? _selectedIndex;
   bool isLoading = false;
@@ -69,25 +68,17 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   bool ismoreadddata = false;
   int? previewcard;
   int? previewcolor;
-  String? selectedCountryCode;
+  String? selectedCountryCode = "+1";
+  String? Countryshortcode = "US";
+  Country? selected;
 
   @override
   void initState() {
     fToast = FToast();
     fToast?.init(context);
-    loadCountryData();
+
     getSingleUserData();
     super.initState();
-  }
-
-  Future<List<dynamic>> readCountryJson() async {
-    final String data = await rootBundle.loadString('countries.json');
-    return json.decode(data);
-  }
-
-  void loadCountryData() async {
-    countries = await readCountryJson();
-    setState(() {});
   }
 
   Future<void> getSingleUserData() async {
@@ -107,7 +98,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
             whatsapp: e['WhatsApp'],
             telegram: e['Telegram'],
             website: e['Website'],
-            link: e['Link'],
+            linkdin: e['Linkdin'],
             facebook: e['Facebook'],
             email: e['Email'],
             phone: e['Phone'],
@@ -130,17 +121,19 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       departmentController.text = singleuser.first.department!;
       emailcontroller.text = singleuser.first.email!;
       facebookcontroller.text = singleuser.first.facebook!;
-      linkController.text = singleuser.first.link!;
+      linkdinController.text = singleuser.first.linkdin!;
       numbercontroller.text = singleuser.first.phone!;
       telegramcontroller.text = singleuser.first.telegram!;
       websitecontroller.text = singleuser.first.website!;
       whatsappcontroller.text = singleuser.first.whatsapp!;
       _selectedIndex = singleuser.first.card;
       _selectcolor = singleuser.first.color;
-      selectedCountryCode = singleuser.first.country!;
+      selectedCountryCode = singleuser.first.country;
+      updateImageUrl = singleuser.first.image;
+      selected = countries
+          .firstWhere((element) => element.dialCode == selectedCountryCode);
+      Countryshortcode = selected?.code;
     });
-    updateImageUrl = singleuser.first.image;
-    setState(() {});
   }
 
   Future<void> updateUser() async {
@@ -161,7 +154,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       'Telegram': telegramcontroller.text,
       'Snapchat': snapchatcontroller.text,
       'Website': websitecontroller.text,
-      'Link': linkController.text,
+      'Linkdin': linkdinController.text,
       'Facebook': facebookcontroller.text,
       'Email': emailcontroller.text,
       'Phone': numbercontroller.text,
@@ -344,12 +337,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         labelText: "Type",
-                        inputFormatters: null,
                         textInputType: TextInputType.emailAddress,
                         textEditingController: typecontroller,
                         texteditinghinttext: 'card type',
                         customobscuretext: true,
-                        customsuffixIcon: null,
                         customprefixicon: const Icon(
                           Icons.badge_outlined,
                           color: grayColor,
@@ -360,12 +351,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         labelText: "Name",
-                        inputFormatters: null,
                         textInputType: TextInputType.text,
                         textEditingController: nameController,
                         texteditinghinttext: 'Name',
                         customobscuretext: true,
-                        customsuffixIcon: null,
                         customprefixicon: const Icon(
                           Icons.person,
                           color: grayColor,
@@ -376,12 +365,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         labelText: "Profession",
-                        inputFormatters: null,
                         textInputType: TextInputType.text,
                         textEditingController: departmentController,
                         texteditinghinttext: 'Profession',
                         customobscuretext: true,
-                        customsuffixIcon: null,
                         customprefixicon: const Icon(
                           Icons.work_rounded,
                           color: grayColor,
@@ -392,12 +379,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         labelText: "Company",
-                        inputFormatters: null,
                         textInputType: TextInputType.text,
                         textEditingController: companyController,
                         texteditinghinttext: 'Company',
                         customobscuretext: true,
-                        customsuffixIcon: null,
                         customprefixicon: const Icon(
                           Icons.apartment_sharp,
                           color: grayColor,
@@ -434,12 +419,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               borderSide: BorderSide(),
                             ),
                           ),
-                          initialCountryCode: selectedCountryCode,
+                          initialCountryCode: Countryshortcode,
                           onChanged: (phone) {
                             log(phone.completeNumber);
                           },
                           onCountryChanged: (countryCode) {
-                            selectedCountryCode = countryCode.code;
+                            selectedCountryCode = countryCode.dialCode;
                           },
                         ),
                       ),
@@ -447,12 +432,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.none,
                         labelText: "Email",
-                        inputFormatters: null,
                         textInputType: TextInputType.emailAddress,
                         textEditingController: emailcontroller,
                         texteditinghinttext: 'Email',
                         customobscuretext: true,
-                        customsuffixIcon: null,
                         customprefixicon: const Icon(
                           Icons.email,
                           color: grayColor,
@@ -605,7 +588,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               websitecontroller: websitecontroller,
                               telegramcontroller: telegramcontroller,
                               facebookcontroller: facebookcontroller,
-                              linkController: linkController,
+                              linkdinController: linkdinController,
                               whatsappcontroller: whatsappcontroller,
                             )
                           : const SizedBox.shrink(),

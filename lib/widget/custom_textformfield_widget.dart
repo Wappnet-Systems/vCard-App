@@ -7,7 +7,7 @@ class CustomTextFormField extends StatelessWidget {
   final Icon? customprefixicon;
   final TextEditingController textEditingController;
   final String texteditinghinttext;
-  final bool customobscuretext;
+  final bool? customobscuretext;
   final String? Function(String? value)? validationfunction;
   final Icon? customsuffixIcon;
   final List<TextInputFormatter>? inputFormatters;
@@ -20,11 +20,11 @@ class CustomTextFormField extends StatelessWidget {
       required this.customprefixicon,
       required this.textEditingController,
       required this.texteditinghinttext,
-      required this.customobscuretext,
-      required this.validationfunction,
-      required this.customsuffixIcon,
+      this.customobscuretext,
+      this.validationfunction,
+      this.customsuffixIcon,
       required this.textCapitalization,
-      required this.inputFormatters});
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,6 @@ class CustomTextFormField extends StatelessWidget {
         inputFormatters: inputFormatters,
         keyboardType: textInputType,
         style: const TextStyle(color: blackColor, fontSize: 12),
-        obscureText: !customobscuretext,
         enableInteractiveSelection: true,
         cursorColor: blueColor,
         controller: textEditingController,

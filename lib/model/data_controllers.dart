@@ -5,7 +5,7 @@ class Users {
   final String? whatsapp;
   final String? telegram;
   final String? website;
-  final String? link;
+  final String? linkdin;
   final String? facebook;
   final String? email;
   final String? phone;
@@ -28,7 +28,7 @@ class Users {
       required this.whatsapp,
       required this.telegram,
       required this.website,
-      required this.link,
+      required this.linkdin,
       required this.facebook,
       required this.email,
       required this.phone,

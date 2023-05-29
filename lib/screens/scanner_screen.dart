@@ -40,7 +40,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? telegram;
   String? snapchat;
   String? website;
-  String? link;
+  String? linkdin;
   String? facebook;
   String? email;
   String? phone;
@@ -68,7 +68,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
             whatsapp: element['WhatsApp'],
             telegram: element['Telegram'],
             website: element['Website'],
-            link: element['Link'],
+            linkdin: element['Linkdin'],
             facebook: element['Facebook'],
             email: element['Email'],
             phone: element['Phone'],
@@ -94,7 +94,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
         whatsapp = userData[index].whatsapp;
         telegram = userData[index].telegram;
         website = userData[index].website;
-        link = userData[index].link;
+        linkdin = userData[index].linkdin;
         facebook = userData[index].facebook;
         email = userData[index].email;
         phone = userData[index].phone;
@@ -118,7 +118,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'WhatsApp': whatsapp,
       'Telegram': telegram,
       'Website': website,
-      'Link': link,
+      'Linkdin': linkdin,
       'Facebook': facebook,
       'Email': email,
       'Phone': phone,
@@ -270,11 +270,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                           selectionColor: grayColor,
                                         ))
                                   ]),
-                              const Spacer(),
-                              const Padding(
-                                padding: EdgeInsets.only(right: 5),
-                                child: Icon(Icons.more_horiz),
-                              ),
                             ]),
                           )),
                   SizedBox(height: hp(5, context)),

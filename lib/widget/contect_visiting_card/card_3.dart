@@ -44,7 +44,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                           ? colorList[
                               Staticmenbers.cardUsers[contactcardindex!].color!]
                           : blackColor,
-                      width: wp(0.5, context)),
+                      width: wp(0.3, context)),
                   borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       topLeft: Radius.circular(15)),
@@ -204,14 +204,14 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                                   ),
                                 ),
                               ),
-                        Staticmenbers.cardUsers[contactcardindex!].link == ""
+                        Staticmenbers.cardUsers[contactcardindex!].linkdin == ""
                             ? const SizedBox.shrink()
                             : Padding(
                                 padding: const EdgeInsets.only(left: 20),
                                 child: InkWell(
                                   onTap: () async {
                                     final url =
-                                        'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
+                                        'https://www.linkedin.com//${Staticmenbers.cardUsers[contactcardindex!].linkdin}';
 
                                     await launchUrl(Uri.parse(url));
                                   },
@@ -262,7 +262,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                                     InkWell(
                                       onTap: () {
                                         launchUrl(Uri.parse(
-                                            'tel:+${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
+                                            'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
                                       },
                                       child: Image.asset(
                                         "assets/icon/call.png",
@@ -414,10 +414,13 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                 width: wp(53, context),
                 height: hp(8, context),
                 decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
                   color: Colors.grey.shade600,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 1),
+                  padding: const EdgeInsets.only(left: 3),
                   child: Center(
                     child: Textwidget(
                         maxLines: 1,
@@ -425,7 +428,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                         width: wp(50, context),
                         text:
                             "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
-                        fontSize: 18,
+                        fontSize: 16,
                         selectionColor: whiteColor),
                   ),
                 ),

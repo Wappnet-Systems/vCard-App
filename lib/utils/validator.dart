@@ -4,7 +4,7 @@ String? emailValidator(String? value) {
   RegExp regex = RegExp(pattern);
 
   if (value!.isEmpty) {
-    return "this field can't be Empty";
+    return "This field can't be Empty";
   } else if (!regex.hasMatch(value)) {
     return 'Please enter valid email';
   }
@@ -15,7 +15,7 @@ String? numbervalidator(String? value) {
   String pattern = r'(^(?:[+0]9)?[0-9]{10}$)';
   RegExp regExp = RegExp(pattern);
   if (value!.isEmpty) {
-    return "this field can't be Empty";
+    return "This field can't be Empty";
   } else if (regExp.hasMatch(value)) {
     return 'Please enter correct value';
   }

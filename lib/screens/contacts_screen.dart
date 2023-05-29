@@ -19,8 +19,10 @@ class ContactsScreen extends StatefulWidget {
 class _ContactsScreenState extends State<ContactsScreen> {
   int? cardindex;
   bool value = false;
+  List<Users> userData = [];
   @override
   void initState() {
+    print("object${Staticmenbers.cardUsers}");
     getSingleUserData();
     log('Rfresh');
     setState(() {});
@@ -40,29 +42,51 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Frind's card")
         .get();
-
+    print("snapshot:$snapshot");
+    // snapshot.docs.forEach((e) {
+    //   print("user:${e.data()['user']}");
+    //   userData.add(Users(
+    //       user: e['user'],
+    //       name: e['Name'],
+    //       department: e['Department'],
+    //       compeny: e['Company'],
+    //       whatsapp: e['WhatsApp'],
+    //       telegram: e['Telegram'],
+    //       website: e['Website'],
+    //       linkdin: e['Linkdin'],
+    //       facebook: e['Facebook'],
+    //       email: e['Email'],
+    //       phone: e['Phone'],
+    //       country: e['country'],
+    //       address: e['Address'],
+    //       id: e['id'],
+    //       image: e['images'],
+    //       type: e['type'],
+    //       card: e['card'],
+    //       color: e['color']));
+    // });
     final userData = snapshot.docs
         .map((e) => Users(
-            user: e['user'],
-            name: e['Name'],
-            department: e['Department'],
-            compeny: e['Company'],
-            whatsapp: e['WhatsApp'],
-            telegram: e['Telegram'],
-            website: e['Website'],
-            link: e['Link'],
-            facebook: e['Facebook'],
-            email: e['Email'],
-            phone: e['Phone'],
-            country: e['country'],
-            address: e['Address'],
-            id: e['id'],
-            image: e['images'],
-            type: e['type'],
-            card: e['card'],
-            color: e['color']))
+            user: e.data()['user'],
+            name: e.data()['Name'],
+            department: e.data()['Department'],
+            compeny: e.data()['Company'],
+            whatsapp: e.data()['WhatsApp'],
+            telegram: e.data()['Telegram'],
+            website: e.data()['Website'],
+            linkdin: e.data()['Linkdin'],
+            facebook: e.data()['Facebook'],
+            email: e.data()['Email'],
+            phone: e.data()['Phone'],
+            country: e.data()['country'],
+            address: e.data()['Address'],
+            id: e.data()['id'],
+            image: e.data()['images'],
+            type: e.data()['type'],
+            card: e.data()['card'],
+            color: e.data()['color']))
         .toList();
-
+    print('userData:$userData');
     setState(() {
       value = true;
       Staticmenbers.cardUsers = userData;
@@ -167,7 +191,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             fontSize: 20,
                                             selectionColor: blackColor,
                                           )),
-                                  Staticmenbers.cardUsers[index].phone == ""
+                                  Staticmenbers.cardUsers[index].type == ""
                                       ? const SizedBox.shrink()
                                       : Padding(
                                           padding: const EdgeInsets.only(
@@ -177,11 +201,12 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
-                                                '${Staticmenbers.cardUsers[index].phone}',
-                                            fontSize: 15,
+                                                '${Staticmenbers.cardUsers[index].type}',
+                                            fontSize: 14,
                                             selectionColor: grayColor,
                                           )),
-                                  Staticmenbers.cardUsers[index].compeny == ""
+                                  Staticmenbers.cardUsers[index].department ==
+                                          ""
                                       ? const SizedBox.shrink()
                                       : Padding(
                                           padding: const EdgeInsets.only(
@@ -191,8 +216,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                             textAlign: TextAlign.start,
                                             width: wp(40, context),
                                             text:
-                                                '${Staticmenbers.cardUsers[index].compeny}',
-                                            fontSize: 15,
+                                                '${Staticmenbers.cardUsers[index].department}',
+                                            fontSize: 14,
                                             selectionColor: grayColor,
                                           )),
                                 ]),

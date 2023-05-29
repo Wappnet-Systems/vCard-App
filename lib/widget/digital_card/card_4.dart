@@ -289,7 +289,8 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                             ),
                                           ),
                                         ),
-                                  Staticmenbers.listofUsers[cardindex!].link ==
+                                  Staticmenbers.listofUsers[cardindex!]
+                                              .linkdin ==
                                           ""
                                       ? const SizedBox.shrink()
                                       : Padding(
@@ -298,7 +299,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                           child: InkWell(
                                             onTap: () async {
                                               final url =
-                                                  'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                                  'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
 
                                               await launchUrl(Uri.parse(url));
                                             },
@@ -417,7 +418,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                         child: InkWell(
                           onTap: () {
                             launchUrl(Uri.parse(
-                                'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                           },
                           child: Image.asset(
                             "assets/icon/call.png",
@@ -455,19 +456,19 @@ class _Cardtheme4State extends State<Cardtheme4> {
                             showDialog(
                               context: context,
                               builder: (ctx) => AlertDialog(
-                                backgroundColor: blueColor,
+                                backgroundColor: whiteColor,
                                 title: const Text("Address",
                                     style: TextStyle(
                                         fontFamily: 'Marck',
                                         fontSize: 25,
-                                        color: whiteColor,
+                                        color: blueColor,
                                         fontWeight: FontWeight.bold)),
                                 content: Text(
                                     '${Staticmenbers.listofUsers[cardindex!].address}',
                                     style: const TextStyle(
                                         fontFamily: 'Marck',
-                                        fontSize: 25,
-                                        color: whiteColor,
+                                        fontSize: 20,
+                                        color: grayColor,
                                         fontWeight: FontWeight.bold)),
                                 actions: <Widget>[
                                   Row(
@@ -478,7 +479,6 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                           _pushMap();
                                         },
                                         title: 'Use Map',
-                                        fontSize: null,
                                         color: blueColor,
                                       ),
                                       TextButtomWidget(

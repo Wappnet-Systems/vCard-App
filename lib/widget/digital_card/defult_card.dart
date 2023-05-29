@@ -147,7 +147,7 @@ class _DefultCardState extends State<DefultCard> {
                           child: InkWell(
                             onTap: () {
                               launchUrl(Uri.parse(
-                                  'tel:+${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                  'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
                             },
                             child: Image.asset(
                               "assets/icon/call.png",
@@ -207,19 +207,19 @@ class _DefultCardState extends State<DefultCard> {
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(
-                                  backgroundColor: blueColor,
+                                  backgroundColor: whiteColor,
                                   title: const Text("Address",
                                       style: TextStyle(
                                           fontFamily: 'Marck',
                                           fontSize: 25,
-                                          color: whiteColor,
+                                          color: blueColor,
                                           fontWeight: FontWeight.bold)),
                                   content: Text(
                                       '${Staticmenbers.listofUsers[cardindex!].address}',
                                       style: const TextStyle(
                                           fontFamily: 'Marck',
-                                          fontSize: 25,
-                                          color: whiteColor,
+                                          fontSize: 20,
+                                          color: grayColor,
                                           fontWeight: FontWeight.bold)),
                                   actions: <Widget>[
                                     Row(
@@ -230,7 +230,6 @@ class _DefultCardState extends State<DefultCard> {
                                             _pushMap();
                                           },
                                           title: 'Use Map',
-                                          fontSize: null,
                                           color: blueColor,
                                         ),
                                         TextButtomWidget(
@@ -352,14 +351,14 @@ class _DefultCardState extends State<DefultCard> {
                           ),
                         ),
                       ),
-                (Staticmenbers.listofUsers[cardindex!].link == "")
+                (Staticmenbers.listofUsers[cardindex!].linkdin == "")
                     ? const SizedBox.shrink()
                     : Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: InkWell(
                           onTap: () async {
                             final url =
-                                'https://${Staticmenbers.listofUsers[cardindex!].link}';
+                                'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
 
                             await launchUrl(Uri.parse(url));
                           },

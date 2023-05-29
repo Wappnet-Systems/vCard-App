@@ -179,14 +179,14 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                               ),
                             ),
                           ),
-                    (Staticmenbers.cardUsers[contactcardindex!].link == "")
+                    (Staticmenbers.cardUsers[contactcardindex!].linkdin == "")
                         ? const SizedBox.shrink()
                         : Padding(
                             padding: const EdgeInsets.only(left: 15),
                             child: InkWell(
                               onTap: () async {
                                 final url =
-                                    'https://${Staticmenbers.cardUsers[contactcardindex!].link}';
+                                    'https://www.linkedin.com//${Staticmenbers.cardUsers[contactcardindex!].linkdin}';
 
                                 await launchUrl(Uri.parse(url));
                               },
@@ -370,19 +370,19 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                       showDialog(
                                         context: context,
                                         builder: (ctx) => AlertDialog(
-                                          backgroundColor: blueColor,
+                                          backgroundColor: whiteColor,
                                           title: const Text("Address",
                                               style: TextStyle(
                                                   fontFamily: 'Marck',
                                                   fontSize: 25,
-                                                  color: whiteColor,
+                                                  color: blueColor,
                                                   fontWeight: FontWeight.bold)),
                                           content: Text(
                                               '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                               style: const TextStyle(
                                                   fontFamily: 'Marck',
-                                                  fontSize: 25,
-                                                  color: whiteColor,
+                                                  fontSize: 20,
+                                                  color: grayColor,
                                                   fontWeight: FontWeight.bold)),
                                           actions: <Widget>[
                                             Row(
@@ -394,8 +394,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                                     _pushMap();
                                                   },
                                                   title: 'Use Map',
-                                                  fontSize: null,
-                                                  color: bluegrayColor,
+                                                  color: blueColor,
                                                 ),
                                                 TextButtomWidget(
                                                   onPressed: () {
