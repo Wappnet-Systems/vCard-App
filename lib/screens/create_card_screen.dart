@@ -330,7 +330,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     },
                     onCountryChanged: (phone) {
                       countryCode = phone.dialCode;
-                      print("qqqqqqqqqqqqqqq${countryCode}");
                     },
                   ),
                 ),

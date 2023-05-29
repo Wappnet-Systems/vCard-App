@@ -22,10 +22,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
   List<Users> userData = [];
   @override
   void initState() {
-    print("object${Staticmenbers.cardUsers}");
     getSingleUserData();
-    log('Rfresh');
-    setState(() {});
     super.initState();
   }
 
@@ -42,29 +39,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Frind's card")
         .get();
-    print("snapshot:$snapshot");
-    // snapshot.docs.forEach((e) {
-    //   print("user:${e.data()['user']}");
-    //   userData.add(Users(
-    //       user: e['user'],
-    //       name: e['Name'],
-    //       department: e['Department'],
-    //       compeny: e['Company'],
-    //       whatsapp: e['WhatsApp'],
-    //       telegram: e['Telegram'],
-    //       website: e['Website'],
-    //       linkdin: e['Linkdin'],
-    //       facebook: e['Facebook'],
-    //       email: e['Email'],
-    //       phone: e['Phone'],
-    //       country: e['country'],
-    //       address: e['Address'],
-    //       id: e['id'],
-    //       image: e['images'],
-    //       type: e['type'],
-    //       card: e['card'],
-    //       color: e['color']));
-    // });
     final userData = snapshot.docs
         .map((e) => Users(
             user: e.data()['user'],
@@ -86,7 +60,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
             card: e.data()['card'],
             color: e.data()['color']))
         .toList();
-    print('userData:$userData');
+
     setState(() {
       value = true;
       Staticmenbers.cardUsers = userData;
