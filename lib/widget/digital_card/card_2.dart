@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../text_button_widget.dart';

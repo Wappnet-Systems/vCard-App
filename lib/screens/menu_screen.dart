@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vcard/screens/update_card_screen.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/text_widget.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_bottom _card.dart';
 import 'card_shere_screen.dart';
@@ -58,6 +58,7 @@ class _MenuscreenState extends State<Menuscreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        // show card
                         InkWell(
                           onTap: () {
                             Navigator.pushReplacement(
@@ -79,6 +80,7 @@ class _MenuscreenState extends State<Menuscreen> {
                           ),
                         ),
                         SizedBox(width: wp(3, context)),
+                        // remove card
                         InkWell(
                           onTap: () {
                             Navigator.of(context).pop;
@@ -160,6 +162,7 @@ class _MenuscreenState extends State<Menuscreen> {
                     ),
                   ),
                   SizedBox(height: hp(2, context)),
+                  // update card
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: wp(6.7, context)),
                     child: Row(
@@ -186,6 +189,7 @@ class _MenuscreenState extends State<Menuscreen> {
                               )
                             : const SizedBox.shrink(),
                         SizedBox(width: wp(3, context)),
+                        // share user Card
                         (widget.id != null)
                             ? InkWell(
                                 onTap: () {

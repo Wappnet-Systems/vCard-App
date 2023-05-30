@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 
 class TextButtomWidget extends StatelessWidget {
   final VoidCallback onPressed;

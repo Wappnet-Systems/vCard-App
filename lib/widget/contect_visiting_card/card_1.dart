@@ -4,7 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/text_widget.dart';
-import '../../utils/constants_color.dart';
+import '../../utils/constants.dart';
 import '../text_button_widget.dart';
 
 class Contectcardtheme1 extends StatefulWidget {

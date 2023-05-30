@@ -10,7 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
 import '../widget/custom_loadingbar_widget.dart';
@@ -49,7 +49,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? image;
   String? type;
   FToast? fToast;
-
+  // another person card display
   Future<void> getSingleUserData(String cid, String uid) async {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
@@ -105,6 +105,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
     });
   }
 
+  // another person card save
   Future<void> addUser() async {
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
@@ -381,6 +382,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
     );
   }
 
+  // scanner screen
   void scanQRCode() async {
     try {
       final qrCode = await FlutterBarcodeScanner.scanBarcode(
@@ -389,8 +391,9 @@ class _ScannerscreenState extends State<Scannerscreen> {
       if (!mounted) return;
 
       setState(() {
+        //user ID
         uid = qrCode.substring(0, 28);
-        log("$uid");
+        //card ID
         cid = qrCode.substring(29);
         bool isValid1 = qrvalidateString(uid!);
         bool isValid2 = qrvalidateString(cid!);

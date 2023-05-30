@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
 import '../widget/custom_loadingbar_widget.dart';
@@ -128,10 +128,12 @@ class _NumberverificationState extends State<Numberverification> {
                             setState(() {
                               isLoading = true;
                             });
+                            // number verify
                             await FirebaseAuth.instance.verifyPhoneNumber(
                               phoneNumber: phone + countryController.text,
                               verificationCompleted:
                                   (PhoneAuthCredential credential) {},
+                              // verify fail
                               verificationFailed: (FirebaseAuthException e) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
@@ -142,6 +144,7 @@ class _NumberverificationState extends State<Numberverification> {
                                   isLoading = false;
                                 });
                               },
+                              // send OTP
                               codeSent: (String verificationId,
                                   int? resendToken) async {
                                 Numberverification.verify = verificationId;

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/text_widget.dart';
-import '../../utils/constants_color.dart';
+import '../../utils/constants.dart';
 
 class PreviewCard1 extends StatefulWidget {
   final int? id;

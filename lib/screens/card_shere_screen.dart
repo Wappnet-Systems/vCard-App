@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 
 class Cardsherescreen extends StatefulWidget {
@@ -43,11 +43,13 @@ class _CardsherescreenState extends State<Cardsherescreen> {
                     color: blueColor),
               ),
               SizedBox(height: hp(2, context)),
+              // Card Share QR Code
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     border: Border.all(color: blueColor, width: 2)),
                 child: QrImage(
+                  // user ID and card ID
                   data: "${widget.uid} ${widget.cid}",
                   size: 150,
                 ),

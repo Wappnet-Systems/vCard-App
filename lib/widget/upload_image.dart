@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../utils/responsive.dart';
 
 class Uploadimage extends StatelessWidget {

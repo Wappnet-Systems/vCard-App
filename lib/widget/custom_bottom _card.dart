@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 
 class CardWidget extends StatelessWidget {
   final IconData? icon;

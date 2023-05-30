@@ -1,3 +1,4 @@
+// email validation
 String? emailValidator(String? value) {
   String pattern =
       r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
@@ -11,6 +12,7 @@ String? emailValidator(String? value) {
   return null;
 }
 
+// number validation
 String? numbervalidator(String? value) {
   String pattern = r'(^(?:[+0]9)?[0-9]{10}$)';
   RegExp regExp = RegExp(pattern);
@@ -22,6 +24,7 @@ String? numbervalidator(String? value) {
   return null;
 }
 
+// textvalidation
 String? textvalidator(String? value) {
   if (value == null || value.isEmpty) {
     return "This field can't be empty";
@@ -35,6 +38,7 @@ String? textvalidator(String? value) {
   return null;
 }
 
+// website validation
 String? hasValidUrl(String? value) {
   String pattern =
       r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
@@ -47,6 +51,7 @@ String? hasValidUrl(String? value) {
   return null;
 }
 
+// scanner screen validation
 bool qrvalidateString(String input) {
   final alphanumericRegExp = RegExp(r'^[a-zA-Z0-9]+$');
   return alphanumericRegExp.hasMatch(input);

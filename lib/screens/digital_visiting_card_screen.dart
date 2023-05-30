@@ -10,7 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:vcard/widget/digital_card/card_1.dart';
 import 'package:vcard/widget/digital_card/card_4.dart';
 import 'package:vcard/widget/digital_card/defult_card.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/constants.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../widget/digital_card/card_2.dart';
 import '../widget/digital_card/card_3.dart';
@@ -33,6 +33,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
     cardindex = widget.id;
   }
 
+  // card to convert and share image
   Future<void> _captureImage() async {
     RenderRepaintBoundary boundary = _containerKey.currentContext
         ?.findRenderObject() as RenderRepaintBoundary;
@@ -51,6 +52,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
 
   @override
   Widget build(BuildContext context) {
+    // card list
     List<Widget> cardList = [
       Cardtheme1(id: cardindex),
       Cardtheme2(id: cardindex),

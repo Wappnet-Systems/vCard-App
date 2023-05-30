@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vcard/widget/text_button_widget.dart';
 
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../utils/responsive.dart';
 
 class SelectCustomCard extends StatelessWidget {

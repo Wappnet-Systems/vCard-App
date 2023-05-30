@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcard/utils/responsive.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 
 class Custonloading extends StatefulWidget {
   const Custonloading({super.key});

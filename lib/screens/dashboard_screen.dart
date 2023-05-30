@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/scanner_screen.dart';
 import 'package:vcard/screens/setting_screen.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import 'card_screen.dart';
 import 'contacts_screen.dart';
 import 'create_card_screen.dart';
@@ -33,6 +33,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
     });
   }
 
+  // screen list
   final screen = [
     const Cardscreen(),
     const Scannerscreen(),

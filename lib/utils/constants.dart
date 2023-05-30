@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../model/data_controllers.dart';
 
+// App color
 const Color whiteColor = Color(0Xfffcfdfd);
 const Color bottomColor = Color(0xFF8EC5D4);
 const Color blackColor = Colors.black;
@@ -12,11 +13,13 @@ const String card = 'assets/lottie/No_Data.json';
 const String qrJson = 'assets/lottie/QR.json';
 const yourgoogleapikey = 'AIzaSyDJbqVkRb6llQczHvPN_WnK4pGUGt30ykM';
 
+// member list
 class Staticmenbers {
   static List<Users> listofUsers = [];
   static List<Users> cardUsers = [];
 }
 
+// card color list
 final colorList = [
   goldColor,
   Colors.blue,

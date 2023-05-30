@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 
 class GenerateQR extends StatefulWidget {
@@ -40,6 +40,7 @@ class _GenerateQRState extends State<GenerateQR> {
                   fontSize: 20, fontWeight: FontWeight.bold, color: blueColor),
             ),
             SizedBox(height: hp(2, context)),
+            //App Share QR Code
             Center(
               child: Container(
                 decoration: BoxDecoration(
@@ -60,6 +61,7 @@ class _GenerateQRState extends State<GenerateQR> {
               ),
             ),
             SizedBox(height: hp(2, context)),
+            //App share Button
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: blueColor,

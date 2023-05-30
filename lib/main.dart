@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'screens/dashboard_screen.dart';
-import 'utils/constants_color.dart';
+import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

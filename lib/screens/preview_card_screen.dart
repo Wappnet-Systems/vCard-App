@@ -19,13 +19,16 @@ class _PreviewCardState extends State<PreviewCard> {
   int? previewcolor;
   @override
   void initState() {
+    // Card ID
     previewcard = widget.cardid;
+    //Color ID
     previewcolor = widget.colorid;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // preview card list
     List<Widget> cardList = [
       PreviewCard1(id: previewcolor),
       PreviewCard2(id: previewcolor),

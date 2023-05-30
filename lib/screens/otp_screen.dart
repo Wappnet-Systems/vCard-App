@@ -7,7 +7,7 @@ import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/utils/constants_color.dart';
+import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_toast.dart';
@@ -103,8 +103,7 @@ class _OTPscreenState extends State<OTPscreen> {
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
                       try {
-                        log(Numberverification.verify);
-                        log(code);
+                        // otp verify
                         PhoneAuthCredential credential =
                             PhoneAuthProvider.credential(
                                 verificationId: Numberverification.verify,
@@ -112,7 +111,7 @@ class _OTPscreenState extends State<OTPscreen> {
                         setState(() {
                           isLoading = true;
                         });
-
+                        //check for user login or not
                         await auth
                             .signInWithCredential(credential)
                             .then((value) async {

@@ -16,7 +16,7 @@ import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import 'package:vcard/widget/upload_image.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
 import '../widget/custom_loadingbar_widget.dart';
@@ -33,6 +33,7 @@ class Createcardscreen extends StatefulWidget {
 }
 
 class _CreatecardscreenState extends State<Createcardscreen> {
+  // Controller
   final TextEditingController nameController = TextEditingController();
   final TextEditingController departmentController = TextEditingController();
   final TextEditingController companyController = TextEditingController();
@@ -45,6 +46,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController numbercontroller = TextEditingController();
   final TextEditingController typecontroller = TextEditingController();
+  //from key
   final _formfield = GlobalKey<FormState>();
   FToast? fToast;
 
@@ -56,6 +58,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     super.initState();
   }
 
+  // card data set database
   var receivedLoanDataRef = FirebaseFirestore.instance
       .collection("users")
       .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -99,7 +102,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   }
 
   File? Imagepicker;
-
+  // Immage get
   Future pickImage(ImageSource imageType) async {
     try {
       final pick = await ImagePicker().pickImage(source: imageType);
@@ -113,6 +116,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     }
   }
 
+  // upload image database
   Future uploadImage(File Imagepicker) async {
     String url;
     String imgId = DateTime.now().microsecondsSinceEpoch.toString();
@@ -151,6 +155,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       setState(() {
                         isLoading = true;
                       });
+                      // save data
                       addUser();
                     } else {
                       displayCustomToast();
@@ -191,6 +196,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           Radius.circular(100),
                         ),
                       ),
+                      // profile image add
                       child: ClipOval(
                           child: Imagepicker == null
                               ? Image.asset(
@@ -239,6 +245,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         )),
                   ],
                 ),
+                //card Type
                 SizedBox(height: hp(3, context)),
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.words,
@@ -381,6 +388,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   ),
                 ]),
                 SizedBox(height: hp(1, context)),
+                // card theme set
                 Padding(
                   padding: const EdgeInsets.only(left: 15, right: 15),
                   child: Row(children: [
@@ -407,6 +415,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                           ]),
                         )),
                     const Spacer(),
+                    // card color set
                     InkWell(
                         onTap: () {
                           setState(() {
@@ -446,6 +455,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                                   previewcard = _selectedIndex;
                                   previewcolor = _selectcolor;
                                 });
+                                //preview card
                                 showModalBottomSheet(
                                     context: context,
                                     shape: const RoundedRectangleBorder(
@@ -512,6 +522,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     );
   }
 
+  //select card
   showimagelist() {
     showDialog(
         context: context,
@@ -586,6 +597,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         });
   }
 
+  // select coler
   showcolorlist() {
     showDialog(
       context: context,
@@ -659,23 +671,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     );
   }
 
+  // address toast
   displayCustomToast() {
     Widget toast = const CustomToast(
       child: Text(
         "Address field can't be Empty",
-        style: TextStyle(color: whiteColor),
-      ),
-    );
-    fToast?.showToast(
-      child: toast,
-      toastDuration: const Duration(seconds: 2),
-    );
-  }
-
-  displayCustomToast1() {
-    Widget toast = const CustomToast(
-      child: Text(
-        "This QR Code is invalid.",
         style: TextStyle(color: whiteColor),
       ),
     );

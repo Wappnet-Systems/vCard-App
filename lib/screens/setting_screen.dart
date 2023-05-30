@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../widget/text_widget.dart';
 import 'app_shere_screen.dart';
 
@@ -70,6 +70,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // App permissiom
                 InkWell(
                   onTap: () async {
                     AppSettings.openAppSettings();
@@ -89,6 +90,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   ),
                 ),
                 const Divider(),
+                //App Share Button
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
@@ -117,6 +119,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   ),
                 ),
                 const Divider(),
+                // App version Display
                 const Row(
                   children: [
                     Padding(
@@ -134,6 +137,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   ],
                 ),
                 const Divider(),
+                // log out button
                 InkWell(
                   onTap: () {
                     showDialog(
@@ -176,6 +180,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   ),
                 ),
                 const Divider(),
+                //Account Delete
                 InkWell(
                   onTap: () {
                     showDialog(

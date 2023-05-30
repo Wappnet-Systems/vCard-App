@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_no_data_widget.dart';
 import 'menu_screen.dart';
@@ -33,6 +33,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
     });
   }
 
+  // Contect person card data get
   Future<void> getSingleUserData() async {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
@@ -80,6 +81,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           title: const Text("Contacts", style: TextStyle(color: blackColor)),
           backgroundColor: whiteColor,
         ),
+        // save card
         body: Staticmenbers.cardUsers.isNotEmpty
             ? ListView.builder(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
@@ -220,6 +222,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     },
                   );
                 })
+            // no deta screen
             : SizedBox(
                 height: hp(100, context),
                 width: wp(100, context),

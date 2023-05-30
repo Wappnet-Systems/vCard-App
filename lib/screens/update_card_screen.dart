@@ -9,6 +9,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/countries.dart';
@@ -17,7 +18,8 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
-import '../utils/constants_color.dart';
+import '../utils/constants.dart';
+import '../utils/formatters.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
@@ -80,6 +82,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     super.initState();
   }
 
+  // Card data get
   Future<void> getSingleUserData() async {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
@@ -135,6 +138,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     });
   }
 
+  // Card data update
   Future<void> updateUser() async {
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
@@ -173,7 +177,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   }
 
   File? Imagepicker;
-
+  // update image
   Future pickImage(ImageSource imageType) async {
     try {
       final pick = await ImagePicker().pickImage(source: imageType);
@@ -190,6 +194,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   }
 
   String url = "";
+  // update image store
   uploadImage(File Imagepicker) async {
     String imgId = DateTime.now().microsecondsSinceEpoch.toString();
     Reference reference =
@@ -260,6 +265,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               Radius.circular(100),
                             ),
                           ),
+                          // update image picker
                           child: imageurl == null || imageurl == ""
                               ? ClipRRect(
                                   borderRadius: const BorderRadius.all(
@@ -440,20 +446,95 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         validationfunction: emailValidator,
                       ),
                       SizedBox(height: hp(2, context)),
-                      CustomTextFormField(
-                        textCapitalization: TextCapitalization.none,
-                        labelText: "Website",
-                        inputFormatters: null,
-                        textInputType: TextInputType.text,
-                        textEditingController: websitecontroller,
-                        texteditinghinttext: 'Website',
-                        customobscuretext: true,
-                        customsuffixIcon: null,
-                        customprefixicon: const Icon(
-                          Icons.web,
-                          color: grayColor,
-                        ),
-                      ),
+                      websitecontroller.text != ""
+                          ? CustomTextFormField(
+                              textCapitalization: TextCapitalization.none,
+                              labelText: "Website",
+                              inputFormatters: null,
+                              textInputType: TextInputType.text,
+                              textEditingController: websitecontroller,
+                              texteditinghinttext: 'Website',
+                              customobscuretext: true,
+                              customsuffixIcon: null,
+                              customprefixicon: const Icon(
+                                Icons.web,
+                                color: grayColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      websitecontroller.text != ""
+                          ? SizedBox(height: hp(2, context))
+                          : const SizedBox.shrink(),
+                      whatsappcontroller.text != ""
+                          ? CustomTextFormField(
+                              textCapitalization: TextCapitalization.none,
+                              labelText: "WhatsApp",
+                              inputFormatters: [maskFormatter],
+                              textInputType: TextInputType.phone,
+                              textEditingController: whatsappcontroller,
+                              texteditinghinttext: 'WhatsApp',
+                              customobscuretext: true,
+                              customprefixicon: const Icon(
+                                FontAwesomeIcons.whatsapp,
+                                color: grayColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      whatsappcontroller.text != ""
+                          ? SizedBox(height: hp(2, context))
+                          : const SizedBox.shrink(),
+                      linkdinController.text != ""
+                          ? CustomTextFormField(
+                              textCapitalization: TextCapitalization.none,
+                              labelText: "Linkdin",
+                              textInputType: TextInputType.text,
+                              textEditingController: linkdinController,
+                              texteditinghinttext: 'Linkdin',
+                              customobscuretext: true,
+                              customprefixicon: const Icon(
+                                Icons.link,
+                                color: grayColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      linkdinController.text != ""
+                          ? SizedBox(height: hp(2, context))
+                          : const SizedBox.shrink(),
+                      facebookcontroller.text != ""
+                          ? CustomTextFormField(
+                              textCapitalization: TextCapitalization.none,
+                              labelText: "Facebook",
+                              textInputType: TextInputType.text,
+                              textEditingController: facebookcontroller,
+                              texteditinghinttext: 'Facebook',
+                              customobscuretext: true,
+                              customprefixicon: const Icon(
+                                Icons.facebook,
+                                color: grayColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      facebookcontroller.text != ""
+                          ? SizedBox(height: hp(2, context))
+                          : const SizedBox.shrink(),
+                      telegramcontroller.text != ""
+                          ? CustomTextFormField(
+                              textCapitalization: TextCapitalization.none,
+                              labelText: "Telegram",
+                              inputFormatters: [maskFormatter],
+                              textInputType: TextInputType.phone,
+                              textEditingController: telegramcontroller,
+                              texteditinghinttext: 'Telegram',
+                              customobscuretext: true,
+                              customprefixicon: const Icon(
+                                Icons.telegram,
+                                color: grayColor,
+                              ),
+                            )
+                          : const SizedBox.shrink(),
+                      telegramcontroller.text != ""
+                          ? SizedBox(height: hp(2, context))
+                          : const SizedBox.shrink(),
                       Addresstextfield(
                           textEditingController: addresscontroller,
                           itmClick: (Prediction prediction) {
@@ -574,23 +655,29 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             ),
                           ),
                           const Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15),
-                            child: (ismoreadddata)
-                                ? const SizedBox.shrink()
-                                : InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        ismoreadddata = true;
-                                      });
-                                    },
-                                    child: const Text(
-                                      "Add more item ?",
-                                      style: TextStyle(
-                                          color: bottomColor,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                          ),
+                          whatsappcontroller.text != "" &&
+                                  telegramcontroller.text != "" &&
+                                  websitecontroller.text != "" &&
+                                  facebookcontroller.text != "" &&
+                                  linkdinController.text != ""
+                              ? const SizedBox.shrink()
+                              : Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: (ismoreadddata)
+                                      ? const SizedBox.shrink()
+                                      : InkWell(
+                                          onTap: () {
+                                            setState(() {
+                                              ismoreadddata = true;
+                                            });
+                                          },
+                                          child: const Text(
+                                            "Add more item ?",
+                                            style: TextStyle(
+                                                color: bottomColor,
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                ),
                         ],
                       ),
                       SizedBox(height: hp(4, context)),
@@ -618,6 +705,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     );
   }
 
+  // update card theme
   showimagelist() {
     showDialog(
       context: context,
@@ -692,6 +780,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     );
   }
 
+  // update card color theme
   showcolorlist() {
     showDialog(
       context: context,
