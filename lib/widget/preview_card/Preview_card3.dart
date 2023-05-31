@@ -81,17 +81,17 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           : colorList[previewcolor!],
                     ),
                     SizedBox(
-                      height: hp(3, context),
+                      height: hp(5, context),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 30),
+                      padding: const EdgeInsets.only(left: 40),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: colorList[previewcolor!] == ""
                                   ? blackColor
                                   : colorList[previewcolor!],
-                              width: 3),
+                              width: 1),
                           borderRadius: const BorderRadius.all(
                             Radius.circular(90),
                           ),
@@ -99,9 +99,9 @@ class _PreviewCard3State extends State<PreviewCard3> {
                         child: ClipOval(
                             child: Image.asset(
                           "assets/images/splash1.png",
-                          width: wp(22, context),
-                          height: hp(11, context),
-                          fit: BoxFit.fill,
+                          width: wp(21, context),
+                          height: hp(10, context),
+                          fit: BoxFit.contain,
                         )),
                       ),
                     ),
@@ -140,6 +140,16 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           padding: const EdgeInsets.only(left: 20),
                           child: Image.asset(
                             "assets/icon/lin.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Image.asset(
+                            "assets/icon/whats.png",
                             scale: 30,
                             color: colorList[previewcolor!] == ""
                                 ? blackColor
@@ -253,11 +263,14 @@ class _PreviewCard3State extends State<PreviewCard3> {
           ),
           Positioned(
               top: 30,
-              left: 151,
+              right: 3,
               child: Container(
                 width: wp(53, context),
                 height: hp(8, context),
                 decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      topLeft: Radius.circular(10)),
                   color: Colors.grey.shade600,
                 ),
                 child: Padding(

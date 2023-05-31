@@ -54,7 +54,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                   child: Row(
                     children: <Widget>[
                       Flexible(
-                        flex: 3,
+                        flex: 4,
                         child: Container(
                           decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
@@ -125,7 +125,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                           color: blueColor, width: 2)),
                                   child: QrImage(
                                     data: "",
-                                    size: 50,
+                                    size: 60,
                                   ),
                                 ),
                               ),
@@ -184,7 +184,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                         color: colorList[previewcolor!] == ""
                                             ? blueColor
                                             : colorList[previewcolor!],
-                                        width: 3),
+                                        width: 1),
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(90),
                                     ),
@@ -192,7 +192,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                   child: ClipOval(
                                       child: Image.asset(
                                     "assets/images/splash1.png",
-                                    width: wp(22, context),
+                                    width: wp(23, context),
                                     height: hp(11, context),
                                     fit: BoxFit.fill,
                                   )),
@@ -203,7 +203,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 15),
+                                    padding: const EdgeInsets.only(right: 12),
                                     child: Image.asset(
                                       "assets/icon/website.png",
                                       scale: 30,
@@ -213,7 +213,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 15),
+                                    padding: const EdgeInsets.only(right: 12),
                                     child: Image.asset(
                                       "assets/icon/tele.png",
                                       scale: 30,
@@ -223,7 +223,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 15),
+                                    padding: const EdgeInsets.only(right: 12),
                                     child: Image.asset(
                                       "assets/icon/lin.png",
                                       scale: 30,
@@ -233,7 +233,7 @@ class _PreviewCard4State extends State<PreviewCard4> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 15),
+                                    padding: const EdgeInsets.only(right: 12),
                                     child: Image.asset(
                                       "assets/icon/whats.png",
                                       scale: 30,
@@ -322,29 +322,6 @@ class _PreviewCard4State extends State<PreviewCard4> {
                 ),
               ),
             ]),
-            Positioned(
-                top: 65,
-                right: 0,
-                child: Container(
-                  width: wp(10, context),
-                  height: hp(18, context),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(15),
-                        topLeft: Radius.circular(15)),
-                    color: colorList[previewcolor!] == ""
-                        ? blueColor
-                        : colorList[previewcolor!],
-                    boxShadow: [
-                      BoxShadow(
-                        color: colorList[previewcolor!] == ""
-                            ? blueColor
-                            : colorList[previewcolor!],
-                        blurRadius: 1.0,
-                      ),
-                    ],
-                  ),
-                ))
           ],
         ),
       ),

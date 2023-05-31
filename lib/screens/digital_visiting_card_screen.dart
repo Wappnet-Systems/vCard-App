@@ -37,7 +37,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
   Future<void> _captureImage() async {
     RenderRepaintBoundary boundary = _containerKey.currentContext
         ?.findRenderObject() as RenderRepaintBoundary;
-    ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+    ui.Image image = await boundary.toImage(pixelRatio: 2.0);
     final byteData = await image.toByteData(format: ImageByteFormat.png);
     final imageBytes = byteData?.buffer.asUint8List();
 

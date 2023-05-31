@@ -48,223 +48,231 @@ class _PreviewCard1State extends State<PreviewCard1> {
               ),
             ],
           ),
-          child: Row(children: [
-            Column(
-              children: [
-                SizedBox(height: hp(2.5, context)),
-                Textwidget(
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    width: wp(38, context),
-                    text: "Company Name",
-                    fontSize: 15,
-                    selectionColor: colorList[previewcolor!] == ""
-                        ? blackColor
-                        : colorList[previewcolor!]),
-                SizedBox(height: hp(4, context)),
-                ClipOval(
-                    child: Image.asset(
-                  "assets/images/splash1.png",
-                  width: wp(23, context),
-                  height: hp(11, context),
-                  fit: BoxFit.fill,
-                )),
-                SizedBox(height: hp(2, context)),
-                Textwidget(
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  width: wp(35, context),
-                  text: "Your Name",
-                  fontSize: 18,
-                  selectionColor: colorList[previewcolor!] == ""
-                      ? blackColor
-                      : colorList[previewcolor!],
-                ),
-                SizedBox(
-                  height: hp(0.5, context),
-                ),
-                Textwidget(
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  width: wp(35, context),
-                  text: "Profession",
-                  fontSize: 12,
-                  selectionColor: colorList[previewcolor!] == ""
-                      ? blackColor
-                      : colorList[previewcolor!],
-                ),
-                SizedBox(height: hp(3, context)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+          child: Stack(
+            children: [
+              Positioned(
+                  top: 15,
+                  left: 8,
+                  child: Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      width: wp(38, context),
+                      text: "Company Name",
+                      fontSize: 15,
+                      selectionColor: colorList[previewcolor!] == ""
+                          ? blackColor
+                          : colorList[previewcolor!])),
+              Row(children: [
+                Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                      ),
-                      child: Image.asset(
-                        "assets/icon/Face.png",
-                        scale: 30,
-                        color: colorList[previewcolor!] == ""
-                            ? blackColor
-                            : colorList[previewcolor!],
-                      ),
+                    SizedBox(height: hp(8, context)),
+                    ClipOval(
+                        child: Image.asset(
+                      "assets/images/splash1.png",
+                      width: wp(23, context),
+                      height: hp(11, context),
+                      fit: BoxFit.fill,
+                    )),
+                    SizedBox(height: hp(2, context)),
+                    Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      width: wp(35, context),
+                      text: "Your Name",
+                      fontSize: 18,
+                      selectionColor: colorList[previewcolor!] == ""
+                          ? blackColor
+                          : colorList[previewcolor!],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Image.asset(
-                        "assets/icon/tele.png",
-                        scale: 30,
-                        color: colorList[previewcolor!] == ""
-                            ? blackColor
-                            : colorList[previewcolor!],
-                      ),
+                    SizedBox(
+                      height: hp(0.5, context),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Image.asset(
-                        "assets/icon/lin.png",
-                        scale: 30,
-                        color: colorList[previewcolor!] == ""
-                            ? blackColor
-                            : colorList[previewcolor!],
-                      ),
+                    Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      width: wp(35, context),
+                      text: "Profession",
+                      fontSize: 12,
+                      selectionColor: colorList[previewcolor!] == ""
+                          ? blackColor
+                          : colorList[previewcolor!],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Image.asset(
-                        "assets/icon/whats.png",
-                        scale: 30,
-                        color: colorList[previewcolor!] == ""
-                            ? blackColor
-                            : colorList[previewcolor!],
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            VerticalDivider(
-                color: Colors.transparent, width: wp(6.75, context)),
-            Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Textwidget(
-                  maxLines: 1,
-                  textAlign: TextAlign.start,
-                  width: wp(50, context),
-                  text: "www.xyz.com",
-                  fontSize: 15,
-                  selectionColor: colorList[previewcolor!] == ""
-                      ? blackColor
-                      : colorList[previewcolor!],
-                ),
-              ),
-              SizedBox(height: hp(1.3, context)),
-              Container(
-                decoration: BoxDecoration(
-                    color: colorList[previewcolor!] == ""
-                        ? blackColor
-                        : colorList[previewcolor!],
-                    borderRadius: const BorderRadius.only(
-                        topRight: Radius.elliptical(70, 50),
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(4))),
-                height: hp(28, context),
-                width: wp(50, context),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 3, top: 15),
-                            child: Image.asset(
-                              "assets/icon/call.png",
-                              scale: 30,
-                              color: whiteColor,
-                            ),
+                    SizedBox(height: hp(3, context)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: 10,
                           ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 8, top: 15),
-                            child: Textwidget(
-                                maxLines: 1,
-                                textAlign: TextAlign.start,
-                                width: 130,
-                                text: "xxxxx xxxxx",
-                                fontSize: 12,
-                                selectionColor: whiteColor),
+                          child: Image.asset(
+                            "assets/icon/Face.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 3, top: 15),
-                            child: Image.asset(
-                              "assets/icon/email.png",
-                              scale: 30,
-                              color: whiteColor,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8, top: 15),
-                            child: SizedBox(
-                              width: wp(40, context),
-                              child: const Textwidget(
-                                  maxLines: 1,
-                                  textAlign: TextAlign.start,
-                                  width: 130,
-                                  text: "xyz12@gmail.com",
-                                  fontSize: 12,
-                                  selectionColor: whiteColor),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 3, top: 15),
-                            child: Image.asset(
-                              "assets/icon/pin.png",
-                              scale: 28,
-                              color: whiteColor,
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 8, top: 15),
-                            child: Textwidget(
-                                maxLines: 2,
-                                textAlign: TextAlign.start,
-                                width: 140,
-                                text: "Your Address",
-                                fontSize: 11,
-                                selectionColor: whiteColor),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: hp(3, context)),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: whiteColor, width: 1)),
-                        child: QrImage(
-                          dataModuleStyle:
-                              const QrDataModuleStyle(color: whiteColor),
-                          eyeStyle: const QrEyeStyle(color: whiteColor),
-                          data: "",
-                          size: 50,
                         ),
-                      ),
-                      SizedBox(height: hp(3, context)),
-                    ],
-                  ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Image.asset(
+                            "assets/icon/tele.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Image.asset(
+                            "assets/icon/lin.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Image.asset(
+                            "assets/icon/whats.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: Image.asset(
+                            "assets/icon/website.png",
+                            scale: 30,
+                            color: colorList[previewcolor!] == ""
+                                ? blackColor
+                                : colorList[previewcolor!],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-              )
-            ]),
-          ]),
+                VerticalDivider(
+                    color: Colors.transparent, width: wp(5.5, context)),
+                Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  SizedBox(height: hp(1.3, context)),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: colorList[previewcolor!] == ""
+                            ? blackColor
+                            : colorList[previewcolor!],
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.elliptical(70, 50),
+                            bottomLeft: Radius.circular(50),
+                            bottomRight: Radius.circular(4))),
+                    height: hp(28, context),
+                    width: wp(50, context),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 3, top: 15),
+                                child: Image.asset(
+                                  "assets/icon/call.png",
+                                  scale: 30,
+                                  color: whiteColor,
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 8, top: 15),
+                                child: Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    width: 130,
+                                    text: "xxxxx xxxxx",
+                                    fontSize: 12,
+                                    selectionColor: whiteColor),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 3, top: 15),
+                                child: Image.asset(
+                                  "assets/icon/email.png",
+                                  scale: 30,
+                                  color: whiteColor,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, top: 15),
+                                child: SizedBox(
+                                  width: wp(40, context),
+                                  child: const Textwidget(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      width: 130,
+                                      text: "xyz12@gmail.com",
+                                      fontSize: 12,
+                                      selectionColor: whiteColor),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 3, top: 15),
+                                child: Image.asset(
+                                  "assets/icon/pin.png",
+                                  scale: 28,
+                                  color: whiteColor,
+                                ),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.only(left: 8, top: 15),
+                                child: Textwidget(
+                                    maxLines: 2,
+                                    textAlign: TextAlign.start,
+                                    width: 140,
+                                    text: "Your Address",
+                                    fontSize: 11,
+                                    selectionColor: whiteColor),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: hp(3, context)),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border:
+                                    Border.all(color: whiteColor, width: 1)),
+                            child: QrImage(
+                              dataModuleStyle:
+                                  const QrDataModuleStyle(color: whiteColor),
+                              eyeStyle: const QrEyeStyle(color: whiteColor),
+                              data: "",
+                              size: 60,
+                            ),
+                          ),
+                          SizedBox(height: hp(3, context)),
+                        ],
+                      ),
+                    ),
+                  )
+                ]),
+              ]),
+            ],
+          ),
         ),
       ),
     );

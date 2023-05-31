@@ -80,10 +80,10 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     .listofUsers[cardindex!].color!]
                                 : blackColor),
                     SizedBox(
-                      height: hp(3, context),
+                      height: hp(5, context),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 30),
+                      padding: const EdgeInsets.only(left: 40),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -103,20 +103,20 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               Staticmenbers.listofUsers[cardindex!].image == ""
                                   ? Image.asset(
                                       "assets/images/splash1.png",
-                                      width: wp(22, context),
-                                      height: hp(11, context),
-                                      fit: BoxFit.fill,
+                                      width: wp(21, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.contain,
                                     )
                                   : Image.network(
                                       "${Staticmenbers.listofUsers[cardindex!].image}",
-                                      width: wp(22, context),
-                                      height: hp(11, context),
+                                      width: wp(21, context),
+                                      height: hp(10, context),
                                       fit: BoxFit.fill,
                                     ),
                         ),
                       ),
                     ),
-                    SizedBox(height: hp(5, context)),
+                    SizedBox(height: hp(6, context)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -195,6 +195,29 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                   },
                                   child: Image.asset(
                                     "assets/icon/lin.png",
+                                    scale: 30,
+                                    color: Staticmenbers.listofUsers[cardindex!]
+                                                .color !=
+                                            null
+                                        ? colorList[Staticmenbers
+                                            .listofUsers[cardindex!].color!]
+                                        : blackColor,
+                                  ),
+                                ),
+                              ),
+                        Staticmenbers.listofUsers[cardindex!].whatsapp == ""
+                            ? const SizedBox.shrink()
+                            : Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: InkWell(
+                                  onTap: () async {
+                                    launchUrl(
+                                        Uri.parse(
+                                            'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                        mode: LaunchMode.externalApplication);
+                                  },
+                                  child: Image.asset(
+                                    "assets/icon/whats.png",
                                     scale: 30,
                                     color: Staticmenbers.listofUsers[cardindex!]
                                                 .color !=
@@ -371,7 +394,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                         eyeStyle: const QrEyeStyle(color: whiteColor),
                         data:
                             "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
-                        size: 50,
+                        size: 60,
                       ),
                     ),
                   ],
@@ -381,7 +404,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
           ),
           Positioned(
               top: 30,
-              left: 151,
+              right: 3,
               child: Container(
                 width: wp(53, context),
                 height: hp(8, context),

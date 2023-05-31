@@ -22,19 +22,19 @@ class _ContactsScreenState extends State<ContactsScreen> {
   List<Users> userData = [];
   @override
   void initState() {
-    getSingleUserData();
+    getContectUserData();
     super.initState();
   }
 
   void changeData() {
     setState(() {
-      getSingleUserData();
+      getContectUserData();
       value = true;
     });
   }
 
   // Contect person card data get
-  Future<void> getSingleUserData() async {
+  Future<void> getContectUserData() async {
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)

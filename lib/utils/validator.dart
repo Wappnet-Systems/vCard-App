@@ -40,8 +40,7 @@ String? textvalidator(String? value) {
 
 // website validation
 String? hasValidUrl(String? value) {
-  String pattern =
-      r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+  String pattern = r'(http|https):';
   RegExp regExp = RegExp(pattern);
   if (value!.isEmpty) {
     return '  Please enter Website';

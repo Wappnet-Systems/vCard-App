@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
           duration: 1500,
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: Colors.transparent,
-          splashIconSize: 250,
+          splashIconSize: 300,
           animationDuration: const Duration(milliseconds: 1500),
           splash: Center(
             child: Column(
@@ -64,9 +64,9 @@ class _MyAppState extends State<MyApp> {
                 Image.asset(
                   "assets/images/splash1.png",
                   height: hp(25, context),
-                  width: wp(130, context),
+                  width: wp(120, context),
                 ),
-                SizedBox(height: hp(3, context)),
+                SizedBox(height: hp(2.5, context)),
                 const Text("V Card",
                     style: TextStyle(
                       fontSize: 30,

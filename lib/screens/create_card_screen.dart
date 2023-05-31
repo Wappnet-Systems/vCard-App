@@ -202,19 +202,19 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                               ? Image.asset(
                                   "assets/images/splash1.png",
                                   width: wp(30, context),
-                                  height: hp(15, context),
+                                  height: hp(14, context),
                                   fit: BoxFit.fill,
                                 )
                               : Image.file(
                                   Imagepicker!,
                                   width: wp(30, context),
-                                  height: hp(15, context),
+                                  height: hp(14, context),
                                   fit: BoxFit.fill,
                                 )),
                     ),
                     Positioned(
                         top: 80,
-                        left: 85,
+                        right: 0,
                         child: InkWell(
                           onTap: () {
                             showDialog(

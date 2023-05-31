@@ -28,6 +28,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
   List<Users> userData = [];
   bool value = false;
   int? contectcard;
+  int? scandata;
   int? card;
   int? color;
   String? cid;
@@ -49,6 +50,13 @@ class _ScannerscreenState extends State<Scannerscreen> {
   String? image;
   String? type;
   FToast? fToast;
+  @override
+  void initState() {
+    fToast = FToast();
+    fToast?.init(context);
+    super.initState();
+  }
+
   // another person card display
   Future<void> getSingleUserData(String cid, String uid) async {
     final snapshot = await FirebaseFirestore.instance
@@ -140,13 +148,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
     }).catchError((error) {
       log("Failed to add user: $error");
     });
-  }
-
-  @override
-  void initState() {
-    fToast = FToast();
-    fToast?.init(context);
-    super.initState();
   }
 
   bool isLoading = false;
@@ -294,6 +295,10 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 isLoading = false;
                               });
                               displayCustomToast();
+                            } else if (cid == userData) {
+                              print(
+                                  "22222${Staticmenbers.scanUsers[scandata!].id}");
+                              displayCustomToast2();
                             } else {
                               setState(() {
                                 isLoading = true;
@@ -428,6 +433,19 @@ class _ScannerscreenState extends State<Scannerscreen> {
     Widget toast = const CustomToast(
       child: Text(
         "This QR Code is invalid.",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  displayCustomToast2() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "This card is already added.",
         style: TextStyle(color: whiteColor),
       ),
     );

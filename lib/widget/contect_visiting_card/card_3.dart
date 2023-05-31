@@ -97,7 +97,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                       height: hp(3, context),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 30),
+                      padding: const EdgeInsets.only(left: 40),
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -118,14 +118,14 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                                   ""
                               ? Image.asset(
                                   "assets/images/splash1.png",
-                                  width: wp(22, context),
-                                  height: hp(11, context),
-                                  fit: BoxFit.fill,
+                                  width: wp(21, context),
+                                  height: hp(10, context),
+                                  fit: BoxFit.contain,
                                 )
                               : Image.network(
                                   "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                                  width: wp(22, context),
-                                  height: hp(11, context),
+                                  width: wp(21, context),
+                                  height: hp(10, context),
                                   fit: BoxFit.fill,
                                 ),
                         ),
@@ -217,6 +217,32 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                                   },
                                   child: Image.asset(
                                     "assets/icon/lin.png",
+                                    scale: 30,
+                                    color: Staticmenbers
+                                                .cardUsers[contactcardindex!]
+                                                .color !=
+                                            null
+                                        ? colorList[Staticmenbers
+                                            .cardUsers[contactcardindex!]
+                                            .color!]
+                                        : blackColor,
+                                  ),
+                                ),
+                              ),
+                        Staticmenbers.cardUsers[contactcardindex!].whatsapp ==
+                                ""
+                            ? const SizedBox.shrink()
+                            : Padding(
+                                padding: const EdgeInsets.only(left: 20),
+                                child: InkWell(
+                                  onTap: () async {
+                                    launchUrl(
+                                        Uri.parse(
+                                            'https://wa.me/$Staticmenbers.cardUsers[contactcardindex!].whatsapp?text=Hi'),
+                                        mode: LaunchMode.externalApplication);
+                                  },
+                                  child: Image.asset(
+                                    "assets/icon/whats.png",
                                     scale: 30,
                                     color: Staticmenbers
                                                 .cardUsers[contactcardindex!]
@@ -409,7 +435,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
           ),
           Positioned(
               top: 30,
-              left: 151,
+              right: 3,
               child: Container(
                 width: wp(53, context),
                 height: hp(8, context),

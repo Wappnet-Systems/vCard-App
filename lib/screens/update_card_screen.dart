@@ -275,7 +275,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                     image: const AssetImage(
                                         "assets/images/splash1.png"),
                                     width: wp(30, context),
-                                    height: hp(15, context),
+                                    height: hp(14, context),
                                     fit: BoxFit.fill,
                                   ),
                                 )
@@ -293,14 +293,14 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                     ),
                                     imageUrl: "$imageurl",
                                     width: wp(30, context),
-                                    height: hp(15, context),
+                                    height: hp(14, context),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
                         ),
                         Positioned(
                             top: 80,
-                            left: 85,
+                            right: 0,
                             child: InkWell(
                               onTap: () {
                                 setState(() {
