@@ -40,7 +40,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Frind's card")
         .get();
-    final userData = snapshot.docs
+    final contectData = snapshot.docs
         .map((e) => Users(
             user: e.data()['user'],
             name: e.data()['Name'],
@@ -64,7 +64,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
     setState(() {
       value = true;
-      Staticmenbers.cardUsers = userData;
+      Staticmenbers.cardUsers = contectData;
       log('message:$value');
     });
   }

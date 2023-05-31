@@ -25,7 +25,7 @@ class Scannerscreen extends StatefulWidget {
 }
 
 class _ScannerscreenState extends State<Scannerscreen> {
-  List<Users> userData = [];
+  List<Users> scanData = [];
   bool value = false;
   int? contectcard;
   int? scandata;
@@ -67,48 +67,48 @@ class _ScannerscreenState extends State<Scannerscreen> {
         .get();
 
     for (var element in snapshot.docs) {
-      userData.add(
+      scanData.add(
         Users(
-            user: element['user'],
-            name: element['Name'],
-            department: element['Department'],
-            compeny: element['Company'],
-            whatsapp: element['WhatsApp'],
-            telegram: element['Telegram'],
-            website: element['Website'],
-            linkdin: element['Linkdin'],
-            facebook: element['Facebook'],
-            email: element['Email'],
-            phone: element['Phone'],
-            country: element['country'],
-            address: element['Address'],
-            id: element['id'],
-            type: element['type'],
-            image: element['images'],
-            card: element['card'],
-            color: element['color']),
+            user: element.data()['user'],
+            name: element.data()['Name'],
+            department: element.data()['Department'],
+            compeny: element.data()['Company'],
+            whatsapp: element.data()['WhatsApp'],
+            telegram: element.data()['Telegram'],
+            website: element.data()['Website'],
+            linkdin: element.data()['Linkdin'],
+            facebook: element.data()['Facebook'],
+            email: element.data()['Email'],
+            phone: element.data()['Phone'],
+            country: element.data()['country'],
+            address: element.data()['Address'],
+            id: element.data()['id'],
+            type: element.data()['type'],
+            image: element.data()['images'],
+            card: element.data()['card'],
+            color: element.data()['color']),
       );
     }
 
     setState(() {
-      List.generate(userData.length, (index) {
-        name = userData[index].name;
-        card = userData[index].card;
-        color = userData[index].color;
+      List.generate(scanData.length, (index) {
+        name = scanData[index].name;
+        card = scanData[index].card;
+        color = scanData[index].color;
         cid = cid;
         uid = uid;
-        department = userData[index].department;
-        compeny = userData[index].compeny;
-        whatsapp = userData[index].whatsapp;
-        telegram = userData[index].telegram;
-        website = userData[index].website;
-        linkdin = userData[index].linkdin;
-        facebook = userData[index].facebook;
-        email = userData[index].email;
-        phone = userData[index].phone;
-        address = userData[index].address;
-        image = userData[index].image;
-        type = userData[index].type;
+        department = scanData[index].department;
+        compeny = scanData[index].compeny;
+        whatsapp = scanData[index].whatsapp;
+        telegram = scanData[index].telegram;
+        website = scanData[index].website;
+        linkdin = scanData[index].linkdin;
+        facebook = scanData[index].facebook;
+        email = scanData[index].email;
+        phone = scanData[index].phone;
+        address = scanData[index].address;
+        image = scanData[index].image;
+        type = scanData[index].type;
       });
     });
   }
@@ -173,7 +173,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
               child: Column(
                 children: [
                   SizedBox(height: hp(17, context)),
-                  userData.isEmpty
+                  scanData.isEmpty
                       ? const Custonloading()
                       : Container(
                           height: hp(13, context),
@@ -295,9 +295,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
                                 isLoading = false;
                               });
                               displayCustomToast();
-                            } else if (cid == userData) {
-                              print(
-                                  "22222${Staticmenbers.scanUsers[scandata!].id}");
+                            } else if (cid == scanData) {
                               displayCustomToast2();
                             } else {
                               setState(() {

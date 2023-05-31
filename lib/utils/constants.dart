@@ -17,7 +17,6 @@ const yourgoogleapikey = 'AIzaSyDJbqVkRb6llQczHvPN_WnK4pGUGt30ykM';
 class Staticmenbers {
   static List<Users> listofUsers = [];
   static List<Users> cardUsers = [];
-  static List<Users> scanUsers = [];
 }
 
 // card color list
