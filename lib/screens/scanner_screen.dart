@@ -26,6 +26,7 @@ class Scannerscreen extends StatefulWidget {
 
 class _ScannerscreenState extends State<Scannerscreen> {
   List<Users> scanData = [];
+  List<Users> contectData = [];
   bool value = false;
   int? contectcard;
   int? scandata;
@@ -57,6 +58,42 @@ class _ScannerscreenState extends State<Scannerscreen> {
     super.initState();
   }
 
+  Future<void> getContectUserData() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Frind's card")
+        .get();
+    final contectData = snapshot.docs
+        .map((e) => Users(
+            user: e.data()['user'],
+            name: e.data()['Name'],
+            department: e.data()['Department'],
+            compeny: e.data()['Company'],
+            whatsapp: e.data()['WhatsApp'],
+            telegram: e.data()['Telegram'],
+            website: e.data()['Website'],
+            linkdin: e.data()['Linkdin'],
+            facebook: e.data()['Facebook'],
+            email: e.data()['Email'],
+            phone: e.data()['Phone'],
+            country: e.data()['country'],
+            address: e.data()['Address'],
+            id: e.data()['id'],
+            image: e.data()['images'],
+            type: e.data()['type'],
+            card: e.data()['card'],
+            color: e.data()['color']))
+        .toList();
+
+    setState(() {
+      value = true;
+      Staticmenbers.cardUsers = contectData;
+      print("#$contectData#########################");
+      log('message:$value');
+    });
+  }
+
   // another person card display
   Future<void> getSingleUserData(String cid, String uid) async {
     final snapshot = await FirebaseFirestore.instance
@@ -67,6 +104,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
         .get();
 
     for (var element in snapshot.docs) {
+      print(" element.data()['user'],:${element.data()['user']}");
+      print("**************************ADD*************************");
       scanData.add(
         Users(
             user: element.data()['user'],
@@ -89,28 +128,41 @@ class _ScannerscreenState extends State<Scannerscreen> {
             color: element.data()['color']),
       );
     }
-
-    setState(() {
-      List.generate(scanData.length, (index) {
-        name = scanData[index].name;
-        card = scanData[index].card;
-        color = scanData[index].color;
-        cid = cid;
-        uid = uid;
-        department = scanData[index].department;
-        compeny = scanData[index].compeny;
-        whatsapp = scanData[index].whatsapp;
-        telegram = scanData[index].telegram;
-        website = scanData[index].website;
-        linkdin = scanData[index].linkdin;
-        facebook = scanData[index].facebook;
-        email = scanData[index].email;
-        phone = scanData[index].phone;
-        address = scanData[index].address;
-        image = scanData[index].image;
-        type = scanData[index].type;
-      });
-    });
+    print("######################$scanData#########################");
+    for (int i = 0; i < scanData.length; i++) {
+      if (contectData[i].id != scanData[i].id) {
+        print("************************IF*****************************8");
+        setState(() {
+          print(
+              "userData*********************************:${scanData[0].user}******************");
+          setState(() {
+            List.generate(scanData.length, (index) {
+              name = scanData[index].name;
+              card = scanData[index].card;
+              color = scanData[index].color;
+              cid = cid;
+              uid = uid;
+              department = scanData[index].department;
+              compeny = scanData[index].compeny;
+              whatsapp = scanData[index].whatsapp;
+              telegram = scanData[index].telegram;
+              website = scanData[index].website;
+              linkdin = scanData[index].linkdin;
+              facebook = scanData[index].facebook;
+              email = scanData[index].email;
+              phone = scanData[index].phone;
+              address = scanData[index].address;
+              image = scanData[index].image;
+              type = scanData[index].type;
+            });
+          });
+        });
+      } else {
+        print(
+            "********************************ELSE*****************************");
+        displayCustomToast2();
+      }
+    }
   }
 
   // another person card save
@@ -392,7 +444,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
           '#ff6666', 'Cancel', true, ScanMode.QR);
 
       if (!mounted) return;
-
+      getContectUserData();
       setState(() {
         //user ID
         uid = qrCode.substring(0, 28);

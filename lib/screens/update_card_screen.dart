@@ -335,8 +335,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                               ),
                             )),
                       ]),
-                      SizedBox(height: hp(3, context)),
-                      SizedBox(height: hp(3, context)),
+                      SizedBox(height: hp(6, context)),
                       CustomTextFormField(
                         textCapitalization: TextCapitalization.words,
                         labelText: "Type",

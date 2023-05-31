@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -15,8 +16,10 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
+import 'package:vcard/widget/text_widget.dart';
 import 'package:vcard/widget/upload_image.dart';
 import '../utils/constants.dart';
+import '../utils/formatters.dart';
 import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
 import '../widget/custom_loadingbar_widget.dart';
@@ -109,6 +112,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
       setState(() {
         if (pick != null) {
           Imagepicker = File(pick.path);
+          setState(() {
+            isprofile = false;
+          });
         }
       });
     } catch (e) {
@@ -130,6 +136,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   int? _selectcolor;
   int? _selectedIndex;
   bool isLoading = false;
+  bool isprofile = false;
   bool ismoreadddata = false;
   int? previewcard;
   int? previewcolor;
@@ -157,6 +164,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       });
                       // save data
                       addUser();
+                    } else if (Imagepicker == null) {
+                      setState(() {
+                        isprofile = true;
+                      });
                     } else {
                       displayCustomToast();
                     }
@@ -245,6 +256,14 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                         )),
                   ],
                 ),
+                isprofile
+                    ? Textwidget(
+                        textAlign: TextAlign.center,
+                        text: "Profile Image cant't be Empty",
+                        selectionColor: Colors.red.shade800,
+                        fontSize: 12,
+                      )
+                    : const SizedBox.shrink(),
                 //card Type
                 SizedBox(height: hp(3, context)),
                 CustomTextFormField(
@@ -355,6 +374,96 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   validationfunction: emailValidator,
                 ),
                 SizedBox(height: hp(2, context)),
+                websitecontroller.text != ""
+                    ? CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Website",
+                        inputFormatters: null,
+                        textInputType: TextInputType.text,
+                        textEditingController: websitecontroller,
+                        texteditinghinttext: 'Website',
+                        customobscuretext: true,
+                        customsuffixIcon: null,
+                        customprefixicon: const Icon(
+                          Icons.web,
+                          color: grayColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                websitecontroller.text != ""
+                    ? SizedBox(height: hp(2, context))
+                    : const SizedBox.shrink(),
+                whatsappcontroller.text != ""
+                    ? CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "WhatsApp",
+                        inputFormatters: [maskFormatter],
+                        textInputType: TextInputType.phone,
+                        textEditingController: whatsappcontroller,
+                        texteditinghinttext: 'WhatsApp',
+                        customobscuretext: true,
+                        customprefixicon: const Icon(
+                          FontAwesomeIcons.whatsapp,
+                          color: grayColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                whatsappcontroller.text != ""
+                    ? SizedBox(height: hp(2, context))
+                    : const SizedBox.shrink(),
+                linkdinController.text != ""
+                    ? CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Linkdin",
+                        textInputType: TextInputType.text,
+                        textEditingController: linkdinController,
+                        texteditinghinttext: 'Linkdin',
+                        customobscuretext: true,
+                        customprefixicon: const Icon(
+                          Icons.link,
+                          color: grayColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                linkdinController.text != ""
+                    ? SizedBox(height: hp(2, context))
+                    : const SizedBox.shrink(),
+                facebookcontroller.text != ""
+                    ? CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Facebook",
+                        textInputType: TextInputType.text,
+                        textEditingController: facebookcontroller,
+                        texteditinghinttext: 'Facebook',
+                        customobscuretext: true,
+                        customprefixicon: const Icon(
+                          Icons.facebook,
+                          color: grayColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                facebookcontroller.text != ""
+                    ? SizedBox(height: hp(2, context))
+                    : const SizedBox.shrink(),
+                telegramcontroller.text != ""
+                    ? CustomTextFormField(
+                        textCapitalization: TextCapitalization.none,
+                        labelText: "Telegram",
+                        inputFormatters: [maskFormatter],
+                        textInputType: TextInputType.phone,
+                        textEditingController: telegramcontroller,
+                        texteditinghinttext: 'Telegram',
+                        customobscuretext: true,
+                        customprefixicon: const Icon(
+                          Icons.telegram,
+                          color: grayColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
+                telegramcontroller.text != ""
+                    ? SizedBox(height: hp(2, context))
+                    : const SizedBox.shrink(),
+
                 Addresstextfield(
                     textEditingController: addresscontroller,
                     itmClick: (Prediction prediction) {
