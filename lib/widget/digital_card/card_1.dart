@@ -91,20 +91,12 @@ class _Cardtheme1State extends State<Cardtheme1> {
                           ),
                         ),
                         child: ClipOval(
-                          child:
-                              Staticmenbers.listofUsers[cardindex!].image == ""
-                                  ? Image.asset(
-                                      "assets/images/splash1.png",
-                                      width: wp(22, context),
-                                      height: hp(11, context),
-                                      fit: BoxFit.fill,
-                                    )
-                                  : Image.network(
-                                      "${Staticmenbers.listofUsers[cardindex!].image}",
-                                      width: wp(22, context),
-                                      height: hp(11, context),
-                                      fit: BoxFit.fill,
-                                    ),
+                          child: Image.network(
+                            "${Staticmenbers.listofUsers[cardindex!].image}",
+                            width: wp(23, context),
+                            height: hp(11, context),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -112,7 +104,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                     Textwidget(
                         maxLines: 1,
                         textAlign: TextAlign.center,
-                        width: wp(43, context),
+                        width: wp(44, context),
                         text: "${Staticmenbers.listofUsers[cardindex!].name}",
                         fontSize: 18,
                         selectionColor:
@@ -126,7 +118,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                     Textwidget(
                         maxLines: 1,
                         textAlign: TextAlign.center,
-                        width: wp(43, context),
+                        width: wp(44, context),
                         text:
                             "${Staticmenbers.listofUsers[cardindex!].department}",
                         fontSize: 12,
@@ -135,7 +127,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 ? colorList[Staticmenbers
                                     .listofUsers[cardindex!].color!]
                                 : whiteColor),
-                    SizedBox(height: hp(3, context)),
+                    SizedBox(height: hp(5, context)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -256,7 +248,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
                   ],
                 ),
                 VerticalDivider(
-                    color: Colors.transparent, width: wp(1.3, context)),
+                    color: Colors.transparent, width: wp(1, context)),
                 Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,

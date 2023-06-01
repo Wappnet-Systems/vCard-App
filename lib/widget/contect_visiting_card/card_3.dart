@@ -113,25 +113,16 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                           ),
                         ),
                         child: ClipOval(
-                          child: Staticmenbers
-                                      .cardUsers[contactcardindex!].image ==
-                                  ""
-                              ? Image.asset(
-                                  "assets/images/splash1.png",
-                                  width: wp(21, context),
-                                  height: hp(10, context),
-                                  fit: BoxFit.contain,
-                                )
-                              : Image.network(
-                                  "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                                  width: wp(21, context),
-                                  height: hp(10, context),
-                                  fit: BoxFit.fill,
-                                ),
+                          child: Image.network(
+                            "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                            width: wp(23, context),
+                            height: hp(11, context),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height: hp(5, context)),
+                    SizedBox(height: hp(6, context)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -425,7 +416,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                         eyeStyle: const QrEyeStyle(color: whiteColor),
                         data:
                             "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
-                        size: 50,
+                        size: 60,
                       ),
                     ),
                   ],

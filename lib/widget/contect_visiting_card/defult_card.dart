@@ -238,7 +238,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          title: 'Cancle',
+                                          title: 'Cancel',
                                           fontSize: 15,
                                           color: Colors.redAccent,
                                         )

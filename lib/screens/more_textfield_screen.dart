@@ -31,7 +31,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
       widget.websitecontroller!.text != ""
           ? const SizedBox.shrink()
           : CustomTextFormField(
-              validationfunction: hasValidUrl,
+              validationfunction: textvalidator,
               textCapitalization: TextCapitalization.none,
               labelText: "Website",
               inputFormatters: null,

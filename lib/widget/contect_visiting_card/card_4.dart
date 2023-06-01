@@ -59,7 +59,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
               child: Row(
                 children: <Widget>[
                   Flexible(
-                    flex: 3,
+                    flex: 4,
                     child: Container(
                       decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -83,7 +83,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             )),
                           ),
                           SizedBox(
-                            height: hp(6, context),
+                            height: hp(5.5, context),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 40),
@@ -97,7 +97,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
-                            height: hp(3, context),
+                            height: hp(2.7, context),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 40),
@@ -111,7 +111,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
-                            height: hp(3.3, context),
+                            height: hp(3, context),
                           ),
                           Staticmenbers.cardUsers[contactcardindex!].address ==
                                   ""
@@ -170,10 +170,10 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               child: Textwidget(
                                 maxLines: 1,
                                 textAlign: TextAlign.center,
-                                width: wp(40, context),
+                                width: wp(45, context),
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].name}",
-                                fontSize: 20,
+                                fontSize: 16,
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
@@ -184,7 +184,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               child: Textwidget(
                                   maxLines: 1,
                                   textAlign: TextAlign.center,
-                                  width: wp(41, context),
+                                  width: wp(45, context),
                                   text:
                                       "${Staticmenbers.cardUsers[contactcardindex!].department}",
                                   fontSize: 14,
@@ -209,26 +209,16 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 ),
                               ),
                               child: ClipOval(
-                                child: Staticmenbers
-                                            .cardUsers[contactcardindex!]
-                                            .image ==
-                                        ""
-                                    ? Image.asset(
-                                        "assets/images/splash1.png",
-                                        width: wp(21, context),
-                                        height: hp(10, context),
-                                        fit: BoxFit.contain,
-                                      )
-                                    : Image.network(
-                                        "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                                        width: wp(21, context),
-                                        height: hp(10, context),
-                                        fit: BoxFit.fill,
-                                      ),
+                                child: Image.network(
+                                  "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                                  width: wp(21, context),
+                                  height: hp(10, context),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(height: hp(5, context)),
+                          SizedBox(height: hp(6, context)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

@@ -99,20 +99,12 @@ class _Cardtheme3State extends State<Cardtheme3> {
                           ),
                         ),
                         child: ClipOval(
-                          child:
-                              Staticmenbers.listofUsers[cardindex!].image == ""
-                                  ? Image.asset(
-                                      "assets/images/splash1.png",
-                                      width: wp(21, context),
-                                      height: hp(10, context),
-                                      fit: BoxFit.contain,
-                                    )
-                                  : Image.network(
-                                      "${Staticmenbers.listofUsers[cardindex!].image}",
-                                      width: wp(21, context),
-                                      height: hp(10, context),
-                                      fit: BoxFit.fill,
-                                    ),
+                          child: Image.network(
+                            "${Staticmenbers.listofUsers[cardindex!].image}",
+                            width: wp(23, context),
+                            height: hp(11, context),
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -353,7 +345,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                                 onPressed: () {
                                                   Navigator.pop(context);
                                                 },
-                                                title: 'Cancle',
+                                                title: 'Cancel',
                                                 fontSize: 15,
                                                 color: Colors.redAccent,
                                               )

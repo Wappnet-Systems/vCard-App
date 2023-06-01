@@ -187,38 +187,26 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                   fontSize: 14,
                                   selectionColor: blueColor)),
                           SizedBox(height: hp(5, context)),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Staticmenbers.listofUsers[cardindex!]
-                                                .color !=
-                                            null
-                                        ? colorList[Staticmenbers
-                                            .listofUsers[cardindex!].color!]
-                                        : blackColor,
-                                    width: wp(0.2, context)),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(90),
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Staticmenbers
+                                              .listofUsers[cardindex!].color !=
+                                          null
+                                      ? colorList[Staticmenbers
+                                          .listofUsers[cardindex!].color!]
+                                      : blackColor,
+                                  width: wp(0.2, context)),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(90),
                               ),
-                              child: ClipOval(
-                                child: Staticmenbers
-                                            .listofUsers[cardindex!].image ==
-                                        ""
-                                    ? Image.asset(
-                                        "assets/images/splash1.png",
-                                        width: wp(21, context),
-                                        height: hp(10, context),
-                                        fit: BoxFit.contain,
-                                      )
-                                    : Image.network(
-                                        "${Staticmenbers.listofUsers[cardindex!].image}",
-                                        width: wp(21, context),
-                                        height: hp(10, context),
-                                        fit: BoxFit.fill,
-                                      ),
+                            ),
+                            child: ClipOval(
+                              child: Image.network(
+                                "${Staticmenbers.listofUsers[cardindex!].image}",
+                                width: wp(21, context),
+                                height: hp(10, context),
+                                fit: BoxFit.fill,
                               ),
                             ),
                           ),
@@ -461,7 +449,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    title: 'Cancle',
+                                    title: 'Cancel',
                                     fontSize: 15,
                                     color: Colors.redAccent,
                                   )

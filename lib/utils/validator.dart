@@ -38,18 +38,6 @@ String? textvalidator(String? value) {
   return null;
 }
 
-// website validation
-String? hasValidUrl(String? value) {
-  String pattern = r'(http|https):';
-  RegExp regExp = RegExp(pattern);
-  if (value!.isEmpty) {
-    return '  Please enter Website';
-  } else if (!regExp.hasMatch(value)) {
-    return 'Please enter valid url';
-  }
-  return null;
-}
-
 // scanner screen validation
 bool qrvalidateString(String input) {
   final alphanumericRegExp = RegExp(r'^[a-zA-Z0-9]+$');

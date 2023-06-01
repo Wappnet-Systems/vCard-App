@@ -48,7 +48,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
           ],
         ),
         child: Column(children: [
-          SizedBox(height: hp(3, context)),
+          SizedBox(height: hp(4, context)),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: whiteColor, width: wp(0.2, context)),
@@ -57,19 +57,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
               ),
             ),
             child: ClipOval(
-              child: Staticmenbers.cardUsers[contactcardindex!].image == ""
-                  ? Image.asset(
-                      "assets/images/splash1.png",
-                      width: wp(36, context),
-                      height: hp(18, context),
-                      fit: BoxFit.fill,
-                    )
-                  : Image.network(
-                      "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                      width: wp(36, context),
-                      height: hp(18, context),
-                      fit: BoxFit.fill,
-                    ),
+              child: Image.network(
+                "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                width: wp(36, context),
+                height: hp(17, context),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Column(
@@ -233,7 +226,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          title: 'Cancle',
+                                          title: 'Cancel',
                                           fontSize: 15,
                                           color: Colors.redAccent,
                                         )
@@ -268,7 +261,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                   ],
                 ),
               ),
-              SizedBox(height: hp(2, context)),
+              SizedBox(height: hp(3, context)),
               Center(
                 child: Container(
                   decoration: BoxDecoration(

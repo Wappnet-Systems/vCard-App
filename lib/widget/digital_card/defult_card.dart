@@ -236,7 +236,7 @@ class _DefultCardState extends State<DefultCard> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          title: 'Cancle',
+                                          title: 'Cancel',
                                           fontSize: 15,
                                           color: Colors.redAccent,
                                         )

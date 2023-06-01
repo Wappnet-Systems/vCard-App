@@ -48,7 +48,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
           ],
         ),
         child: Column(children: [
-          SizedBox(height: hp(3, context)),
+          SizedBox(height: hp(4, context)),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: whiteColor, width: wp(0.2, context)),
@@ -57,19 +57,12 @@ class _Cardtheme2State extends State<Cardtheme2> {
               ),
             ),
             child: ClipOval(
-              child: Staticmenbers.listofUsers[cardindex!].image == ""
-                  ? Image.asset(
-                      "assets/images/splash1.png",
-                      width: wp(36, context),
-                      height: hp(18, context),
-                      fit: BoxFit.fill,
-                    )
-                  : Image.network(
-                      "${Staticmenbers.listofUsers[cardindex!].image}",
-                      width: wp(36, context),
-                      height: hp(18, context),
-                      fit: BoxFit.fill,
-                    ),
+              child: Image.network(
+                "${Staticmenbers.listofUsers[cardindex!].image}",
+                width: wp(36, context),
+                height: hp(17, context),
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           Column(
@@ -232,7 +225,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
-                                          title: 'Cancle',
+                                          title: 'Cancel',
                                           fontSize: 15,
                                           color: Colors.redAccent,
                                         )
@@ -267,7 +260,7 @@ class _Cardtheme2State extends State<Cardtheme2> {
                   ],
                 ),
               ),
-              SizedBox(height: hp(2, context)),
+              SizedBox(height: hp(3, context)),
               Center(
                 child: Container(
                   decoration: BoxDecoration(
@@ -282,100 +275,95 @@ class _Cardtheme2State extends State<Cardtheme2> {
                   ),
                 ),
               ),
-              SizedBox(height: hp(0.5, context)),
-              Wrap(
-                  runSpacing: 5.0,
-                  alignment: WrapAlignment.center,
-                  runAlignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    (Staticmenbers.listofUsers[cardindex!].whatsapp == "")
-                        ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () {
-                                launchUrl(
-                                    Uri.parse(
-                                        'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
-                                    mode: LaunchMode.externalApplication);
-                              },
-                              child: Image.asset(
-                                "assets/icon/whats.png",
-                                scale: 20,
-                                color: whiteColor,
-                              ),
-                            ),
+              SizedBox(height: hp(2, context)),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                (Staticmenbers.listofUsers[cardindex!].whatsapp == "")
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            launchUrl(
+                                Uri.parse(
+                                    'https://wa.me/${Staticmenbers.listofUsers[cardindex!].whatsapp}?text=Hi'),
+                                mode: LaunchMode.externalApplication);
+                          },
+                          child: Image.asset(
+                            "assets/icon/whats.png",
+                            scale: 20,
+                            color: whiteColor,
                           ),
-                    (Staticmenbers.listofUsers[cardindex!].facebook == "")
-                        ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () {
-                                launchUrl(Uri.parse(
-                                    'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
-                              },
-                              child: Image.asset(
-                                "assets/icon/Face.png",
-                                scale: 20,
-                                color: whiteColor,
-                              ),
-                            ),
+                        ),
+                      ),
+                (Staticmenbers.listofUsers[cardindex!].facebook == "")
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
+                          },
+                          child: Image.asset(
+                            "assets/icon/Face.png",
+                            scale: 20,
+                            color: whiteColor,
                           ),
-                    (Staticmenbers.listofUsers[cardindex!].telegram == "")
-                        ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () {
-                                launchUrl(Uri.parse(
-                                    "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
-                              },
-                              child: Image.asset(
-                                "assets/icon/tele.png",
-                                scale: 20,
-                                color: whiteColor,
-                              ),
-                            ),
+                        ),
+                      ),
+                (Staticmenbers.listofUsers[cardindex!].telegram == "")
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
+                          },
+                          child: Image.asset(
+                            "assets/icon/tele.png",
+                            scale: 20,
+                            color: whiteColor,
                           ),
-                    (Staticmenbers.listofUsers[cardindex!].linkdin == "")
-                        ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () async {
-                                final url =
-                                    'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
+                        ),
+                      ),
+                (Staticmenbers.listofUsers[cardindex!].linkdin == "")
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () async {
+                            final url =
+                                'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
 
-                                await launchUrl(Uri.parse(url));
-                              },
-                              child: Image.asset(
-                                "assets/icon/lin.png",
-                                scale: 20,
-                                color: whiteColor,
-                              ),
-                            ),
+                            await launchUrl(Uri.parse(url));
+                          },
+                          child: Image.asset(
+                            "assets/icon/lin.png",
+                            scale: 20,
+                            color: whiteColor,
                           ),
-                    (Staticmenbers.listofUsers[cardindex!].website == "")
-                        ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () async {
-                                final url =
-                                    'https://${Staticmenbers.listofUsers[cardindex!].website}';
+                        ),
+                      ),
+                (Staticmenbers.listofUsers[cardindex!].website == "")
+                    ? const SizedBox.shrink()
+                    : Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onTap: () async {
+                            final url =
+                                'https://${Staticmenbers.listofUsers[cardindex!].website}';
 
-                                await launchUrl(Uri.parse(url));
-                              },
-                              child: Image.asset(
-                                "assets/icon/website.png",
-                                scale: 20,
-                                color: whiteColor,
-                              ),
-                            ),
+                            await launchUrl(Uri.parse(url));
+                          },
+                          child: Image.asset(
+                            "assets/icon/website.png",
+                            scale: 20,
+                            color: whiteColor,
                           ),
-                  ])
+                        ),
+                      ),
+              ])
             ],
           )
         ]),
