@@ -4,7 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
-import '../text_button_widget.dart';
+import '../custom_alartdialog.dart';
 import '../text_widget.dart';
 
 class Contectcardtheme4 extends StatefulWidget {
@@ -83,7 +83,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             )),
                           ),
                           SizedBox(
-                            height: hp(5.5, context),
+                            height: hp(6, context),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 40),
@@ -93,11 +93,11 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 width: wp(50, context),
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].phone}",
-                                fontSize: 12,
+                                fontSize: 11,
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
-                            height: hp(2.7, context),
+                            height: hp(3, context),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 40),
@@ -107,27 +107,24 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 width: wp(100, context),
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                                fontSize: 12,
+                                fontSize: 11,
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
-                            height: hp(3, context),
+                            height: hp(2.8, context),
                           ),
-                          Staticmenbers.cardUsers[contactcardindex!].address ==
-                                  ""
-                              ? const SizedBox.shrink()
-                              : Padding(
-                                  padding: const EdgeInsets.only(left: 40),
-                                  child: Textwidget(
-                                    maxLines: 2,
-                                    textAlign: TextAlign.start,
-                                    width: wp(50, context),
-                                    text:
-                                        "${Staticmenbers.cardUsers[contactcardindex!].address}",
-                                    fontSize: 10,
-                                    selectionColor: blueColor,
-                                  )),
-                          SizedBox(height: hp(3, context)),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 40),
+                              child: Textwidget(
+                                maxLines: 3,
+                                textAlign: TextAlign.start,
+                                width: wp(50, context),
+                                text:
+                                    "${Staticmenbers.cardUsers[contactcardindex!].address}",
+                                fontSize: 9,
+                                selectionColor: blueColor,
+                              )),
+                          SizedBox(height: hp(2, context)),
                           Center(
                             child: Container(
                               decoration: BoxDecoration(
@@ -211,9 +208,9 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               child: ClipOval(
                                 child: Image.network(
                                   "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                                  width: wp(21, context),
-                                  height: hp(10, context),
-                                  fit: BoxFit.fill,
+                                  width: wp(23, context),
+                                  height: hp(11, context),
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
@@ -227,7 +224,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       ""
                                   ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.only(right: 15),
+                                      padding: const EdgeInsets.only(right: 12),
                                       child: InkWell(
                                         onTap: () async {
                                           final url =
@@ -255,7 +252,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       ""
                                   ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.only(right: 15),
+                                      padding: const EdgeInsets.only(right: 12),
                                       child: InkWell(
                                         onTap: () {
                                           launchUrl(Uri.parse(
@@ -281,7 +278,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       ""
                                   ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.only(right: 15),
+                                      padding: const EdgeInsets.only(right: 12),
                                       child: InkWell(
                                         onTap: () async {
                                           final url =
@@ -309,7 +306,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                       ""
                                   ? const SizedBox.shrink()
                                   : Padding(
-                                      padding: const EdgeInsets.only(right: 15),
+                                      padding: const EdgeInsets.only(right: 12),
                                       child: InkWell(
                                         onTap: () {
                                           launchUrl(
@@ -438,47 +435,25 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                     child: InkWell(
                       onTap: () {
                         showDialog(
-                          context: context,
-                          builder: (ctx) => AlertDialog(
-                            backgroundColor: whiteColor,
-                            title: const Text("Address",
-                                style: TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 25,
-                                    color: blueColor,
-                                    fontWeight: FontWeight.bold)),
-                            content: Text(
-                                '${Staticmenbers.cardUsers[contactcardindex!].address}',
-                                style: const TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 20,
-                                    color: grayColor,
-                                    fontWeight: FontWeight.bold)),
-                            actions: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButtomWidget(
-                                    onPressed: () {
-                                      _pushMap();
-                                    },
-                                    title: 'Use Map',
-                                    fontSize: null,
-                                    color: blueColor,
+                            context: context,
+                            builder: (ctx) => CustomAlartDialog(
+                                  title: const Textwidget(
+                                      text: "Address",
+                                      textAlign: TextAlign.center),
+                                  content: Textwidget(
+                                    text:
+                                        '${Staticmenbers.cardUsers[contactcardindex!].address}',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 5,
+                                    selectionColor: grayColor,
                                   ),
-                                  TextButtomWidget(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    title: 'Cancle',
-                                    fontSize: 15,
-                                    color: Colors.redAccent,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
+                                  onPressedNo: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onPressedYes: () {
+                                    _pushMap();
+                                  },
+                                ));
                       },
                       child: Image.asset(
                         "assets/icon/pin.png",

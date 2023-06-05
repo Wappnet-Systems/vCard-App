@@ -27,6 +27,7 @@ import '../widget/custom_textformfield_widget.dart';
 import '../widget/custom_toast.dart';
 import 'more_textfield_screen.dart';
 import '../widget/text_button_widget.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class Createcardscreen extends StatefulWidget {
   const Createcardscreen({super.key});
@@ -108,16 +109,33 @@ class _CreatecardscreenState extends State<Createcardscreen> {
   // Immage get
   Future pickImage(ImageSource imageType) async {
     try {
-      final pick = await ImagePicker().pickImage(source: imageType);
-      setState(() {
-        if (pick != null) {
-          Imagepicker = File(pick.path);
+      final pick = await ImagePicker()
+          .pickImage(source: imageType, maxHeight: 1280, maxWidth: 720);
+
+      if (pick != null) {
+        final croppedFile = await ImageCropper().cropImage(
+          maxHeight: 300,
+          maxWidth: 300,
+          sourcePath: pick.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+        );
+        if (croppedFile != null) {
           setState(() {
+            File file = File(croppedFile.path.toString());
+            Imagepicker = file;
+            log("Imagepicker:$Imagepicker");
             isprofile = false;
           });
         }
-      });
+      }
     } catch (e) {
+      print("Error:$e");
       Error();
     }
   }
@@ -157,19 +175,21 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
               child: IconButton(
                   onPressed: () async {
-                    if (_formfield.currentState!.validate() &&
-                        addresscontroller.text != "") {
-                      setState(() {
-                        isLoading = true;
-                      });
-                      // save data
-                      addUser();
-                    } else if (Imagepicker == null) {
+                    if (Imagepicker != null) {
+                      if (_formfield.currentState!.validate() &&
+                          addresscontroller.text != "") {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        // save data
+                        addUser();
+                      } else {
+                        displayCustomToast();
+                      }
+                    } else {
                       setState(() {
                         isprofile = true;
                       });
-                    } else {
-                      displayCustomToast();
                     }
                   },
                   icon: const Icon(

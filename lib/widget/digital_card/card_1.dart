@@ -3,9 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
-import '../text_button_widget.dart';
 
 class Cardtheme1 extends StatefulWidget {
   final int? id;
@@ -93,9 +93,9 @@ class _Cardtheme1State extends State<Cardtheme1> {
                         child: ClipOval(
                           child: Image.network(
                             "${Staticmenbers.listofUsers[cardindex!].image}",
-                            width: wp(23, context),
-                            height: hp(11, context),
-                            fit: BoxFit.fill,
+                            width: wp(22, context),
+                            height: hp(10.5, context),
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
@@ -274,176 +274,113 @@ class _Cardtheme1State extends State<Cardtheme1> {
                             children: [
                               Row(
                                 children: [
-                                  (Staticmenbers
-                                              .listofUsers[cardindex!].phone ==
-                                          "")
-                                      ? Container(
-                                          height: hp(2, context),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 3, top: 15),
-                                          child: InkWell(
-                                            onTap: () {
-                                              launchUrl(Uri.parse(
-                                                  'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
-                                            },
-                                            child: Image.asset(
-                                              "assets/icon/call.png",
-                                              scale: 30,
-                                              color: whiteColor,
-                                            ),
-                                          ),
-                                        ),
-                                  (Staticmenbers
-                                              .listofUsers[cardindex!].phone ==
-                                          "")
-                                      ? Container(
-                                          height: hp(2, context),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, top: 15),
-                                          child: Textwidget(
-                                              maxLines: 1,
-                                              textAlign: TextAlign.start,
-                                              width: 130,
-                                              text:
-                                                  "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                              fontSize: 12,
-                                              selectionColor: whiteColor),
-                                        ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 3, top: 15),
+                                    child: InkWell(
+                                      onTap: () {
+                                        launchUrl(Uri.parse(
+                                            'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                                      },
+                                      child: Image.asset(
+                                        "assets/icon/call.png",
+                                        scale: 30,
+                                        color: whiteColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 8, top: 15),
+                                    child: Textwidget(
+                                        maxLines: 1,
+                                        textAlign: TextAlign.start,
+                                        width: 130,
+                                        text:
+                                            "${Staticmenbers.listofUsers[cardindex!].phone}",
+                                        fontSize: 10,
+                                        selectionColor: whiteColor),
+                                  ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  (Staticmenbers
-                                              .listofUsers[cardindex!].email ==
-                                          "")
-                                      ? Container(
-                                          height: hp(2, context),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 3, top: 15),
-                                          child: InkWell(
-                                            onTap: () {
-                                              launchUrl(Uri.parse(
-                                                  'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
-                                            },
-                                            child: Image.asset(
-                                              "assets/icon/email.png",
-                                              scale: 30,
-                                              color: whiteColor,
-                                            ),
-                                          ),
-                                        ),
-                                  (Staticmenbers
-                                              .listofUsers[cardindex!].email ==
-                                          "")
-                                      ? Container(
-                                          height: hp(2, context),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, top: 15),
-                                          child: SizedBox(
-                                            width: wp(40, context),
-                                            child: Textwidget(
-                                                maxLines: 1,
-                                                textAlign: TextAlign.start,
-                                                width: 130,
-                                                text:
-                                                    "${Staticmenbers.listofUsers[cardindex!].email}",
-                                                fontSize: 12,
-                                                selectionColor: whiteColor),
-                                          ),
-                                        ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 3, top: 15),
+                                    child: InkWell(
+                                      onTap: () {
+                                        launchUrl(Uri.parse(
+                                            'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                                      },
+                                      child: Image.asset(
+                                        "assets/icon/email.png",
+                                        scale: 30,
+                                        color: whiteColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 8, top: 15),
+                                    child: SizedBox(
+                                      width: wp(40, context),
+                                      child: Textwidget(
+                                          maxLines: 1,
+                                          textAlign: TextAlign.start,
+                                          width: 130,
+                                          text:
+                                              "${Staticmenbers.listofUsers[cardindex!].email}",
+                                          fontSize: 10,
+                                          selectionColor: whiteColor),
+                                    ),
+                                  ),
                                 ],
                               ),
                               Row(
                                 children: [
-                                  (Staticmenbers.listofUsers[cardindex!]
-                                              .address ==
-                                          "")
-                                      ? const SizedBox.shrink()
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 3, top: 15),
-                                          child: InkWell(
-                                            onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                  backgroundColor: whiteColor,
-                                                  title: const Text("Address",
-                                                      style: TextStyle(
-                                                          fontFamily: 'Marck',
-                                                          fontSize: 25,
-                                                          color: blueColor,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                  content: Text(
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) => CustomAlartDialog(
+                                                title: const Textwidget(
+                                                    text: "Address",
+                                                    textAlign:
+                                                        TextAlign.center),
+                                                content: Textwidget(
+                                                  text:
                                                       '${Staticmenbers.listofUsers[cardindex!].address}',
-                                                      style: const TextStyle(
-                                                          fontFamily: 'Marck',
-                                                          fontSize: 20,
-                                                          color: grayColor,
-                                                          fontWeight:
-                                                              FontWeight.bold)),
-                                                  actions: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        TextButtomWidget(
-                                                          onPressed: () {
-                                                            _pushMap();
-                                                          },
-                                                          title: 'Use Map',
-                                                          color: blueColor,
-                                                        ),
-                                                        TextButtomWidget(
-                                                          onPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          title: 'Cancel',
-                                                          fontSize: 15,
-                                                          color:
-                                                              Colors.redAccent,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
+                                                  textAlign: TextAlign.center,
+                                                  maxLines: 5,
+                                                  selectionColor: grayColor,
                                                 ),
-                                              );
-                                            },
-                                            child: Image.asset(
-                                              "assets/icon/pin.png",
-                                              scale: 28,
-                                              color: whiteColor,
-                                            ),
-                                          ),
-                                        ),
-                                  (Staticmenbers.listofUsers[cardindex!]
-                                              .address ==
-                                          "")
-                                      ? Container(
-                                          height: hp(2, context),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8, top: 15),
-                                          child: Textwidget(
-                                              maxLines: 2,
-                                              textAlign: TextAlign.start,
-                                              width: 140,
-                                              text:
-                                                  "${Staticmenbers.listofUsers[cardindex!].address}",
-                                              fontSize: 11,
-                                              selectionColor: whiteColor),
-                                        ),
+                                                onPressedNo: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                onPressedYes: () {
+                                                  _pushMap();
+                                                },
+                                              ));
+                                    },
+                                    child: Image.asset(
+                                      "assets/icon/pin.png",
+                                      scale: 28,
+                                      color: whiteColor,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(left: 8, top: 15),
+                                    child: Textwidget(
+                                        maxLines: 3,
+                                        textAlign: TextAlign.start,
+                                        width: 140,
+                                        text:
+                                            "${Staticmenbers.listofUsers[cardindex!].address}",
+                                        fontSize: 10,
+                                        selectionColor: whiteColor),
+                                  ),
                                 ],
                               ),
                               SizedBox(height: hp(2, context)),
@@ -451,14 +388,14 @@ class _Cardtheme1State extends State<Cardtheme1> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(
-                                        color: whiteColor, width: 1)),
+                                        color: whiteColor, width: 0.3)),
                                 child: QrImage(
                                   dataModuleStyle: const QrDataModuleStyle(
                                       color: whiteColor),
                                   eyeStyle: const QrEyeStyle(color: whiteColor),
                                   data:
                                       "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
-                                  size: 65,
+                                  size: 60,
                                 ),
                               ),
                               SizedBox(height: hp(3, context)),

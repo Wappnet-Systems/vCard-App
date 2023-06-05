@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/formatters.dart';
 import '../utils/responsive.dart';
-import '../utils/validator.dart';
 import '../widget/custom_textformfield_widget.dart';
 
 class MoreTextfieldscreen extends StatefulWidget {
@@ -31,7 +30,6 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
       widget.websitecontroller!.text != ""
           ? const SizedBox.shrink()
           : CustomTextFormField(
-              validationfunction: textvalidator,
               textCapitalization: TextCapitalization.none,
               labelText: "Website",
               inputFormatters: null,

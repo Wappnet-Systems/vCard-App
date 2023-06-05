@@ -4,7 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
-import '../text_button_widget.dart';
+import '../custom_alartdialog.dart';
 import '../text_widget.dart';
 
 class Contectcardtheme2 extends StatefulWidget {
@@ -48,7 +48,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
           ],
         ),
         child: Column(children: [
-          SizedBox(height: hp(4, context)),
+          SizedBox(height: hp(2, context)),
           Container(
             decoration: BoxDecoration(
               border: Border.all(color: whiteColor, width: wp(0.2, context)),
@@ -59,8 +59,8 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
             child: ClipOval(
               child: Image.network(
                 "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                width: wp(36, context),
-                height: hp(17, context),
+                width: wp(35, context),
+                height: hp(16.7, context),
                 fit: BoxFit.fill,
               ),
             ),
@@ -106,37 +106,29 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
-                    (Staticmenbers.cardUsers[contactcardindex!].phone == "")
-                        ? Container(
-                            height: hp(2, context),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
-                            },
-                            child: Image.asset(
-                              "assets/icon/call.png",
-                              scale: 22,
-                              color: whiteColor,
-                            ),
-                          ),
+                    InkWell(
+                      onTap: () {
+                        launchUrl(Uri.parse(
+                            'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
+                      },
+                      child: Image.asset(
+                        "assets/icon/call.png",
+                        scale: 22,
+                        color: whiteColor,
+                      ),
+                    ),
                     SizedBox(
                       width: wp(5, context),
                     ),
-                    (Staticmenbers.cardUsers[contactcardindex!].phone == "")
-                        ? Container(
-                            height: hp(2, context),
-                          )
-                        : Textwidget(
-                            maxLines: 1,
-                            textAlign: TextAlign.start,
-                            width: wp(60, context),
-                            text:
-                                "${Staticmenbers.cardUsers[contactcardindex!].phone}",
-                            selectionColor: whiteColor,
-                            fontSize: 14,
-                          ),
+                    Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      width: wp(60, context),
+                      text:
+                          "${Staticmenbers.cardUsers[contactcardindex!].phone}",
+                      selectionColor: whiteColor,
+                      fontSize: 14,
+                    ),
                   ],
                 ),
               ),
@@ -147,37 +139,29 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
-                    (Staticmenbers.cardUsers[contactcardindex!].email == "")
-                        ? Container(
-                            height: hp(2, context),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
-                            },
-                            child: Image.asset(
-                              "assets/icon/email.png",
-                              scale: 22,
-                              color: whiteColor,
-                            ),
-                          ),
+                    InkWell(
+                      onTap: () {
+                        launchUrl(Uri.parse(
+                            'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
+                      },
+                      child: Image.asset(
+                        "assets/icon/email.png",
+                        scale: 22,
+                        color: whiteColor,
+                      ),
+                    ),
                     SizedBox(
                       width: wp(5, context),
                     ),
-                    (Staticmenbers.cardUsers[contactcardindex!].email == "")
-                        ? Container(
-                            height: hp(2, context),
-                          )
-                        : Textwidget(
-                            maxLines: 1,
-                            textAlign: TextAlign.start,
-                            width: wp(60, context),
-                            text:
-                                "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                            selectionColor: whiteColor,
-                            fontSize: 14,
-                          ),
+                    Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      width: wp(60, context),
+                      text:
+                          "${Staticmenbers.cardUsers[contactcardindex!].email}",
+                      selectionColor: whiteColor,
+                      fontSize: 14,
+                    ),
                   ],
                 ),
               ),
@@ -188,76 +172,47 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 padding: const EdgeInsets.only(left: 60),
                 child: Row(
                   children: [
-                    (Staticmenbers.cardUsers[contactcardindex!].address == "")
-                        ? Container(
-                            height: hp(2, context),
-                          )
-                        : InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  backgroundColor: whiteColor,
-                                  title: const Text("Address",
-                                      style: TextStyle(
-                                          fontFamily: 'Marck',
-                                          fontSize: 25,
-                                          color: blueColor,
-                                          fontWeight: FontWeight.bold)),
-                                  content: Text(
-                                      '${Staticmenbers.cardUsers[contactcardindex!].address}',
-                                      style: const TextStyle(
-                                          fontFamily: 'Marck',
-                                          fontSize: 20,
-                                          color: blueColor,
-                                          fontWeight: FontWeight.bold)),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            _pushMap();
-                                          },
-                                          title: 'Use Map',
-                                          color: blueColor,
-                                        ),
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          title: 'Cancel',
-                                          fontSize: 15,
-                                          color: Colors.redAccent,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            child: Image.asset(
-                              "assets/icon/pin.png",
-                              scale: 20,
-                              color: whiteColor,
-                            ),
-                          ),
+                    InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => CustomAlartDialog(
+                                  title: const Textwidget(
+                                      text: "Address",
+                                      textAlign: TextAlign.center),
+                                  content: Textwidget(
+                                    text:
+                                        '${Staticmenbers.cardUsers[contactcardindex!].address}',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 5,
+                                    selectionColor: grayColor,
+                                  ),
+                                  onPressedNo: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onPressedYes: () {
+                                    _pushMap();
+                                  },
+                                ));
+                      },
+                      child: Image.asset(
+                        "assets/icon/pin.png",
+                        scale: 20,
+                        color: whiteColor,
+                      ),
+                    ),
                     SizedBox(
                       width: wp(5, context),
                     ),
-                    (Staticmenbers.cardUsers[contactcardindex!].address == "")
-                        ? Container(
-                            height: hp(2, context),
-                          )
-                        : Textwidget(
-                            maxLines: 2,
-                            textAlign: TextAlign.start,
-                            width: wp(60, context),
-                            text:
-                                "${Staticmenbers.cardUsers[contactcardindex!].address}",
-                            selectionColor: whiteColor,
-                            fontSize: 12,
-                          ),
+                    Textwidget(
+                      maxLines: 3,
+                      textAlign: TextAlign.start,
+                      width: wp(60, context),
+                      text:
+                          "${Staticmenbers.cardUsers[contactcardindex!].address}",
+                      selectionColor: whiteColor,
+                      fontSize: 11,
+                    ),
                   ],
                 ),
               ),

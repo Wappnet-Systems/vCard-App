@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/responsive.dart';
-import '../text_button_widget.dart';
+import '../custom_alartdialog.dart';
 
 class DefultCard extends StatefulWidget {
   final int? id;
@@ -54,59 +54,30 @@ class _DefultCardState extends State<DefultCard> {
                     selectionColor: goldColor,
                   )),
               Center(
-                child: Staticmenbers.listofUsers[cardindex!].image == ""
-                    ? Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(50),
-                              topLeft: Radius.circular(19),
-                              bottomLeft: Radius.circular(19),
-                              bottomRight: Radius.circular(19)),
-                          border: Border.all(
-                              color: goldColor, width: wp(0.1, context)),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: goldColor,
-                              blurRadius: 5.0,
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topRight: Radius.circular(50),
-                          ),
-                          child: Image.asset(
-                            "assets/images/splash1.png",
-                            width: wp(45, context),
-                            height: hp(20, context),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      )
-                    : Container(
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(50)),
-                          border: Border.all(
-                              color: goldColor, width: wp(0.1, context)),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: goldColor,
-                              blurRadius: 5.0,
-                            ),
-                          ],
-                        ),
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                              topRight: Radius.circular(50)),
-                          child: Image.network(
-                            "${Staticmenbers.listofUsers[cardindex!].image}",
-                            width: wp(45, context),
-                            height: hp(20, context),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        const BorderRadius.only(topRight: Radius.circular(50)),
+                    border:
+                        Border.all(color: goldColor, width: wp(0.1, context)),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: goldColor,
+                        blurRadius: 5.0,
                       ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius:
+                        const BorderRadius.only(topRight: Radius.circular(50)),
+                    child: Image.network(
+                      "${Staticmenbers.listofUsers[cardindex!].image}",
+                      width: wp(40, context),
+                      height: hp(20, context),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
               ),
               SizedBox(height: hp(1.5, context)),
               Center(
@@ -140,130 +111,96 @@ class _DefultCardState extends State<DefultCard> {
               ),
               Column(children: [
                 Row(children: [
-                  (Staticmenbers.listofUsers[cardindex!].phone == "")
-                      ? const SizedBox.shrink()
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
-                            },
-                            child: Image.asset(
-                              "assets/icon/call.png",
-                              scale: 24,
-                              color: goldColor,
-                            ),
-                          ),
-                        ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Textwidget(
-                        maxLines: 1,
-                        textAlign: TextAlign.start,
-                        width: wp(40, context),
-                        text: "${Staticmenbers.listofUsers[cardindex!].phone}",
-                        fontSize: 16,
-                        selectionColor: goldColor),
+                    padding: const EdgeInsets.only(left: 40),
+                    child: InkWell(
+                      onTap: () {
+                        launchUrl(Uri.parse(
+                            'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                      },
+                      child: Image.asset(
+                        "assets/icon/call.png",
+                        scale: 24,
+                        color: goldColor,
+                      ),
+                    ),
                   ),
+                  SizedBox(width: wp(3, context)),
+                  Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      width: wp(40, context),
+                      text: "${Staticmenbers.listofUsers[cardindex!].phone}",
+                      fontSize: 14,
+                      selectionColor: goldColor),
                 ]),
                 SizedBox(height: hp(2, context)),
                 Row(children: [
-                  (Staticmenbers.listofUsers[cardindex!].email == "")
-                      ? const SizedBox.shrink()
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
-                            },
-                            child: Image.asset(
-                              "assets/icon/email.png",
-                              scale: 24,
-                              color: goldColor,
-                            ),
-                          ),
-                        ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Textwidget(
-                        maxLines: 1,
-                        textAlign: TextAlign.start,
-                        width: wp(60, context),
-                        text: "${Staticmenbers.listofUsers[cardindex!].email}",
-                        fontSize: 16,
-                        selectionColor: goldColor),
+                    padding: const EdgeInsets.only(left: 40),
+                    child: InkWell(
+                      onTap: () {
+                        launchUrl(Uri.parse(
+                            'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                      },
+                      child: Image.asset(
+                        "assets/icon/email.png",
+                        scale: 24,
+                        color: goldColor,
+                      ),
+                    ),
                   ),
+                  SizedBox(width: wp(3, context)),
+                  Textwidget(
+                      maxLines: 1,
+                      textAlign: TextAlign.start,
+                      width: wp(60, context),
+                      text: "${Staticmenbers.listofUsers[cardindex!].email}",
+                      fontSize: 14,
+                      selectionColor: goldColor),
                 ]),
                 SizedBox(height: hp(2, context)),
                 Row(children: [
-                  (Staticmenbers.listofUsers[cardindex!].address == "")
-                      ? const SizedBox.shrink()
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 40),
-                          child: InkWell(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => AlertDialog(
-                                  backgroundColor: whiteColor,
-                                  title: const Text("Address",
-                                      style: TextStyle(
-                                          fontFamily: 'Marck',
-                                          fontSize: 25,
-                                          color: blueColor,
-                                          fontWeight: FontWeight.bold)),
-                                  content: Text(
-                                      '${Staticmenbers.listofUsers[cardindex!].address}',
-                                      style: const TextStyle(
-                                          fontFamily: 'Marck',
-                                          fontSize: 20,
-                                          color: grayColor,
-                                          fontWeight: FontWeight.bold)),
-                                  actions: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            _pushMap();
-                                          },
-                                          title: 'Use Map',
-                                          color: blueColor,
-                                        ),
-                                        TextButtomWidget(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          title: 'Cancel',
-                                          fontSize: 15,
-                                          color: Colors.redAccent,
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                            child: Image.asset(
-                              "assets/icon/pin.png",
-                              scale: 24,
-                              color: goldColor,
-                            ),
-                          ),
-                        ),
                   Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Textwidget(
-                        maxLines: 2,
-                        textAlign: TextAlign.start,
-                        width: wp(60, context),
-                        text:
-                            "${Staticmenbers.listofUsers[cardindex!].address}",
-                        fontSize: 14,
-                        selectionColor: goldColor),
+                    padding: const EdgeInsets.only(left: 40),
+                    child: InkWell(
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => CustomAlartDialog(
+                                  title: const Textwidget(
+                                      text: "Address",
+                                      textAlign: TextAlign.center),
+                                  content: Textwidget(
+                                    text:
+                                        '${Staticmenbers.listofUsers[cardindex!].address}',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 5,
+                                    selectionColor: grayColor,
+                                  ),
+                                  onPressedNo: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onPressedYes: () {
+                                    _pushMap();
+                                  },
+                                ));
+                      },
+                      child: Image.asset(
+                        "assets/icon/pin.png",
+                        scale: 24,
+                        color: goldColor,
+                      ),
+                    ),
                   ),
+                  SizedBox(width: wp(3, context)),
+                  Textwidget(
+                      maxLines: 3,
+                      textAlign: TextAlign.start,
+                      width: wp(60, context),
+                      text: "${Staticmenbers.listofUsers[cardindex!].address}",
+                      fontSize: 12,
+                      selectionColor: goldColor),
                 ]),
               ]),
               SizedBox(height: hp(1, context)),

@@ -102,53 +102,42 @@ class _ContactsScreenState extends State<ContactsScreen> {
                         margin: const EdgeInsets.only(
                             left: 8, right: 8, top: 5, bottom: 5),
                         child: ListTile(
-                          leading: Staticmenbers.cardUsers[index].image == null
-                              ? ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: Image.asset(
-                                    "assets/images/splash1.png",
-                                    width: wp(18, context),
-                                    height: hp(10, context),
-                                    fit: BoxFit.cover,
-                                  ),
-                                )
-                              : ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: Image.network(
-                                    "${Staticmenbers.cardUsers[index].image}",
-                                    width: wp(18, context),
-                                    height: hp(10, context),
-                                    fit: BoxFit.fill,
-                                    frameBuilder: (context, child, frame,
-                                        wasSynchronouslyLoaded) {
-                                      return child;
-                                    },
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Image(
-                                        image: const AssetImage(
-                                            "assets/images/splash1.png"),
-                                        width: wp(18, context),
-                                        height: hp(10, context),
-                                        fit: BoxFit.fill,
-                                      );
-                                    },
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) {
-                                        return child;
-                                      } else {
-                                        return const Center(
-                                            child: Icon(
-                                          Icons.image,
-                                          size: 50,
-                                          color: whiteColor,
-                                        ));
-                                      }
-                                    },
-                                  ),
-                                ),
+                          leading: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            child: Image.network(
+                              "${Staticmenbers.cardUsers[index].image}",
+                              width: wp(16, context),
+                              height: hp(8, context),
+                              fit: BoxFit.fill,
+                              frameBuilder: (context, child, frame,
+                                  wasSynchronouslyLoaded) {
+                                return child;
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Image(
+                                  image: const AssetImage(
+                                      "assets/images/splash1.png"),
+                                  width: wp(16, context),
+                                  height: hp(8, context),
+                                  fit: BoxFit.fill,
+                                );
+                              },
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return const Center(
+                                      child: Icon(
+                                    Icons.image,
+                                    size: 50,
+                                    color: whiteColor,
+                                  ));
+                                }
+                              },
+                            ),
+                          ),
                           title: Row(children: [
                             Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

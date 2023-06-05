@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
-import '../text_button_widget.dart';
+import '../custom_alartdialog.dart';
 
 class Cardtheme3 extends StatefulWidget {
   final int? id;
@@ -80,7 +80,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                     .listofUsers[cardindex!].color!]
                                 : blackColor),
                     SizedBox(
-                      height: hp(5, context),
+                      height: hp(4, context),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 40),
@@ -103,7 +103,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                             "${Staticmenbers.listofUsers[cardindex!].image}",
                             width: wp(23, context),
                             height: hp(11, context),
-                            fit: BoxFit.fill,
+                            fit: BoxFit.contain,
                           ),
                         ),
                       ),
@@ -239,147 +239,119 @@ class _Cardtheme3State extends State<Cardtheme3> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: hp(14, context),
+                      height: hp(12, context),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Staticmenbers.listofUsers[cardindex!].phone == ""
-                          ? const SizedBox.shrink()
-                          : Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    launchUrl(Uri.parse(
-                                        'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
-                                  },
-                                  child: Image.asset(
-                                    "assets/icon/call.png",
-                                    scale: 30,
-                                    color: whiteColor,
-                                  ),
-                                ),
-                                SizedBox(width: wp(4, context)),
-                                Textwidget(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.start,
-                                    width: wp(25, context),
-                                    text:
-                                        "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                    fontSize: 10,
-                                    selectionColor: whiteColor),
-                              ],
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              launchUrl(Uri.parse(
+                                  'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                            },
+                            child: Image.asset(
+                              "assets/icon/call.png",
+                              scale: 30,
+                              color: whiteColor,
                             ),
-                    ),
-                    SizedBox(height: hp(2, context)),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Staticmenbers.listofUsers[cardindex!].email == ""
-                          ? const SizedBox.shrink()
-                          : Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    launchUrl(Uri.parse(
-                                        'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
-                                  },
-                                  child: Image.asset(
-                                    "assets/icon/email.png",
-                                    scale: 30,
-                                    color: whiteColor,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: wp(4, context),
-                                ),
-                                Textwidget(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.start,
-                                    width: wp(30, context),
-                                    text:
-                                        "${Staticmenbers.listofUsers[cardindex!].email}",
-                                    fontSize: 10,
-                                    selectionColor: whiteColor),
-                              ],
-                            ),
-                    ),
-                    SizedBox(height: hp(2, context)),
-                    Staticmenbers.listofUsers[cardindex!].address == ""
-                        ? const SizedBox.shrink()
-                        : Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 20),
-                                child: InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (ctx) => AlertDialog(
-                                        backgroundColor: whiteColor,
-                                        title: const Text("Address",
-                                            style: TextStyle(
-                                                fontFamily: 'Marck',
-                                                fontSize: 25,
-                                                color: blueColor,
-                                                fontWeight: FontWeight.bold)),
-                                        content: Text(
-                                            '${Staticmenbers.listofUsers[cardindex!].address}',
-                                            style: const TextStyle(
-                                                fontFamily: 'Marck',
-                                                fontSize: 20,
-                                                color: grayColor,
-                                                fontWeight: FontWeight.bold)),
-                                        actions: <Widget>[
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              TextButtomWidget(
-                                                onPressed: () {
-                                                  _pushMap();
-                                                },
-                                                title: 'Use Map',
-                                                fontSize: null,
-                                                color: blueColor,
-                                              ),
-                                              TextButtomWidget(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                title: 'Cancel',
-                                                fontSize: 15,
-                                                color: Colors.redAccent,
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                  child: Image.asset(
-                                    "assets/icon/pin.png",
-                                    scale: 30,
-                                    color: whiteColor,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: wp(4, context),
-                              ),
-                              Textwidget(
-                                  maxLines: 2,
-                                  textAlign: TextAlign.start,
-                                  width: wp(30, context),
-                                  text:
-                                      "${Staticmenbers.listofUsers[cardindex!].address}",
-                                  fontSize: 10,
-                                  selectionColor: whiteColor),
-                            ],
                           ),
+                          SizedBox(width: wp(2, context)),
+                          Textwidget(
+                              maxLines: 1,
+                              textAlign: TextAlign.start,
+                              width: wp(25, context),
+                              text:
+                                  "${Staticmenbers.listofUsers[cardindex!].phone}",
+                              fontSize: 10,
+                              selectionColor: whiteColor),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: hp(2, context)),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              launchUrl(Uri.parse(
+                                  'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                            },
+                            child: Image.asset(
+                              "assets/icon/email.png",
+                              scale: 30,
+                              color: whiteColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: wp(2, context),
+                          ),
+                          Textwidget(
+                              maxLines: 1,
+                              textAlign: TextAlign.start,
+                              width: wp(37, context),
+                              text:
+                                  "${Staticmenbers.listofUsers[cardindex!].email}",
+                              fontSize: 10,
+                              selectionColor: whiteColor),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: hp(2, context)),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (ctx) => CustomAlartDialog(
+                                        title: const Textwidget(
+                                            text: "Address",
+                                            textAlign: TextAlign.center),
+                                        content: Textwidget(
+                                          text:
+                                              '${Staticmenbers.listofUsers[cardindex!].address}',
+                                          textAlign: TextAlign.center,
+                                          maxLines: 5,
+                                          selectionColor: grayColor,
+                                        ),
+                                        onPressedNo: () {
+                                          Navigator.pop(context);
+                                        },
+                                        onPressedYes: () {
+                                          _pushMap();
+                                        },
+                                      ));
+                            },
+                            child: Image.asset(
+                              "assets/icon/pin.png",
+                              scale: 30,
+                              color: whiteColor,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: wp(2, context),
+                        ),
+                        Textwidget(
+                            maxLines: 3,
+                            textAlign: TextAlign.start,
+                            width: wp(37, context),
+                            text:
+                                "${Staticmenbers.listofUsers[cardindex!].address}",
+                            fontSize: 9,
+                            selectionColor: whiteColor),
+                      ],
+                    ),
                     SizedBox(height: hp(2, context)),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: whiteColor, width: 2)),
+                          border: Border.all(
+                              color: whiteColor, width: wp(0.3, context))),
                       child: QrImage(
                         dataModuleStyle:
                             const QrDataModuleStyle(color: whiteColor),
@@ -395,7 +367,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
             ],
           ),
           Positioned(
-              top: 30,
+              top: 20,
               right: 3,
               child: Container(
                 width: wp(53, context),
@@ -411,11 +383,11 @@ class _Cardtheme3State extends State<Cardtheme3> {
                   child: Center(
                     child: Textwidget(
                         maxLines: 1,
-                        textAlign: TextAlign.start,
-                        width: wp(50, context),
+                        textAlign: TextAlign.center,
+                        width: wp(60, context),
                         text:
                             "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                        fontSize: 16,
+                        fontSize: 12,
                         selectionColor: whiteColor),
                   ),
                 ),

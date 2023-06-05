@@ -28,7 +28,7 @@ class CustomAlartDialog extends StatelessWidget {
       content: content,
       actions: <Widget>[
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextButtomWidget(
               onPressed: onPressedNo!,
@@ -40,7 +40,7 @@ class CustomAlartDialog extends StatelessWidget {
               onPressed: onPressedYes!,
               title: 'Yes',
               fontSize: 15,
-              color: Colors.redAccent,
+              color: bluegrayColor,
             ),
           ],
         ),

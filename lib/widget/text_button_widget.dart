@@ -21,7 +21,7 @@ class TextButtomWidget extends StatelessWidget {
           onPressed: onPressed,
           child: Container(
             padding:
-                const EdgeInsets.only(left: 29, right: 29, top: 15, bottom: 15),
+                const EdgeInsets.only(left: 40, right: 40, top: 15, bottom: 15),
             decoration: BoxDecoration(
                 color: color, borderRadius: BorderRadius.circular(10)),
             child: Text(

@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
-import '../text_button_widget.dart';
+import '../custom_alartdialog.dart';
 
 class Contectcardtheme1 extends StatefulWidget {
   final int? id;
@@ -92,9 +92,9 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                       child: ClipOval(
                         child: Image.network(
                           "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                          width: wp(23, context),
-                          height: hp(11, context),
-                          fit: BoxFit.fill,
+                          width: wp(22, context),
+                          height: hp(10.5, context),
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -128,7 +128,7 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                                 ? colorList[Staticmenbers
                                     .cardUsers[contactcardindex!].color!]
                                 : whiteColor),
-                    SizedBox(height: hp(3, context)),
+                    SizedBox(height: hp(5, context)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -286,189 +286,132 @@ class _Contectcardtheme1State extends State<Contectcardtheme1> {
                         children: [
                           Row(
                             children: [
-                              (Staticmenbers
-                                          .cardUsers[contactcardindex!].phone ==
-                                      "")
-                                  ? Container(
-                                      height: hp(2, context),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 3, top: 15),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launchUrl(Uri.parse(
-                                              'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/call.png",
-                                          scale: 30,
-                                          color: whiteColor,
-                                        ),
-                                      ),
-                                    ),
-                              (Staticmenbers
-                                          .cardUsers[contactcardindex!].phone ==
-                                      "")
-                                  ? Container(
-                                      height: hp(2, context),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, top: 15),
-                                      child: Textwidget(
-                                          maxLines: 1,
-                                          textAlign: TextAlign.start,
-                                          width: 130,
-                                          text:
-                                              "${Staticmenbers.cardUsers[contactcardindex!].phone}",
-                                          fontSize: 12,
-                                          selectionColor: whiteColor),
-                                    ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 3, top: 15),
+                                child: InkWell(
+                                  onTap: () {
+                                    launchUrl(Uri.parse(
+                                        'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
+                                  },
+                                  child: Image.asset(
+                                    "assets/icon/call.png",
+                                    scale: 30,
+                                    color: whiteColor,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, top: 15),
+                                child: Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    width: 130,
+                                    text:
+                                        "${Staticmenbers.cardUsers[contactcardindex!].phone}",
+                                    fontSize: 10,
+                                    selectionColor: whiteColor),
+                              ),
                             ],
                           ),
                           Row(
                             children: [
-                              (Staticmenbers
-                                          .cardUsers[contactcardindex!].email ==
-                                      "")
-                                  ? Container(
-                                      height: hp(2, context),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 3, top: 15),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launchUrl(Uri.parse(
-                                              'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/email.png",
-                                          scale: 30,
-                                          color: whiteColor,
-                                        ),
-                                      ),
-                                    ),
-                              (Staticmenbers
-                                          .cardUsers[contactcardindex!].email ==
-                                      "")
-                                  ? Container(
-                                      height: hp(2, context),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, top: 15),
-                                      child: SizedBox(
-                                        width: wp(40, context),
-                                        child: Textwidget(
-                                            maxLines: 1,
-                                            textAlign: TextAlign.start,
-                                            width: 130,
-                                            text:
-                                                "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                                            fontSize: 12,
-                                            selectionColor: whiteColor),
-                                      ),
-                                    ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 3, top: 15),
+                                child: InkWell(
+                                  onTap: () {
+                                    launchUrl(Uri.parse(
+                                        'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
+                                  },
+                                  child: Image.asset(
+                                    "assets/icon/email.png",
+                                    scale: 30,
+                                    color: whiteColor,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, top: 15),
+                                child: SizedBox(
+                                  width: wp(40, context),
+                                  child: Textwidget(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      width: 130,
+                                      text:
+                                          "${Staticmenbers.cardUsers[contactcardindex!].email}",
+                                      fontSize: 10,
+                                      selectionColor: whiteColor),
+                                ),
+                              ),
                             ],
                           ),
                           Row(
                             children: [
-                              (Staticmenbers.cardUsers[contactcardindex!]
-                                          .address ==
-                                      "")
-                                  ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 3, top: 15),
-                                      child: InkWell(
-                                        onTap: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (ctx) => AlertDialog(
-                                              backgroundColor: whiteColor,
-                                              title: const Text("Address",
-                                                  style: TextStyle(
-                                                      fontFamily: 'Marck',
-                                                      fontSize: 25,
-                                                      color: blueColor,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              content: Text(
-                                                  '${Staticmenbers.cardUsers[contactcardindex!].address}',
-                                                  style: const TextStyle(
-                                                      fontFamily: 'Marck',
-                                                      fontSize: 20,
-                                                      color: grayColor,
-                                                      fontWeight:
-                                                          FontWeight.bold)),
-                                              actions: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    TextButtomWidget(
-                                                      onPressed: () {
-                                                        _pushMap();
-                                                      },
-                                                      title: 'Use Map',
-                                                      color: blueColor,
-                                                    ),
-                                                    TextButtomWidget(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      title: 'Cancle',
-                                                      fontSize: 15,
-                                                      color: Colors.redAccent,
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/pin.png",
-                                          scale: 28,
-                                          color: whiteColor,
-                                        ),
-                                      ),
-                                    ),
-                              (Staticmenbers.cardUsers[contactcardindex!]
-                                          .address ==
-                                      "")
-                                  ? Container(
-                                      height: hp(2, context),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, top: 15),
-                                      child: Textwidget(
-                                          maxLines: 2,
-                                          textAlign: TextAlign.start,
-                                          width: 140,
-                                          text:
-                                              "${Staticmenbers.cardUsers[contactcardindex!].address}",
-                                          fontSize: 11,
-                                          selectionColor: whiteColor),
-                                    ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 3, top: 15),
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) => CustomAlartDialog(
+                                              title: const Textwidget(
+                                                  text: "Address",
+                                                  textAlign: TextAlign.center),
+                                              content: Textwidget(
+                                                text:
+                                                    '${Staticmenbers.cardUsers[contactcardindex!].address}',
+                                                textAlign: TextAlign.center,
+                                                maxLines: 5,
+                                                selectionColor: grayColor,
+                                              ),
+                                              onPressedNo: () {
+                                                Navigator.pop(context);
+                                              },
+                                              onPressedYes: () {
+                                                _pushMap();
+                                              },
+                                            ));
+                                  },
+                                  child: Image.asset(
+                                    "assets/icon/pin.png",
+                                    scale: 28,
+                                    color: whiteColor,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, top: 15),
+                                child: Textwidget(
+                                    maxLines: 3,
+                                    textAlign: TextAlign.start,
+                                    width: 140,
+                                    text:
+                                        "${Staticmenbers.cardUsers[contactcardindex!].address}",
+                                    fontSize: 10,
+                                    selectionColor: whiteColor),
+                              ),
                             ],
                           ),
-                          SizedBox(height: hp(3, context)),
+                          SizedBox(height: hp(2, context)),
                           Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                border:
-                                    Border.all(color: whiteColor, width: 1)),
+                                border: Border.all(
+                                    color: whiteColor,
+                                    width: wp(0.3, context))),
                             child: QrImage(
                               dataModuleStyle:
                                   const QrDataModuleStyle(color: whiteColor),
                               eyeStyle: const QrEyeStyle(color: whiteColor),
                               data:
                                   "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
-                              size: 65,
+                              size: 60,
                             ),
                           ),
                           SizedBox(height: hp(3, context)),

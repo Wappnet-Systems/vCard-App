@@ -83,8 +83,16 @@ class _CardscreenState extends State<Cardscreen> {
             context: context,
             builder: (context) {
               return CustomAlartDialog(
-                  title: const Text("Exit Application"),
-                  content: const Text("Do you want to exit an Applicaton?"),
+                  title: const Textwidget(
+                    textAlign: TextAlign.center,
+                    text: 'Exit Application',
+                  ),
+                  content: const Textwidget(
+                    selectionColor: grayColor,
+                    maxLines: 2,
+                    text: 'Do you want to exit an Applicaton?',
+                    textAlign: TextAlign.center,
+                  ),
                   onPressedNo: () {
                     Navigator.pop(context);
                   },
@@ -125,7 +133,7 @@ class _CardscreenState extends State<Cardscreen> {
                       },
                       // user card
                       child: Container(
-                          height: hp(13, context),
+                          height: hp(12, context),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             boxShadow: [
@@ -143,45 +151,33 @@ class _CardscreenState extends State<Cardscreen> {
                           margin: const EdgeInsets.only(
                               left: 5, right: 5, top: 5, bottom: 5),
                           child: ListTile(
-                            leading: Staticmenbers.listofUsers[index].image ==
-                                    ""
-                                ? ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    child: Image.asset(
-                                      "assets/images/splash1.png",
-                                      width: wp(18, context),
-                                      height: hp(10, context),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  )
-                                : ClipRRect(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(10)),
-                                    child: Image.network(
-                                      "${Staticmenbers.listofUsers[index].image}",
-                                      width: wp(18, context),
-                                      height: hp(10, context),
-                                      fit: BoxFit.fill,
-                                      frameBuilder: (context, child, frame,
-                                          wasSynchronouslyLoaded) {
-                                        return child;
-                                      },
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        } else {
-                                          return const Center(
-                                              child: Icon(
-                                            Icons.image,
-                                            size: 130,
-                                            color: whiteColor,
-                                          ));
-                                        }
-                                      },
-                                    ),
-                                  ),
+                            leading: ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              child: Image.network(
+                                "${Staticmenbers.listofUsers[index].image}",
+                                width: wp(16, context),
+                                height: hp(8, context),
+                                fit: BoxFit.contain,
+                                frameBuilder: (context, child, frame,
+                                    wasSynchronouslyLoaded) {
+                                  return child;
+                                },
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  } else {
+                                    return const Center(
+                                        child: Icon(
+                                      Icons.image,
+                                      size: 130,
+                                      color: whiteColor,
+                                    ));
+                                  }
+                                },
+                              ),
+                            ),
                             title: Row(children: [
                               Column(
                                   mainAxisAlignment: MainAxisAlignment.start,

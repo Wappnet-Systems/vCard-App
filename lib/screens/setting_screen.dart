@@ -66,6 +66,21 @@ class _Setting_ScreenState extends State<Setting_Screen> {
           SizedBox(height: hp(3, context)),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
+            child: const Row(
+              children: [
+                Textwidget(
+                  textAlign: TextAlign.start,
+                  text: "Profile",
+                  fontSize: 18,
+                ),
+                Spacer(),
+                Icon(Icons.person)
+              ],
+            ),
+          ),
+          const Divider(),
+          Container(
+            padding: const EdgeInsets.only(left: 15, right: 15),
             color: whiteColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,10 +159,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                         context: context,
                         builder: (ctx) => CustomAlartDialog(
                             title: const Textwidget(
-                                textAlign: TextAlign.start, text: "Log Out"),
+                                textAlign: TextAlign.center, text: "Log Out"),
                             content: const Textwidget(
                               maxLines: 2,
-                              textAlign: TextAlign.start,
+                              textAlign: TextAlign.center,
                               text: "Are you sure you want to logout?",
                               selectionColor: grayColor,
                             ),
@@ -187,11 +202,11 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                         context: context,
                         builder: (ctx) => CustomAlartDialog(
                             title: const Textwidget(
-                                textAlign: TextAlign.start,
+                                textAlign: TextAlign.center,
                                 text: "Delete Account"),
                             content: const Textwidget(
                               maxLines: 2,
-                              textAlign: TextAlign.start,
+                              textAlign: TextAlign.center,
                               text: "Are you sure you want to Delete Account?",
                               selectionColor: grayColor,
                             ),

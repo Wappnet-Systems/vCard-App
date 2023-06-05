@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -181,13 +182,28 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
   Future pickImage(ImageSource imageType) async {
     try {
       final pick = await ImagePicker().pickImage(source: imageType);
-      setState(() {
-        if (pick != null) {
-          Imagepicker = File(pick.path);
-          log("Updatd Image:${Imagepicker?.path}");
-          uploadImage(Imagepicker!);
+
+      if (pick != null) {
+        final croppedFile = await ImageCropper().cropImage(
+          maxHeight: 300,
+          maxWidth: 300,
+          sourcePath: pick.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+        );
+        if (croppedFile != null) {
+          setState(() {
+            File file = File(croppedFile.path.toString());
+            Imagepicker = file;
+            uploadImage(Imagepicker!);
+          });
         }
-      });
+      }
     } catch (e) {
       Error;
     }

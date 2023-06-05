@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
-import '../text_button_widget.dart';
+import '../custom_alartdialog.dart';
 
 class Cardtheme4 extends StatefulWidget {
   final int? id;
@@ -81,7 +81,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                             )),
                           ),
                           SizedBox(
-                            height: hp(5.5, context),
+                            height: hp(6, context),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(left: 41),
@@ -91,7 +91,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 width: wp(50, context),
                                 text:
                                     "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                fontSize: 12,
+                                fontSize: 11,
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
@@ -105,26 +105,24 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 width: wp(100, context),
                                 text:
                                     "${Staticmenbers.listofUsers[cardindex!].email}",
-                                fontSize: 12,
+                                fontSize: 11,
                                 selectionColor: blueColor,
                               )),
                           SizedBox(
-                            height: hp(3.3, context),
+                            height: hp(2.8, context),
                           ),
-                          Staticmenbers.listofUsers[cardindex!].address == ""
-                              ? const SizedBox.shrink()
-                              : Padding(
-                                  padding: const EdgeInsets.only(left: 41),
-                                  child: Textwidget(
-                                    maxLines: 2,
-                                    textAlign: TextAlign.start,
-                                    width: wp(50, context),
-                                    text:
-                                        "${Staticmenbers.listofUsers[cardindex!].address}",
-                                    fontSize: 10,
-                                    selectionColor: blueColor,
-                                  )),
-                          SizedBox(height: hp(3, context)),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 41),
+                              child: Textwidget(
+                                maxLines: 3,
+                                textAlign: TextAlign.start,
+                                width: wp(60, context),
+                                text:
+                                    "${Staticmenbers.listofUsers[cardindex!].address}",
+                                fontSize: 9,
+                                selectionColor: blueColor,
+                              )),
+                          SizedBox(height: hp(2, context)),
                           Center(
                             child: Container(
                               decoration: BoxDecoration(
@@ -186,7 +184,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                       "${Staticmenbers.listofUsers[cardindex!].department}",
                                   fontSize: 14,
                                   selectionColor: blueColor)),
-                          SizedBox(height: hp(5, context)),
+                          SizedBox(height: hp(4, context)),
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
@@ -204,9 +202,9 @@ class _Cardtheme4State extends State<Cardtheme4> {
                             child: ClipOval(
                               child: Image.network(
                                 "${Staticmenbers.listofUsers[cardindex!].image}",
-                                width: wp(21, context),
-                                height: hp(10, context),
-                                fit: BoxFit.fill,
+                                width: wp(23, context),
+                                height: hp(11, context),
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
@@ -418,46 +416,25 @@ class _Cardtheme4State extends State<Cardtheme4> {
                     child: InkWell(
                       onTap: () {
                         showDialog(
-                          context: context,
-                          builder: (ctx) => AlertDialog(
-                            backgroundColor: whiteColor,
-                            title: const Text("Address",
-                                style: TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 25,
-                                    color: blueColor,
-                                    fontWeight: FontWeight.bold)),
-                            content: Text(
-                                '${Staticmenbers.listofUsers[cardindex!].address}',
-                                style: const TextStyle(
-                                    fontFamily: 'Marck',
-                                    fontSize: 20,
-                                    color: grayColor,
-                                    fontWeight: FontWeight.bold)),
-                            actions: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  TextButtomWidget(
-                                    onPressed: () {
-                                      _pushMap();
-                                    },
-                                    title: 'Use Map',
-                                    color: blueColor,
+                            context: context,
+                            builder: (ctx) => CustomAlartDialog(
+                                  title: const Textwidget(
+                                      text: "Address",
+                                      textAlign: TextAlign.center),
+                                  content: Textwidget(
+                                    text:
+                                        '${Staticmenbers.listofUsers[cardindex!].address}',
+                                    textAlign: TextAlign.center,
+                                    maxLines: 5,
+                                    selectionColor: grayColor,
                                   ),
-                                  TextButtomWidget(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    title: 'Cancel',
-                                    fontSize: 15,
-                                    color: Colors.redAccent,
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
+                                  onPressedNo: () {
+                                    Navigator.pop(context);
+                                  },
+                                  onPressedYes: () {
+                                    _pushMap();
+                                  },
+                                ));
                       },
                       child: Image.asset(
                         "assets/icon/pin.png",

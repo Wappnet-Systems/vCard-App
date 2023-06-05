@@ -31,8 +31,6 @@ class _ScannerscreenState extends State<Scannerscreen> {
   List<String?> connectUserIdList = [];
   bool isScan = false;
   int? contectcard;
-  // var index = 0;
-  // String? scancarddata;
   String? cid;
   String? uid;
   FToast? fToast;

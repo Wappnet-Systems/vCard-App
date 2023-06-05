@@ -89,11 +89,11 @@ class _MenuscreenState extends State<Menuscreen> {
                                   context: context,
                                   builder: (ctx) => CustomAlartDialog(
                                         title: const Textwidget(
-                                            textAlign: TextAlign.start,
+                                            textAlign: TextAlign.center,
                                             text: "Delete"),
                                         content: const Textwidget(
                                           maxLines: 2,
-                                          textAlign: TextAlign.start,
+                                          textAlign: TextAlign.center,
                                           text:
                                               "Are you sure you want to delete this card?",
                                           selectionColor: grayColor,

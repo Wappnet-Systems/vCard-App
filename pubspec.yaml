@@ -48,7 +48,7 @@ dependencies:
   fluttertoast: ^8.2.1
   shared_preferences: ^2.1.0
   font_awesome_flutter: ^10.4.0
-  image_picker: ^0.8.7+1
+  image_picker: ^0.8.7+5
   lottie: ^2.3.1
   permission_handler: ^10.2.0
   qr_flutter: ^4.0.0
@@ -61,6 +61,8 @@ dependencies:
   path_provider: ^2.0.14
   flutter_colorpicker: ^1.0.3
   intl_phone_field: ^3.1.0
+  image_cropper: ^4.0.1
+
 
  
 
