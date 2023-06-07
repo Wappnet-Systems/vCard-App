@@ -132,7 +132,7 @@ class _CardscreenState extends State<Cardscreen> {
                       },
                       // user card
                       child: Container(
-                          height: hp(12, context),
+                          height: hp(11, context),
                           decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             boxShadow: [

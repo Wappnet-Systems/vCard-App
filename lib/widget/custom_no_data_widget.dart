@@ -15,10 +15,10 @@ class CustomNoData extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-              height: MediaQuery.of(context).size.height * 0.25,
+              height: MediaQuery.of(context).size.height * 0.22,
               child: Lottie.asset(iconaddress)),
           const SizedBox(
-            height: 50,
+            height: 40,
           ),
         ],
       ),

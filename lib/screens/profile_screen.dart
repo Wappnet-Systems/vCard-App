@@ -24,7 +24,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  List<Users> Profileuser = [];
   // Controller
   final TextEditingController nameController = TextEditingController();
   final TextEditingController dobController = TextEditingController();
@@ -200,6 +199,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
     return Scaffold(
         appBar: AppBar(
+          leading: InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.arrow_back, color: blackColor)),
+          centerTitle: true,
           automaticallyImplyLeading: false,
           elevation: 0.3,
           title: const Text("Profile", style: TextStyle(color: blackColor)),
@@ -220,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: blueColor,
-                                      width: wp(0.5, context)),
+                                      width: wp(0.8, context)),
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(100),
                                   ),
@@ -290,6 +295,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                           //card Type
                           SizedBox(height: hp(3, context)),
+
                           TextFormField(
                             validator: textvalidator,
                             textCapitalization: TextCapitalization.words,
@@ -304,24 +310,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               hintStyle:
                                   TextStyle(color: grayColor, fontSize: 10),
                               hintText: "Enter your name",
+                              suffixIcon: Icon(Icons.edit, color: grayColor),
+                              prefixIcon: const Icon(
+                                Icons.person,
+                                color: grayColor,
+                              ),
                             ),
                           ),
-                          SizedBox(height: hp(2, context)),
+                          SizedBox(height: hp(1.5, context)),
                           TextFormField(
                             readOnly: true,
                             keyboardType: TextInputType.number,
                             cursorColor: grayColor,
                             controller: numberController,
                             decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: grayColor)),
-                              label: Text("number"),
-                              labelStyle:
-                                  TextStyle(fontSize: 10, color: grayColor),
-                              hintStyle:
-                                  TextStyle(color: grayColor, fontSize: 10),
-                              hintText: "Enter your Number",
-                            ),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: grayColor)),
+                                label: Text("number"),
+                                labelStyle:
+                                    TextStyle(fontSize: 10, color: grayColor),
+                                hintStyle:
+                                    TextStyle(color: grayColor, fontSize: 10),
+                                hintText: "Enter your Number",
+                                prefixIcon: Icon(
+                                  Icons.call,
+                                )),
                           ),
                           TextFormField(
                             validator: emailValidator,
@@ -329,31 +342,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             cursorColor: grayColor,
                             controller: emailController,
                             decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: blackColor)),
-                              label: Text("Email"),
-                              labelStyle:
-                                  TextStyle(fontSize: 10, color: grayColor),
-                              hintStyle:
-                                  TextStyle(color: grayColor, fontSize: 10),
-                              hintText: "Enter your Email",
-                            ),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: blackColor)),
+                                label: Text("Email"),
+                                labelStyle:
+                                    TextStyle(fontSize: 10, color: grayColor),
+                                hintStyle:
+                                    TextStyle(color: grayColor, fontSize: 10),
+                                hintText: "Enter your Email",
+                                suffixIcon: Icon(Icons.edit, color: grayColor),
+                                prefixIcon: Icon(
+                                  Icons.email,
+                                )),
                           ),
-                          SizedBox(height: hp(2, context)),
+                          SizedBox(height: hp(1.5, context)),
                           TextFormField(
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.text,
                             cursorColor: grayColor,
                             controller: dobController,
                             decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: blackColor)),
-                              label: Text("DOB"),
-                              labelStyle:
-                                  TextStyle(fontSize: 10, color: grayColor),
-                              hintStyle:
-                                  TextStyle(color: grayColor, fontSize: 10),
-                              hintText: "xx/xx/xxxx",
-                            ),
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: blackColor)),
+                                label: Text("Note"),
+                                labelStyle:
+                                    TextStyle(fontSize: 10, color: grayColor),
+                                hintStyle:
+                                    TextStyle(color: grayColor, fontSize: 10),
+                                hintText: "your note",
+                                suffixIcon: Icon(Icons.edit, color: grayColor),
+                                prefixIcon: Icon(Icons.comment)),
                           ),
                           SizedBox(height: hp(3, context)),
                           Container(
@@ -369,6 +386,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         displayAddprofileToast();
                                       } else {
                                         updateUser();
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const ProfileScreen()));
                                         displayUpdateprofileToast();
                                       }
                                     } else {

@@ -89,7 +89,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                 itemBuilder: (BuildContext context, int index) {
                   return InkWell(
                     child: Container(
-                        height: hp(13, context),
+                        height: hp(11, context),
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             boxShadow: [
@@ -109,7 +109,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                               "${Staticmenbers.cardUsers[index].image}",
                               width: wp(16, context),
                               height: hp(8, context),
-                              fit: BoxFit.fill,
+                              fit: BoxFit.contain,
                               frameBuilder: (context, child, frame,
                                   wasSynchronouslyLoaded) {
                                 return child;
@@ -120,7 +120,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                       "assets/images/splash1.png"),
                                   width: wp(16, context),
                                   height: hp(8, context),
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.contain,
                                 );
                               },
                               loadingBuilder:

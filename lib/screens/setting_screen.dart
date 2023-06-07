@@ -48,12 +48,12 @@ class _Setting_ScreenState extends State<Setting_Screen> {
     for (var doc in sanap.docs) {
       await doc.reference.delete();
     }
-    // var Profile = FirebaseFirestore.instance
-    //     .collection("users")
-    //     .doc(FirebaseAuth.instance.currentUser?.uid)
-    //     .collection("Profile");
-    // var Profile = await snapshot.get();
-    for (var doc in sanap.docs) {
+    var Profile = FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Profile");
+    var Prof = await Profile.get();
+    for (var doc in Prof.docs) {
       await doc.reference.delete();
     }
     await FirebaseAuth.instance.currentUser?.delete();
@@ -75,33 +75,33 @@ class _Setting_ScreenState extends State<Setting_Screen> {
           SizedBox(height: hp(3, context)),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProfileScreen()));
-              },
-              child: const Row(
-                children: [
-                  Textwidget(
-                    textAlign: TextAlign.start,
-                    text: "Profile",
-                    fontSize: 18,
-                  ),
-                  Spacer(),
-                  Icon(Icons.person)
-                ],
-              ),
-            ),
-          ),
-          const Divider(),
-          Container(
-            padding: const EdgeInsets.only(left: 15, right: 15),
             color: whiteColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfileScreen()));
+                  },
+                  child: const Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Textwidget(
+                          textAlign: TextAlign.start,
+                          text: "Profile",
+                          fontSize: 18,
+                        ),
+                      ),
+                      Spacer(),
+                      Icon(Icons.person)
+                    ],
+                  ),
+                ),
+                const Divider(),
                 // App permissiom
                 InkWell(
                   onTap: () async {
@@ -111,9 +111,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Text(
-                          "Permissions",
-                          style: TextStyle(fontSize: 18),
+                        child: Textwidget(
+                          textAlign: TextAlign.start,
+                          text: "Permissions",
+                          fontSize: 18,
                         ),
                       ),
                       Spacer(),
@@ -137,9 +138,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Text(
-                          "App Share",
-                          style: TextStyle(fontSize: 18),
+                        child: Textwidget(
+                          textAlign: TextAlign.start,
+                          text: "App Share",
+                          fontSize: 18,
                         ),
                       ),
                       Spacer(),
@@ -156,9 +158,10 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 8, bottom: 8),
-                      child: Text(
-                        "Version",
-                        style: TextStyle(fontSize: 18),
+                      child: Textwidget(
+                        textAlign: TextAlign.start,
+                        text: "Version",
+                        fontSize: 18,
                       ),
                     ),
                     Spacer(),

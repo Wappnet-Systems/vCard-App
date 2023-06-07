@@ -287,10 +287,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 SizedBox(height: hp(3, context)),
                 CustomTextFormField(
                   textCapitalization: TextCapitalization.words,
-                  labelText: "Type",
+                  labelText: "Type of card",
                   textInputType: TextInputType.emailAddress,
                   textEditingController: typecontroller,
-                  texteditinghinttext: 'Card type',
+                  texteditinghinttext: 'Type of card',
                   customobscuretext: true,
                   customprefixicon: const Icon(
                     Icons.badge_outlined,
@@ -639,10 +639,15 @@ class _CreatecardscreenState extends State<Createcardscreen> {
               ],
             ),
             Positioned(
-              top: 220,
-              left: 160,
-              child:
-                  (isLoading) ? const Custonloading() : const SizedBox.shrink(),
+              child: (isLoading)
+                  ? Center(
+                      child: Column(
+                      children: [
+                        SizedBox(height: hp(50, context)),
+                        const Custonloading(),
+                      ],
+                    ))
+                  : const SizedBox.shrink(),
             )
           ]),
         ),

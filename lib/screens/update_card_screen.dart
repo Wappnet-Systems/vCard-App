@@ -708,10 +708,14 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     ],
                   ),
                   Positioned(
-                    top: 220,
-                    left: 160,
                     child: (isLoading)
-                        ? const Custonloading()
+                        ? Center(
+                            child: Column(
+                            children: [
+                              SizedBox(height: hp(50, context)),
+                              const Custonloading(),
+                            ],
+                          ))
                         : const SizedBox.shrink(),
                   )
                 ]),
