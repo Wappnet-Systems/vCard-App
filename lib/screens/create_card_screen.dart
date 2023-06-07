@@ -135,7 +135,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         }
       }
     } catch (e) {
-      print("Error:$e");
       Error();
     }
   }

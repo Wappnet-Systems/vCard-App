@@ -17,14 +17,14 @@ class Users {
   final int? card;
   final String? user;
   final int? color;
-  final String? Name;
+  final String? profilename;
   final String? dob;
   final String? images;
   final String? profileemail;
 
   Users(
       {required this.user,
-      this.Name,
+      this.profilename,
       this.dob,
       this.images,
       this.profileemail,

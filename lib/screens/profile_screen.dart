@@ -5,11 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vcard/utils/validator.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants.dart';
 import '../utils/responsive.dart';
+import '../widget/custom_loadingbar_widget.dart';
+import '../widget/custom_toast.dart';
 import '../widget/upload_image.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -34,11 +38,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? images;
   String? currentUserId;
   List<Users> profileData = [];
+  FToast? fToast;
 
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
     getSingleUserData();
+    fToast = FToast();
+    fToast?.init(context);
     super.initState();
   }
 
@@ -56,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     return receivedLoanDataRef.set({
-      'Name': nameController.text,
+      'profilename': nameController.text,
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? "",
       'dob': dobController.text,
@@ -94,13 +101,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             File file = File(croppedFile.path.toString());
             imagePicker = file;
             uploadImage(imagePicker);
-
-            print("Imagepicker:$imagePicker");
           });
         }
       }
     } catch (e) {
-      print("Error:$e");
       Error();
     }
   }
@@ -117,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       imgeurl = url;
     });
-    print("String url:${imgeurl}");
+
     return imgeurl;
   }
 
@@ -127,9 +131,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Profile")
         .get();
-    print("snapshot.docs:${snapshot.docs}");
+
     for (var element in snapshot.docs) {
-      print("element:$element");
       profileData.add(
         Users(
             user: element.data()['user'] ?? "",
@@ -151,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             image: element.data()['images'] ?? "",
             card: element.data()['card'] ?? 0,
             color: element.data()['color'] ?? 0,
-            Name: element.data()['Name'] ?? "",
+            profilename: element.data()['profilename'] ?? "",
             dob: element.data()['dob'] ?? "",
             profileemail: element.data()['profileemail'] ?? ""),
       );
@@ -159,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     setState(() {
       images = profileData.first.images ?? "";
-      nameController.text = profileData.first.Name ?? "";
+      nameController.text = profileData.first.profilename ?? "";
       dobController.text = profileData.first.dob ?? "";
       emailController.text = profileData.first.profileemail ?? "";
       currentUserId = profileData.first.id;
@@ -175,9 +178,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     try {
       return receivedLoanDataRef.update({
-        'Name': nameController.text,
+        'profilename': nameController.text,
         'id': receivedLoanDataRef.id,
-        'images': imgeurl,
+        'images': imgeurl ?? images,
         'dob': dobController.text,
         'profileemail': emailController.text,
         'user': FirebaseAuth.instance.currentUser?.uid,
@@ -202,165 +205,209 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: const Text("Profile", style: TextStyle(color: blackColor)),
           backgroundColor: whiteColor,
         ),
-        body: SingleChildScrollView(
-            child: Form(
-                key: _formfield,
-                child: Stack(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: Column(children: [
-                      SizedBox(height: hp(10, context)),
-                      Stack(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: blueColor, width: wp(0.5, context)),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(100),
-                              ),
-                            ),
-                            // profile image add
-                            child: ClipOval(
-                                child: imagePicker == null
-                                    ? CachedNetworkImage(
-                                        width: wp(30, context),
-                                        height: hp(14, context),
-                                        fit: BoxFit.fill,
-                                        imageUrl: "${images}",
-                                        placeholder: (context, url) {
-                                          return Container();
-                                        },
-                                        errorWidget: (context, url, error) {
-                                          return Image.asset(
-                                            "assets/images/splash1.png",
+        body: images != null
+            ? SingleChildScrollView(
+                child: Form(
+                    key: _formfield,
+                    child: Stack(children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Column(children: [
+                          SizedBox(height: hp(10, context)),
+                          Stack(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: blueColor,
+                                      width: wp(0.5, context)),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(100),
+                                  ),
+                                ),
+                                // profile image add
+                                child: ClipOval(
+                                    child: imagePicker == null
+                                        ? CachedNetworkImage(
                                             width: wp(30, context),
                                             height: hp(14, context),
                                             fit: BoxFit.fill,
-                                          );
-                                        },
-                                      )
-                                    : Image.file(
-                                        imagePicker!,
-                                        width: wp(30, context),
-                                        height: hp(14, context),
-                                        fit: BoxFit.fill,
-                                      )),
-                          ),
-                          Positioned(
-                              top: 80,
-                              right: 0,
-                              child: InkWell(
-                                onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (ctx) =>
-                                          Uploadimage(onTapCamera: () {
-                                            pickImage(ImageSource.camera);
-                                            Navigator.pop(context);
-                                          }, onTapGallery: () {
-                                            pickImage(ImageSource.gallery);
-                                            Navigator.pop(context);
-                                          }));
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(1),
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: blueColor,
-                                          width: wp(0.5, context)),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(20),
+                                            imageUrl: "$images",
+                                            placeholder: (context, url) {
+                                              return Container();
+                                            },
+                                            errorWidget: (context, url, error) {
+                                              return Image.asset(
+                                                "assets/images/splash1.png",
+                                                width: wp(30, context),
+                                                height: hp(14, context),
+                                                fit: BoxFit.fill,
+                                              );
+                                            },
+                                          )
+                                        : Image.file(
+                                            imagePicker!,
+                                            width: wp(30, context),
+                                            height: hp(14, context),
+                                            fit: BoxFit.fill,
+                                          )),
+                              ),
+                              Positioned(
+                                  top: 80,
+                                  right: 0,
+                                  child: InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (ctx) =>
+                                              Uploadimage(onTapCamera: () {
+                                                pickImage(ImageSource.camera);
+                                                Navigator.pop(context);
+                                              }, onTapGallery: () {
+                                                pickImage(ImageSource.gallery);
+                                                Navigator.pop(context);
+                                              }));
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(1),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: blueColor,
+                                              width: wp(0.5, context)),
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(20),
+                                          ),
+                                          color: whiteColor),
+                                      child: const Icon(
+                                        Icons.camera,
+                                        size: 20,
+                                        color: blueColor,
                                       ),
-                                      color: whiteColor),
-                                  child: const Icon(
-                                    Icons.camera,
-                                    size: 20,
-                                    color: blueColor,
-                                  ),
-                                ),
-                              )),
-                        ],
-                      ),
+                                    ),
+                                  )),
+                            ],
+                          ),
 
-                      //card Type
-                      SizedBox(height: hp(3, context)),
-                      TextFormField(
-                        textCapitalization: TextCapitalization.words,
-                        cursorColor: grayColor,
-                        controller: nameController,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: blackColor)),
-                          label: Text("Name"),
-                          labelStyle: TextStyle(fontSize: 10, color: grayColor),
-                          hintStyle: TextStyle(color: grayColor, fontSize: 10),
-                          hintText: "Enter your name",
-                        ),
-                      ),
-                      SizedBox(height: hp(2, context)),
-                      TextFormField(
-                        readOnly: true,
-                        keyboardType: TextInputType.number,
-                        cursorColor: grayColor,
-                        controller: numberController,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: grayColor)),
-                          label: Text("number"),
-                          labelStyle: TextStyle(fontSize: 10, color: grayColor),
-                          hintStyle: TextStyle(color: grayColor, fontSize: 10),
-                          hintText: "Enter your Number",
-                        ),
-                      ),
-                      TextFormField(
-                        textCapitalization: TextCapitalization.words,
-                        cursorColor: grayColor,
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: blackColor)),
-                          label: Text("Email"),
-                          labelStyle: TextStyle(fontSize: 10, color: grayColor),
-                          hintStyle: TextStyle(color: grayColor, fontSize: 10),
-                          hintText: "Enter your Email",
-                        ),
-                      ),
-                      SizedBox(height: hp(2, context)),
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        cursorColor: grayColor,
-                        controller: dobController,
-                        decoration: const InputDecoration(
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: blackColor)),
-                          label: Text("DOB"),
-                          labelStyle: TextStyle(fontSize: 10, color: grayColor),
-                          hintStyle: TextStyle(color: grayColor, fontSize: 10),
-                          hintText: "xx/xx/xxxx",
-                        ),
-                      ),
-                      SizedBox(height: hp(3, context)),
-                      Container(
-                          decoration: BoxDecoration(
-                              color: blueColor,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: TextButton(
-                              onPressed: () async {
-                                if (_formfield.currentState!.validate()) {
-                                  profileData.isEmpty || profileData.length == 0
-                                      ? addUser()
-                                      : updateUser();
-                                } else {
-                                  return print("object");
-                                }
-                              },
-                              child: const Text(
-                                "Save",
-                                style: TextStyle(color: whiteColor),
-                              )))
-                    ]),
-                  )
-                ]))));
+                          //card Type
+                          SizedBox(height: hp(3, context)),
+                          TextFormField(
+                            validator: textvalidator,
+                            textCapitalization: TextCapitalization.words,
+                            cursorColor: grayColor,
+                            controller: nameController,
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: blackColor)),
+                              label: Text("Name"),
+                              labelStyle:
+                                  TextStyle(fontSize: 10, color: grayColor),
+                              hintStyle:
+                                  TextStyle(color: grayColor, fontSize: 10),
+                              hintText: "Enter your name",
+                            ),
+                          ),
+                          SizedBox(height: hp(2, context)),
+                          TextFormField(
+                            readOnly: true,
+                            keyboardType: TextInputType.number,
+                            cursorColor: grayColor,
+                            controller: numberController,
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: grayColor)),
+                              label: Text("number"),
+                              labelStyle:
+                                  TextStyle(fontSize: 10, color: grayColor),
+                              hintStyle:
+                                  TextStyle(color: grayColor, fontSize: 10),
+                              hintText: "Enter your Number",
+                            ),
+                          ),
+                          TextFormField(
+                            validator: emailValidator,
+                            textCapitalization: TextCapitalization.words,
+                            cursorColor: grayColor,
+                            controller: emailController,
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: blackColor)),
+                              label: Text("Email"),
+                              labelStyle:
+                                  TextStyle(fontSize: 10, color: grayColor),
+                              hintStyle:
+                                  TextStyle(color: grayColor, fontSize: 10),
+                              hintText: "Enter your Email",
+                            ),
+                          ),
+                          SizedBox(height: hp(2, context)),
+                          TextFormField(
+                            keyboardType: TextInputType.number,
+                            cursorColor: grayColor,
+                            controller: dobController,
+                            decoration: const InputDecoration(
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(color: blackColor)),
+                              label: Text("DOB"),
+                              labelStyle:
+                                  TextStyle(fontSize: 10, color: grayColor),
+                              hintStyle:
+                                  TextStyle(color: grayColor, fontSize: 10),
+                              hintText: "xx/xx/xxxx",
+                            ),
+                          ),
+                          SizedBox(height: hp(3, context)),
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: blueColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: TextButton(
+                                  onPressed: () async {
+                                    if (_formfield.currentState!.validate()) {
+                                      if (profileData.isEmpty ||
+                                          profileData.length == 0) {
+                                        addUser();
+                                        displayAddprofileToast();
+                                      } else {
+                                        updateUser();
+                                        displayUpdateprofileToast();
+                                      }
+                                    } else {
+                                      return;
+                                    }
+                                  },
+                                  child: const Text(
+                                    "Save",
+                                    style: TextStyle(color: whiteColor),
+                                  )))
+                        ]),
+                      )
+                    ])))
+            : const Custonloading());
+  }
+
+  displayAddprofileToast() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "Add Profle Data Successfully.",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  displayUpdateprofileToast() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "Update Profle Data Successfully.",
+        style: TextStyle(color: whiteColor),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
   }
 }

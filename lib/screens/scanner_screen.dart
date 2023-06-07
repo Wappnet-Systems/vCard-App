@@ -37,8 +37,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
   @override
   void initState() {
     fToast = FToast();
-    getContectUserData();
     fToast?.init(context);
+    getContectUserData();
     super.initState();
   }
 

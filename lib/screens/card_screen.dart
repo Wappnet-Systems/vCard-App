@@ -24,7 +24,6 @@ class _CardscreenState extends State<Cardscreen> {
   @override
   void initState() {
     getSingleUserData();
-    log('Rfresh');
     setState(() {});
     super.initState();
   }
