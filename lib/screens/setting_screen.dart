@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
+import 'package:vcard/screens/profile_screen.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
 import '../utils/constants.dart';
@@ -66,16 +67,24 @@ class _Setting_ScreenState extends State<Setting_Screen> {
           SizedBox(height: hp(3, context)),
           Container(
             padding: const EdgeInsets.only(left: 15, right: 15),
-            child: const Row(
-              children: [
-                Textwidget(
-                  textAlign: TextAlign.start,
-                  text: "Profile",
-                  fontSize: 18,
-                ),
-                Spacer(),
-                Icon(Icons.person)
-              ],
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileScreen()));
+              },
+              child: const Row(
+                children: [
+                  Textwidget(
+                    textAlign: TextAlign.start,
+                    text: "Profile",
+                    fontSize: 18,
+                  ),
+                  Spacer(),
+                  Icon(Icons.person)
+                ],
+              ),
             ),
           ),
           const Divider(),
