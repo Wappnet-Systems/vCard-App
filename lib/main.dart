@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
-import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
 import 'screens/dashboard_screen.dart';
-import 'utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +16,6 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]).then((value) => runApp(MyApp(islogin: islogin)));
-  runApp(MyApp(islogin: islogin));
 }
 
 class MyApp extends StatefulWidget {
@@ -50,12 +48,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'VCard',
-      theme: ThemeData(fontFamily: 'Trajan'),
+      theme: appThemeData[AppTheme.CustomTheme],
       home: Container(
-        decoration: const BoxDecoration(color: whiteColor),
+        decoration: const BoxDecoration(color: COLOR_WHITE),
         child: AnimatedSplashScreen(
           duration: 1500,
           splashTransition: SplashTransition.fadeTransition,
@@ -67,16 +72,17 @@ class _MyAppState extends State<MyApp> {
               children: [
                 Image.asset(
                   "assets/images/splash1.png",
-                  height: hp(25, context),
-                  width: wp(120, context),
+                  scale: 2.3,
                 ),
-                SizedBox(height: hp(2.5, context)),
-                const Text("V Card",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: blackColor,
-                    ))
+                const SizedBox(height: 50),
+                const Text(
+                  "V Card",
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: COLOR_PRIMARY_DARK,
+                  ),
+                ),
               ],
             ),
           ),

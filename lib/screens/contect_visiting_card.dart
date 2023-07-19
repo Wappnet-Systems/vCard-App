@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/contect_visiting_card/card_2.dart';
 import 'package:vcard/widget/contect_visiting_card/card_3.dart';
 import 'package:vcard/widget/contect_visiting_card/card_4.dart';
@@ -41,17 +42,18 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
     return Scaffold(
         appBar: Customappbarwidget(
             leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Padding(
-                  padding:
-                      EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-                  child: Icon(
-                    Icons.arrow_back_sharp,
-                    color: blackColor,
-                  ),
-                )),
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Padding(
+                padding:
+                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                child: Icon(
+                  Icons.arrow_back_sharp,
+                  color: COLOR_PRIMARY_DARK,
+                ),
+              ),
+            ),
             title: "${Staticmenbers.cardUsers[widget.contectid!].type}",
             actions: null),
         body: cardList[Staticmenbers.cardUsers[widget.contectid!].card!]);

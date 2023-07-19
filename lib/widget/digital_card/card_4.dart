@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
@@ -37,19 +38,19 @@ class _Cardtheme4State extends State<Cardtheme4> {
               height: hp(37, context),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: whiteColor,
+                color: COLOR_WHITE,
                 border: Border.all(
                     color: Staticmenbers.listofUsers[cardindex!].color != null
                         ? colorList[
                             Staticmenbers.listofUsers[cardindex!].color!]
-                        : blackColor,
+                        : COLOR_PRIMARY_DARK,
                     width: wp(0.5, context)),
                 boxShadow: [
                   BoxShadow(
                     color: Staticmenbers.listofUsers[cardindex!].color != null
                         ? colorList[
                             Staticmenbers.listofUsers[cardindex!].color!]
-                        : blackColor,
+                        : COLOR_PRIMARY_DARK,
                     blurRadius: 2.0,
                   ),
                 ],
@@ -77,7 +78,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                               text:
                                   "${Staticmenbers.listofUsers[cardindex!].compeny}",
                               fontSize: 16,
-                              selectionColor: blueColor,
+                              selectionColor: COLOR_PRIMARY_DARK,
                             )),
                           ),
                           SizedBox(
@@ -92,7 +93,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 text:
                                     "${Staticmenbers.listofUsers[cardindex!].phone}",
                                 fontSize: 11,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(
                             height: hp(3, context),
@@ -106,7 +107,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 text:
                                     "${Staticmenbers.listofUsers[cardindex!].email}",
                                 fontSize: 11,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(
                             height: hp(2.8, context),
@@ -120,15 +121,15 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 text:
                                     "${Staticmenbers.listofUsers[cardindex!].address}",
                                 fontSize: 9,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(height: hp(2, context)),
                           Center(
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: blueColor, width: 1)),
+                                  border: Border.all(
+                                      color: COLOR_PRIMARY_DARK, width: 1)),
                               child: QrImage(
                                 data:
                                     "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
@@ -169,7 +170,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                 text:
                                     "${Staticmenbers.listofUsers[cardindex!].name}",
                                 fontSize: 16,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(
                             height: hp(1, context),
@@ -183,7 +184,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                   text:
                                       "${Staticmenbers.listofUsers[cardindex!].department}",
                                   fontSize: 14,
-                                  selectionColor: blueColor)),
+                                  selectionColor: COLOR_PRIMARY_DARK)),
                           SizedBox(height: hp(4, context)),
                           Container(
                             decoration: BoxDecoration(
@@ -193,7 +194,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                           null
                                       ? colorList[Staticmenbers
                                           .listofUsers[cardindex!].color!]
-                                      : blackColor,
+                                      : COLOR_PRIMARY_DARK,
                                   width: wp(0.2, context)),
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(90),
@@ -234,7 +235,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .listofUsers[cardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -258,7 +259,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .listofUsers[cardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -284,7 +285,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .listofUsers[cardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -311,7 +312,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .listofUsers[cardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -335,7 +336,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .listofUsers[cardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -359,13 +360,13 @@ class _Cardtheme4State extends State<Cardtheme4> {
                     topRight: Radius.circular(15)),
                 color: Staticmenbers.listofUsers[cardindex!].color != null
                     ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
-                    : blackColor,
+                    : COLOR_PRIMARY_DARK,
                 boxShadow: [
                   BoxShadow(
                     color: Staticmenbers.listofUsers[cardindex!].color != null
                         ? colorList[
                             Staticmenbers.listofUsers[cardindex!].color!]
-                        : blackColor,
+                        : COLOR_PRIMARY_DARK,
                     blurRadius: 1.0,
                   ),
                 ],
@@ -385,7 +386,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                       child: Image.asset(
                         "assets/icon/call.png",
                         scale: 30,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                   ),
@@ -404,7 +405,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                             child: Image.asset(
                               "assets/icon/email.png",
                               scale: 30,
-                              color: whiteColor,
+                              color: COLOR_WHITE,
                             ),
                           ),
                         ),
@@ -426,7 +427,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                                         '${Staticmenbers.listofUsers[cardindex!].address}',
                                     textAlign: TextAlign.center,
                                     maxLines: 5,
-                                    selectionColor: grayColor,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
                                   ),
                                   onPressedNo: () {
                                     Navigator.pop(context);
@@ -439,7 +440,7 @@ class _Cardtheme4State extends State<Cardtheme4> {
                       child: Image.asset(
                         "assets/icon/pin.png",
                         scale: 30,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                   ),
@@ -464,11 +465,11 @@ class _Cardtheme4State extends State<Cardtheme4> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: whiteColor,
+        color: COLOR_WHITE,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: blueColor),
+        style: TextStyle(color: COLOR_PRIMARY_DARK),
       ),
     );
 

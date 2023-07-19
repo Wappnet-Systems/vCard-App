@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vcard/utils/responsive.dart';
-import '../utils/constants.dart';
+import 'package:vcard/utils/style.dart';
 
 class Custonloading extends StatefulWidget {
   const Custonloading({super.key});
@@ -14,7 +14,7 @@ class _CustonloadingState extends State<Custonloading> {
   Widget build(BuildContext context) {
     return Center(
       child: CircularProgressIndicator(
-        color: bluegrayColor,
+        color: COLOR_PRIMARY,
         strokeWidth: wp(1, context),
       ),
     );

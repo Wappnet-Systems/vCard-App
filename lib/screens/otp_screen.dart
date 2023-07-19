@@ -7,9 +7,10 @@ import 'package:otp_text_field/style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
-import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
-import '../widget/custom_loadingbar_widget.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
+import 'package:vcard/widget/text_button_widget.dart';
 import '../widget/custom_toast.dart';
 
 class OTPscreen extends StatefulWidget {
@@ -34,110 +35,91 @@ class _OTPscreenState extends State<OTPscreen> {
   }
 
   @override
-  void dispose() {
-    otpController.clear();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: COLOR_WHITE,
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: hp(10, context)),
-              Image.asset(
+        padding: EdgeInsets.symmetric(
+            horizontal: wp(5, context), vertical: hp(10, context)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Image.asset(
                 'assets/images/otp.png',
-                width: wp(100, context),
-                height: hp(35, context),
+                scale: 6.5,
               ),
-              SizedBox(
-                height: hp(2, context),
-              ),
-              const Text(
-                "Verification Code",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: hp(2, context),
-              ),
-              const Text(
-                "Please enter the OTP sent to your device",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: hp(3, context),
-              ),
-              OTPTextField(
-                keyboardType: TextInputType.number,
-                length: 6,
-                fieldWidth: 40,
-                controller: otpController,
-                width: MediaQuery.of(context).size.width,
-                style: const TextStyle(fontSize: 20, color: blueColor),
-                textFieldAlignment: MainAxisAlignment.spaceAround,
-                fieldStyle: FieldStyle.underline,
-                onChanged: (value) {
-                  code = value;
+            ),
+            SizedBox(
+              height: hp(2, context),
+            ),
+            Text(
+              "Verification Code",
+              style: titleTextStyle,
+            ),
+            SizedBox(
+              height: hp(2, context),
+            ),
+            Text(
+              "Please enter the OTP sent to your device",
+              style: textMediumTextStyle.copyWith(color: COLOR_PRIMARY_LIGHT),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: hp(3, context),
+            ),
+            OTPTextField(
+              keyboardType: TextInputType.number,
+              length: 6,
+              fieldWidth: 40,
+              controller: otpController,
+              width: wp(100, context),
+              style: titleTextStyle,
+              textFieldAlignment: MainAxisAlignment.spaceAround,
+              fieldStyle: FieldStyle.underline,
+              onChanged: (value) {
+                code = value;
+              },
+            ),
+            SizedBox(
+              height: hp(5, context),
+            ),
+            TextButtomWidget(
+                isLoading: isLoading,
+                onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  try {
+                    // otp verify
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: Numberverification.verify,
+                            smsCode: code);
+                    setState(() {
+                      isLoading = true;
+                    });
+                    //check for user login or not
+                    await auth
+                        .signInWithCredential(credential)
+                        .then((value) async {
+                      await prefs.setBool('isLoggedIn', true);
+                      Future.delayed(const Duration(seconds: 1), () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const Dashboardscreen(index: 0)));
+                        displayCustomToast();
+                      });
+                      otpController.clear();
+                    });
+                  } catch (e) {
+                    log("Error:$e");
+                  }
                 },
-              ),
-              SizedBox(
-                height: hp(4, context),
-              ),
-              SizedBox(
-                width: double.infinity,
-                height: hp(7, context),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: blueColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () async {
-                      SharedPreferences prefs =
-                          await SharedPreferences.getInstance();
-                      try {
-                        // otp verify
-                        PhoneAuthCredential credential =
-                            PhoneAuthProvider.credential(
-                                verificationId: Numberverification.verify,
-                                smsCode: code);
-                        setState(() {
-                          isLoading = true;
-                        });
-                        //check for user login or not
-                        await auth
-                            .signInWithCredential(credential)
-                            .then((value) async {
-                          await prefs.setBool('isLoggedIn', true);
-                          Future.delayed(const Duration(seconds: 1), () {
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Dashboardscreen(index: 0)));
-                            displayCustomToast();
-                          });
-                        });
-                      } catch (e) {
-                        log("Error:$e");
-                      }
-                    },
-                    child: isLoading
-                        ? const Custonloading()
-                        : const Text(
-                            "Verify Phone Number",
-                            style: TextStyle(color: whiteColor),
-                          )),
-              ),
-            ],
-          ),
+                title: "Verify Phone Number",
+                color: COLOR_PRIMARY_DARK),
+          ],
         ),
       ),
     );
@@ -147,7 +129,7 @@ class _OTPscreenState extends State<OTPscreen> {
     Widget toast = const CustomToast(
       child: Text(
         "Login Successfully",
-        style: TextStyle(color: whiteColor),
+        style: TextStyle(color: COLOR_WHITE),
       ),
     );
     fToast?.showToast(

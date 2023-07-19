@@ -4,6 +4,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
 import '../custom_alartdialog.dart';
 import '../text_widget.dart';
 
@@ -34,12 +35,12 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
         width: wp(100, context),
         height: hp(70, context),
         decoration: BoxDecoration(
-          border: Border.all(color: whiteColor, width: wp(0.5, context)),
+          border: Border.all(color: COLOR_WHITE, width: wp(0.5, context)),
           borderRadius: const BorderRadius.only(
               bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
           color: Staticmenbers.cardUsers[contactcardindex!].color != null
               ? colorList[Staticmenbers.cardUsers[contactcardindex!].color!]
-              : blueColor,
+              : COLOR_PRIMARY_DARK,
           boxShadow: const [
             BoxShadow(
               color: Colors.black,
@@ -51,7 +52,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
           SizedBox(height: hp(2, context)),
           Container(
             decoration: BoxDecoration(
-              border: Border.all(color: whiteColor, width: wp(0.2, context)),
+              border: Border.all(color: COLOR_WHITE, width: wp(0.2, context)),
               borderRadius: const BorderRadius.all(
                 Radius.circular(90),
               ),
@@ -73,7 +74,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "${Staticmenbers.cardUsers[contactcardindex!].name}",
-                selectionColor: whiteColor,
+                selectionColor: COLOR_WHITE,
                 fontSize: 20,
               ),
               SizedBox(
@@ -85,7 +86,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 width: wp(60, context),
                 text:
                     "${Staticmenbers.cardUsers[contactcardindex!].department}",
-                selectionColor: whiteColor,
+                selectionColor: COLOR_WHITE,
                 fontSize: 14,
               ),
               SizedBox(
@@ -96,7 +97,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 textAlign: TextAlign.center,
                 width: wp(60, context),
                 text: "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
-                selectionColor: whiteColor,
+                selectionColor: COLOR_WHITE,
                 fontSize: 14,
               ),
               SizedBox(
@@ -114,7 +115,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       child: Image.asset(
                         "assets/icon/call.png",
                         scale: 22,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                     SizedBox(
@@ -126,7 +127,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       width: wp(60, context),
                       text:
                           "${Staticmenbers.cardUsers[contactcardindex!].phone}",
-                      selectionColor: whiteColor,
+                      selectionColor: COLOR_WHITE,
                       fontSize: 14,
                     ),
                   ],
@@ -147,7 +148,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       child: Image.asset(
                         "assets/icon/email.png",
                         scale: 22,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                     SizedBox(
@@ -159,7 +160,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       width: wp(60, context),
                       text:
                           "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                      selectionColor: whiteColor,
+                      selectionColor: COLOR_WHITE,
                       fontSize: 14,
                     ),
                   ],
@@ -185,7 +186,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                                         '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                     textAlign: TextAlign.center,
                                     maxLines: 5,
-                                    selectionColor: grayColor,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
                                   ),
                                   onPressedNo: () {
                                     Navigator.pop(context);
@@ -198,7 +199,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       child: Image.asset(
                         "assets/icon/pin.png",
                         scale: 20,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                     SizedBox(
@@ -210,7 +211,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                       width: wp(60, context),
                       text:
                           "${Staticmenbers.cardUsers[contactcardindex!].address}",
-                      selectionColor: whiteColor,
+                      selectionColor: COLOR_WHITE,
                       fontSize: 11,
                     ),
                   ],
@@ -221,10 +222,11 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: whiteColor, width: 1)),
+                      border: Border.all(color: COLOR_WHITE, width: 1)),
                   child: QrImage(
-                    dataModuleStyle: const QrDataModuleStyle(color: whiteColor),
-                    eyeStyle: const QrEyeStyle(color: whiteColor),
+                    dataModuleStyle:
+                        const QrDataModuleStyle(color: COLOR_WHITE),
+                    eyeStyle: const QrEyeStyle(color: COLOR_WHITE),
                     data:
                         "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
                     size: 60,
@@ -252,7 +254,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               child: Image.asset(
                                 "assets/icon/whats.png",
                                 scale: 20,
-                                color: whiteColor,
+                                color: COLOR_WHITE,
                               ),
                             ),
                           ),
@@ -268,7 +270,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               child: Image.asset(
                                 "assets/icon/Face.png",
                                 scale: 20,
-                                color: whiteColor,
+                                color: COLOR_WHITE,
                               ),
                             ),
                           ),
@@ -284,7 +286,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               child: Image.asset(
                                 "assets/icon/tele.png",
                                 scale: 20,
-                                color: whiteColor,
+                                color: COLOR_WHITE,
                               ),
                             ),
                           ),
@@ -302,7 +304,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               child: Image.asset(
                                 "assets/icon/lin.png",
                                 scale: 20,
-                                color: whiteColor,
+                                color: COLOR_WHITE,
                               ),
                             ),
                           ),
@@ -320,7 +322,7 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
                               child: Image.asset(
                                 "assets/icon/website.png",
                                 scale: 20,
-                                color: whiteColor,
+                                color: COLOR_WHITE,
                               ),
                             ),
                           ),
@@ -344,11 +346,11 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: whiteColor,
+        color: COLOR_WHITE,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: blueColor),
+        style: TextStyle(color: COLOR_PRIMARY_DARK),
       ),
     );
 

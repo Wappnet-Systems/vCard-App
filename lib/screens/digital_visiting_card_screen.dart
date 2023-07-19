@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/digital_card/card_1.dart';
 import 'package:vcard/widget/digital_card/card_4.dart';
 import 'package:vcard/widget/digital_card/defult_card.dart';
@@ -72,7 +73,7 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.ios_share_rounded,
-                    color: blackColor,
+                    color: COLOR_PRIMARY_DARK,
                   ),
                 )),
           ],
@@ -85,10 +86,10 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                     EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
                 child: Icon(
                   Icons.arrow_back_sharp,
-                  color: blackColor,
+                  color: COLOR_PRIMARY_DARK,
                 ),
               ))),
-      backgroundColor: whiteColor,
+      backgroundColor: COLOR_WHITE,
       body: RepaintBoundary(
           key: _containerKey,
           child: cardList[Staticmenbers.listofUsers[widget.id!].card!]),

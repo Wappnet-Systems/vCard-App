@@ -166,7 +166,7 @@ Win32Window::MessageHandler(HWND hwnd,
     case WM_DPICHANGED: {
       auto newRectSize = reinterpret_cast<RECT*>(lparam);
       LONG newWidth = newRectSize->right - newRectSize->left;
-      LONG newHeight = newRectSize->bottomColor - newRectSize->top;
+      LONG newHeight = newRectSize->COLOR_PRIMARY - newRectSize->top;
 
       SetWindowPos(hwnd, nullptr, newRectSize->left, newRectSize->top, newWidth,
                    newHeight, SWP_NOZORDER | SWP_NOACTIVATE);
@@ -178,7 +178,7 @@ Win32Window::MessageHandler(HWND hwnd,
       if (child_content_ != nullptr) {
         // Size and position the child window.
         MoveWindow(child_content_, rect.left, rect.top, rect.right - rect.left,
-                   rect.bottomColor - rect.top, TRUE);
+                   rect.COLOR_PRIMARY - rect.top, TRUE);
       }
       return 0;
     }
@@ -216,7 +216,7 @@ void Win32Window::SetChildContent(HWND content) {
   RECT frame = GetClientArea();
 
   MoveWindow(content, frame.left, frame.top, frame.right - frame.left,
-             frame.bottomColor - frame.top, true);
+             frame.COLOR_PRIMARY - frame.top, true);
 
   SetFocus(child_content_);
 }

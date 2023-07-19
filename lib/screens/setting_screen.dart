@@ -10,8 +10,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcard/screens/login_screen.dart';
 import 'package:vcard/screens/profile_screen.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
-import '../utils/constants.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../widget/text_widget.dart';
 import 'app_shere_screen.dart';
 
@@ -62,209 +64,204 @@ class _Setting_ScreenState extends State<Setting_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        elevation: 0.3,
-        title: const Text("Settings", style: TextStyle(color: blackColor)),
-        backgroundColor: whiteColor,
+      backgroundColor: COLOR_WHITE,
+      appBar: const Customappbarwidget(
+        title: "Settings",
+        centerTitle: false,
+        leadingWidth: 0.0,
+        leading: SizedBox.shrink(),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: ListView(
+        padding: EdgeInsets.symmetric(
+          vertical: hp(1, context),
+          horizontal: wp(4, context),
+        ),
         children: [
-          SizedBox(height: hp(3, context)),
-          Container(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            color: whiteColor,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProfileScreen()));
-                  },
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Textwidget(
-                          textAlign: TextAlign.start,
-                          text: "Profile",
-                          fontSize: 18,
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.person)
-                    ],
-                  ),
+          RowWidget(
+            title: "Profile",
+            icon: const Icon(
+              Icons.person,
+              color: COLOR_PRIMARY_DARK,
+              size: 25,
+            ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
                 ),
-                const Divider(),
-                // App permissiom
-                InkWell(
-                  onTap: () async {
-                    AppSettings.openAppSettings();
-                  },
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Textwidget(
-                          textAlign: TextAlign.start,
-                          text: "Permissions",
-                          fontSize: 18,
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.chevron_right_sharp)
-                    ],
-                  ),
-                ),
-                const Divider(),
-                //App Share Button
-                InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.vertical(top: Radius.circular(25.0)),
-                        ),
-                        builder: (BuildContext context) => const GenerateQR());
-                  },
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Textwidget(
-                          textAlign: TextAlign.start,
-                          text: "App Share",
-                          fontSize: 18,
-                        ),
-                      ),
-                      Spacer(),
-                      Padding(
-                        padding: EdgeInsets.only(right: 8.0),
-                        child: Icon(Icons.share),
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(),
-                // App version Display
-                const Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 8, bottom: 8),
-                      child: Textwidget(
-                        textAlign: TextAlign.start,
-                        text: "Version",
-                        fontSize: 18,
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: Text('1.0.0'),
-                    ),
-                  ],
-                ),
-                const Divider(),
-                // log out button
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (ctx) => CustomAlartDialog(
-                            title: const Textwidget(
-                                textAlign: TextAlign.center, text: "Log Out"),
-                            content: const Textwidget(
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              text: "Are you sure you want to logout?",
-                              selectionColor: grayColor,
-                            ),
-                            onPressedNo: () {
-                              Navigator.pop(context);
-                            },
-                            onPressedYes: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              prefs.remove('isLoggedIn');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Numberverification()));
-                            }));
-                  },
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Text(
-                          "Log out",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.chevron_right_sharp)
-                    ],
-                  ),
-                ),
-                const Divider(),
-                //Account Delete
-                InkWell(
-                  onTap: () {
-                    showDialog(
-                        context: context,
-                        builder: (ctx) => CustomAlartDialog(
-                            title: const Textwidget(
-                                textAlign: TextAlign.center,
-                                text: "Delete Account"),
-                            content: const Textwidget(
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              text: "Are you sure you want to Delete Account?",
-                              selectionColor: grayColor,
-                            ),
-                            onPressedNo: () {
-                              Navigator.pop(context);
-                            },
-                            onPressedYes: () async {
-                              SharedPreferences prefs =
-                                  await SharedPreferences.getInstance();
-                              _delete_user();
-                              prefs.remove('isLoggedIn');
-                              _delete_user();
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const Numberverification()));
-                            }));
-                  },
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 8, bottom: 8),
-                        child: Text(
-                          "Delete Account",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ),
-                      Spacer(),
-                      Icon(Icons.chevron_right_sharp)
-                    ],
-                  ),
-                ),
-                const Divider(),
-              ],
+              );
+            },
+          ),
+          Divider(
+            thickness: 1,
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.2),
+          ),
+          RowWidget(
+            title: "Permissions",
+            onTap: () {
+              AppSettings.openAppSettings();
+            },
+            icon: const Icon(
+              Icons.chevron_right_sharp,
+              size: 25,
+              color: COLOR_PRIMARY_DARK,
             ),
           ),
+          Divider(
+            thickness: 1,
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.2),
+          ),
+          RowWidget(
+            title: "App Share",
+            icon: const Icon(
+              Icons.share,
+              color: COLOR_PRIMARY_DARK,
+              size: 25,
+            ),
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(25.0)),
+                ),
+                builder: (BuildContext context) => const GenerateQR(),
+              );
+            },
+          ),
+          Divider(
+            thickness: 1,
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.2),
+          ),
+          RowWidget(
+            title: "Version",
+            icon: Text(
+              '1.0.0',
+              style: textMediumTextStyle,
+            ),
+          ),
+          Divider(
+            thickness: 1,
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.2),
+          ),
+          RowWidget(
+            title: "Log Out",
+            icon: const Icon(
+              Icons.chevron_right_sharp,
+              size: 25,
+              color: COLOR_PRIMARY_DARK,
+            ),
+            onTap: () {
+              CustomAlartDialog(
+                title: const Textwidget(
+                    textAlign: TextAlign.center, text: "Log Out"),
+                content: const Textwidget(
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  text: "Are you sure you want to logout?",
+                  selectionColor: COLOR_PRIMARY_LIGHT,
+                ),
+                onPressedNo: () {
+                  Navigator.pop(context);
+                },
+                onPressedYes: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('isLoggedIn');
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Numberverification()));
+                },
+              );
+            },
+          ),
+          Divider(
+            thickness: 1,
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.2),
+          ),
+          RowWidget(
+            title: "Delete Account",
+            icon: const Icon(
+              Icons.chevron_right_sharp,
+              size: 25,
+              color: COLOR_PRIMARY_DARK,
+            ),
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (ctx) => CustomAlartDialog(
+                  title: Text(
+                    "Delete Account",
+                    textAlign: TextAlign.center,
+                    style: smalltitleTextStyle.copyWith(
+                        fontWeight: FontWeight.w600),
+                  ),
+                  content: Text(
+                    "Are you sure you want to Delete Account?",
+                    selectionColor: COLOR_PRIMARY_LIGHT,
+                    textAlign: TextAlign.center,
+                    style: textMediumTextStyle.copyWith(
+                        color: COLOR_PRIMARY_LIGHT),
+                  ),
+                  onPressedNo: () {
+                    Navigator.pop(context);
+                  },
+                  onPressedYes: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    _delete_user();
+                    prefs.remove('isLoggedIn');
+                    _delete_user();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Numberverification()));
+                  },
+                ),
+              );
+            },
+          ),
+          Divider(
+            thickness: 1,
+            color: COLOR_PRIMARY_LIGHT.withOpacity(0.2),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class RowWidget extends StatelessWidget {
+  final void Function()? onTap;
+  final Widget? icon;
+  final String? title;
+  const RowWidget({
+    super.key,
+    this.title,
+    this.onTap,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          vertical: hp(1, context),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "$title",
+              style: smalltitleTextStyle,
+            ),
+            icon ?? const SizedBox.shrink()
+          ],
+        ),
       ),
     );
   }

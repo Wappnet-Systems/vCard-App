@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:vcard/utils/constants.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/responsive.dart';
 
@@ -26,11 +26,11 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
         padding: const EdgeInsets.only(left: 30, right: 30, top: 5, bottom: 10),
         child: Card(
           shape: RoundedRectangleBorder(
-            side: BorderSide(color: goldColor, width: wp(0.5, context)),
+            side: BorderSide(color: COLOR_YELLOW, width: wp(0.5, context)),
             borderRadius: BorderRadius.circular(20.0),
           ),
           elevation: 30,
-          color: blackColor,
+          color: COLOR_PRIMARY_DARK,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             SizedBox(height: hp(0.5, context)),
@@ -40,7 +40,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
               width: wp(60, context),
               text: 'Company Name',
               fontSize: 16,
-              selectionColor: goldColor,
+              selectionColor: COLOR_YELLOW,
             ),
             SizedBox(height: hp(0.5, context)),
             Center(
@@ -51,10 +51,11 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                     topLeft: Radius.circular(19),
                     bottomLeft: Radius.circular(19),
                     bottomRight: Radius.circular(19)),
-                border: Border.all(color: goldColor, width: wp(0.1, context)),
+                border:
+                    Border.all(color: COLOR_YELLOW, width: wp(0.1, context)),
                 boxShadow: const [
                   BoxShadow(
-                    color: goldColor,
+                    color: COLOR_YELLOW,
                     blurRadius: 5.0,
                   ),
                 ],
@@ -79,7 +80,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
               width: wp(40, context),
               text: 'Your Name',
               fontSize: 20,
-              selectionColor: goldColor,
+              selectionColor: COLOR_YELLOW,
             )),
             SizedBox(height: hp(0.5, context)),
             Center(
@@ -89,14 +90,14 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                 width: wp(60, context),
                 text: 'Profession',
                 fontSize: 16,
-                selectionColor: goldColor,
+                selectionColor: COLOR_YELLOW,
               ),
             ),
             SizedBox(height: hp(0.5, context)),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Divider(
-                color: goldColor,
+                color: COLOR_YELLOW,
                 thickness: 2,
                 height: 1,
               ),
@@ -108,7 +109,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                   child: Image.asset(
                     "assets/icon/call.png",
                     scale: 24,
-                    color: goldColor,
+                    color: COLOR_YELLOW,
                   ),
                 ),
                 Padding(
@@ -119,7 +120,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                       width: wp(40, context),
                       text: "xxxxx xxxxx",
                       fontSize: 16,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ),
               ]),
               SizedBox(height: hp(1.5, context)),
@@ -129,7 +130,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                   child: Image.asset(
                     "assets/icon/email.png",
                     scale: 24,
-                    color: goldColor,
+                    color: COLOR_YELLOW,
                   ),
                 ),
                 Padding(
@@ -140,7 +141,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                       width: wp(40, context),
                       text: "xyz12@gmail.com",
                       fontSize: 16,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ),
               ]),
               SizedBox(height: hp(1.5, context)),
@@ -150,7 +151,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                   child: Image.asset(
                     "assets/icon/pin.png",
                     scale: 24,
-                    color: goldColor,
+                    color: COLOR_YELLOW,
                   ),
                 ),
                 Padding(
@@ -161,7 +162,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                       width: wp(30, context),
                       text: "Your Address",
                       fontSize: 14,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ),
               ]),
             ]),
@@ -170,10 +171,10 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
               child: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: goldColor, width: 1)),
+                    border: Border.all(color: COLOR_YELLOW, width: 1)),
                 child: QrImage(
-                  dataModuleStyle: const QrDataModuleStyle(color: goldColor),
-                  eyeStyle: const QrEyeStyle(color: goldColor),
+                  dataModuleStyle: const QrDataModuleStyle(color: COLOR_YELLOW),
+                  eyeStyle: const QrEyeStyle(color: COLOR_YELLOW),
                   data: "",
                   size: 40,
                 ),
@@ -186,7 +187,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                 child: Image.asset(
                   "assets/icon/whats.png",
                   scale: 22,
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                 ),
               ),
               Padding(
@@ -194,7 +195,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                 child: Image.asset(
                   "assets/icon/Face.png",
                   scale: 22,
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                 ),
               ),
               Padding(
@@ -202,7 +203,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                 child: Image.asset(
                   "assets/icon/tele.png",
                   scale: 22,
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                 ),
               ),
               Padding(
@@ -210,7 +211,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                 child: Image.asset(
                   "assets/icon/website.png",
                   scale: 22,
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                 ),
               ),
               Padding(
@@ -218,7 +219,7 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
                 child: Image.asset(
                   "assets/icon/lin.png",
                   scale: 22,
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                 ),
               )
             ]),

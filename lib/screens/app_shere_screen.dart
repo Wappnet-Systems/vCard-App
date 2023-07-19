@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 
 class GenerateQR extends StatefulWidget {
   const GenerateQR({super.key});
@@ -28,16 +29,15 @@ class _GenerateQRState extends State<GenerateQR> {
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
           ),
-          color: whiteColor,
+          color: COLOR_WHITE,
         ),
         height: hp(50, context),
         child: Column(
           children: [
             SizedBox(height: hp(2, context)),
-            const Text(
+            Text(
               "Share vCard",
-              style: TextStyle(
-                  fontSize: 20, fontWeight: FontWeight.bold, color: blueColor),
+              style: titleTextStyle,
             ),
             SizedBox(height: hp(2, context)),
             //App Share QR Code
@@ -46,7 +46,7 @@ class _GenerateQRState extends State<GenerateQR> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(
-                    color: blueColor,
+                    color: COLOR_PRIMARY_DARK,
                     width: wp(1, context),
                   ),
                 ),
@@ -55,7 +55,7 @@ class _GenerateQRState extends State<GenerateQR> {
                   child: QrImage(
                     data: qrData,
                     size: 150,
-                    backgroundColor: whiteColor,
+                    backgroundColor: COLOR_WHITE,
                   ),
                 ),
               ),
@@ -64,7 +64,7 @@ class _GenerateQRState extends State<GenerateQR> {
             //App share Button
             ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: blueColor,
+                  backgroundColor: COLOR_PRIMARY_DARK,
                 ),
                 onPressed: _shareContent,
                 icon: const Icon(Icons.ios_share_outlined),

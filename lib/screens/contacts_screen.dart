@@ -1,7 +1,11 @@
 import 'dart:developer';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants.dart';
@@ -19,6 +23,7 @@ class ContactsScreen extends StatefulWidget {
 class _ContactsScreenState extends State<ContactsScreen> {
   int? cardindex;
   bool value = false;
+  bool isLoading = false;
   List<Users> userData = [];
   @override
   void initState() {
@@ -35,6 +40,9 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   // Contect person card data get
   Future<void> getContectUserData() async {
+    setState(() {
+      isLoading = true;
+    });
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -64,141 +72,40 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
     setState(() {
       value = true;
+      isLoading = false;
       Staticmenbers.cardUsers = contectData;
       log('message:$value');
     });
   }
 
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: whiteColor,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          elevation: 0.3,
-          title: const Text("Contacts", style: TextStyle(color: blackColor)),
-          backgroundColor: whiteColor,
-        ),
-        // save card
-        body: Staticmenbers.cardUsers.isNotEmpty
-            ? ListView.builder(
-                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                itemCount: Staticmenbers.cardUsers.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return InkWell(
-                    child: Container(
-                        height: hp(11, context),
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0xffc1c4be),
-                                blurRadius: 10.0,
-                              ),
-                            ],
-                            color: whiteColor),
-                        margin: const EdgeInsets.only(
-                            left: 8, right: 8, top: 5, bottom: 5),
-                        child: ListTile(
-                          leading: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            child: Image.network(
-                              "${Staticmenbers.cardUsers[index].image}",
-                              width: wp(16, context),
-                              height: hp(8, context),
-                              fit: BoxFit.contain,
-                              frameBuilder: (context, child, frame,
-                                  wasSynchronouslyLoaded) {
-                                return child;
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                return Image(
-                                  image: const AssetImage(
-                                      "assets/images/splash1.png"),
-                                  width: wp(16, context),
-                                  height: hp(8, context),
-                                  fit: BoxFit.contain,
-                                );
-                              },
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                } else {
-                                  return const Center(
-                                      child: Icon(
-                                    Icons.image,
-                                    size: 50,
-                                    color: whiteColor,
-                                  ));
-                                }
-                              },
-                            ),
-                          ),
-                          title: Row(children: [
-                            Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Staticmenbers.cardUsers[index].name == ""
-                                      ? const SizedBox.shrink()
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 9, left: 5),
-                                          child: Textwidget(
-                                            maxLines: 1,
-                                            textAlign: TextAlign.start,
-                                            width: wp(40, context),
-                                            text:
-                                                '${Staticmenbers.cardUsers[index].name}',
-                                            fontSize: 20,
-                                            selectionColor: blackColor,
-                                          )),
-                                  Staticmenbers.cardUsers[index].type == ""
-                                      ? const SizedBox.shrink()
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 5, left: 5),
-                                          child: Textwidget(
-                                            maxLines: 1,
-                                            textAlign: TextAlign.start,
-                                            width: wp(40, context),
-                                            text:
-                                                '${Staticmenbers.cardUsers[index].type}',
-                                            fontSize: 14,
-                                            selectionColor: grayColor,
-                                          )),
-                                  Staticmenbers.cardUsers[index].department ==
-                                          ""
-                                      ? const SizedBox.shrink()
-                                      : Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 5, left: 5),
-                                          child: Textwidget(
-                                            maxLines: 1,
-                                            textAlign: TextAlign.start,
-                                            width: wp(40, context),
-                                            text:
-                                                '${Staticmenbers.cardUsers[index].department}',
-                                            fontSize: 14,
-                                            selectionColor: grayColor,
-                                          )),
-                                ]),
-                            const Spacer(),
-                            const Padding(
-                              padding: EdgeInsets.only(right: 15),
-                              child: Icon(Icons.more_horiz),
-                            ),
-                          ]),
-                        )),
-                    onTap: () async {
-                      setState(() {
-                        cardindex = index;
-                      });
-                      showModalBottomSheet(
-                          backgroundColor: whiteColor,
+      backgroundColor: COLOR_WHITE,
+      appBar: const Customappbarwidget(
+        title: "Contacts",
+        centerTitle: false,
+        leadingWidth: 0.0,
+        leading: SizedBox.shrink(),
+      ),
+      // save card
+      body: isLoading == true
+          ? const Center(
+              child: SpinKitCircle(color: COLOR_PRIMARY),
+            )
+          : Staticmenbers.cardUsers.isNotEmpty
+              ? ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                      vertical: hp(1, context), horizontal: wp(4, context)),
+                  itemCount: Staticmenbers.cardUsers.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () async {
+                        setState(() {
+                          cardindex = index;
+                        });
+                        showModalBottomSheet(
+                          backgroundColor: COLOR_WHITE,
                           elevation: 0.0,
                           context: context,
                           shape: const RoundedRectangleBorder(
@@ -206,18 +113,125 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 top: Radius.circular(25.0)),
                           ),
                           builder: (BuildContext context) => Menuscreen(
-                                contectid: cardindex,
-                              ));
-                    },
-                  );
-                })
-            // no deta screen
-            : SizedBox(
-                height: hp(100, context),
-                width: wp(100, context),
-                child: const CustomNoData(
+                            contectid: cardindex,
+                          ),
+                        );
+                      },
+                      child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: wp(4, context),
+                            vertical: hp(2, context),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            vertical: hp(1, context),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(16),
+                            ),
+                            color: COLOR_WHITE,
+                            boxShadow: [
+                              BoxShadow(
+                                color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                                blurRadius: 1.0,
+                                offset: const Offset(1, -1),
+                              ),
+                              BoxShadow(
+                                color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                                blurRadius: 1.0,
+                                offset: const Offset(-1, 1),
+                              ),
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                child: CachedNetworkImage(
+                                  placeholder: (context, url) => Container(
+                                    color: COLOR_PRIMARY,
+                                    child: const Icon(
+                                      Icons.image,
+                                      size: 40,
+                                      color: COLOR_WHITE,
+                                    ),
+                                  ),
+                                  imageUrl:
+                                      "${Staticmenbers.cardUsers[index].image}",
+                                  width: wp(16, context),
+                                  height: hp(8, context),
+                                  fit: BoxFit.fill,
+                                  errorWidget: (context, url, error) {
+                                    return Container(
+                                      color: COLOR_PRIMARY,
+                                      child: const Icon(
+                                        Icons.image,
+                                        size: 40,
+                                        color: COLOR_WHITE,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                width: wp(4, context),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    width: wp(50, context),
+                                    text: Staticmenbers.cardUsers[index].name ??
+                                        "",
+                                    fontSize: 20,
+                                    selectionColor: COLOR_PRIMARY_DARK,
+                                  ),
+                                  SizedBox(
+                                    height: hp(0.5, context),
+                                  ),
+                                  Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    width: wp(50, context),
+                                    text: Staticmenbers.cardUsers[index].type ??
+                                        "",
+                                    fontSize: 14,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
+                                  ),
+                                  SizedBox(
+                                    height: hp(0.5, context),
+                                  ),
+                                  Textwidget(
+                                    maxLines: 1,
+                                    textAlign: TextAlign.start,
+                                    width: wp(50, context),
+                                    text: Staticmenbers
+                                            .cardUsers[index].department ??
+                                        "",
+                                    fontSize: 14,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              const Icon(
+                                Icons.more_horiz,
+                                size: 30,
+                                color: COLOR_PRIMARY_DARK,
+                              ),
+                            ],
+                          )),
+                    );
+                  })
+              // no deta screen
+              : const CustomNoData(
                   iconaddress: card,
                 ),
-              ));
+    );
   }
 }

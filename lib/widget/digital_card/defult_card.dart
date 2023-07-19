@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/responsive.dart';
 import '../custom_alartdialog.dart';
@@ -36,11 +37,11 @@ class _DefultCardState extends State<DefultCard> {
         child: Column(children: [
           Card(
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: goldColor, width: wp(0.5, context)),
+              side: BorderSide(color: COLOR_YELLOW, width: wp(0.5, context)),
               borderRadius: BorderRadius.circular(20.0),
             ),
             elevation: 30,
-            color: blackColor,
+            color: COLOR_PRIMARY_DARK,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
@@ -51,18 +52,18 @@ class _DefultCardState extends State<DefultCard> {
                     width: wp(60, context),
                     text: '${Staticmenbers.listofUsers[cardindex!].compeny}',
                     fontSize: 18,
-                    selectionColor: goldColor,
+                    selectionColor: COLOR_YELLOW,
                   )),
               Center(
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius:
                         const BorderRadius.only(topRight: Radius.circular(50)),
-                    border:
-                        Border.all(color: goldColor, width: wp(0.1, context)),
+                    border: Border.all(
+                        color: COLOR_YELLOW, width: wp(0.1, context)),
                     boxShadow: const [
                       BoxShadow(
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                         blurRadius: 5.0,
                       ),
                     ],
@@ -87,7 +88,7 @@ class _DefultCardState extends State<DefultCard> {
                 width: wp(40, context),
                 text: '${Staticmenbers.listofUsers[cardindex!].name}',
                 fontSize: 20,
-                selectionColor: goldColor,
+                selectionColor: COLOR_YELLOW,
               )),
               SizedBox(height: hp(0.5, context)),
               Center(
@@ -97,14 +98,14 @@ class _DefultCardState extends State<DefultCard> {
                   width: wp(60, context),
                   text: '${Staticmenbers.listofUsers[cardindex!].department}',
                   fontSize: 16,
-                  selectionColor: goldColor,
+                  selectionColor: COLOR_YELLOW,
                 ),
               ),
               SizedBox(height: hp(0.5, context)),
               const Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Divider(
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                   thickness: 2,
                   height: 1,
                 ),
@@ -121,7 +122,7 @@ class _DefultCardState extends State<DefultCard> {
                       child: Image.asset(
                         "assets/icon/call.png",
                         scale: 24,
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                       ),
                     ),
                   ),
@@ -132,7 +133,7 @@ class _DefultCardState extends State<DefultCard> {
                       width: wp(40, context),
                       text: "${Staticmenbers.listofUsers[cardindex!].phone}",
                       fontSize: 14,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ]),
                 SizedBox(height: hp(2, context)),
                 Row(children: [
@@ -146,7 +147,7 @@ class _DefultCardState extends State<DefultCard> {
                       child: Image.asset(
                         "assets/icon/email.png",
                         scale: 24,
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                       ),
                     ),
                   ),
@@ -157,7 +158,7 @@ class _DefultCardState extends State<DefultCard> {
                       width: wp(60, context),
                       text: "${Staticmenbers.listofUsers[cardindex!].email}",
                       fontSize: 14,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ]),
                 SizedBox(height: hp(2, context)),
                 Row(children: [
@@ -176,7 +177,7 @@ class _DefultCardState extends State<DefultCard> {
                                         '${Staticmenbers.listofUsers[cardindex!].address}',
                                     textAlign: TextAlign.center,
                                     maxLines: 5,
-                                    selectionColor: grayColor,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
                                   ),
                                   onPressedNo: () {
                                     Navigator.pop(context);
@@ -189,7 +190,7 @@ class _DefultCardState extends State<DefultCard> {
                       child: Image.asset(
                         "assets/icon/pin.png",
                         scale: 24,
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                       ),
                     ),
                   ),
@@ -200,7 +201,7 @@ class _DefultCardState extends State<DefultCard> {
                       width: wp(60, context),
                       text: "${Staticmenbers.listofUsers[cardindex!].address}",
                       fontSize: 12,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ]),
               ]),
               SizedBox(height: hp(1, context)),
@@ -208,10 +209,11 @@ class _DefultCardState extends State<DefultCard> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: goldColor, width: 1)),
+                      border: Border.all(color: COLOR_YELLOW, width: 1)),
                   child: QrImage(
-                    dataModuleStyle: const QrDataModuleStyle(color: goldColor),
-                    eyeStyle: const QrEyeStyle(color: goldColor),
+                    dataModuleStyle:
+                        const QrDataModuleStyle(color: COLOR_YELLOW),
+                    eyeStyle: const QrEyeStyle(color: COLOR_YELLOW),
                     data:
                         "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
                     size: 60,
@@ -234,7 +236,7 @@ class _DefultCardState extends State<DefultCard> {
                           child: Image.asset(
                             "assets/icon/whats.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -250,7 +252,7 @@ class _DefultCardState extends State<DefultCard> {
                           child: Image.asset(
                             "assets/icon/Face.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -266,7 +268,7 @@ class _DefultCardState extends State<DefultCard> {
                           child: Image.asset(
                             "assets/icon/tele.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -284,7 +286,7 @@ class _DefultCardState extends State<DefultCard> {
                           child: Image.asset(
                             "assets/icon/website.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -302,7 +304,7 @@ class _DefultCardState extends State<DefultCard> {
                           child: Image.asset(
                             "assets/icon/lin.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       )
@@ -327,11 +329,11 @@ class _DefultCardState extends State<DefultCard> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: whiteColor,
+        color: COLOR_WHITE,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: blueColor),
+        style: TextStyle(color: COLOR_PRIMARY_DARK),
       ),
     );
 

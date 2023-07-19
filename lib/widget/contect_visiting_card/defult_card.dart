@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants.dart';
+import 'package:vcard/utils/style.dart';
 import '../../utils/responsive.dart';
 import '../custom_alartdialog.dart';
 import '../text_widget.dart';
@@ -34,11 +35,11 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
         child: Column(children: [
           Card(
             shape: RoundedRectangleBorder(
-              side: BorderSide(color: goldColor, width: wp(0.5, context)),
+              side: BorderSide(color: COLOR_YELLOW, width: wp(0.5, context)),
               borderRadius: BorderRadius.circular(20.0),
             ),
             elevation: 30,
-            color: blackColor,
+            color: COLOR_PRIMARY_DARK,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Container(
@@ -50,18 +51,18 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                     text:
                         '${Staticmenbers.cardUsers[contactcardindex!].compeny}',
                     fontSize: 18,
-                    selectionColor: goldColor,
+                    selectionColor: COLOR_YELLOW,
                   )),
               Center(
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius:
                         const BorderRadius.only(topRight: Radius.circular(50)),
-                    border:
-                        Border.all(color: goldColor, width: wp(0.1, context)),
+                    border: Border.all(
+                        color: COLOR_YELLOW, width: wp(0.1, context)),
                     boxShadow: const [
                       BoxShadow(
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                         blurRadius: 5.0,
                       ),
                     ],
@@ -86,7 +87,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                 width: wp(40, context),
                 text: '${Staticmenbers.cardUsers[contactcardindex!].name}',
                 fontSize: 20,
-                selectionColor: goldColor,
+                selectionColor: COLOR_YELLOW,
               )),
               SizedBox(height: hp(0.5, context)),
               Center(
@@ -97,14 +98,14 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                   text:
                       '${Staticmenbers.cardUsers[contactcardindex!].department}',
                   fontSize: 16,
-                  selectionColor: goldColor,
+                  selectionColor: COLOR_YELLOW,
                 ),
               ),
               SizedBox(height: hp(0.5, context)),
               const Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Divider(
-                  color: goldColor,
+                  color: COLOR_YELLOW,
                   thickness: 2,
                   height: 1,
                 ),
@@ -121,7 +122,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                       child: Image.asset(
                         "assets/icon/call.png",
                         scale: 24,
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                       ),
                     ),
                   ),
@@ -133,7 +134,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                       text:
                           "${Staticmenbers.cardUsers[contactcardindex!].phone}",
                       fontSize: 14,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ]),
                 SizedBox(height: hp(2, context)),
                 Row(children: [
@@ -147,7 +148,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                       child: Image.asset(
                         "assets/icon/email.png",
                         scale: 24,
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                       ),
                     ),
                   ),
@@ -159,7 +160,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                       text:
                           "${Staticmenbers.cardUsers[contactcardindex!].email}",
                       fontSize: 14,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ]),
                 SizedBox(height: hp(2, context)),
                 Row(children: [
@@ -178,7 +179,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                                         '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                     textAlign: TextAlign.center,
                                     maxLines: 5,
-                                    selectionColor: grayColor,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
                                   ),
                                   onPressedNo: () {
                                     Navigator.pop(context);
@@ -191,7 +192,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                       child: Image.asset(
                         "assets/icon/pin.png",
                         scale: 24,
-                        color: goldColor,
+                        color: COLOR_YELLOW,
                       ),
                     ),
                   ),
@@ -203,7 +204,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                       text:
                           "${Staticmenbers.cardUsers[contactcardindex!].address}",
                       fontSize: 12,
-                      selectionColor: goldColor),
+                      selectionColor: COLOR_YELLOW),
                 ]),
               ]),
               SizedBox(height: hp(1, context)),
@@ -211,10 +212,11 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: goldColor, width: 1)),
+                      border: Border.all(color: COLOR_YELLOW, width: 1)),
                   child: QrImage(
-                    dataModuleStyle: const QrDataModuleStyle(color: goldColor),
-                    eyeStyle: const QrEyeStyle(color: goldColor),
+                    dataModuleStyle:
+                        const QrDataModuleStyle(color: COLOR_YELLOW),
+                    eyeStyle: const QrEyeStyle(color: COLOR_YELLOW),
                     data:
                         "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
                     size: 60,
@@ -237,7 +239,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           child: Image.asset(
                             "assets/icon/whats.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -253,7 +255,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           child: Image.asset(
                             "assets/icon/Face.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -269,7 +271,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           child: Image.asset(
                             "assets/icon/tele.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -287,7 +289,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           child: Image.asset(
                             "assets/icon/website.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       ),
@@ -305,7 +307,7 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
                           child: Image.asset(
                             "assets/icon/lin.png",
                             scale: 20,
-                            color: goldColor,
+                            color: COLOR_YELLOW,
                           ),
                         ),
                       )
@@ -337,11 +339,11 @@ class _ContectdefultcardState extends State<Contectdefultcard> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: whiteColor,
+        color: COLOR_WHITE,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: blueColor),
+        style: TextStyle(color: COLOR_PRIMARY_DARK),
       ),
     );
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 
 import '../utils/constants.dart';
 
@@ -16,32 +18,45 @@ class Addresstextfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: GooglePlaceAutoCompleteTextField(
-          textStyle: const TextStyle(fontSize: 12, color: blackColor),
-          textEditingController: textEditingController,
-          googleAPIKey: yourgoogleapikey,
-          inputDecoration: const InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: "Address",
-            labelStyle: TextStyle(color: grayColor, fontSize: 12),
-            focusedBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: blackColor)),
-            contentPadding: EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-            hintText: "Address",
-            hintStyle: TextStyle(
-              color: grayColor,
-              fontSize: 10,
+    return GooglePlaceAutoCompleteTextField(
+        textStyle: textSmallTextStyle.copyWith(color: COLOR_PRIMARY_DARK),
+        textEditingController: textEditingController,
+        googleAPIKey: yourgoogleapikey,
+        inputDecoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: COLOR_PRIMARY_LIGHT,
             ),
-            prefixIcon: Icon(Icons.location_on, color: grayColor),
-            suffixIcon: null,
           ),
-          debounceTime: 800,
-          countries: const ["in", "fr"],
-          isLatLngRequired: true,
-          getPlaceDetailWithLatLng: (Prediction prediction) {},
-          itmClick: itmClick),
-    );
+          labelText: "Address",
+          labelStyle: textSmallTextStyle,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: COLOR_PRIMARY_LIGHT,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(
+              color: COLOR_PRIMARY_LIGHT,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: const BorderSide(color: Colors.red),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+          hintText: "Address",
+          hintStyle: textSmallTextStyle,
+          prefixIcon: const Icon(Icons.location_on, color: COLOR_PRIMARY_LIGHT),
+        ),
+        debounceTime: 800,
+        countries: const ["in", "fr"],
+        isLatLngRequired: true,
+        getPlaceDetailWithLatLng: (Prediction prediction) {},
+        itmClick: itmClick);
   }
 }

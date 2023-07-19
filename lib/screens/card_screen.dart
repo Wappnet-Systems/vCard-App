@@ -1,10 +1,15 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../widget/custom_alartdialog.dart';
 import '../widget/custom_no_data_widget.dart';
@@ -21,6 +26,7 @@ class Cardscreen extends StatefulWidget {
 class _CardscreenState extends State<Cardscreen> {
   int? cardindex;
   bool value = false;
+  bool isLoading = false;
   @override
   void initState() {
     getSingleUserData();
@@ -37,6 +43,9 @@ class _CardscreenState extends State<Cardscreen> {
 
   // Database data get
   Future<void> getSingleUserData() async {
+    setState(() {
+      isLoading = true;
+    });
     List<Users> userData = [];
     final snapshot = await FirebaseFirestore.instance
         .collection("users")
@@ -70,6 +79,7 @@ class _CardscreenState extends State<Cardscreen> {
     setState(() {
       value = true;
       Staticmenbers.listofUsers = userData;
+      isLoading = false;
       log('message:$value');
     });
   }
@@ -82,45 +92,56 @@ class _CardscreenState extends State<Cardscreen> {
             context: context,
             builder: (context) {
               return CustomAlartDialog(
-                  title: const Textwidget(
-                    textAlign: TextAlign.center,
-                    text: 'Exit Application',
-                  ),
-                  content: const Textwidget(
-                    selectionColor: grayColor,
-                    maxLines: 2,
-                    text: 'Do you want to exit an Applicaton?',
-                    textAlign: TextAlign.center,
-                  ),
-                  onPressedNo: () {
-                    Navigator.pop(context);
-                  },
-                  onPressedYes: () {
-                    exit(0);
-                  });
+                title: Text(
+                  "Exit Application",
+                  textAlign: TextAlign.center,
+                  style:
+                      smalltitleTextStyle.copyWith(fontWeight: FontWeight.w600),
+                ),
+                content: Text(
+                  "Do you want to exit an Applicaton?",
+                  textAlign: TextAlign.center,
+                  style:
+                      textMediumTextStyle.copyWith(color: COLOR_PRIMARY_LIGHT),
+                ),
+                onPressedNo: () {
+                  Navigator.pop(context);
+                },
+                onPressedYes: () {
+                  exit(0);
+                },
+              );
             });
         return shouldPop!;
       },
       child: Scaffold(
-          backgroundColor: whiteColor,
-          appBar: AppBar(
-            elevation: 0.3,
-            automaticallyImplyLeading: false,
-            title: const Text("Cards", style: TextStyle(color: blackColor)),
-            backgroundColor: whiteColor,
-          ),
-          body: Staticmenbers.listofUsers.isNotEmpty
-              ? ListView.builder(
-                  padding: const EdgeInsets.all(10),
-                  itemCount: Staticmenbers.listofUsers.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          cardindex = index;
-                        });
-                        showModalBottomSheet(
-                            backgroundColor: whiteColor,
+        backgroundColor: COLOR_WHITE,
+        appBar: const Customappbarwidget(
+          title: "Cards",
+          centerTitle: false,
+          leadingWidth: 0.0,
+          leading: SizedBox.shrink(),
+        ),
+        body: isLoading == true
+            ? const Center(
+                child: SpinKitCircle(color: COLOR_PRIMARY),
+              )
+            : Staticmenbers.listofUsers.isNotEmpty
+                ? ListView.builder(
+                    padding: EdgeInsets.all(
+                      wp(4, context),
+                    ),
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: Staticmenbers.listofUsers.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () {
+                          setState(() {
+                            cardindex = index;
+                          });
+                          showModalBottomSheet(
+                            backgroundColor: COLOR_WHITE,
                             elevation: 0.0,
                             context: context,
                             shape: const RoundedRectangleBorder(
@@ -128,115 +149,126 @@ class _CardscreenState extends State<Cardscreen> {
                                   top: Radius.circular(20.0)),
                             ),
                             builder: (BuildContext context) =>
-                                Menuscreen(id: cardindex));
-                      },
-                      // user card
-                      child: Container(
-                          height: hp(11, context),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                                Menuscreen(id: cardindex),
+                          );
+                        },
+                        // user card
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: wp(4, context),
+                            vertical: hp(2, context),
+                          ),
+                          margin: EdgeInsets.symmetric(
+                            vertical: hp(1, context),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(16),
+                            ),
+                            color: COLOR_WHITE,
                             boxShadow: [
                               BoxShadow(
-                                color: whiteColor,
-                                blurRadius: 10.0,
+                                color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                                blurRadius: 1.0,
+                                offset: const Offset(1, -1),
                               ),
                               BoxShadow(
-                                color: Color(0xffc1c4be),
-                                blurRadius: 10.0,
+                                color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                                blurRadius: 1.0,
+                                offset: const Offset(-1, 1),
                               ),
                             ],
-                            color: whiteColor,
                           ),
-                          margin: const EdgeInsets.only(
-                              left: 5, right: 5, top: 5, bottom: 5),
-                          child: ListTile(
-                            leading: ClipRRect(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              child: Image.network(
-                                "${Staticmenbers.listofUsers[index].image}",
-                                width: wp(16, context),
-                                height: hp(8, context),
-                                fit: BoxFit.contain,
-                                frameBuilder: (context, child, frame,
-                                    wasSynchronouslyLoaded) {
-                                  return child;
-                                },
-                                loadingBuilder:
-                                    (context, child, loadingProgress) {
-                                  if (loadingProgress == null) {
-                                    return child;
-                                  } else {
-                                    return const Center(
-                                        child: Icon(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(8)),
+                                child: CachedNetworkImage(
+                                  placeholder: (context, url) => Container(
+                                    color: COLOR_PRIMARY,
+                                    child: const Icon(
                                       Icons.image,
-                                      size: 130,
-                                      color: whiteColor,
-                                    ));
-                                  }
-                                },
+                                      size: 40,
+                                      color: COLOR_WHITE,
+                                    ),
+                                  ),
+                                  imageUrl:
+                                      "${Staticmenbers.listofUsers[index].image}",
+                                  width: wp(16, context),
+                                  height: hp(8, context),
+                                  fit: BoxFit.fill,
+                                  errorWidget: (context, url, error) {
+                                    return Container(
+                                      color: COLOR_PRIMARY,
+                                      child: const Icon(
+                                        Icons.image,
+                                        size: 40,
+                                        color: COLOR_WHITE,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                            title: Row(children: [
+                              SizedBox(
+                                width: wp(4, context),
+                              ),
                               Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 9, left: 5),
-                                        child: Textwidget(
-                                          maxLines: 1,
-                                          textAlign: TextAlign.start,
-                                          width: wp(50, context),
-                                          text:
-                                              '${Staticmenbers.listofUsers[index].name}',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          selectionColor: blackColor,
-                                        )),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5, left: 5),
-                                        child: Textwidget(
-                                          maxLines: 1,
-                                          textAlign: TextAlign.start,
-                                          width: wp(50, context),
-                                          text:
-                                              '${Staticmenbers.listofUsers[index].type}',
-                                          fontSize: 14,
-                                          selectionColor: grayColor,
-                                        )),
-                                    Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5, left: 5),
-                                        child: Textwidget(
-                                          maxLines: 1,
-                                          textAlign: TextAlign.start,
-                                          width: wp(50, context),
-                                          text:
-                                              '${Staticmenbers.listofUsers[index].department}',
-                                          fontSize: 14,
-                                          selectionColor: grayColor,
-                                        ))
+                                    Textwidget(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      width: wp(50, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[index].name}',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      selectionColor: COLOR_PRIMARY_DARK,
+                                    ),
+                                    SizedBox(
+                                      height: hp(0.5, context),
+                                    ),
+                                    Textwidget(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      width: wp(50, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[index].type}',
+                                      fontSize: 14,
+                                      selectionColor: COLOR_PRIMARY_LIGHT,
+                                    ),
+                                    SizedBox(
+                                      height: hp(0.5, context),
+                                    ),
+                                    Textwidget(
+                                      maxLines: 1,
+                                      textAlign: TextAlign.start,
+                                      width: wp(50, context),
+                                      text:
+                                          '${Staticmenbers.listofUsers[index].department}',
+                                      fontSize: 14,
+                                      selectionColor: COLOR_PRIMARY_LIGHT,
+                                    )
                                   ]),
                               const Spacer(),
-                              const Padding(
-                                padding: EdgeInsets.only(right: 5),
-                                child: Icon(Icons.more_horiz),
+                              const Icon(
+                                Icons.more_horiz,
+                                size: 30,
+                                color: COLOR_PRIMARY_DARK,
                               ),
-                            ]),
-                          )),
-                    );
-                  })
-              // no data screen
-              : SizedBox(
-                  height: hp(100, context),
-                  width: wp(100, context),
-                  child: const CustomNoData(
+                            ],
+                          ),
+                        ),
+                      );
+                    })
+                // no data screen
+                : const CustomNoData(
                     iconaddress: card,
                   ),
-                )),
+      ),
     );
   }
 }

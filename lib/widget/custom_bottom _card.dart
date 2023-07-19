@@ -1,7 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 
 class CardWidget extends StatelessWidget {
   final IconData? icon;
@@ -21,7 +22,7 @@ class CardWidget extends StatelessWidget {
       height: 140,
       width: 150,
       child: Card(
-        color: blueColor,
+        color: COLOR_PRIMARY_DARK,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -29,21 +30,21 @@ class CardWidget extends StatelessWidget {
               const SizedBox(height: 10),
               Icon(
                 icon,
-                color: whiteColor,
+                color: COLOR_WHITE,
               ),
               const SizedBox(height: 3),
               Text(
                 data!,
-                style: const TextStyle(fontSize: 20, color: whiteColor),
+                style: titleTextStyle.copyWith(color: COLOR_WHITE),
               ),
               const SizedBox(height: 3),
               Text(
                 data1!,
-                style: const TextStyle(fontSize: 12, color: whiteColor),
+                style: const TextStyle(fontSize: 12, color: COLOR_WHITE),
               ),
               Text(
                 data2!,
-                style: const TextStyle(fontSize: 12, color: whiteColor),
+                style: const TextStyle(fontSize: 12, color: COLOR_WHITE),
               )
             ],
           ),

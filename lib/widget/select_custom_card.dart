@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_button_widget.dart';
 
 import '../utils/constants.dart';
@@ -63,7 +64,7 @@ class SelectCustomCard extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8),
           child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             TextButtomWidget(
-              color: blueColor,
+              color: COLOR_PRIMARY_DARK,
               fontSize: 20,
               onPressed: onPressedOk!,
               title: 'ok',

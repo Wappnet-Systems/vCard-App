@@ -27,7 +27,7 @@ String? numbervalidator(String? value) {
 // textvalidation
 String? textvalidator(String? value) {
   if (value == null || value.isEmpty) {
-    return "This field can't be empty";
+    return "This field is required.";
   }
 
   RegExp regex = RegExp(r"^[A-Za-z\s]+$");

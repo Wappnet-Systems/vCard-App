@@ -1,64 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vcard/utils/constants.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  final TextInputType textInputType;
+  final TextInputType? textInputType;
   final Icon? customprefixicon;
   final TextEditingController textEditingController;
-  final String texteditinghinttext;
+  final String? texteditinghinttext;
   final bool? customobscuretext;
+  final bool? readOnly;
   final String? Function(String? value)? validationfunction;
   final Icon? customsuffixIcon;
   final List<TextInputFormatter>? inputFormatters;
   final TextCapitalization? textCapitalization;
   final String? labelText;
-  const CustomTextFormField(
-      {super.key,
-      required this.labelText,
-      required this.textInputType,
-      required this.customprefixicon,
-      required this.textEditingController,
-      required this.texteditinghinttext,
-      this.customobscuretext,
-      this.validationfunction,
-      this.customsuffixIcon,
-      required this.textCapitalization,
-      this.inputFormatters});
+  final TextStyle? style;
+  final EdgeInsets? contentPadding;
+  final InputBorder? border, focusedBorder, enabledBorder, errorBorder;
+  const CustomTextFormField({
+    super.key,
+    this.labelText,
+    this.textInputType,
+    this.customprefixicon,
+    this.readOnly,
+    required this.textEditingController,
+    this.texteditinghinttext,
+    this.customobscuretext,
+    this.validationfunction,
+    this.customsuffixIcon,
+    this.textCapitalization,
+    this.inputFormatters,
+    this.border,
+    this.focusedBorder,
+    this.enabledBorder,
+    this.errorBorder,
+    this.contentPadding,
+    this.style,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15),
-      child: TextFormField(
-        textCapitalization: textCapitalization!,
-        textInputAction: TextInputAction.next,
-        autocorrect: true,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        inputFormatters: inputFormatters,
-        keyboardType: textInputType,
-        style: const TextStyle(color: blackColor, fontSize: 12),
-        enableInteractiveSelection: true,
-        cursorColor: blueColor,
-        controller: textEditingController,
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          labelText: labelText,
-          labelStyle: const TextStyle(color: grayColor),
-          focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(color: blackColor)),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-          hintText: texteditinghinttext,
-          hintStyle: const TextStyle(
-            color: grayColor,
-            fontSize: 10,
-          ),
-          prefixIcon: customprefixicon,
-          suffixIcon: customsuffixIcon,
-        ),
-        validator: validationfunction,
+    return TextFormField(
+      textCapitalization: textCapitalization ?? TextCapitalization.none,
+      textInputAction: TextInputAction.next,
+      autocorrect: true,
+      readOnly: readOnly ?? false,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      inputFormatters: inputFormatters,
+      keyboardType: textInputType,
+      style: style ?? textSmallTextStyle.copyWith(color: COLOR_PRIMARY_DARK),
+      enableInteractiveSelection: true,
+      cursorColor: COLOR_PRIMARY_DARK,
+      controller: textEditingController,
+      decoration: InputDecoration(
+        border: border ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: COLOR_PRIMARY_LIGHT,
+              ),
+            ),
+        focusedBorder: focusedBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: COLOR_PRIMARY_LIGHT,
+              ),
+            ),
+        enabledBorder: enabledBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: COLOR_PRIMARY_LIGHT,
+              ),
+            ),
+        errorBorder: errorBorder ??
+            OutlineInputBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              borderSide: const BorderSide(
+                color: Colors.red,
+              ),
+            ),
+        labelText: labelText,
+        labelStyle: textSmallTextStyle,
+        contentPadding: contentPadding ??
+            const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+        hintText: texteditinghinttext,
+        hintStyle: textSmallTextStyle,
+        prefixIcon: customprefixicon,
+        suffixIcon: customsuffixIcon,
       ),
+      validator: validationfunction,
     );
   }
 }

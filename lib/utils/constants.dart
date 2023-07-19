@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import '../model/data_controllers.dart';
 
-// App color
-const Color whiteColor = Color(0Xfffcfdfd);
-const Color bottomColor = Color(0xFF8EC5D4);
-const Color blackColor = Colors.black;
-const Color blueColor = Color(0xff1d2e3e);
-const Color goldColor = Color(0xfff4d354);
-const Color grayColor = Color(0xff878d96);
-const Color bluegrayColor = Color(0xff78909c);
 const String card = 'assets/lottie/No_Data.json';
 const String qrJson = 'assets/lottie/QR.json';
+
+//Google API Key
 const yourgoogleapikey = 'AIzaSyDJbqVkRb6llQczHvPN_WnK4pGUGt30ykM';
 
 // member list
@@ -21,7 +15,7 @@ class Staticmenbers {
 
 // card color list
 final colorList = [
-  goldColor,
+  const Color(0xfff4d354),
   Colors.blue,
   const Color(0xffff9410),
   const Color(0xff56433d),
@@ -35,6 +29,7 @@ final colorList = [
   const Color(0xff960001),
   const Color(0xffb5ca1d)
 ];
+
 // create card image list
 final imageList = [
   "assets/cards/card1.jpg",

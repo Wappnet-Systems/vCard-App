@@ -2,11 +2,12 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
-import '../widget/custom_loadingbar_widget.dart';
+import 'package:vcard/widget/phone_field_widget.dart';
+import 'package:vcard/widget/text_button_widget.dart';
 import 'otp_screen.dart';
 
 class Numberverification extends StatefulWidget {
@@ -38,137 +39,117 @@ class _NumberverificationState extends State<Numberverification> {
             context: context,
             builder: (context) {
               return CustomAlartDialog(
-                  title: const Text("Exit Application"),
-                  content: const Text("Do you want to exit an Applicaton?"),
-                  onPressedNo: () {
-                    Navigator.pop(context);
-                  },
-                  onPressedYes: () {
-                    exit(0);
-                  });
+                title: Text(
+                  "Exit Application",
+                  textAlign: TextAlign.center,
+                  style:
+                      smalltitleTextStyle.copyWith(fontWeight: FontWeight.w600),
+                ),
+                content: Text(
+                  "Do you want to exit an Applicaton?",
+                  textAlign: TextAlign.center,
+                  style:
+                      textMediumTextStyle.copyWith(color: COLOR_PRIMARY_LIGHT),
+                ),
+                onPressedNo: () {
+                  Navigator.pop(context);
+                },
+                onPressedYes: () {
+                  exit(0);
+                },
+              );
             });
         return shouldPop!;
       },
       child: Scaffold(
-        backgroundColor: whiteColor,
+        backgroundColor: COLOR_WHITE,
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: Form(
-              key: loginformGlobalKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: hp(10, context)),
-                  Image.asset(
+          padding: EdgeInsets.symmetric(
+            horizontal: wp(5, context),
+            vertical: hp(10, context),
+          ),
+          child: Form(
+            key: loginformGlobalKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Image.asset(
                     'assets/images/login.png',
-                    width: wp(100, context),
-                    height: hp(35, context),
+                    scale: 6.5,
                   ),
-                  SizedBox(
-                    height: hp(3, context),
-                  ),
-                  const Text(
-                    "Login",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: hp(2, context),
-                  ),
-                  const Text(
-                    "Enter your phone number to continue",
-                    style: TextStyle(
-                      fontSize: 16,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: hp(4, context)),
-                  IntlPhoneField(
-                    dropdownIcon: const Icon(
-                      Icons.arrow_drop_down,
-                      color: blueColor,
-                    ),
-                    disableLengthCheck: false,
-                    cursorColor: blueColor,
-                    controller: countryController,
-                    decoration: const InputDecoration(
-                      counterText: '',
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: blackColor)),
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 13, vertical: 12),
-                      hintStyle: TextStyle(
-                        color: grayColor,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 10,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(),
-                      ),
-                    ),
-                    initialCountryCode: 'IN',
-                    onChanged: (phone) {
-                      log(phone.completeNumber);
-                    },
-                    onCountryChanged: (country) {
-                      phone = country.dialCode;
-                    },
-                  ),
-                  SizedBox(height: hp(4, context)),
-                  SizedBox(
-                    width: double.infinity,
-                    height: hp(7, context),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: blueColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10))),
-                        onPressed: () async {
-                          if (countryController.text.isNotEmpty) {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            // number verify
-                            await FirebaseAuth.instance.verifyPhoneNumber(
-                              phoneNumber: phone + countryController.text,
-                              verificationCompleted:
-                                  (PhoneAuthCredential credential) {},
-                              // verify fail
-                              verificationFailed: (FirebaseAuthException e) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content:
-                                      Text("Phone number verification failed."),
-                                ));
-                                setState(() {
-                                  isLoading = false;
-                                });
-                              },
-                              // send OTP
-                              codeSent: (String verificationId,
-                                  int? resendToken) async {
-                                Numberverification.verify = verificationId;
-
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const OTPscreen()));
-                              },
-                              codeAutoRetrievalTimeout:
-                                  (String verificationId) {},
-                            );
-                          }
+                ),
+                SizedBox(
+                  height: hp(3, context),
+                ),
+                Text(
+                  "Login",
+                  style: titleTextStyle,
+                ),
+                SizedBox(
+                  height: hp(2, context),
+                ),
+                Text(
+                  "Enter your phone number to continue",
+                  style: textMediumTextStyle,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: hp(3, context)),
+                PhoneFieldWidget(
+                  controller: countryController,
+                  initialCountryCode: 'IN',
+                  onChanged: (phone) {
+                    log(phone.completeNumber);
+                  },
+                  onCountryChanged: (country) {
+                    phone = country.dialCode;
+                  },
+                ),
+                SizedBox(
+                  height: hp(5, context),
+                ),
+                TextButtomWidget(
+                  isLoading: isLoading,
+                  onPressed: () async {
+                    log("call");
+                    if (countryController.text.isNotEmpty) {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      // number verify
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: phone + countryController.text,
+                        verificationCompleted:
+                            (PhoneAuthCredential credential) {},
+                        // verify fail
+                        verificationFailed: (FirebaseAuthException e) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("Phone number verification failed."),
+                          ));
+                          setState(() {
+                            isLoading = false;
+                          });
                         },
-                        child: isLoading
-                            ? const Custonloading()
-                            : const Text(
-                                "Send the code",
-                                style: TextStyle(color: whiteColor),
-                              )),
-                  )
-                ],
-              ),
+                        // send OTP
+                        codeSent:
+                            (String verificationId, int? resendToken) async {
+                          Numberverification.verify = verificationId;
+
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const OTPscreen()));
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+                    }
+                  },
+                  title: "Send the code",
+                  color: COLOR_PRIMARY_DARK,
+                ),
+              ],
             ),
           ),
         ),

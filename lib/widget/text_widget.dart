@@ -23,12 +23,15 @@ class Textwidget extends StatelessWidget {
     return SizedBox(
       width: width,
       child: Text(
-        text!,
+        "$text",
         maxLines: maxLines,
         overflow: TextOverflow.ellipsis,
         textAlign: textAlign,
         style: TextStyle(
-            fontSize: fontSize, color: selectionColor, fontWeight: fontWeight),
+            fontSize: fontSize,
+            color: selectionColor,
+            fontWeight: fontWeight,
+            fontFamily: "Trajan"),
       ),
     );
   }

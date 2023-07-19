@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vcard/screens/update_card_screen.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../utils/constants.dart';
@@ -37,7 +39,7 @@ class _MenuscreenState extends State<Menuscreen> {
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
               ),
-              color: whiteColor,
+              color: COLOR_WHITE,
             ),
             child: Center(
               child: Column(
@@ -46,9 +48,9 @@ class _MenuscreenState extends State<Menuscreen> {
                   SizedBox(
                     height: hp(2, context),
                   ),
-                  const Text(
+                  Text(
                     "Menu",
-                    style: TextStyle(fontSize: 20, color: blueColor),
+                    style: titleTextStyle,
                   ),
                   SizedBox(
                     height: hp(2, context),
@@ -96,7 +98,7 @@ class _MenuscreenState extends State<Menuscreen> {
                                           textAlign: TextAlign.center,
                                           text:
                                               "Are you sure you want to delete this card?",
-                                          selectionColor: grayColor,
+                                          selectionColor: COLOR_PRIMARY_LIGHT,
                                         ),
                                         onPressedNo: () {
                                           Navigator.pop(context);

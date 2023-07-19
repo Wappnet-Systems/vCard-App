@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/formatters.dart';
+import 'package:vcard/utils/style.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_textformfield_widget.dart';
 
@@ -40,7 +40,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
               customsuffixIcon: null,
               customprefixicon: const Icon(
                 Icons.web,
-                color: grayColor,
+                color: COLOR_PRIMARY_LIGHT,
               ),
             ),
       widget.websitecontroller!.text != ""
@@ -58,7 +58,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
               customobscuretext: true,
               customprefixicon: const Icon(
                 FontAwesomeIcons.whatsapp,
-                color: grayColor,
+                color: COLOR_PRIMARY_LIGHT,
               ),
             ),
       widget.whatsappcontroller!.text != ""
@@ -75,7 +75,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
               customobscuretext: true,
               customprefixicon: const Icon(
                 Icons.link,
-                color: grayColor,
+                color: COLOR_PRIMARY_LIGHT,
               ),
             ),
       widget.linkdinController!.text != ""
@@ -92,7 +92,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
               customobscuretext: true,
               customprefixicon: const Icon(
                 Icons.facebook,
-                color: grayColor,
+                color: COLOR_PRIMARY_LIGHT,
               ),
             ),
       widget.facebookcontroller!.text != ""
@@ -110,7 +110,7 @@ class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
               customobscuretext: true,
               customprefixicon: const Icon(
                 Icons.telegram,
-                color: grayColor,
+                color: COLOR_PRIMARY_LIGHT,
               ),
             ),
       SizedBox(height: hp(2, context)),

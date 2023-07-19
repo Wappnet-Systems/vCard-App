@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vcard/utils/style.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
 import '../custom_alartdialog.dart';
@@ -37,13 +38,13 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
               height: hp(37, context),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: whiteColor,
+                color: COLOR_WHITE,
                 border: Border.all(
                     color: Staticmenbers.cardUsers[contactcardindex!].color !=
                             null
                         ? colorList[
                             Staticmenbers.cardUsers[contactcardindex!].color!]
-                        : blackColor,
+                        : COLOR_PRIMARY_DARK,
                     width: wp(0.5, context)),
                 boxShadow: [
                   BoxShadow(
@@ -51,7 +52,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             null
                         ? colorList[
                             Staticmenbers.cardUsers[contactcardindex!].color!]
-                        : blackColor,
+                        : COLOR_PRIMARY_DARK,
                     blurRadius: 2.0,
                   ),
                 ],
@@ -79,7 +80,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                               text:
                                   "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
                               fontSize: 16,
-                              selectionColor: blueColor,
+                              selectionColor: COLOR_PRIMARY_DARK,
                             )),
                           ),
                           SizedBox(
@@ -94,7 +95,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].phone}",
                                 fontSize: 11,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(
                             height: hp(3, context),
@@ -108,7 +109,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].email}",
                                 fontSize: 11,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(
                             height: hp(2.8, context),
@@ -122,15 +123,15 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].address}",
                                 fontSize: 9,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(height: hp(2, context)),
                           Center(
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: blueColor, width: 1)),
+                                  border: Border.all(
+                                      color: COLOR_PRIMARY_DARK, width: 1)),
                               child: QrImage(
                                 data:
                                     "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
@@ -171,7 +172,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                 text:
                                     "${Staticmenbers.cardUsers[contactcardindex!].name}",
                                 fontSize: 16,
-                                selectionColor: blueColor,
+                                selectionColor: COLOR_PRIMARY_DARK,
                               )),
                           SizedBox(
                             height: hp(1, context),
@@ -185,7 +186,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                   text:
                                       "${Staticmenbers.cardUsers[contactcardindex!].department}",
                                   fontSize: 14,
-                                  selectionColor: blueColor)),
+                                  selectionColor: COLOR_PRIMARY_DARK)),
                           SizedBox(height: hp(3, context)),
                           Padding(
                             padding: const EdgeInsets.only(right: 10),
@@ -199,7 +200,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                         ? colorList[Staticmenbers
                                             .cardUsers[contactcardindex!]
                                             .color!]
-                                        : blackColor,
+                                        : COLOR_PRIMARY_DARK,
                                     width: wp(0.2, context)),
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(90),
@@ -243,7 +244,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .cardUsers[contactcardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -269,7 +270,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .cardUsers[contactcardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -297,7 +298,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .cardUsers[contactcardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -326,7 +327,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .cardUsers[contactcardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -352,7 +353,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                               ? colorList[Staticmenbers
                                                   .cardUsers[contactcardindex!]
                                                   .color!]
-                                              : blueColor,
+                                              : COLOR_PRIMARY_DARK,
                                         ),
                                       ),
                                     ),
@@ -377,14 +378,14 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                 color: Staticmenbers.cardUsers[contactcardindex!].color != null
                     ? colorList[
                         Staticmenbers.cardUsers[contactcardindex!].color!]
-                    : blackColor,
+                    : COLOR_PRIMARY_DARK,
                 boxShadow: [
                   BoxShadow(
                     color: Staticmenbers.cardUsers[contactcardindex!].color !=
                             null
                         ? colorList[
                             Staticmenbers.cardUsers[contactcardindex!].color!]
-                        : blackColor,
+                        : COLOR_PRIMARY_DARK,
                     blurRadius: 1.0,
                   ),
                 ],
@@ -404,7 +405,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                       child: Image.asset(
                         "assets/icon/call.png",
                         scale: 30,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                   ),
@@ -423,7 +424,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                             child: Image.asset(
                               "assets/icon/email.png",
                               scale: 30,
-                              color: whiteColor,
+                              color: COLOR_WHITE,
                             ),
                           ),
                         ),
@@ -445,7 +446,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                                         '${Staticmenbers.cardUsers[contactcardindex!].address}',
                                     textAlign: TextAlign.center,
                                     maxLines: 5,
-                                    selectionColor: grayColor,
+                                    selectionColor: COLOR_PRIMARY_LIGHT,
                                   ),
                                   onPressedNo: () {
                                     Navigator.pop(context);
@@ -458,7 +459,7 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
                       child: Image.asset(
                         "assets/icon/pin.png",
                         scale: 30,
-                        color: whiteColor,
+                        color: COLOR_WHITE,
                       ),
                     ),
                   ),
@@ -483,11 +484,11 @@ class _Contectcardtheme4State extends State<Contectcardtheme4> {
       padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25.0),
-        color: whiteColor,
+        color: COLOR_WHITE,
       ),
       child: const Text(
         "Value is empty",
-        style: TextStyle(color: blueColor),
+        style: TextStyle(color: COLOR_PRIMARY_DARK),
       ),
     );
 

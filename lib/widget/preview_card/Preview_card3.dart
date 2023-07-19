@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
@@ -37,17 +38,17 @@ class _PreviewCard3State extends State<PreviewCard3> {
                 decoration: BoxDecoration(
                   border: Border.all(
                       color: colorList[previewcolor!] == ""
-                          ? blackColor
+                          ? COLOR_PRIMARY_DARK
                           : colorList[previewcolor!],
                       width: wp(0.5, context)),
                   borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       topLeft: Radius.circular(15)),
-                  color: whiteColor,
+                  color: COLOR_WHITE,
                   boxShadow: [
                     BoxShadow(
                       color: colorList[previewcolor!] == ""
-                          ? blackColor
+                          ? COLOR_PRIMARY_DARK
                           : colorList[previewcolor!],
                       blurRadius: 1.0,
                     ),
@@ -66,7 +67,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                       text: "Your Name",
                       fontSize: 20,
                       selectionColor: colorList[previewcolor!] == ""
-                          ? blackColor
+                          ? COLOR_PRIMARY_DARK
                           : colorList[previewcolor!],
                     ),
                     SizedBox(height: hp(1, context)),
@@ -77,7 +78,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                       text: "Profession",
                       fontSize: 14,
                       selectionColor: colorList[previewcolor!] == ""
-                          ? blackColor
+                          ? COLOR_PRIMARY_DARK
                           : colorList[previewcolor!],
                     ),
                     SizedBox(
@@ -89,7 +90,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                         decoration: BoxDecoration(
                           border: Border.all(
                               color: colorList[previewcolor!] == ""
-                                  ? blackColor
+                                  ? COLOR_PRIMARY_DARK
                                   : colorList[previewcolor!],
                               width: 1),
                           borderRadius: const BorderRadius.all(
@@ -113,7 +114,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           "assets/icon/Face.png",
                           scale: 30,
                           color: colorList[previewcolor!] == ""
-                              ? blackColor
+                              ? COLOR_PRIMARY_DARK
                               : colorList[previewcolor!],
                         ),
                         Padding(
@@ -122,7 +123,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             "assets/icon/website.png",
                             scale: 30,
                             color: colorList[previewcolor!] == ""
-                                ? blackColor
+                                ? COLOR_PRIMARY_DARK
                                 : colorList[previewcolor!],
                           ),
                         ),
@@ -132,7 +133,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             "assets/icon/tele.png",
                             scale: 30,
                             color: colorList[previewcolor!] == ""
-                                ? blackColor
+                                ? COLOR_PRIMARY_DARK
                                 : colorList[previewcolor!],
                           ),
                         ),
@@ -142,7 +143,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             "assets/icon/lin.png",
                             scale: 30,
                             color: colorList[previewcolor!] == ""
-                                ? blackColor
+                                ? COLOR_PRIMARY_DARK
                                 : colorList[previewcolor!],
                           ),
                         ),
@@ -152,7 +153,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             "assets/icon/whats.png",
                             scale: 30,
                             color: colorList[previewcolor!] == ""
-                                ? blackColor
+                                ? COLOR_PRIMARY_DARK
                                 : colorList[previewcolor!],
                           ),
                         ),
@@ -169,7 +170,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                       bottomRight: Radius.circular(15),
                       topRight: Radius.circular(15)),
                   color: colorList[previewcolor!] == ""
-                      ? blackColor
+                      ? COLOR_PRIMARY_DARK
                       : colorList[previewcolor!],
                 ),
                 child: Column(
@@ -184,7 +185,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           Image.asset(
                             "assets/icon/call.png",
                             scale: 30,
-                            color: whiteColor,
+                            color: COLOR_WHITE,
                           ),
                           SizedBox(width: wp(4, context)),
                           Textwidget(
@@ -193,7 +194,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                               width: wp(25, context),
                               text: "xxxxx xxxxx",
                               fontSize: 10,
-                              selectionColor: whiteColor),
+                              selectionColor: COLOR_WHITE),
                         ],
                       ),
                     ),
@@ -205,7 +206,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           Image.asset(
                             "assets/icon/email.png",
                             scale: 30,
-                            color: whiteColor,
+                            color: COLOR_WHITE,
                           ),
                           SizedBox(
                             width: wp(4, context),
@@ -216,7 +217,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                               width: wp(30, context),
                               text: "xyz12@gmail.com",
                               fontSize: 10,
-                              selectionColor: whiteColor),
+                              selectionColor: COLOR_WHITE),
                         ],
                       ),
                     ),
@@ -228,7 +229,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                           child: Image.asset(
                             "assets/icon/pin.png",
                             scale: 30,
-                            color: whiteColor,
+                            color: COLOR_WHITE,
                           ),
                         ),
                         SizedBox(
@@ -240,18 +241,18 @@ class _PreviewCard3State extends State<PreviewCard3> {
                             width: wp(30, context),
                             text: "Your Address",
                             fontSize: 10,
-                            selectionColor: whiteColor),
+                            selectionColor: COLOR_WHITE),
                       ],
                     ),
                     SizedBox(height: hp(2, context)),
                     Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: whiteColor, width: 2)),
+                          border: Border.all(color: COLOR_WHITE, width: 2)),
                       child: QrImage(
                         dataModuleStyle:
-                            const QrDataModuleStyle(color: whiteColor),
-                        eyeStyle: const QrEyeStyle(color: whiteColor),
+                            const QrDataModuleStyle(color: COLOR_WHITE),
+                        eyeStyle: const QrEyeStyle(color: COLOR_WHITE),
                         data: "",
                         size: 50,
                       ),
@@ -282,7 +283,7 @@ class _PreviewCard3State extends State<PreviewCard3> {
                         width: wp(50, context),
                         text: "Company Name",
                         fontSize: 18,
-                        selectionColor: whiteColor),
+                        selectionColor: COLOR_WHITE),
                   ),
                 ),
               )),
