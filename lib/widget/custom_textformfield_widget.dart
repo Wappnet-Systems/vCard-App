@@ -5,7 +5,7 @@ import 'package:vcard/utils/textStyle.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextInputType? textInputType;
-  final Icon? customprefixicon;
+  final Widget? customprefixicon;
   final TextEditingController textEditingController;
   final String? texteditinghinttext;
   final bool? customobscuretext;

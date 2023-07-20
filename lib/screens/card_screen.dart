@@ -146,7 +146,7 @@ class _CardscreenState extends State<Cardscreen> {
                             context: context,
                             shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20.0)),
+                                  top: Radius.circular(16.0)),
                             ),
                             builder: (BuildContext context) =>
                                 Menuscreen(id: cardindex),

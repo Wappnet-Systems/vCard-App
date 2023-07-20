@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/textStyle.dart';
+import 'package:vcard/widget/button_with_icon.dart';
 
 import '../utils/responsive.dart';
 
@@ -41,66 +42,24 @@ class Uploadimage extends StatelessWidget {
             SizedBox(
               height: hp(2, context),
             ),
-            InkWell(
+            ButtonWithIcon(
               onTap: onTapCamera,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: wp(4, context),
-                  vertical: hp(1, context),
-                ),
-                decoration: BoxDecoration(
-                  color: COLOR_PRIMARY_DARK,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.camera,
-                      size: 28,
-                      color: COLOR_WHITE,
-                    ),
-                    SizedBox(
-                      width: wp(5, context),
-                    ),
-                    Text(
-                      "CAMERA",
-                      style: textMediumTextStyle.copyWith(color: COLOR_WHITE),
-                    )
-                  ],
-                ),
+              text: "CAMERA",
+              icon: const Icon(
+                Icons.camera,
+                size: 28,
+                color: COLOR_WHITE,
               ),
             ),
             SizedBox(
               height: hp(2, context),
             ),
-            InkWell(
+            ButtonWithIcon(
               onTap: onTapGallery,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: wp(4, context),
-                  vertical: hp(1, context),
-                ),
-                decoration: BoxDecoration(
-                  color: COLOR_PRIMARY_DARK,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/icon/gallery.png",
-                      scale: 20,
-                    ),
-                    SizedBox(
-                      width: wp(5, context),
-                    ),
-                    Text(
-                      "GALLERY",
-                      style: textMediumTextStyle.copyWith(color: COLOR_WHITE),
-                    )
-                  ],
-                ),
+              text: "GALLERY",
+              icon: Image.asset(
+                "assets/icon/gallery.png",
+                scale: 20,
               ),
             ),
           ],

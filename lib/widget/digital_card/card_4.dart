@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/text_widget.dart';
 import '../../utils/constants.dart';
 import '../../utils/responsive.dart';
@@ -31,333 +32,299 @@ class _Cardtheme4State extends State<Cardtheme4> {
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(wp(2, context)),
         child: Stack(children: [
           Container(
-              width: wp(95, context),
-              height: hp(37, context),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: COLOR_WHITE,
-                border: Border.all(
-                    color: Staticmenbers.listofUsers[cardindex!].color != null
-                        ? colorList[
-                            Staticmenbers.listofUsers[cardindex!].color!]
-                        : COLOR_PRIMARY_DARK,
-                    width: wp(0.5, context)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Staticmenbers.listofUsers[cardindex!].color != null
-                        ? colorList[
-                            Staticmenbers.listofUsers[cardindex!].color!]
-                        : COLOR_PRIMARY_DARK,
-                    blurRadius: 2.0,
-                  ),
-                ],
+            width: wp(95, context),
+            height: hp(38, context),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: COLOR_WHITE,
+              border: Border.all(
+                color: Staticmenbers.listofUsers[cardindex!].color != null
+                    ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
+                    : COLOR_PRIMARY_DARK,
+                width: wp(0.5, context),
               ),
-              child: Row(
-                children: <Widget>[
-                  Flexible(
-                    flex: 4,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(15),
-                              bottomLeft: Radius.circular(15))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: hp(1, context)),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5, top: 12),
-                            child: Center(
-                                child: Textwidget(
-                              maxLines: 1,
-                              textAlign: TextAlign.start,
-                              width: wp(180, context),
-                              text:
-                                  "${Staticmenbers.listofUsers[cardindex!].compeny}",
-                              fontSize: 16,
-                              selectionColor: COLOR_PRIMARY_DARK,
-                            )),
+              boxShadow: [
+                BoxShadow(
+                  color: Staticmenbers.listofUsers[cardindex!].color != null
+                      ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
+                          .withOpacity(0.5)
+                      : COLOR_PRIMARY_DARK.withOpacity(0.5),
+                  blurRadius: 1.0,
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Flexible(
+                  flex: 4,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: hp(2, context),
+                      horizontal: wp(1, context),
+                    ),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Text(
+                            "${Staticmenbers.listofUsers[cardindex!].compeny}",
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: textMediumTextStyle,
                           ),
-                          SizedBox(
-                            height: hp(6, context),
+                        ),
+                        SizedBox(
+                          height: hp(6, context),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: wp(10, context),
                           ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 41),
-                              child: Textwidget(
-                                maxLines: 1,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "+${Staticmenbers.listofUsers[cardindex!].country} ${Staticmenbers.listofUsers[cardindex!].phone}",
                                 textAlign: TextAlign.start,
-                                width: wp(50, context),
-                                text:
-                                    "${Staticmenbers.listofUsers[cardindex!].phone}",
-                                fontSize: 11,
-                                selectionColor: COLOR_PRIMARY_DARK,
-                              )),
-                          SizedBox(
-                            height: hp(3, context),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 41),
-                              child: Textwidget(
-                                maxLines: 1,
+                                style: textSmallTextStyle.copyWith(
+                                    color: COLOR_PRIMARY_DARK),
+                              ),
+                              SizedBox(
+                                height: hp(3, context),
+                              ),
+                              Text(
+                                "${Staticmenbers.listofUsers[cardindex!].email}",
                                 textAlign: TextAlign.start,
-                                width: wp(100, context),
-                                text:
-                                    "${Staticmenbers.listofUsers[cardindex!].email}",
-                                fontSize: 11,
-                                selectionColor: COLOR_PRIMARY_DARK,
-                              )),
-                          SizedBox(
-                            height: hp(2.8, context),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 41),
-                              child: Textwidget(
+                                style: textSmallTextStyle.copyWith(
+                                    color: COLOR_PRIMARY_DARK),
+                              ),
+                              SizedBox(
+                                height: hp(3, context),
+                              ),
+                              Text(
+                                "${Staticmenbers.listofUsers[cardindex!].address}",
+                                textAlign: TextAlign.start,
                                 maxLines: 3,
-                                textAlign: TextAlign.start,
-                                width: wp(60, context),
-                                text:
-                                    "${Staticmenbers.listofUsers[cardindex!].address}",
-                                fontSize: 9,
-                                selectionColor: COLOR_PRIMARY_DARK,
-                              )),
-                          SizedBox(height: hp(2, context)),
-                          Center(
-                            child: Container(
-                              decoration: BoxDecoration(
+                                style: smallTextStyle.copyWith(
+                                    color: COLOR_PRIMARY_DARK),
+                              ),
+                              SizedBox(
+                                height: hp(2, context),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                  left: wp(10, context),
+                                ),
+                                decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                      color: COLOR_PRIMARY_DARK, width: 1)),
-                              child: QrImage(
-                                data:
-                                    "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
-                                size: 60,
+                                      color: COLOR_PRIMARY, width: 1),
+                                ),
+                                child: QrImage(
+                                  data:
+                                      "${Staticmenbers.listofUsers[cardindex!].user} ${Staticmenbers.listofUsers[cardindex!].id}",
+                                  size: dp(60, context),
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40, bottom: 40),
-                    child: VerticalDivider(
-                      width: 1,
-                      color: Colors.black,
-                      thickness: 0.5,
-                    ),
-                  ),
-                  Flexible(
-                    flex: 3,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(15),
-                              bottomRight: Radius.circular(15))),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: hp(6, context),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.only(left: 5),
-                              child: Textwidget(
-                                maxLines: 1,
-                                textAlign: TextAlign.center,
-                                width: wp(45, context),
-                                text:
-                                    "${Staticmenbers.listofUsers[cardindex!].name}",
-                                fontSize: 16,
-                                selectionColor: COLOR_PRIMARY_DARK,
-                              )),
-                          SizedBox(
-                            height: hp(1, context),
-                          ),
-                          Padding(
-                              padding: const EdgeInsets.only(right: 5),
-                              child: Textwidget(
-                                  maxLines: 1,
-                                  textAlign: TextAlign.center,
-                                  width: wp(45, context),
-                                  text:
-                                      "${Staticmenbers.listofUsers[cardindex!].department}",
-                                  fontSize: 14,
-                                  selectionColor: COLOR_PRIMARY_DARK)),
-                          SizedBox(height: hp(4, context)),
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Staticmenbers
-                                              .listofUsers[cardindex!].color !=
-                                          null
-                                      ? colorList[Staticmenbers
-                                          .listofUsers[cardindex!].color!]
-                                      : COLOR_PRIMARY_DARK,
-                                  width: wp(0.2, context)),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(90),
-                              ),
-                            ),
-                            child: ClipOval(
-                              child: Image.network(
-                                "${Staticmenbers.listofUsers[cardindex!].image}",
-                                width: wp(23, context),
-                                height: hp(11, context),
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                          SizedBox(height: hp(5, context)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Staticmenbers.listofUsers[cardindex!].website ==
-                                      ""
-                                  ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(right: 12),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          final url =
-                                              'https://${Staticmenbers.listofUsers[cardindex!].website}';
-
-                                          await launchUrl(Uri.parse(url));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/website.png",
-                                          scale: 30,
-                                          color: Staticmenbers
-                                                      .listofUsers[cardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color!]
-                                              : COLOR_PRIMARY_DARK,
-                                        ),
-                                      ),
-                                    ),
-                              Staticmenbers.listofUsers[cardindex!].telegram ==
-                                      ""
-                                  ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(right: 12),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launchUrl(Uri.parse(
-                                              "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/tele.png",
-                                          scale: 30,
-                                          color: Staticmenbers
-                                                      .listofUsers[cardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color!]
-                                              : COLOR_PRIMARY_DARK,
-                                        ),
-                                      ),
-                                    ),
-                              Staticmenbers.listofUsers[cardindex!].linkdin ==
-                                      ""
-                                  ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(right: 12),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          final url =
-                                              'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
-
-                                          await launchUrl(Uri.parse(url));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/lin.png",
-                                          scale: 30,
-                                          color: Staticmenbers
-                                                      .listofUsers[cardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color!]
-                                              : COLOR_PRIMARY_DARK,
-                                        ),
-                                      ),
-                                    ),
-                              Staticmenbers.listofUsers[cardindex!].whatsapp ==
-                                      ""
-                                  ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(right: 12),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launchUrl(
-                                              Uri.parse(
-                                                  'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
-                                              mode: LaunchMode
-                                                  .externalApplication);
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/whats.png",
-                                          scale: 30,
-                                          color: Staticmenbers
-                                                      .listofUsers[cardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color!]
-                                              : COLOR_PRIMARY_DARK,
-                                        ),
-                                      ),
-                                    ),
-                              Staticmenbers.listofUsers[cardindex!].facebook ==
-                                      ""
-                                  ? const SizedBox.shrink()
-                                  : Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: InkWell(
-                                        onTap: () {
-                                          launchUrl(Uri.parse(
-                                              'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
-                                        },
-                                        child: Image.asset(
-                                          "assets/icon/Face.png",
-                                          scale: 30,
-                                          color: Staticmenbers
-                                                      .listofUsers[cardindex!]
-                                                      .color !=
-                                                  null
-                                              ? colorList[Staticmenbers
-                                                  .listofUsers[cardindex!]
-                                                  .color!]
-                                              : COLOR_PRIMARY_DARK,
-                                        ),
-                                      ),
-                                    ),
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              )),
+                ),
+                VerticalDivider(
+                  endIndent: hp(4, context),
+                  indent: hp(4, context),
+                  color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                  thickness: 1,
+                ),
+                Flexible(
+                  flex: 3,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      top: hp(5, context),
+                      left: wp(2, context),
+                      right: wp(2, context),
+                    ),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${Staticmenbers.listofUsers[cardindex!].name}",
+                          textAlign: TextAlign.center,
+                          style: textMediumTextStyle,
+                        ),
+                        SizedBox(
+                          height: hp(1, context),
+                        ),
+                        Text(
+                          "${Staticmenbers.listofUsers[cardindex!].department}",
+                          textAlign: TextAlign.center,
+                          style: textMediumTextStyle.copyWith(fontSize: 14),
+                        ),
+                        SizedBox(
+                          height: hp(4, context),
+                        ),
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundColor: Staticmenbers
+                                      .listofUsers[cardindex!].color !=
+                                  null
+                              ? colorList[
+                                  Staticmenbers.listofUsers[cardindex!].color!]
+                              : COLOR_PRIMARY_DARK,
+                          child: ClipOval(
+                            child: Image.network(
+                              "${Staticmenbers.listofUsers[cardindex!].image}",
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: hp(6, context),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Staticmenbers.listofUsers[cardindex!].website == ""
+                                ? const SizedBox.shrink()
+                                : InkWell(
+                                    onTap: () async {
+                                      final url =
+                                          'https://${Staticmenbers.listofUsers[cardindex!].website}';
+
+                                      await launchUrl(Uri.parse(url));
+                                    },
+                                    child: Image.asset(
+                                      "assets/icon/website.png",
+                                      scale: 30,
+                                      color: Staticmenbers
+                                                  .listofUsers[cardindex!]
+                                                  .color !=
+                                              null
+                                          ? colorList[Staticmenbers
+                                              .listofUsers[cardindex!].color!]
+                                          : COLOR_PRIMARY_DARK,
+                                    ),
+                                  ),
+                            Staticmenbers.listofUsers[cardindex!].telegram == ""
+                                ? const SizedBox.shrink()
+                                : InkWell(
+                                    onTap: () {
+                                      launchUrl(Uri.parse(
+                                          "https://telegram.me/$Staticmenbers.listofUsers[cardindex!].telegram"));
+                                    },
+                                    child: Image.asset(
+                                      "assets/icon/tele.png",
+                                      scale: 30,
+                                      color: Staticmenbers
+                                                  .listofUsers[cardindex!]
+                                                  .color !=
+                                              null
+                                          ? colorList[Staticmenbers
+                                              .listofUsers[cardindex!].color!]
+                                          : COLOR_PRIMARY_DARK,
+                                    ),
+                                  ),
+                            Staticmenbers.listofUsers[cardindex!].linkdin == ""
+                                ? const SizedBox.shrink()
+                                : InkWell(
+                                    onTap: () async {
+                                      final url =
+                                          'https://www.linkedin.com//${Staticmenbers.listofUsers[cardindex!].linkdin}';
+
+                                      await launchUrl(Uri.parse(url));
+                                    },
+                                    child: Image.asset(
+                                      "assets/icon/lin.png",
+                                      scale: 30,
+                                      color: Staticmenbers
+                                                  .listofUsers[cardindex!]
+                                                  .color !=
+                                              null
+                                          ? colorList[Staticmenbers
+                                              .listofUsers[cardindex!].color!]
+                                          : COLOR_PRIMARY_DARK,
+                                    ),
+                                  ),
+                            Staticmenbers.listofUsers[cardindex!].whatsapp == ""
+                                ? const SizedBox.shrink()
+                                : InkWell(
+                                    onTap: () {
+                                      launchUrl(
+                                          Uri.parse(
+                                              'https://wa.me/$Staticmenbers.listofUsers[cardindex!].whatsapp?text=Hi'),
+                                          mode: LaunchMode.externalApplication);
+                                    },
+                                    child: Image.asset(
+                                      "assets/icon/whats.png",
+                                      scale: 30,
+                                      color: Staticmenbers
+                                                  .listofUsers[cardindex!]
+                                                  .color !=
+                                              null
+                                          ? colorList[Staticmenbers
+                                              .listofUsers[cardindex!].color!]
+                                          : COLOR_PRIMARY_DARK,
+                                    ),
+                                  ),
+                            Staticmenbers.listofUsers[cardindex!].facebook == ""
+                                ? const SizedBox.shrink()
+                                : InkWell(
+                                    onTap: () {
+                                      launchUrl(Uri.parse(
+                                          'https://www.facebook.com/{${Staticmenbers.listofUsers[cardindex!].facebook}}'));
+                                    },
+                                    child: Image.asset(
+                                      "assets/icon/Face.png",
+                                      scale: 30,
+                                      color: Staticmenbers
+                                                  .listofUsers[cardindex!]
+                                                  .color !=
+                                              null
+                                          ? colorList[Staticmenbers
+                                              .listofUsers[cardindex!].color!]
+                                          : COLOR_PRIMARY_DARK,
+                                    ),
+                                  ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Positioned(
-            top: 65,
-            left: 0,
+            top: hp(9, context),
+            left: wp(0, context),
             child: Container(
-              width: wp(10, context),
-              height: hp(18, context),
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(
+                vertical: hp(2.5, context),
+                horizontal: wp(2.5, context),
+              ),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(15),
-                    topRight: Radius.circular(15)),
+                    bottomRight: Radius.circular(16),
+                    topRight: Radius.circular(16)),
                 color: Staticmenbers.listofUsers[cardindex!].color != null
                     ? colorList[Staticmenbers.listofUsers[cardindex!].color!]
                     : COLOR_PRIMARY_DARK,
@@ -372,22 +339,17 @@ class _Cardtheme4State extends State<Cardtheme4> {
                 ],
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: hp(2, context),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: InkWell(
-                      onTap: () {
-                        launchUrl(Uri.parse(
-                            'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
-                      },
-                      child: Image.asset(
-                        "assets/icon/call.png",
-                        scale: 30,
-                        color: COLOR_WHITE,
-                      ),
+                  InkWell(
+                    onTap: () {
+                      launchUrl(Uri.parse(
+                          'tel:${Staticmenbers.listofUsers[cardindex!].phone.toString()}'));
+                    },
+                    child: Image.asset(
+                      "assets/icon/call.png",
+                      scale: 35,
+                      color: COLOR_WHITE,
                     ),
                   ),
                   SizedBox(
@@ -395,53 +357,47 @@ class _Cardtheme4State extends State<Cardtheme4> {
                   ),
                   Staticmenbers.listofUsers[cardindex!].email == ""
                       ? const SizedBox.shrink()
-                      : Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: InkWell(
-                            onTap: () {
-                              launchUrl(Uri.parse(
-                                  'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
-                            },
-                            child: Image.asset(
-                              "assets/icon/email.png",
-                              scale: 30,
-                              color: COLOR_WHITE,
-                            ),
+                      : InkWell(
+                          onTap: () {
+                            launchUrl(Uri.parse(
+                                'mailto:${Staticmenbers.listofUsers[cardindex!].email}'));
+                          },
+                          child: Image.asset(
+                            "assets/icon/email.png",
+                            scale: 35,
+                            color: COLOR_WHITE,
                           ),
                         ),
                   SizedBox(
                     height: hp(3, context),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => CustomAlartDialog(
-                                  title: const Textwidget(
-                                      text: "Address",
-                                      textAlign: TextAlign.center),
-                                  content: Textwidget(
-                                    text:
-                                        '${Staticmenbers.listofUsers[cardindex!].address}',
-                                    textAlign: TextAlign.center,
-                                    maxLines: 5,
-                                    selectionColor: COLOR_PRIMARY_LIGHT,
-                                  ),
-                                  onPressedNo: () {
-                                    Navigator.pop(context);
-                                  },
-                                  onPressedYes: () {
-                                    _pushMap();
-                                  },
-                                ));
-                      },
-                      child: Image.asset(
-                        "assets/icon/pin.png",
-                        scale: 30,
-                        color: COLOR_WHITE,
-                      ),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (ctx) => CustomAlartDialog(
+                                title: const Textwidget(
+                                    text: "Address",
+                                    textAlign: TextAlign.center),
+                                content: Textwidget(
+                                  text:
+                                      '${Staticmenbers.listofUsers[cardindex!].address}',
+                                  textAlign: TextAlign.center,
+                                  maxLines: 5,
+                                  selectionColor: COLOR_PRIMARY_LIGHT,
+                                ),
+                                onPressedNo: () {
+                                  Navigator.pop(context);
+                                },
+                                onPressedYes: () {
+                                  _pushMap();
+                                },
+                              ));
+                    },
+                    child: Image.asset(
+                      "assets/icon/pin.png",
+                      scale: 30,
+                      color: COLOR_WHITE,
                     ),
                   ),
                 ],

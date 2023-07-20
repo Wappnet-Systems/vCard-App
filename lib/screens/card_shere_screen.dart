@@ -22,43 +22,51 @@ class _CardsherescreenState extends State<Cardsherescreen> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              topRight: Radius.circular(50),
-              topLeft: Radius.circular(50),
-              bottomRight: Radius.circular(50)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25.0),
         ),
+        titlePadding: EdgeInsets.zero,
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: wp(4, context),
+          vertical: hp(3, context),
+        ),
+        actionsPadding: EdgeInsets.zero,
         backgroundColor: COLOR_WHITE,
-        title: null,
-        content: SizedBox(
-          height: hp(35, context),
-          width: wp(40, context),
-          child: Column(
-            children: [
-              Text(
-                "Send Your card",
-                style: titleTextStyle,
-              ),
-              SizedBox(height: hp(2, context)),
-              // Card Share QR Code
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: COLOR_PRIMARY_DARK, width: 2)),
-                child: QrImage(
-                  // user ID and card ID
-                  data: "${widget.uid} ${widget.cid}",
-                  size: 150,
+        content: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Send Your card",
+                  style: titleTextStyle,
                 ),
-              ),
-              SizedBox(height: hp(3, context)),
-              const Text(
-                "Point your camera at the QR code.",
-                style: TextStyle(fontSize: 13, color: COLOR_PRIMARY_DARK),
-              )
-            ],
-          ),
+
+                SizedBox(
+                  height: hp(3, context),
+                ),
+                // Card Share QR Code
+                Container(
+                  height: hp(15, context),
+                  width: wp(30, context),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: COLOR_PRIMARY, width: 1.5),
+                  ),
+                  child: QrImage(
+                    // user ID and card ID
+                    data: "${widget.uid} ${widget.cid}",
+                    size: dp(150, context),
+                  ),
+                ),
+                SizedBox(
+                  height: hp(3, context),
+                ),
+                Text("Point your camera at the QR code.", style: smallTextStyle)
+              ],
+            ),
+          ],
         ));
   }
 }

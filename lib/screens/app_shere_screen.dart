@@ -4,6 +4,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/textStyle.dart';
+import 'package:vcard/widget/button_with_icon.dart';
 
 class GenerateQR extends StatefulWidget {
   const GenerateQR({super.key});
@@ -23,53 +24,62 @@ class _GenerateQRState extends State<GenerateQR> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
+    return Wrap(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(
+            vertical: hp(3, context),
           ),
-          color: COLOR_WHITE,
-        ),
-        height: hp(50, context),
-        child: Column(
-          children: [
-            SizedBox(height: hp(2, context)),
-            Text(
-              "Share vCard",
-              style: titleTextStyle,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(25),
+              topRight: Radius.circular(25),
             ),
-            SizedBox(height: hp(2, context)),
-            //App Share QR Code
-            Center(
-              child: Container(
+            color: COLOR_WHITE,
+          ),
+          child: Column(
+            children: [
+              Text(
+                "Share VCard",
+                style: titleTextStyle,
+              ),
+              SizedBox(
+                height: hp(2, context),
+              ),
+              //App Share QR Code
+              Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(16),
                   border: Border.all(
                     color: COLOR_PRIMARY_DARK,
-                    width: wp(1, context),
+                    width: wp(0.5, context),
                   ),
                 ),
                 padding: const EdgeInsets.all(5),
-                child: SingleChildScrollView(
-                  child: QrImage(
-                    data: qrData,
-                    size: 150,
-                    backgroundColor: COLOR_WHITE,
-                  ),
+                child: QrImage(
+                  data: qrData,
+                  size: dp(150, context),
+                  backgroundColor: COLOR_WHITE,
                 ),
               ),
-            ),
-            SizedBox(height: hp(2, context)),
-            //App share Button
-            ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: COLOR_PRIMARY_DARK,
+              SizedBox(
+                height: hp(2, context),
+              ),
+              //App share Button
+              ButtonWithIcon(
+                onTap: _shareContent,
+                text: "Share App",
+                width: wp(45, context),
+                icon: const Icon(
+                  Icons.ios_share_outlined,
+                  color: COLOR_WHITE,
                 ),
-                onPressed: _shareContent,
-                icon: const Icon(Icons.ios_share_outlined),
-                label: const Text('Share App')),
-          ],
-        ));
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

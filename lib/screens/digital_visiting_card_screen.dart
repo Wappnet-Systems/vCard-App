@@ -63,36 +63,36 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
     ];
     return Scaffold(
       appBar: Customappbarwidget(
-          title: "${Staticmenbers.listofUsers[widget.id!].type}",
-          actions: [
-            InkWell(
-                onTap: () async {
-                  await _captureImage();
-                },
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.ios_share_rounded,
-                    color: COLOR_PRIMARY_DARK,
-                  ),
-                )),
-          ],
-          leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
+        title: "${Staticmenbers.listofUsers[widget.id!].type}",
+        actions: [
+          InkWell(
+              onTap: () async {
+                await _captureImage();
               },
               child: const Padding(
-                padding:
-                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+                padding: EdgeInsets.all(8.0),
                 child: Icon(
-                  Icons.arrow_back_sharp,
+                  Icons.ios_share_rounded,
                   color: COLOR_PRIMARY_DARK,
                 ),
-              ))),
+              )),
+        ],
+        leading: InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: const Icon(
+            Icons.arrow_back_sharp,
+            size: 25,
+            color: COLOR_PRIMARY_DARK,
+          ),
+        ),
+      ),
       backgroundColor: COLOR_WHITE,
       body: RepaintBoundary(
-          key: _containerKey,
-          child: cardList[Staticmenbers.listofUsers[widget.id!].card!]),
+        key: _containerKey,
+        child: cardList[Staticmenbers.listofUsers[widget.id!].card!],
+      ),
     );
   }
 }

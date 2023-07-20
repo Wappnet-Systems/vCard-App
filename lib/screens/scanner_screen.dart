@@ -11,7 +11,7 @@ import 'package:vcard/screens/dashboard_screen.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import 'package:vcard/widget/text_widget.dart';
+import 'package:vcard/widget/text_button_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants.dart';
 import '../utils/responsive.dart';
@@ -52,7 +52,8 @@ class _ScannerscreenState extends State<Scannerscreen> {
         .collection("Frind's card")
         .get();
     contectData = snapshot.docs
-        .map((e) => Users(
+        .map(
+          (e) => Users(
             user: e.data()['user'],
             name: e.data()['Name'],
             department: e.data()['Department'],
@@ -70,7 +71,9 @@ class _ScannerscreenState extends State<Scannerscreen> {
             image: e.data()['images'],
             type: e.data()['type'],
             card: e.data()['card'],
-            color: e.data()['color']))
+            color: e.data()['color'],
+          ),
+        )
         .toList();
 
     setState(() {
@@ -172,6 +175,7 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'Phone': scancarddata?.phone,
       'Address': scancarddata?.address,
       'id': cid,
+      'country': scancarddata?.country,
       'images': scancarddata?.image,
       'type': scancarddata?.type,
       'user': FirebaseAuth.instance.currentUser?.uid,
@@ -179,11 +183,13 @@ class _ScannerscreenState extends State<Scannerscreen> {
       'color': scancarddata?.color,
     }).then((value) {
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const Dashboardscreen(
-                    index: 2,
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Dashboardscreen(
+            index: 2,
+          ),
+        ),
+      );
     }).catchError((error) {
       log("Failed to add user: $error");
     });
@@ -203,8 +209,10 @@ class _ScannerscreenState extends State<Scannerscreen> {
       ),
       body: scancarddata != null
           ? Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: hp(17, context)),
+                // SizedBox(height: hp(17, context)),
                 scancarddata == null
                     ? const Custonloading()
                     : Container(
@@ -223,142 +231,129 @@ class _ScannerscreenState extends State<Scannerscreen> {
                           ],
                           color: COLOR_WHITE,
                         ),
-                        margin: const EdgeInsets.only(
-                            left: 15, right: 15, top: 5, bottom: 5),
-                        child: ListTile(
-                          leading: scancarddata?.image == ""
-                              ? ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: Image.asset(
-                                    "assets/images/splash1.png",
-                                    width: wp(18, context),
-                                    height: hp(10, context),
-                                    fit: BoxFit.fill,
-                                  ),
-                                )
-                              : ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(10)),
-                                  child: Image.network(
-                                    "${scancarddata?.image}",
-                                    width: wp(18, context),
-                                    height: hp(10, context),
-                                    fit: BoxFit.fill,
-                                    frameBuilder: (context, child, frame,
-                                        wasSynchronouslyLoaded) {
-                                      return child;
-                                    },
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) {
+                        padding: EdgeInsets.symmetric(
+                          horizontal: wp(5, context),
+                          vertical: hp(2, context),
+                        ),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: wp(8, context),
+                          vertical: hp(2, context),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            scancarddata?.image == ""
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.asset(
+                                      "assets/images/splash1.png",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.network(
+                                      "${scancarddata?.image}",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.fill,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
                                         return child;
-                                      } else {
-                                        return const Center(
-                                            child: Icon(
-                                          Icons.image,
-                                          size: 130,
-                                          color: COLOR_WHITE,
-                                        ));
-                                      }
-                                    },
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                              child: Icon(
+                                            Icons.image,
+                                            size: 130,
+                                            color: COLOR_WHITE,
+                                          ));
+                                        }
+                                      },
+                                    ),
                                   ),
-                                ),
-                          title: Row(children: [
+                            SizedBox(
+                              width: wp(4, context),
+                            ),
                             Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 9, left: 5),
-                                      child: Textwidget(
-                                        maxLines: 1,
-                                        textAlign: TextAlign.start,
-                                        width: wp(50, context),
-                                        text: '${scancarddata?.name}',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        selectionColor: COLOR_PRIMARY_DARK,
-                                      )),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5, left: 5),
-                                      child: Textwidget(
-                                        maxLines: 1,
-                                        textAlign: TextAlign.start,
-                                        width: wp(50, context),
-                                        text: '${scancarddata?.type}',
-                                        fontSize: 14,
-                                        selectionColor: COLOR_PRIMARY_LIGHT,
-                                      )),
-                                  Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5, left: 5),
-                                      child: Textwidget(
-                                        maxLines: 1,
-                                        textAlign: TextAlign.start,
-                                        width: wp(50, context),
-                                        text: '${scancarddata?.department}',
-                                        fontSize: 14,
-                                        selectionColor: COLOR_PRIMARY_LIGHT,
-                                      ))
-                                ]),
-                          ]),
-                        )),
-                SizedBox(height: hp(5, context)),
-                Center(
-                  child: Container(
-                      width: wp(90, context),
-                      decoration: BoxDecoration(
-                        color: COLOR_PRIMARY_DARK,
-                        borderRadius: BorderRadius.circular(10),
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${scancarddata?.name}',
+                                  style: textMediumTextStyle,
+                                ),
+                                SizedBox(
+                                  height: hp(0.5, context),
+                                ),
+                                Text(
+                                  '${scancarddata?.type}',
+                                  style: textSmallTextStyle,
+                                ),
+                                SizedBox(
+                                  height: hp(0.5, context),
+                                ),
+                                Text(
+                                  '${scancarddata?.department}',
+                                  style: textSmallTextStyle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      child: TextButton(
-                        child: isLoading
-                            ? const Custonloading()
-                            : const Text(
-                                'Connected',
-                                style: TextStyle(color: COLOR_WHITE),
-                              ),
-                        onPressed: () async {
-                          if (FirebaseAuth.instance.currentUser?.uid == uid) {
-                            setState(() {
-                              isLoading = false;
-                            });
-                            displayCustomToast();
-                          } else if (cid == Users) {
-                            displayCustomToast2();
-                          } else {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            addUser();
-                          }
-                        },
-                      )),
+                SizedBox(
+                  height: hp(5, context),
                 ),
-                SizedBox(height: hp(3, context)),
-                Container(
-                    width: wp(90, context),
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: TextButton(
-                      child: const Text(
-                        'Disconnected',
-                        style: TextStyle(color: COLOR_WHITE),
-                      ),
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Dashboardscreen(
-                                      index: 1,
-                                    )));
-                      },
-                    )),
+                TextButtomWidget(
+                  width: wp(70, context),
+                  height: hp(6.5, context),
+                  isLoading: isLoading,
+                  onPressed: () async {
+                    if (FirebaseAuth.instance.currentUser?.uid == uid) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      displayCustomToast();
+                    } else if (cid == Users) {
+                      displayCustomToast2();
+                    } else {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      addUser();
+                    }
+                  },
+                  title: "Connect",
+                  color: COLOR_PRIMARY_DARK,
+                ),
+
+                SizedBox(
+                  height: hp(1, context),
+                ),
+                TextButtomWidget(
+                    width: wp(70, context),
+                    height: hp(6.5, context),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Dashboardscreen(
+                            index: 1,
+                          ),
+                        ),
+                      );
+                    },
+                    title: "Disconnect",
+                    color: Colors.red),
               ],
             )
           : ListView(
@@ -366,10 +361,11 @@ class _ScannerscreenState extends State<Scannerscreen> {
               children: [
                   SizedBox(height: hp(15, context)),
                   Center(
-                      child: Text(
-                    "Scan QR Code",
-                    style: titleTextStyle,
-                  )),
+                    child: Text(
+                      "Scan QR Code",
+                      style: titleTextStyle,
+                    ),
+                  ),
                   SizedBox(height: hp(0.5, context)),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
@@ -379,23 +375,27 @@ class _ScannerscreenState extends State<Scannerscreen> {
                       style: textSmallTextStyle,
                     ),
                   ),
-                  SizedBox(height: hp(5, context)),
+                  SizedBox(
+                    height: hp(5, context),
+                  ),
                   const CustomNoData(
                     iconaddress: qrJson,
                   ),
-                  SizedBox(height: hp(2, context)),
+                  SizedBox(
+                    height: hp(2, context),
+                  ),
                   InkWell(
                     onTap: () {
                       scanQRCode();
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                          color: COLOR_PRIMARY_DARK,
-                          boxShadow: const [
-                            BoxShadow(
-                                color: COLOR_PRIMARY_DARK, blurRadius: 0.5)
-                          ],
-                          borderRadius: BorderRadius.circular(25)),
+                        color: COLOR_PRIMARY_DARK,
+                        boxShadow: const [
+                          BoxShadow(color: COLOR_PRIMARY_DARK, blurRadius: 0.5)
+                        ],
+                        borderRadius: BorderRadius.circular(25),
+                      ),
                       width: wp(50, context),
                       height: hp(6, context),
                       margin: EdgeInsets.symmetric(horizontal: wp(20, context)),

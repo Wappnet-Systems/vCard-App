@@ -14,7 +14,6 @@ import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import '../widget/text_widget.dart';
 import 'app_shere_screen.dart';
 
 class Setting_Screen extends StatefulWidget {
@@ -153,27 +152,37 @@ class _Setting_ScreenState extends State<Setting_Screen> {
               color: COLOR_PRIMARY_DARK,
             ),
             onTap: () {
-              CustomAlartDialog(
-                title: const Textwidget(
-                    textAlign: TextAlign.center, text: "Log Out"),
-                content: const Textwidget(
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  text: "Are you sure you want to logout?",
-                  selectionColor: COLOR_PRIMARY_LIGHT,
-                ),
-                onPressedNo: () {
-                  Navigator.pop(context);
-                },
-                onPressedYes: () async {
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  prefs.remove('isLoggedIn');
-                  Navigator.pushReplacement(
+              showDialog(
+                context: context,
+                builder: (ctx) => CustomAlartDialog(
+                  title: Text(
+                    "Log Out",
+                    textAlign: TextAlign.center,
+                    style: smalltitleTextStyle.copyWith(
+                        fontWeight: FontWeight.w600),
+                  ),
+                  content: Text(
+                    "Are you sure you want to logout?",
+                    selectionColor: COLOR_PRIMARY_LIGHT,
+                    textAlign: TextAlign.center,
+                    style: textMediumTextStyle.copyWith(
+                        color: COLOR_PRIMARY_LIGHT),
+                  ),
+                  onPressedNo: () {
+                    Navigator.pop(context);
+                  },
+                  onPressedYes: () async {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    prefs.remove('isLoggedIn');
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Numberverification()));
-                },
+                        builder: (context) => const Numberverification(),
+                      ),
+                    );
+                  },
+                ),
               );
             },
           ),
@@ -250,7 +259,7 @@ class RowWidget extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          vertical: hp(1, context),
+          vertical: hp(2, context),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 import '../custom_alartdialog.dart';
-import '../text_widget.dart';
 
 class Contectcardtheme2 extends StatefulWidget {
   final int? id;
@@ -29,308 +29,335 @@ class _Contectcardtheme2State extends State<Contectcardtheme2> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Container(
-        width: wp(100, context),
-        height: hp(70, context),
-        decoration: BoxDecoration(
-          border: Border.all(color: COLOR_WHITE, width: wp(0.5, context)),
-          borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
-          color: Staticmenbers.cardUsers[contactcardindex!].color != null
-              ? colorList[Staticmenbers.cardUsers[contactcardindex!].color!]
-              : COLOR_PRIMARY_DARK,
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black,
-              blurRadius: 3.0,
-            ),
-          ],
-        ),
-        child: Column(children: [
-          SizedBox(height: hp(2, context)),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: COLOR_WHITE, width: wp(0.2, context)),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(90),
-              ),
-            ),
-            child: ClipOval(
-              child: Image.network(
-                "${Staticmenbers.cardUsers[contactcardindex!].image}",
-                width: wp(35, context),
-                height: hp(16.7, context),
-                fit: BoxFit.fill,
-              ),
-            ),
+    return Wrap(
+      children: [
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(
+            horizontal: wp(4, context),
+            vertical: hp(6, context),
           ),
-          Column(
+          padding: EdgeInsets.symmetric(
+            vertical: hp(2, context),
+            horizontal: wp(2, context),
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: COLOR_WHITE,
+              width: wp(0.5, context),
+            ),
+            borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
+            color: Staticmenbers.cardUsers[contactcardindex!].color != null
+                ? colorList[Staticmenbers.cardUsers[contactcardindex!].color!]
+                : COLOR_PRIMARY_DARK,
+            boxShadow: [
+              BoxShadow(
+                color: COLOR_PRIMARY_DARK.withOpacity(0.5),
+                blurRadius: 3.0,
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: hp(3, context)),
-              Textwidget(
-                maxLines: 1,
+              CircleAvatar(
+                radius: 50,
+                backgroundColor: COLOR_WHITE,
+                child: ClipOval(
+                  child:
+                      Staticmenbers.cardUsers[contactcardindex!].image == null
+                          ? Image(
+                              image: const AssetImage(
+                                "assets/images/splash1.png",
+                              ),
+                              width: wp(35, context),
+                              height: hp(16.7, context),
+                              fit: BoxFit.fill,
+                            )
+                          : Image.network(
+                              "${Staticmenbers.cardUsers[contactcardindex!].image}",
+                              width: wp(35, context),
+                              height: hp(16.7, context),
+                              fit: BoxFit.fill,
+                            ),
+                ),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              Text(
+                "${Staticmenbers.cardUsers[contactcardindex!].name}",
                 textAlign: TextAlign.center,
-                width: wp(60, context),
-                text: "${Staticmenbers.cardUsers[contactcardindex!].name}",
-                selectionColor: COLOR_WHITE,
-                fontSize: 20,
+                style: titleTextStyle.copyWith(color: COLOR_WHITE),
               ),
               SizedBox(
                 height: hp(1, context),
               ),
-              Textwidget(
-                maxLines: 1,
+              Text(
+                "${Staticmenbers.cardUsers[contactcardindex!].department}",
                 textAlign: TextAlign.center,
-                width: wp(60, context),
-                text:
-                    "${Staticmenbers.cardUsers[contactcardindex!].department}",
-                selectionColor: COLOR_WHITE,
-                fontSize: 14,
+                style: textMediumTextStyle.copyWith(color: COLOR_WHITE),
               ),
               SizedBox(
-                height: hp(0.5, context),
+                height: hp(2, context),
               ),
-              Textwidget(
-                maxLines: 1,
+              Text(
+                "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
                 textAlign: TextAlign.center,
-                width: wp(60, context),
-                text: "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
-                selectionColor: COLOR_WHITE,
-                fontSize: 14,
+                style: textMediumTextStyle.copyWith(
+                    color: COLOR_WHITE, fontWeight: FontWeight.w600),
               ),
               SizedBox(
                 height: hp(2, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: Row(
+                padding: EdgeInsets.only(
+                  left: wp(10, context),
+                ),
+                child: Column(
                   children: [
-                    InkWell(
-                      onTap: () {
-                        launchUrl(Uri.parse(
-                            'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
-                      },
-                      child: Image.asset(
-                        "assets/icon/call.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        (Staticmenbers.cardUsers[contactcardindex!].phone == "")
+                            ? SizedBox(
+                                height: hp(2, context),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  launchUrl(Uri.parse(
+                                      'tel:${Staticmenbers.cardUsers[contactcardindex!].phone.toString()}'));
+                                },
+                                child: Image.asset(
+                                  "assets/icon/call.png",
+                                  scale: 25,
+                                  color: COLOR_WHITE,
+                                ),
+                              ),
+                        SizedBox(
+                          width: wp(5, context),
+                        ),
+                        (Staticmenbers.cardUsers[contactcardindex!].phone == "")
+                            ? SizedBox(
+                                height: hp(2, context),
+                              )
+                            : Text(
+                                "+${Staticmenbers.cardUsers[contactcardindex!].country} ${Staticmenbers.cardUsers[contactcardindex!].phone}",
+                                textAlign: TextAlign.center,
+                                style: textSmallTextStyle.copyWith(
+                                    color: COLOR_WHITE),
+                              ),
+                      ],
                     ),
                     SizedBox(
-                      width: wp(5, context),
+                      height: hp(2, context),
                     ),
-                    Textwidget(
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      width: wp(60, context),
-                      text:
-                          "${Staticmenbers.cardUsers[contactcardindex!].phone}",
-                      selectionColor: COLOR_WHITE,
-                      fontSize: 14,
+                    Row(
+                      children: [
+                        (Staticmenbers.cardUsers[contactcardindex!].email == "")
+                            ? SizedBox(
+                                height: hp(2, context),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  launchUrl(Uri.parse(
+                                      'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
+                                },
+                                child: Image.asset(
+                                  "assets/icon/email.png",
+                                  scale: 25,
+                                  color: COLOR_WHITE,
+                                ),
+                              ),
+                        SizedBox(
+                          width: wp(5, context),
+                        ),
+                        (Staticmenbers.cardUsers[contactcardindex!].email == "")
+                            ? Container(
+                                height: hp(2, context),
+                              )
+                            : Text(
+                                "${Staticmenbers.cardUsers[contactcardindex!].email}",
+                                textAlign: TextAlign.center,
+                                style: textSmallTextStyle.copyWith(
+                                    color: COLOR_WHITE),
+                              ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: hp(2, context),
+                    ),
+                    Row(
+                      children: [
+                        (Staticmenbers.cardUsers[contactcardindex!].address ==
+                                "")
+                            ? SizedBox(
+                                height: hp(2, context),
+                              )
+                            : InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) => CustomAlartDialog(
+                                            title: Text(
+                                              "Address",
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  smalltitleTextStyle.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                            ),
+                                            content: Text(
+                                              '${Staticmenbers.cardUsers[contactcardindex!].address}',
+                                              selectionColor:
+                                                  COLOR_PRIMARY_LIGHT,
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  textMediumTextStyle.copyWith(
+                                                      color:
+                                                          COLOR_PRIMARY_LIGHT),
+                                            ),
+                                            onPressedNo: () {
+                                              Navigator.pop(context);
+                                            },
+                                            onPressedYes: () {
+                                              _pushMap();
+                                            },
+                                          ));
+                                },
+                                child: Image.asset(
+                                  "assets/icon/pin.png",
+                                  scale: 25,
+                                  color: COLOR_WHITE,
+                                ),
+                              ),
+                        SizedBox(
+                          width: wp(5, context),
+                        ),
+                        (Staticmenbers.cardUsers[contactcardindex!].address ==
+                                "")
+                            ? Container(
+                                height: hp(2, context),
+                              )
+                            : Flexible(
+                                child: Text(
+                                  "${Staticmenbers.cardUsers[contactcardindex!].address}",
+                                  textAlign: TextAlign.start,
+                                  maxLines: 4,
+                                  style: smallTextStyle.copyWith(
+                                      color: COLOR_WHITE),
+                                ),
+                              ),
+                      ],
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: COLOR_WHITE, width: 1),
+                ),
+                child: QrImage(
+                  dataModuleStyle: const QrDataModuleStyle(color: COLOR_WHITE),
+                  eyeStyle: const QrEyeStyle(color: COLOR_WHITE),
+                  data:
+                      "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
+                  size: dp(70, context),
                 ),
               ),
               SizedBox(
                 height: hp(2, context),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 60),
+                padding: EdgeInsets.symmetric(
+                  horizontal: wp(10, context),
+                ),
                 child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        launchUrl(Uri.parse(
-                            'mailto:${Staticmenbers.cardUsers[contactcardindex!].email}'));
-                      },
-                      child: Image.asset(
-                        "assets/icon/email.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                    SizedBox(
-                      width: wp(5, context),
-                    ),
-                    Textwidget(
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      width: wp(60, context),
-                      text:
-                          "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                      selectionColor: COLOR_WHITE,
-                      fontSize: 14,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: hp(2, context),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => CustomAlartDialog(
-                                  title: const Textwidget(
-                                      text: "Address",
-                                      textAlign: TextAlign.center),
-                                  content: Textwidget(
-                                    text:
-                                        '${Staticmenbers.cardUsers[contactcardindex!].address}',
-                                    textAlign: TextAlign.center,
-                                    maxLines: 5,
-                                    selectionColor: COLOR_PRIMARY_LIGHT,
-                                  ),
-                                  onPressedNo: () {
-                                    Navigator.pop(context);
-                                  },
-                                  onPressedYes: () {
-                                    _pushMap();
-                                  },
-                                ));
-                      },
-                      child: Image.asset(
-                        "assets/icon/pin.png",
-                        scale: 20,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                    SizedBox(
-                      width: wp(5, context),
-                    ),
-                    Textwidget(
-                      maxLines: 3,
-                      textAlign: TextAlign.start,
-                      width: wp(60, context),
-                      text:
-                          "${Staticmenbers.cardUsers[contactcardindex!].address}",
-                      selectionColor: COLOR_WHITE,
-                      fontSize: 11,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: hp(3, context)),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: COLOR_WHITE, width: 1)),
-                  child: QrImage(
-                    dataModuleStyle:
-                        const QrDataModuleStyle(color: COLOR_WHITE),
-                    eyeStyle: const QrEyeStyle(color: COLOR_WHITE),
-                    data:
-                        "${Staticmenbers.cardUsers[contactcardindex!].user} ${Staticmenbers.cardUsers[contactcardindex!].id}",
-                    size: 60,
-                  ),
-                ),
-              ),
-              SizedBox(height: hp(0.5, context)),
-              Wrap(
-                  runSpacing: 5.0,
-                  alignment: WrapAlignment.center,
-                  runAlignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     (Staticmenbers.cardUsers[contactcardindex!].whatsapp == "")
                         ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () {
-                                launchUrl(
-                                    Uri.parse(
-                                        'https://wa.me/${Staticmenbers.cardUsers[contactcardindex!].whatsapp}?text=Hi'),
-                                    mode: LaunchMode.externalApplication);
-                              },
-                              child: Image.asset(
-                                "assets/icon/whats.png",
-                                scale: 20,
-                                color: COLOR_WHITE,
-                              ),
+                        : InkWell(
+                            onTap: () {
+                              launchUrl(
+                                  Uri.parse(
+                                      'https://wa.me/${Staticmenbers.cardUsers[contactcardindex!].whatsapp}?text=Hi'),
+                                  mode: LaunchMode.externalApplication);
+                            },
+                            child: Image.asset(
+                              "assets/icon/whats.png",
+                              scale: 25,
+                              color: COLOR_WHITE,
                             ),
                           ),
                     (Staticmenbers.cardUsers[contactcardindex!].facebook == "")
                         ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () {
-                                launchUrl(Uri.parse(
-                                    'https://www.facebook.com/{${Staticmenbers.cardUsers[contactcardindex!].facebook}}'));
-                              },
-                              child: Image.asset(
-                                "assets/icon/Face.png",
-                                scale: 20,
-                                color: COLOR_WHITE,
-                              ),
+                        : InkWell(
+                            onTap: () {
+                              launchUrl(Uri.parse(
+                                  'https://www.facebook.com/{${Staticmenbers.cardUsers[contactcardindex!].facebook}}'));
+                            },
+                            child: Image.asset(
+                              "assets/icon/Face.png",
+                              scale: 25,
+                              color: COLOR_WHITE,
                             ),
                           ),
                     (Staticmenbers.cardUsers[contactcardindex!].telegram == "")
                         ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () {
-                                launchUrl(Uri.parse(
-                                    "https://telegram.me/$Staticmenbers.cardUsers[contactcardindex!].telegram"));
-                              },
-                              child: Image.asset(
-                                "assets/icon/tele.png",
-                                scale: 20,
-                                color: COLOR_WHITE,
-                              ),
+                        : InkWell(
+                            onTap: () {
+                              launchUrl(Uri.parse(
+                                  "https://telegram.me/$Staticmenbers.cardUsers[contactcardindex!].telegram"));
+                            },
+                            child: Image.asset(
+                              "assets/icon/tele.png",
+                              scale: 25,
+                              color: COLOR_WHITE,
                             ),
                           ),
                     (Staticmenbers.cardUsers[contactcardindex!].linkdin == "")
                         ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () async {
-                                final url =
-                                    'https://www.linkedin.com//${Staticmenbers.cardUsers[contactcardindex!].linkdin}';
+                        : InkWell(
+                            onTap: () async {
+                              final url =
+                                  'https://www.linkedin.com//${Staticmenbers.cardUsers[contactcardindex!].linkdin}';
 
-                                await launchUrl(Uri.parse(url));
-                              },
-                              child: Image.asset(
-                                "assets/icon/lin.png",
-                                scale: 20,
-                                color: COLOR_WHITE,
-                              ),
+                              await launchUrl(Uri.parse(url));
+                            },
+                            child: Image.asset(
+                              "assets/icon/lin.png",
+                              scale: 25,
+                              color: COLOR_WHITE,
                             ),
                           ),
                     (Staticmenbers.cardUsers[contactcardindex!].website == "")
                         ? const SizedBox.shrink()
-                        : Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: InkWell(
-                              onTap: () async {
-                                final url =
-                                    'https://${Staticmenbers.cardUsers[contactcardindex!].website}';
+                        : InkWell(
+                            onTap: () async {
+                              final url =
+                                  'https://${Staticmenbers.cardUsers[contactcardindex!].website}';
 
-                                await launchUrl(Uri.parse(url));
-                              },
-                              child: Image.asset(
-                                "assets/icon/website.png",
-                                scale: 20,
-                                color: COLOR_WHITE,
-                              ),
+                              await launchUrl(Uri.parse(url));
+                            },
+                            child: Image.asset(
+                              "assets/icon/website.png",
+                              scale: 25,
+                              color: COLOR_WHITE,
                             ),
                           ),
-                  ])
+                  ],
+                ),
+              )
             ],
-          )
-        ]),
-      ),
+          ),
+        ),
+      ],
     );
   }
 

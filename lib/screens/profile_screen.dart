@@ -30,7 +30,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   // Controller
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
+  final TextEditingController professionController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   //from key
@@ -43,6 +43,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<Users> profileData = [];
   FToast? fToast;
   bool isLoading = false;
+  bool isUpdate = false;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   @override
   void initState() {
@@ -60,6 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       .doc();
 
   Future<void> addUser() async {
+    setState(() {
+      isUpdate = true;
+    });
     String? imgurl;
     if (imagePicker != null) {
       imgurl = await uploadImage(imagePicker!);
@@ -69,13 +73,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
       'profilename': nameController.text,
       'id': receivedLoanDataRef.id,
       'images': imgurl ?? "",
-      'dob': dobController.text,
+      'dob': professionController.text,
       'profileemail': emailController.text,
       'user': FirebaseAuth.instance.currentUser?.uid,
     }).then((value) {
+      displayToast(isUpdate: false);
+      setState(() {
+        isUpdate = false;
+      });
       imgurl = null;
       getSingleUserData();
     }).catchError((error) {
+      setState(() {
+        isUpdate = false;
+      });
       log("Failed to add user: $error");
     });
   }
@@ -169,14 +180,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       images = profileData.first.images ?? "";
       nameController.text = profileData.first.profilename ?? "";
-      dobController.text = profileData.first.dob ?? "";
+      professionController.text = profileData.first.dob ?? "";
       emailController.text = profileData.first.profileemail ?? "";
       currentUserId = profileData.first.id;
+      if (user != null && user!.phoneNumber != null) {
+        numberController.text = user!.phoneNumber ?? "";
+      }
       isLoading = false;
     });
   }
 
   Future<void> updateUser() async {
+    setState(() {
+      isUpdate = true;
+    });
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -188,12 +205,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         'profilename': nameController.text,
         'id': receivedLoanDataRef.id,
         'images': imgeurl ?? images,
-        'dob': dobController.text,
+        'dob': professionController.text,
         'profileemail': emailController.text,
         'user': FirebaseAuth.instance.currentUser?.uid,
       }).then((value) {
+        setState(() {
+          isUpdate = false;
+        });
+        displayToast(isUpdate: true);
+        getSingleUserData();
         imgeurl == null;
-      }).catchError((error) {});
+      }).catchError((error) {
+        setState(() {
+          isUpdate = false;
+        });
+      });
     } catch (e) {
       log("ERROR:$e");
     }
@@ -201,9 +227,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (user != null && user!.phoneNumber != null) {
-      numberController.text = user!.phoneNumber ?? "";
-    }
     return Scaffold(
       appBar: Customappbarwidget(
         leading: InkWell(
@@ -224,285 +247,344 @@ class _ProfileScreenState extends State<ProfileScreen> {
             )
           : SingleChildScrollView(
               padding: EdgeInsets.symmetric(
-                vertical: hp(6, context),
+                vertical: hp(4, context),
                 horizontal: wp(5, context),
               ),
               child: Form(
                 key: _formfield,
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Center(
-                        child: Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: COLOR_PRIMARY,
-                                  width: wp(1, context),
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(100),
-                                ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Center(
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: COLOR_PRIMARY,
+                                width: wp(1, context),
                               ),
-                              // profile image add
-                              child: ClipOval(
-                                child: imagePicker == null
-                                    ? CachedNetworkImage(
-                                        width: wp(30, context),
-                                        height: hp(14, context),
-                                        fit: BoxFit.fill,
-                                        imageUrl: "$images",
-                                        placeholder: (context, url) {
-                                          return Container(
-                                            color: COLOR_PRIMARY,
-                                            child: const Icon(
-                                              Icons.image,
-                                              size: 50,
-                                              color: COLOR_WHITE,
-                                            ),
-                                          );
-                                        },
-                                        errorWidget: (context, url, error) {
-                                          return Image.asset(
-                                            "assets/images/splash1.png",
-                                            width: wp(31, context),
-                                            height: hp(15, context),
-                                            fit: BoxFit.fill,
-                                          );
-                                        },
-                                      )
-                                    : Image.file(
-                                        imagePicker!,
-                                        width: wp(31, context),
-                                        height: hp(15, context),
-                                        fit: BoxFit.fill,
-                                      ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(100),
                               ),
                             ),
-                            Positioned(
-                                top: hp(11, context),
-                                right: wp(0, context),
-                                child: InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (ctx) =>
-                                            Uploadimage(onTapCamera: () {
-                                              pickImage(ImageSource.camera);
-                                              Navigator.pop(context);
-                                            }, onTapGallery: () {
-                                              pickImage(ImageSource.gallery);
-                                              Navigator.pop(context);
-                                            }));
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(2),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: COLOR_WHITE,
-                                        width: wp(0.5, context),
-                                      ),
-                                      borderRadius: const BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                      color: COLOR_PRIMARY,
+                            // profile image add
+                            child: ClipOval(
+                              child: imagePicker == null
+                                  ? CachedNetworkImage(
+                                      width: wp(30, context),
+                                      height: hp(14, context),
+                                      fit: BoxFit.fill,
+                                      imageUrl: "$images",
+                                      placeholder: (context, url) {
+                                        return Container(
+                                          color: COLOR_PRIMARY,
+                                          child: const Icon(
+                                            Icons.image,
+                                            size: 50,
+                                            color: COLOR_WHITE,
+                                          ),
+                                        );
+                                      },
+                                      errorWidget: (context, url, error) {
+                                        return Image.asset(
+                                          "assets/images/splash1.png",
+                                          width: wp(30, context),
+                                          height: hp(14, context),
+                                          fit: BoxFit.fill,
+                                        );
+                                      },
+                                    )
+                                  : Image.file(
+                                      imagePicker!,
+                                      width: wp(31, context),
+                                      height: hp(15, context),
+                                      fit: BoxFit.fill,
                                     ),
-                                    child: const Icon(
-                                      Icons.camera,
-                                      size: 25,
+                            ),
+                          ),
+                          Positioned(
+                              top: hp(11, context),
+                              right: wp(0, context),
+                              child: InkWell(
+                                onTap: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (ctx) =>
+                                          Uploadimage(onTapCamera: () {
+                                            pickImage(ImageSource.camera);
+                                            Navigator.pop(context);
+                                          }, onTapGallery: () {
+                                            pickImage(ImageSource.gallery);
+                                            Navigator.pop(context);
+                                          }));
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
                                       color: COLOR_WHITE,
+                                      width: wp(0.5, context),
                                     ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(20),
+                                    ),
+                                    color: COLOR_PRIMARY,
                                   ),
-                                )),
+                                  child: const Icon(
+                                    Icons.camera,
+                                    size: 25,
+                                    color: COLOR_WHITE,
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: hp(4, context),
+                    ),
+                    Text(
+                      "Basic Information",
+                      style: textMediumTextStyle.copyWith(
+                          color: COLOR_PRIMARY_LIGHT,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    //card Type
+                    SizedBox(
+                      height: hp(4, context),
+                    ),
+                    Text(
+                      "Full Name",
+                      style: textMediumTextStyle.copyWith(
+                          color: COLOR_PRIMARY_LIGHT),
+                    ),
+
+                    CustomTextFormField(
+                      texteditinghinttext: "Name",
+                      customprefixicon: SizedBox(
+                        height: hp(1, context),
+                        width: wp(1, context),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.person,
+                              color: COLOR_PRIMARY_LIGHT,
+                            ),
+                            SizedBox(
+                              width: wp(1, context),
+                            ),
+                            VerticalDivider(
+                              indent: hp(1, context),
+                              endIndent: hp(1, context),
+                              thickness: 1,
+                              color: COLOR_PRIMARY_LIGHT.withOpacity(0.25),
+                            )
                           ],
                         ),
                       ),
+                      style: textMediumTextStyle,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: hp(2, context)),
+                      textEditingController: nameController,
+                      validationfunction: textvalidator,
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                    ),
+                    SizedBox(
+                      height: hp(3, context),
+                    ),
+                    Text(
+                      "Contact Number",
+                      style: textMediumTextStyle.copyWith(
+                          color: COLOR_PRIMARY_LIGHT),
+                    ),
 
-                      //card Type
-                      SizedBox(
-                        height: hp(3, context),
+                    CustomTextFormField(
+                      texteditinghinttext: "Contact Number",
+                      customprefixicon: SizedBox(
+                        height: hp(1, context),
+                        width: wp(1, context),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.call,
+                              color: COLOR_PRIMARY_LIGHT,
+                            ),
+                            SizedBox(
+                              width: wp(1, context),
+                            ),
+                            VerticalDivider(
+                              indent: hp(1, context),
+                              endIndent: hp(1, context),
+                              thickness: 1,
+                              color: COLOR_PRIMARY_LIGHT.withOpacity(0.25),
+                            )
+                          ],
+                        ),
                       ),
-                      Text(
-                        "Full Name",
-                        style: textMediumTextStyle.copyWith(
-                            color: COLOR_PRIMARY_LIGHT),
+                      readOnly: true,
+                      textInputType: TextInputType.number,
+                      style: textMediumTextStyle,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: hp(2, context)),
+                      textEditingController: numberController,
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
                       ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                    ),
+                    SizedBox(
+                      height: hp(3, context),
+                    ),
+                    Text(
+                      "Email Address",
+                      style: textMediumTextStyle.copyWith(
+                          color: COLOR_PRIMARY_LIGHT),
+                    ),
+                    CustomTextFormField(
+                      texteditinghinttext: "Email",
+                      customprefixicon: SizedBox(
+                        height: hp(1, context),
+                        width: wp(1, context),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.email_rounded,
+                              color: COLOR_PRIMARY_LIGHT,
+                            ),
+                            SizedBox(
+                              width: wp(1, context),
+                            ),
+                            VerticalDivider(
+                              indent: hp(1, context),
+                              endIndent: hp(1, context),
+                              thickness: 1,
+                              color: COLOR_PRIMARY_LIGHT.withOpacity(0.25),
+                            )
+                          ],
+                        ),
+                      ),
+                      style: textMediumTextStyle,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: hp(2, context)),
+                      textEditingController: emailController,
+                      validationfunction: emailValidator,
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                    ),
+                    SizedBox(
+                      height: hp(3, context),
+                    ),
+                    Text(
+                      "Profession",
+                      style: textMediumTextStyle.copyWith(
+                          color: COLOR_PRIMARY_LIGHT),
+                    ),
+                    CustomTextFormField(
+                      texteditinghinttext: "Profession",
+                      customprefixicon: SizedBox(
+                        height: hp(1, context),
+                        width: wp(1, context),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.comment,
+                              color: COLOR_PRIMARY_LIGHT,
+                            ),
+                            SizedBox(
+                              width: wp(1, context),
+                            ),
+                            VerticalDivider(
+                              indent: hp(1, context),
+                              endIndent: hp(1, context),
+                              thickness: 1,
+                              color: COLOR_PRIMARY_LIGHT.withOpacity(0.25),
+                            )
+                          ],
+                        ),
+                      ),
+                      style: textMediumTextStyle,
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: hp(2, context)),
+                      textEditingController: professionController,
+                      validationfunction: textvalidator,
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      border: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      enabledBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                    ),
 
-                      CustomTextFormField(
-                        texteditinghinttext: "Name",
-                        customprefixicon: const Icon(
-                          Icons.person,
-                          color: COLOR_PRIMARY_LIGHT,
-                        ),
-                        style: textMediumTextStyle,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: hp(2, context)),
-                        textEditingController: nameController,
-                        validationfunction: textvalidator,
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      Text(
-                        "Contact Number",
-                        style: textMediumTextStyle.copyWith(
-                            color: COLOR_PRIMARY_LIGHT),
-                      ),
-
-                      CustomTextFormField(
-                        texteditinghinttext: "Contact Number",
-                        customprefixicon: const Icon(
-                          Icons.call,
-                          color: COLOR_PRIMARY_LIGHT,
-                        ),
-                        readOnly: true,
-                        textInputType: TextInputType.number,
-                        style: textMediumTextStyle,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: hp(2, context)),
-                        textEditingController: numberController,
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      Text(
-                        "Email Address",
-                        style: textMediumTextStyle.copyWith(
-                            color: COLOR_PRIMARY_LIGHT),
-                      ),
-                      CustomTextFormField(
-                        texteditinghinttext: "Email",
-                        customprefixicon: const Icon(
-                          Icons.email_rounded,
-                          color: COLOR_PRIMARY_LIGHT,
-                        ),
-                        style: textMediumTextStyle,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: hp(2, context)),
-                        textEditingController: emailController,
-                        validationfunction: emailValidator,
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                      ),
-                      SizedBox(
-                        height: hp(3, context),
-                      ),
-                      Text(
-                        "Role",
-                        style: textMediumTextStyle.copyWith(
-                            color: COLOR_PRIMARY_LIGHT),
-                      ),
-                      CustomTextFormField(
-                        texteditinghinttext: "Role",
-                        customprefixicon: const Icon(
-                          Icons.comment,
-                          color: COLOR_PRIMARY_LIGHT,
-                        ),
-                        style: textMediumTextStyle,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: hp(2, context)),
-                        textEditingController: dobController,
-                        validationfunction: textvalidator,
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        border: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
-                        ),
-                        errorBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.red),
-                        ),
-                      ),
-
-                      SizedBox(height: hp(5, context)),
-                      Center(
-                        child: TextButtomWidget(
-                            onPressed: () async {
-                              if (_formfield.currentState!.validate()) {
-                                if (profileData.isEmpty ||
-                                    profileData.length == 0) {
-                                  addUser();
-                                  displayAddprofileToast();
-                                } else {
-                                  updateUser();
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ProfileScreen()));
-                                  displayUpdateprofileToast();
-                                }
+                    SizedBox(height: hp(5, context)),
+                    Center(
+                      child: TextButtomWidget(
+                          onPressed: () async {
+                            if (_formfield.currentState!.validate()) {
+                              if (profileData.isEmpty) {
+                                addUser();
                               } else {
-                                return;
+                                updateUser();
                               }
-                            },
-                            height: hp(6, context),
-                            width: wp(40, context),
-                            title: "Save",
-                            color: COLOR_PRIMARY_DARK),
-                      ),
-                    ]),
+                            } else {
+                              return;
+                            }
+                          },
+                          height: hp(6.5, context),
+                          width: wp(80, context),
+                          title: "Save",
+                          isLoading: isUpdate,
+                          color: COLOR_PRIMARY_DARK),
+                    ),
+                  ],
+                ),
               ),
             ),
     );
   }
 
-  displayAddprofileToast() {
-    Widget toast = const CustomToast(
+  displayToast({bool isUpdate = false}) {
+    Widget toast = CustomToast(
       child: Text(
-        "Add Profle Data Successfully.",
-        style: TextStyle(color: COLOR_WHITE),
-      ),
-    );
-    fToast?.showToast(
-      child: toast,
-      toastDuration: const Duration(seconds: 2),
-    );
-  }
-
-  displayUpdateprofileToast() {
-    Widget toast = const CustomToast(
-      child: Text(
-        "Update Profle Data Successfully.",
-        style: TextStyle(color: COLOR_WHITE),
+        isUpdate == true
+            ? "Update Profle Data Successfully."
+            : "Add Profle Data Successfully.",
+        style: textMediumTextStyle.copyWith(color: COLOR_WHITE),
       ),
     );
     fToast?.showToast(
