@@ -44,7 +44,6 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       textCapitalization: textCapitalization ?? TextCapitalization.none,
       textInputAction: TextInputAction.next,
-      autocorrect: true,
       readOnly: readOnly ?? false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       inputFormatters: inputFormatters,

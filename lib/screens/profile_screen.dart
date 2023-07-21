@@ -87,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         isUpdate = false;
       });
-      log("Failed to add user: $error");
+      debugPrint("Failed to add user: $error");
     });
   }
 
@@ -221,23 +221,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
       });
     } catch (e) {
-      log("ERROR:$e");
+      debugPrint("ERROR:$e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Customappbarwidget(
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back,
-            color: COLOR_PRIMARY_DARK,
-          ),
-        ),
+      appBar: const Customappbarwidget(
         centerTitle: false,
         title: "Profile",
       ),
@@ -387,7 +378,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       contentPadding:
                           EdgeInsets.symmetric(vertical: hp(2, context)),
                       textEditingController: nameController,
-                      validationfunction: textvalidator,
+                      validationfunction: (value) =>
+                          namevalidator(value, message: "Name is required."),
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
                       ),
@@ -536,7 +528,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       contentPadding:
                           EdgeInsets.symmetric(vertical: hp(2, context)),
                       textEditingController: professionController,
-                      validationfunction: textvalidator,
+                      validationfunction: (value) => textvalidator(value,
+                          message: "Profession is required."),
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: COLOR_PRIMARY_LIGHT),
                       ),

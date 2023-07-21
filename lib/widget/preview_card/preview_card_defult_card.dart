@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/style.dart';
-import 'package:vcard/widget/text_widget.dart';
+import 'package:vcard/utils/textStyle.dart';
 import '../../utils/responsive.dart';
 
 class PreviewDefultCard extends StatefulWidget {
@@ -21,211 +21,217 @@ class _PreviewDefultCardState extends State<PreviewDefultCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 30, right: 30, top: 5, bottom: 10),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: COLOR_YELLOW, width: wp(0.5, context)),
-            borderRadius: BorderRadius.circular(20.0),
+    return Wrap(
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+            vertical: hp(2, context),
+            horizontal: wp(2, context),
           ),
-          elevation: 30,
-          color: COLOR_PRIMARY_DARK,
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            SizedBox(height: hp(0.5, context)),
-            Textwidget(
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              width: wp(60, context),
-              text: 'Company Name',
-              fontSize: 16,
-              selectionColor: COLOR_YELLOW,
+          margin: EdgeInsets.symmetric(
+            horizontal: wp(8, context),
+            vertical: hp(1, context),
+          ),
+          decoration: BoxDecoration(
+            color: COLOR_PRIMARY_DARK,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: COLOR_YELLOW,
+              width: wp(0.5, context),
             ),
-            SizedBox(height: hp(0.5, context)),
-            Center(
-                child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(50),
-                    topLeft: Radius.circular(19),
-                    bottomLeft: Radius.circular(19),
-                    bottomRight: Radius.circular(19)),
-                border:
-                    Border.all(color: COLOR_YELLOW, width: wp(0.1, context)),
-                boxShadow: const [
-                  BoxShadow(
-                    color: COLOR_YELLOW,
-                    blurRadius: 5.0,
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(50),
-                ),
-                child: Image.asset(
-                  "assets/images/splash1.png",
-                  width: wp(50, context),
-                  height: hp(16, context),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            )),
-            SizedBox(height: hp(1, context)),
-            Center(
-                child: Textwidget(
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              width: wp(40, context),
-              text: 'Your Name',
-              fontSize: 20,
-              selectionColor: COLOR_YELLOW,
-            )),
-            SizedBox(height: hp(0.5, context)),
-            Center(
-              child: Textwidget(
-                maxLines: 1,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Company Name',
                 textAlign: TextAlign.center,
-                width: wp(60, context),
-                text: 'Profession',
-                fontSize: 16,
-                selectionColor: COLOR_YELLOW,
+                style: smalltitleTextStyle.copyWith(color: COLOR_YELLOW),
               ),
-            ),
-            SizedBox(height: hp(0.5, context)),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Divider(
-                color: COLOR_YELLOW,
-                thickness: 2,
-                height: 1,
+              SizedBox(
+                height: hp(1, context),
               ),
-            ),
-            Column(children: [
-              Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 55),
-                  child: Image.asset(
-                    "assets/icon/call.png",
-                    scale: 24,
-                    color: COLOR_YELLOW,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Textwidget(
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      width: wp(40, context),
-                      text: "xxxxx xxxxx",
-                      fontSize: 16,
-                      selectionColor: COLOR_YELLOW),
-                ),
-              ]),
-              SizedBox(height: hp(1.5, context)),
-              Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 55),
-                  child: Image.asset(
-                    "assets/icon/email.png",
-                    scale: 24,
-                    color: COLOR_YELLOW,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Textwidget(
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      width: wp(40, context),
-                      text: "xyz12@gmail.com",
-                      fontSize: 16,
-                      selectionColor: COLOR_YELLOW),
-                ),
-              ]),
-              SizedBox(height: hp(1.5, context)),
-              Row(children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 55),
-                  child: Image.asset(
-                    "assets/icon/pin.png",
-                    scale: 24,
-                    color: COLOR_YELLOW,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: Textwidget(
-                      maxLines: 2,
-                      textAlign: TextAlign.start,
-                      width: wp(30, context),
-                      text: "Your Address",
-                      fontSize: 14,
-                      selectionColor: COLOR_YELLOW),
-                ),
-              ]),
-            ]),
-            SizedBox(height: hp(0.5, context)),
-            Center(
-              child: Container(
+              Container(
                 decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.only(topRight: Radius.circular(50)),
+                  border: Border.all(
+                    color: COLOR_YELLOW,
+                    width: wp(0.2, context),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: COLOR_YELLOW.withOpacity(0.1),
+                      blurRadius: 1.0,
+                    ),
+                  ],
+                ),
+                child: ClipRRect(
+                  borderRadius:
+                      const BorderRadius.only(topRight: Radius.circular(50)),
+                  child: Image.asset(
+                    "assets/images/splash1.png",
+                    width: wp(28, context),
+                    height: hp(12, context),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: hp(1.5, context),
+              ),
+              Text(
+                'Your Name',
+                textAlign: TextAlign.center,
+                style: titleTextStyle.copyWith(color: COLOR_YELLOW),
+              ),
+              SizedBox(
+                height: hp(1, context),
+              ),
+              Text(
+                'Profession',
+                textAlign: TextAlign.center,
+                style: textMediumTextStyle.copyWith(color: COLOR_YELLOW),
+              ),
+              SizedBox(height: hp(1, context)),
+              const Divider(
+                color: COLOR_YELLOW,
+                thickness: 1,
+              ),
+              SizedBox(
+                height: hp(1, context),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: wp(10, context),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          "assets/icon/call.png",
+                          scale: 35,
+                          color: COLOR_YELLOW,
+                        ),
+                        SizedBox(
+                          width: wp(2, context),
+                        ),
+                        Text(
+                          'xxxxx xxxxx',
+                          textAlign: TextAlign.center,
+                          style:
+                              textMediumTextStyle.copyWith(color: COLOR_YELLOW),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: hp(1, context),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          "assets/icon/email.png",
+                          scale: 35,
+                          color: COLOR_YELLOW,
+                        ),
+                        SizedBox(
+                          width: wp(2, context),
+                        ),
+                        Text(
+                          "xzy12@gmail.com",
+                          textAlign: TextAlign.center,
+                          style:
+                              textMediumTextStyle.copyWith(color: COLOR_YELLOW),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: hp(1, context),
+                    ),
+                    Row(
+                      children: [
+                        Image.asset(
+                          "assets/icon/pin.png",
+                          scale: 30,
+                          color: COLOR_YELLOW,
+                        ),
+                        SizedBox(
+                          width: wp(3, context),
+                        ),
+                        Text(
+                          "Your Address",
+                          textAlign: TextAlign.start,
+                          maxLines: 4,
+                          style: textMediumTextStyle.copyWith(
+                              color: COLOR_YELLOW, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: hp(1, context),
+              ),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: COLOR_YELLOW, width: 1)),
-                child: QrImage(
-                  dataModuleStyle: const QrDataModuleStyle(color: COLOR_YELLOW),
-                  eyeStyle: const QrEyeStyle(color: COLOR_YELLOW),
-                  data: "",
-                  size: 40,
+                    border: Border.all(color: COLOR_YELLOW, width: 1),
+                  ),
+                  child: QrImage(
+                    dataModuleStyle:
+                        const QrDataModuleStyle(color: COLOR_YELLOW),
+                    eyeStyle: const QrEyeStyle(color: COLOR_YELLOW),
+                    data: "",
+                    size: dp(50, context),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: hp(0.5, context)),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Image.asset(
-                  "assets/icon/whats.png",
-                  scale: 22,
-                  color: COLOR_YELLOW,
-                ),
+              SizedBox(
+                height: hp(1, context),
               ),
               Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Image.asset(
-                  "assets/icon/Face.png",
-                  scale: 22,
-                  color: COLOR_YELLOW,
+                padding: EdgeInsets.symmetric(horizontal: wp(5, context)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Image.asset(
+                      "assets/icon/whats.png",
+                      scale: 30,
+                      color: COLOR_YELLOW,
+                    ),
+                    Image.asset(
+                      "assets/icon/Face.png",
+                      scale: 30,
+                      color: COLOR_YELLOW,
+                    ),
+                    Image.asset(
+                      "assets/icon/tele.png",
+                      scale: 30,
+                      color: COLOR_YELLOW,
+                    ),
+                    Image.asset(
+                      "assets/icon/website.png",
+                      scale: 30,
+                      color: COLOR_YELLOW,
+                    ),
+                    Image.asset(
+                      "assets/icon/lin.png",
+                      scale: 30,
+                      color: COLOR_YELLOW,
+                    )
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Image.asset(
-                  "assets/icon/tele.png",
-                  scale: 22,
-                  color: COLOR_YELLOW,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Image.asset(
-                  "assets/icon/website.png",
-                  scale: 22,
-                  color: COLOR_YELLOW,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(7.0),
-                child: Image.asset(
-                  "assets/icon/lin.png",
-                  scale: 22,
-                  color: COLOR_YELLOW,
-                ),
-              )
-            ]),
-          ]),
+            ],
+          ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }

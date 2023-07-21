@@ -80,7 +80,6 @@ class _CardscreenState extends State<Cardscreen> {
       value = true;
       Staticmenbers.listofUsers = userData;
       isLoading = false;
-      log('message:$value');
     });
   }
 

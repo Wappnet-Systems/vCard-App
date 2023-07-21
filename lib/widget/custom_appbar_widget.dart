@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:vcard/utils/style.dart';
 
 class Customappbarwidget extends StatelessWidget
     implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(60);
   final String title;
-  final Widget leading;
+  final Widget? leading;
   final List<Widget>? actions;
   final bool? centerTitle;
   final double? leadingWidth;
@@ -13,7 +14,7 @@ class Customappbarwidget extends StatelessWidget
       {super.key,
       required this.title,
       this.actions,
-      required this.leading,
+      this.leading,
       this.centerTitle,
       this.leadingWidth});
 
@@ -29,7 +30,16 @@ class Customappbarwidget extends StatelessWidget
         ),
       ),
       leadingWidth: leadingWidth,
-      leading: leading,
+      leading: leading ??
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.arrow_back_sharp,
+              color: COLOR_PRIMARY_DARK,
+            ),
+          ),
       actions: actions,
     );
   }

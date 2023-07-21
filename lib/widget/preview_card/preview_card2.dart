@@ -5,7 +5,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
-import 'package:vcard/widget/text_widget.dart';
+import 'package:vcard/utils/textStyle.dart';
 
 class PreviewCard2 extends StatefulWidget {
   final int? id;
@@ -26,219 +26,195 @@ class _PreviewCard2State extends State<PreviewCard2> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(right: 30, left: 30, top: 15, bottom: 10),
-      child: Container(
-        width: wp(80, context),
-        height: hp(52, context),
-        decoration: BoxDecoration(
-          border: Border.all(color: COLOR_WHITE, width: wp(0.5, context)),
-          borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
-          color: colorList[previewcolor!] == ""
-              ? COLOR_PRIMARY_DARK
-              : colorList[previewcolor!],
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black,
-              blurRadius: 3.0,
-            ),
-          ],
+    return Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.symmetric(
+        horizontal: wp(8, context),
+        vertical: hp(2, context),
+      ),
+      padding: EdgeInsets.symmetric(
+        vertical: hp(2, context),
+        horizontal: wp(2, context),
+      ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: COLOR_WHITE,
+          width: wp(0.5, context),
         ),
-        child: Column(children: [
-          SizedBox(height: hp(1, context)),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: COLOR_WHITE, width: 3),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(90),
+        borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(50), topRight: Radius.circular(50)),
+        color: colorList[previewcolor!],
+        boxShadow: [
+          BoxShadow(
+            color: COLOR_PRIMARY_DARK.withOpacity(0.5),
+            blurRadius: 3.0,
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 35,
+            backgroundColor: COLOR_WHITE,
+            child: ClipOval(
+              child: Image.asset(
+                "assets/images/splash1.png",
               ),
             ),
-            child: ClipOval(
-                child: Image.asset(
-              "assets/images/splash1.png",
-              width: wp(24, context),
-              height: hp(12, context),
-              fit: BoxFit.fill,
-            )),
           ),
-          Column(
-            children: [
-              SizedBox(height: hp(1, context)),
-              Textwidget(
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                width: wp(60, context),
-                text: "Your Name",
-                selectionColor: COLOR_WHITE,
-                fontSize: 20,
-              ),
-              SizedBox(
-                height: hp(0.5, context),
-              ),
-              Textwidget(
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                width: wp(60, context),
-                text: "Profession",
-                selectionColor: COLOR_WHITE,
-                fontSize: 14,
-              ),
-              SizedBox(
-                height: hp(0.5, context),
-              ),
-              Textwidget(
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                width: wp(40, context),
-                text: "Company Name",
-                selectionColor: COLOR_WHITE,
-                fontSize: 14,
-              ),
-              SizedBox(
-                height: hp(1, context),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: Row(
+          SizedBox(
+            height: hp(2, context),
+          ),
+          Text(
+            "Your Name",
+            textAlign: TextAlign.center,
+            style: titleTextStyle.copyWith(color: COLOR_WHITE),
+          ),
+          SizedBox(
+            height: hp(1, context),
+          ),
+          Text(
+            "Profession",
+            textAlign: TextAlign.center,
+            style: textMediumTextStyle.copyWith(color: COLOR_WHITE),
+          ),
+          SizedBox(
+            height: hp(2, context),
+          ),
+          Text(
+            "Company Name",
+            textAlign: TextAlign.center,
+            style: textMediumTextStyle.copyWith(
+                color: COLOR_WHITE, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            height: hp(2, context),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              left: wp(10, context),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image.asset(
                       "assets/icon/call.png",
-                      scale: 22,
+                      scale: 25,
                       color: COLOR_WHITE,
                     ),
                     SizedBox(
                       width: wp(5, context),
                     ),
-                    Textwidget(
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      width: wp(40, context),
-                      text: "xxxxx xxxxx",
-                      selectionColor: COLOR_WHITE,
-                      fontSize: 14,
+                    Text(
+                      "xxxxx xxxxx",
+                      textAlign: TextAlign.center,
+                      style: textSmallTextStyle.copyWith(color: COLOR_WHITE),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: hp(1, context),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: Row(
+                SizedBox(
+                  height: hp(2, context),
+                ),
+                Row(
                   children: [
                     Image.asset(
                       "assets/icon/email.png",
-                      scale: 22,
+                      scale: 25,
                       color: COLOR_WHITE,
                     ),
                     SizedBox(
                       width: wp(5, context),
                     ),
-                    Textwidget(
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      width: wp(40, context),
-                      text: "xyz12@gmail.com",
-                      selectionColor: COLOR_WHITE,
-                      fontSize: 14,
+                    Text(
+                      "xyz12@gmail.com",
+                      textAlign: TextAlign.center,
+                      style: textSmallTextStyle.copyWith(color: COLOR_WHITE),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: hp(1, context),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 60),
-                child: Row(
+                SizedBox(
+                  height: hp(2, context),
+                ),
+                Row(
                   children: [
                     Image.asset(
                       "assets/icon/pin.png",
-                      scale: 20,
+                      scale: 25,
                       color: COLOR_WHITE,
                     ),
                     SizedBox(
                       width: wp(5, context),
                     ),
-                    Textwidget(
-                      maxLines: 2,
-                      textAlign: TextAlign.start,
-                      width: wp(40, context),
-                      text: "Yourv Address",
-                      selectionColor: COLOR_WHITE,
-                      fontSize: 12,
+                    Flexible(
+                      child: Text(
+                        "Your Address",
+                        textAlign: TextAlign.start,
+                        maxLines: 4,
+                        style: smallTextStyle.copyWith(color: COLOR_WHITE),
+                      ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: hp(0.5, context)),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: COLOR_WHITE, width: 1)),
-                  child: QrImage(
-                    dataModuleStyle:
-                        const QrDataModuleStyle(color: COLOR_WHITE),
-                    eyeStyle: const QrEyeStyle(color: COLOR_WHITE),
-                    data: "",
-                    size: 40,
-                  ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: hp(2, context),
+          ),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: COLOR_WHITE, width: 1),
+            ),
+            child: QrImage(
+              dataModuleStyle: const QrDataModuleStyle(color: COLOR_WHITE),
+              eyeStyle: const QrEyeStyle(color: COLOR_WHITE),
+              data: "",
+              size: dp(60, context),
+            ),
+          ),
+          SizedBox(
+            height: hp(2, context),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: wp(10, context),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset(
+                  "assets/icon/whats.png",
+                  scale: 25,
+                  color: COLOR_WHITE,
                 ),
-              ),
-              SizedBox(height: hp(0.5, context)),
-              Wrap(
-                  runSpacing: 5.0,
-                  alignment: WrapAlignment.center,
-                  runAlignment: WrapAlignment.center,
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/icon/whats.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/icon/Face.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/icon/tele.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/icon/lin.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.asset(
-                        "assets/icon/website.png",
-                        scale: 22,
-                        color: COLOR_WHITE,
-                      ),
-                    ),
-                  ])
-            ],
+                Image.asset(
+                  "assets/icon/Face.png",
+                  scale: 25,
+                  color: COLOR_WHITE,
+                ),
+                Image.asset(
+                  "assets/icon/tele.png",
+                  scale: 25,
+                  color: COLOR_WHITE,
+                ),
+                Image.asset(
+                  "assets/icon/lin.png",
+                  scale: 25,
+                  color: COLOR_WHITE,
+                ),
+                Image.asset(
+                  "assets/icon/website.png",
+                  scale: 25,
+                  color: COLOR_WHITE,
+                ),
+              ],
+            ),
           )
-        ]),
+        ],
       ),
     );
   }

@@ -16,7 +16,6 @@ import '../model/data_controllers.dart';
 import '../utils/constants.dart';
 import '../utils/responsive.dart';
 import '../utils/validator.dart';
-import '../widget/custom_loadingbar_widget.dart';
 import '../widget/custom_no_data_widget.dart';
 import '../widget/custom_toast.dart';
 
@@ -184,14 +183,15 @@ class _ScannerscreenState extends State<Scannerscreen> {
     }).then((value) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const Dashboardscreen(
-            index: 2,
-          ),
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Dashboardscreen(index: 2),
+          reverseTransitionDuration: Duration.zero,
+          transitionDuration: Duration.zero,
         ),
       );
     }).catchError((error) {
-      log("Failed to add user: $error");
+      debugPrint("Failed to add user: $error");
     });
   }
 
@@ -214,7 +214,10 @@ class _ScannerscreenState extends State<Scannerscreen> {
               children: [
                 // SizedBox(height: hp(17, context)),
                 scancarddata == null
-                    ? const Custonloading()
+                    ? Text(
+                        "No data found!!",
+                        style: textMediumTextStyle,
+                      )
                     : Container(
                         height: hp(13, context),
                         decoration: const BoxDecoration(
@@ -345,10 +348,12 @@ class _ScannerscreenState extends State<Scannerscreen> {
                     onPressed: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const Dashboardscreen(
-                            index: 1,
-                          ),
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const Dashboardscreen(index: 1),
+                          reverseTransitionDuration: Duration.zero,
+                          transitionDuration: Duration.zero,
                         ),
                       );
                     },

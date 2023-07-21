@@ -19,7 +19,6 @@ import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import 'package:vcard/widget/phone_field_widget.dart';
-import 'package:vcard/widget/text_widget.dart';
 import 'package:vcard/widget/upload_image.dart';
 import '../utils/constants.dart';
 import '../utils/formatters.dart';
@@ -100,11 +99,16 @@ class _CreatecardscreenState extends State<Createcardscreen> {
     }).then((value) {
       closeCustomLoadingDialog(context);
       Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: ((context) => const Dashboardscreen(index: 0))));
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Dashboardscreen(index: 0),
+          reverseTransitionDuration: Duration.zero,
+          transitionDuration: Duration.zero,
+        ),
+      );
     }).catchError((error) {
-      log("Failed to add user: $error");
+      debugPrint("Failed to add user: $error");
     });
   }
 
@@ -132,7 +136,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
           setState(() {
             File file = File(croppedFile.path.toString());
             Imagepicker = file;
-            log("Imagepicker:$Imagepicker");
             isprofile = false;
           });
         }
@@ -177,18 +180,17 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
             child: IconButton(
                 onPressed: () async {
-                  if (Imagepicker != null) {
-                    if (_formfield.currentState!.validate() &&
-                        addresscontroller.text != "") {
-                      // save data
-                      addUser();
-                    } else {
-                      displayCustomToast();
-                    }
-                  } else {
+                  if (_formfield.currentState!.validate() &&
+                      addresscontroller.text != "" &&
+                      Imagepicker != null) {
+                    // save data
+                    addUser();
+                  } else if (Imagepicker == null) {
                     setState(() {
                       isprofile = true;
                     });
+                  } else {
+                    displayCustomToast();
                   }
                 },
                 icon: const Icon(
@@ -197,18 +199,6 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 )),
           ),
         ],
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Padding(
-            padding: EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-            child: Icon(
-              Icons.arrow_back_sharp,
-              color: COLOR_PRIMARY_DARK,
-            ),
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(
@@ -290,16 +280,20 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: hp(0.5, context),
+              ),
               isprofile
-                  ? Textwidget(
+                  ? Text(
+                      "Profile Image cant't be Empty",
+                      style: smallTextStyle.copyWith(color: Colors.red),
                       textAlign: TextAlign.center,
-                      text: "Profile Image cant't be Empty",
-                      selectionColor: Colors.red.shade800,
-                      fontSize: 12,
                     )
                   : const SizedBox.shrink(),
               //card Type
-              SizedBox(height: hp(3, context)),
+              SizedBox(
+                height: hp(3, context),
+              ),
               CustomTextFormField(
                 textCapitalization: TextCapitalization.words,
                 labelText: "Type of card",
@@ -325,7 +319,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   Icons.person,
                   color: COLOR_PRIMARY_LIGHT,
                 ),
-                validationfunction: textvalidator,
+                validationfunction: (value) =>
+                    namevalidator(value, message: "Name is required."),
               ),
               SizedBox(height: hp(2, context)),
               CustomTextFormField(
@@ -339,7 +334,8 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   Icons.work_rounded,
                   color: COLOR_PRIMARY_LIGHT,
                 ),
-                validationfunction: textvalidator,
+                validationfunction: (value) =>
+                    textvalidator(value, message: "Profession is required."),
               ),
               SizedBox(height: hp(2, context)),
               CustomTextFormField(
@@ -353,11 +349,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   Icons.apartment_sharp,
                   color: COLOR_PRIMARY_LIGHT,
                 ),
-                validationfunction: textvalidator,
+                validationfunction: (value) =>
+                    textvalidator(value, message: "Company name is required."),
               ),
               SizedBox(height: hp(2, context)),
               PhoneFieldWidget(
-                invalidNumberMessage: "This field can't be empty",
+                invalidNumberMessage: "Phone Number is required.",
                 controller: numbercontroller,
                 initialCountryCode: Countryshortcode,
                 onChanged: (phone) {
@@ -398,14 +395,16 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     )
                   : const SizedBox.shrink(),
               websitecontroller.text != ""
-                  ? SizedBox(height: hp(2, context))
+                  ? SizedBox(
+                      height: hp(2, context),
+                    )
                   : const SizedBox.shrink(),
               whatsappcontroller.text != ""
                   ? CustomTextFormField(
                       textCapitalization: TextCapitalization.none,
                       labelText: "WhatsApp",
                       inputFormatters: [maskFormatter],
-                      textInputType: TextInputType.phone,
+                      textInputType: TextInputType.number,
                       textEditingController: whatsappcontroller,
                       texteditinghinttext: 'WhatsApp',
                       customobscuretext: true,
@@ -457,7 +456,7 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       textCapitalization: TextCapitalization.none,
                       labelText: "Telegram",
                       inputFormatters: [maskFormatter],
-                      textInputType: TextInputType.phone,
+                      textInputType: TextInputType.number,
                       textEditingController: telegramcontroller,
                       texteditinghinttext: 'Telegram',
                       customobscuretext: true,
@@ -788,8 +787,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
 
   // address toast
   displayCustomToast() {
-    Widget toast = const CustomToast(
-      child: Text(
+    Widget toast = CustomToast(
+      color: Colors.red[800],
+      child: const Text(
         "Address field can't be Empty",
         style: TextStyle(color: COLOR_WHITE),
       ),

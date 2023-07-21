@@ -116,9 +116,13 @@ class _MenuscreenState extends State<Menuscreen> {
                                       (value) {
                                         Navigator.push(
                                           ctx,
-                                          MaterialPageRoute(
-                                            builder: (ctx) =>
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                    secondaryAnimation) =>
                                                 const Dashboardscreen(index: 0),
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                            transitionDuration: Duration.zero,
                                           ),
                                         );
                                       },
@@ -135,11 +139,13 @@ class _MenuscreenState extends State<Menuscreen> {
                                       (value) {
                                         Navigator.pushReplacement(
                                           ctx,
-                                          MaterialPageRoute(
-                                            builder: (ctx) =>
-                                                const Dashboardscreen(
-                                              index: 2,
-                                            ),
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                    secondaryAnimation) =>
+                                                const Dashboardscreen(index: 2),
+                                            reverseTransitionDuration:
+                                                Duration.zero,
+                                            transitionDuration: Duration.zero,
                                           ),
                                         );
                                       },

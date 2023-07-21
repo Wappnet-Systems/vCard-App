@@ -52,7 +52,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                 null
                             ? colorList[
                                 Staticmenbers.listofUsers[cardindex!].color!]
-                            : COLOR_PRIMARY_DARK,
+                            : COLOR_PRIMARY,
                         width: wp(0.3, context),
                       ),
                       borderRadius: const BorderRadius.only(
@@ -73,7 +73,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                           null
                                       ? colorList[Staticmenbers
                                           .listofUsers[cardindex!].color!]
-                                      : COLOR_PRIMARY_DARK),
+                                      : COLOR_PRIMARY),
                         ),
                         SizedBox(
                           height: hp(1, context),
@@ -87,7 +87,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                                           null
                                       ? colorList[Staticmenbers
                                           .listofUsers[cardindex!].color!]
-                                      : COLOR_PRIMARY_DARK),
+                                      : COLOR_PRIMARY),
                         ),
                         SizedBox(
                           height: hp(3, context),
@@ -233,7 +233,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                       color: Staticmenbers.listofUsers[cardindex!].color != null
                           ? colorList[
                               Staticmenbers.listofUsers[cardindex!].color!]
-                          : COLOR_PRIMARY_DARK,
+                          : COLOR_PRIMARY,
                     ),
                     child: Column(
                       children: [
@@ -349,6 +349,7 @@ class _Cardtheme3State extends State<Cardtheme3> {
                               child: Text(
                                 "${Staticmenbers.listofUsers[cardindex!].address}",
                                 textAlign: TextAlign.start,
+                                maxLines: 3,
                                 style: smallTextStyle.copyWith(
                                     color: COLOR_WHITE, fontSize: 9),
                               ),
@@ -393,14 +394,14 @@ class _Cardtheme3State extends State<Cardtheme3> {
                       vertical: hp(2, context),
                       horizontal: wp(2, context),
                     ),
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(8),
                           topLeft: Radius.circular(8)),
-                      color: COLOR_PRIMARY_DARK.withOpacity(1),
+                      color: COLOR_PRIMARY_DARK,
                     ),
                     child: Text(
-                      "${Staticmenbers.listofUsers[cardindex!].compeny} private limited.",
+                      "${Staticmenbers.listofUsers[cardindex!].compeny}",
                       style: textMediumTextStyle.copyWith(
                           color: COLOR_WHITE, fontSize: 12),
                     ),

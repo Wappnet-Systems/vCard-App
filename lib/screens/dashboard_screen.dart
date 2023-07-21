@@ -139,7 +139,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 builder: (context) => const Createcardscreen(),
               ),
             );
-            log("refresh:$refresh");
             if (refresh == true) {
               changeData();
             }

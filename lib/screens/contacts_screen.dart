@@ -74,7 +74,6 @@ class _ContactsScreenState extends State<ContactsScreen> {
       value = true;
       isLoading = false;
       Staticmenbers.cardUsers = contectData;
-      log('message:$value');
     });
   }
 

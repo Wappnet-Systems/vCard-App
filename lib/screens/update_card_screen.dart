@@ -183,8 +183,11 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
       closeCustomLoadingDialog(context);
       Navigator.push(
         context,
-        MaterialPageRoute(
-          builder: ((context) => const Dashboardscreen(index: 0)),
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Dashboardscreen(index: 0),
+          reverseTransitionDuration: Duration.zero,
+          transitionDuration: Duration.zero,
         ),
       );
     }).catchError((error) => (error));
@@ -230,12 +233,11 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
         FirebaseStorage.instance.ref().child('images').child('users$imgId');
     await reference.putFile(Imagepicker);
     url = await reference.getDownloadURL();
-    log("url:$url");
+
     setState(() {
       imageurl = url;
     });
 
-    log("imageurl:$imageurl");
     return imageurl;
   }
 
@@ -244,35 +246,24 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
     return Scaffold(
       backgroundColor: COLOR_WHITE,
       appBar: Customappbarwidget(
-          title: "Edit card",
-          actions: <Widget>[
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-              child: IconButton(
-                  onPressed: () async {
-                    if (_formfield.currentState!.validate()) {
-                      updateUser();
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.save,
-                    color: COLOR_PRIMARY_DARK,
-                  )),
-            ),
-          ],
-          leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: const Padding(
-                padding:
-                    EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-                child: Icon(
-                  Icons.arrow_back_sharp,
+        title: "Edit card",
+        actions: <Widget>[
+          Padding(
+            padding:
+                const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
+            child: IconButton(
+                onPressed: () async {
+                  if (_formfield.currentState!.validate()) {
+                    updateUser();
+                  }
+                },
+                icon: const Icon(
+                  Icons.save,
                   color: COLOR_PRIMARY_DARK,
-                ),
-              ))),
+                )),
+          ),
+        ],
+      ),
       body: isLoading == true
           ? const Center(
               child: SpinKitCircle(color: COLOR_PRIMARY),
@@ -404,7 +395,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         Icons.person,
                         color: COLOR_PRIMARY_LIGHT,
                       ),
-                      validationfunction: textvalidator,
+                      validationfunction: (value) =>
+                          namevalidator(value, message: "Name is required."),
                     ),
                     SizedBox(height: hp(2, context)),
                     CustomTextFormField(
@@ -418,7 +410,8 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         Icons.work_rounded,
                         color: COLOR_PRIMARY_LIGHT,
                       ),
-                      validationfunction: textvalidator,
+                      validationfunction: (value) => textvalidator(value,
+                          message: "Profession is required."),
                     ),
                     SizedBox(height: hp(2, context)),
                     CustomTextFormField(
@@ -432,10 +425,12 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                         Icons.apartment_sharp,
                         color: COLOR_PRIMARY_LIGHT,
                       ),
-                      validationfunction: textvalidator,
+                      validationfunction: (value) => textvalidator(value,
+                          message: "Company name is required."),
                     ),
                     SizedBox(height: hp(2, context)),
                     PhoneFieldWidget(
+                      invalidNumberMessage: "Phone Number is required.",
                       controller: numbercontroller,
                       initialCountryCode: Countryshortcode,
                       onChanged: (phone) {
@@ -484,7 +479,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             textCapitalization: TextCapitalization.none,
                             labelText: "WhatsApp",
                             inputFormatters: [maskFormatter],
-                            textInputType: TextInputType.phone,
+                            textInputType: TextInputType.number,
                             textEditingController: whatsappcontroller,
                             texteditinghinttext: 'WhatsApp',
                             customobscuretext: true,
@@ -536,7 +531,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             textCapitalization: TextCapitalization.none,
                             labelText: "Telegram",
                             inputFormatters: [maskFormatter],
-                            textInputType: TextInputType.phone,
+                            textInputType: TextInputType.number,
                             textEditingController: telegramcontroller,
                             texteditinghinttext: 'Telegram',
                             customobscuretext: true,
@@ -661,15 +656,15 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                 previewcolor = _selectcolor;
                               });
                               showModalBottomSheet(
-                                  context: context,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(25.0)),
-                                  ),
-                                  builder: (BuildContext context) =>
-                                      PreviewCard(
-                                          cardid: previewcard,
-                                          colorid: previewcolor));
+                                context: context,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(25.0)),
+                                ),
+                                builder: (BuildContext context) => PreviewCard(
+                                    cardid: previewcard,
+                                    colorid: previewcolor ?? 8),
+                              );
                             },
                             child: const Text(
                               "Preview Card ?",

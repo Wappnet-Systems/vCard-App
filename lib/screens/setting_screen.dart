@@ -36,7 +36,7 @@ class _Setting_ScreenState extends State<Setting_Screen> {
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
         .collection("Carddata");
-    log("doc:${collection.id}");
+
     var snapshots = await collection.get();
     for (var doc in snapshots.docs) {
       await doc.reference.delete();
@@ -177,8 +177,11 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     prefs.remove('isLoggedIn');
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const Numberverification(),
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const Numberverification(),
+                        reverseTransitionDuration: Duration.zero,
+                        transitionDuration: Duration.zero,
                       ),
                     );
                   },
@@ -224,9 +227,14 @@ class _Setting_ScreenState extends State<Setting_Screen> {
                     prefs.remove('isLoggedIn');
                     _delete_user();
                     Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Numberverification()));
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            const Numberverification(),
+                        reverseTransitionDuration: Duration.zero,
+                        transitionDuration: Duration.zero,
+                      ),
+                    );
                   },
                 ),
               );

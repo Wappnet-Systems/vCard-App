@@ -3,7 +3,8 @@ import 'package:vcard/utils/responsive.dart';
 
 class CustomToast extends StatelessWidget {
   final Widget? child;
-  const CustomToast({super.key, required this.child});
+  final Color? color;
+  const CustomToast({super.key, required this.child, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,8 @@ class CustomToast extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.green[700],
+          color: color ?? Colors.green[700],
         ),
         child: child);
-  } 
+  }
 }

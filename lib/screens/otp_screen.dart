@@ -105,16 +105,21 @@ class _OTPscreenState extends State<OTPscreen> {
                       await prefs.setBool('isLoggedIn', true);
                       Future.delayed(const Duration(seconds: 1), () {
                         Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const Dashboardscreen(index: 0)));
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const Dashboardscreen(index: 0),
+                            reverseTransitionDuration: Duration.zero,
+                            transitionDuration: Duration.zero,
+                          ),
+                        );
                         displayCustomToast();
                       });
                       otpController.clear();
                     });
                   } catch (e) {
-                    log("Error:$e");
+                    debugPrint("Error:$e");
                   }
                 },
                 title: "Verify Phone Number",

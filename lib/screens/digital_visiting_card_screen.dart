@@ -77,16 +77,6 @@ class _DigitalvisitingcardState extends State<Digitalvisitingcard> {
                 ),
               )),
         ],
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: const Icon(
-            Icons.arrow_back_sharp,
-            size: 25,
-            color: COLOR_PRIMARY_DARK,
-          ),
-        ),
       ),
       backgroundColor: COLOR_WHITE,
       body: RepaintBoundary(
