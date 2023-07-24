@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:vcard/utils/style.dart';
 import 'package:vcard/widget/contect_visiting_card/card_2.dart';
 import 'package:vcard/widget/contect_visiting_card/card_3.dart';
 import 'package:vcard/widget/contect_visiting_card/card_4.dart';

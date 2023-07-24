@@ -1,5 +1,4 @@
 // email validation
-import 'dart:developer';
 
 String? emailValidator(String? value) {
   String pattern =

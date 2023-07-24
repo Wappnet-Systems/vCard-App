@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -40,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   File? imagePicker;
   String? images;
   String? currentUserId;
-  List<Users> profileData = [];
+  Users? profileData;
   FToast? fToast;
   bool isLoading = false;
   bool isUpdate = false;
@@ -150,39 +149,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .get();
 
     for (var element in snapshot.docs) {
-      profileData.add(
-        Users(
-            user: element.data()['user'] ?? "",
-            name: element.data()['Name'] ?? "",
-            department: element.data()['Department'] ?? "",
-            compeny: element.data()['Company'] ?? "",
-            whatsapp: element.data()['WhatsApp'] ?? "",
-            telegram: element.data()['Telegram'] ?? "",
-            website: element.data()['Website'] ?? "",
-            linkdin: element.data()['Linkdin'] ?? "",
-            facebook: element.data()['Facebook'] ?? "",
-            email: element.data()['Email'] ?? "",
-            phone: element.data()['Phone'] ?? "",
-            country: element.data()['country'] ?? "",
-            address: element.data()['Address'] ?? "",
-            id: element.data()['id'] ?? "",
-            type: element.data()['type'] ?? "",
-            images: element.data()['images'] ?? "",
-            image: element.data()['images'] ?? "",
-            card: element.data()['card'] ?? 0,
-            color: element.data()['color'] ?? 0,
-            profilename: element.data()['profilename'] ?? "",
-            dob: element.data()['dob'] ?? "",
-            profileemail: element.data()['profileemail'] ?? ""),
+      profileData = Users(
+        user: element.data()['user'] ?? "",
+        name: element.data()['Name'] ?? "",
+        department: element.data()['Department'] ?? "",
+        compeny: element.data()['Company'] ?? "",
+        whatsapp: element.data()['WhatsApp'] ?? "",
+        telegram: element.data()['Telegram'] ?? "",
+        website: element.data()['Website'] ?? "",
+        linkdin: element.data()['Linkdin'] ?? "",
+        facebook: element.data()['Facebook'] ?? "",
+        email: element.data()['Email'] ?? "",
+        phone: element.data()['Phone'] ?? "",
+        country: element.data()['country'] ?? "",
+        address: element.data()['Address'] ?? "",
+        id: element.data()['id'] ?? "",
+        type: element.data()['type'] ?? "",
+        images: element.data()['images'] ?? "",
+        image: element.data()['images'] ?? "",
+        card: element.data()['card'] ?? 0,
+        color: element.data()['color'] ?? 0,
+        profilename: element.data()['profilename'] ?? "",
+        dob: element.data()['dob'] ?? "",
+        profileemail: element.data()['profileemail'] ?? "",
       );
     }
 
     setState(() {
-      images = profileData.first.images ?? "";
-      nameController.text = profileData.first.profilename ?? "";
-      professionController.text = profileData.first.dob ?? "";
-      emailController.text = profileData.first.profileemail ?? "";
-      currentUserId = profileData.first.id;
+      images = profileData?.images ?? "";
+      nameController.text = profileData?.profilename ?? "";
+      professionController.text = profileData?.dob ?? "";
+      emailController.text = profileData?.profileemail ?? "";
+      currentUserId = profileData?.id;
       if (user != null && user!.phoneNumber != null) {
         numberController.text = user!.phoneNumber ?? "";
       }
@@ -263,8 +261,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: ClipOval(
                               child: imagePicker == null
                                   ? CachedNetworkImage(
-                                      width: wp(30, context),
-                                      height: hp(14, context),
+                                      width: wp(31, context),
+                                      height: hp(15, context),
                                       fit: BoxFit.fill,
                                       imageUrl: "$images",
                                       placeholder: (context, url) {
@@ -280,9 +278,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       errorWidget: (context, url, error) {
                                         return Image.asset(
                                           "assets/images/splash1.png",
-                                          width: wp(30, context),
-                                          height: hp(14, context),
-                                          fit: BoxFit.fill,
+                                          width: wp(31, context),
+                                          height: hp(15, context),
+                                          fit: BoxFit.cover,
                                         );
                                       },
                                     )
@@ -549,7 +547,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: TextButtomWidget(
                           onPressed: () async {
                             if (_formfield.currentState!.validate()) {
-                              if (profileData.isEmpty) {
+                              if (profileData == null) {
                                 addUser();
                               } else {
                                 updateUser();

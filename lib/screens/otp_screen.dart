@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -115,8 +114,8 @@ class _OTPscreenState extends State<OTPscreen> {
                           ),
                         );
                         displayCustomToast();
+                        otpController.clear();
                       });
-                      otpController.clear();
                     });
                   } catch (e) {
                     debugPrint("Error:$e");
