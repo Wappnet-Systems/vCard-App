@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 
 class Customappbarwidget extends StatelessWidget
@@ -23,11 +24,8 @@ class Customappbarwidget extends StatelessWidget
     return AppBar(
       elevation: 0.3,
       centerTitle: centerTitle ?? true,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 8),
-        child: Text(
-          title,
-        ),
+      title: Text(
+        title,
       ),
       leadingWidth: leadingWidth,
       leading: leading ??
@@ -35,9 +33,12 @@ class Customappbarwidget extends StatelessWidget
             onTap: () {
               Navigator.pop(context);
             },
-            child: const Icon(
-              Icons.arrow_back_sharp,
-              color: COLOR_PRIMARY_DARK,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: wp(4, context)),
+              child: const Icon(
+                Icons.arrow_back_sharp,
+                color: COLOR_PRIMARY_DARK,
+              ),
             ),
           ),
       actions: actions,

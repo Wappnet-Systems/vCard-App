@@ -249,18 +249,27 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
         title: "Edit card",
         actions: <Widget>[
           Padding(
-            padding:
-                const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-            child: IconButton(
-                onPressed: () async {
-                  if (_formfield.currentState!.validate()) {
-                    updateUser();
-                  }
-                },
-                icon: const Icon(
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+              horizontal: wp(3, context),
+            ),
+            child: InkWell(
+              onTap: () async {
+                if (_formfield.currentState!.validate()) {
+                  updateUser();
+                }
+              },
+              child: Container(
+                padding: EdgeInsets.all(wp(2, context)),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).primaryColor),
+                child: const Icon(
                   Icons.save,
-                  color: COLOR_PRIMARY_DARK,
-                )),
+                  color: COLOR_WHITE,
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -279,15 +288,9 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                   children: [
                     Stack(
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: COLOR_WHITE, width: wp(0.5, context)),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(100),
-                            ),
-                          ),
-                          // update image picker
+                        CircleAvatar(
+                          radius: 60,
+                          backgroundColor: Theme.of(context).primaryColor,
                           child: imageurl == null || imageurl == ""
                               ? ClipRRect(
                                   borderRadius: const BorderRadius.all(
@@ -306,25 +309,29 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                     Radius.circular(100),
                                   ),
                                   child: CachedNetworkImage(
-                                    placeholder: (context, url) =>
-                                        const Padding(
-                                      padding: EdgeInsets.all(30.0),
-                                      child: Center(
-                                          child: Icon(
-                                        Icons.image,
-                                        size: 50,
+                                    placeholder: (context, url) => const Center(
+                                      child: Icon(
+                                        Icons.person,
+                                        size: 70,
                                         color: COLOR_WHITE,
-                                      )),
+                                      ),
                                     ),
+                                    errorWidget: (context, url, error) {
+                                      return const Center(
+                                        child: Icon(
+                                          Icons.person,
+                                          size: 70,
+                                          color: COLOR_WHITE,
+                                        ),
+                                      );
+                                    },
                                     imageUrl: "$imageurl",
-                                    width: wp(32, context),
-                                    height: hp(15, context),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
                         ),
                         Positioned(
-                          top: hp(11, context),
+                          top: hp(10, context),
                           right: wp(0, context),
                           child: InkWell(
                             onTap: () {
@@ -348,12 +355,10 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                             child: Container(
                               padding: const EdgeInsets.all(3),
                               decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                                 border: Border.all(
                                   color: COLOR_WHITE,
                                   width: wp(0.5, context),
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                  Radius.circular(20),
                                 ),
                                 color: COLOR_PRIMARY,
                               ),

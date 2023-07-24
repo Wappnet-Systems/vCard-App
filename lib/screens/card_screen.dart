@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vcard/screens/card_shere_screen.dart';
+import 'package:vcard/screens/digital_visiting_card_screen.dart';
 import 'package:vcard/utils/constants.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
@@ -12,8 +14,6 @@ import 'package:vcard/widget/custom_appbar_widget.dart';
 import '../model/data_controllers.dart';
 import '../widget/custom_alartdialog.dart';
 import '../widget/custom_no_data_widget.dart';
-import '../widget/text_widget.dart';
-import 'menu_screen.dart';
 
 class Cardscreen extends StatefulWidget {
   const Cardscreen({super.key});
@@ -135,19 +135,13 @@ class _CardscreenState extends State<Cardscreen> {
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
-                          setState(() {
-                            cardindex = index;
-                          });
-                          showModalBottomSheet(
-                            backgroundColor: COLOR_WHITE,
-                            elevation: 0.0,
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(16.0)),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Digitalvisitingcard(
+                                id: index,
+                              ),
                             ),
-                            builder: (BuildContext context) =>
-                                Menuscreen(id: cardindex),
                           );
                         },
                         // user card
@@ -216,46 +210,47 @@ class _CardscreenState extends State<Cardscreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Textwidget(
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      width: wp(50, context),
-                                      text:
-                                          '${Staticmenbers.listofUsers[index].name}',
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      selectionColor: COLOR_PRIMARY_DARK,
+                                    Text(
+                                      Staticmenbers.listofUsers[index].name ??
+                                          "",
+                                      style: textMediumTextStyle.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     SizedBox(
                                       height: hp(0.5, context),
                                     ),
-                                    Textwidget(
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      width: wp(50, context),
-                                      text:
-                                          '${Staticmenbers.listofUsers[index].type}',
-                                      fontSize: 14,
-                                      selectionColor: COLOR_PRIMARY_LIGHT,
-                                    ),
+                                    Text(
+                                        Staticmenbers.listofUsers[index].type ??
+                                            "",
+                                        style: textSmallTextStyle),
                                     SizedBox(
                                       height: hp(0.5, context),
                                     ),
-                                    Textwidget(
-                                      maxLines: 1,
-                                      textAlign: TextAlign.start,
-                                      width: wp(50, context),
-                                      text:
-                                          '${Staticmenbers.listofUsers[index].department}',
-                                      fontSize: 14,
-                                      selectionColor: COLOR_PRIMARY_LIGHT,
-                                    )
+                                    Text(
+                                        Staticmenbers.listofUsers[index]
+                                                .department ??
+                                            "",
+                                        style: textSmallTextStyle),
                                   ]),
                               const Spacer(),
-                              const Icon(
-                                Icons.more_horiz,
-                                size: 30,
-                                color: COLOR_PRIMARY_DARK,
+                              IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => Cardsherescreen(
+                                      uid: FirebaseAuth
+                                          .instance.currentUser?.uid,
+                                      cid: Staticmenbers.listofUsers[index].id,
+                                    ),
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.share,
+                                  color: Theme.of(context)
+                                      .primaryColorDark
+                                      .withOpacity(0.8),
+                                ),
                               ),
                             ],
                           ),

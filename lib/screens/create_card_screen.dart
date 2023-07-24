@@ -176,10 +176,12 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         title: "Create Card",
         actions: <Widget>[
           Padding(
-            padding:
-                const EdgeInsets.only(top: 11, left: 10, bottom: 5, right: 7),
-            child: IconButton(
-                onPressed: () async {
+            padding: EdgeInsets.symmetric(
+              vertical: hp(1, context),
+              horizontal: wp(3, context),
+            ),
+            child: InkWell(
+                onTap: () async {
                   if (_formfield.currentState!.validate() &&
                       addresscontroller.text != "" &&
                       Imagepicker != null) {
@@ -193,9 +195,15 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                     displayCustomToast();
                   }
                 },
-                icon: const Icon(
-                  Icons.save,
-                  color: COLOR_PRIMARY_DARK,
+                child: Container(
+                  padding: EdgeInsets.all(wp(2, context)),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(context).primaryColor),
+                  child: const Icon(
+                    Icons.save,
+                    color: COLOR_WHITE,
+                  ),
                 )),
           ),
         ],
@@ -211,15 +219,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
             children: [
               Stack(
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: COLOR_WHITE, width: wp(0.5, context)),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
-                      ),
-                    ),
-                    // profile image add
+                  CircleAvatar(
+                    radius: 60,
+                    backgroundColor: Theme.of(context).primaryColor,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(
                         Radius.circular(100),
@@ -227,20 +229,16 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       child: Imagepicker == null
                           ? Image.asset(
                               "assets/images/splash1.png",
-                              width: wp(31, context),
-                              height: hp(15, context),
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             )
                           : Image.file(
                               Imagepicker!,
-                              width: wp(32, context),
-                              height: hp(15, context),
-                              fit: BoxFit.fill,
+                              fit: BoxFit.cover,
                             ),
                     ),
                   ),
                   Positioned(
-                    top: hp(11, context),
+                    top: hp(10, context),
                     right: wp(0, context),
                     child: InkWell(
                       onTap: () {
@@ -261,12 +259,10 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       child: Container(
                         padding: const EdgeInsets.all(3),
                         decoration: BoxDecoration(
+                          shape: BoxShape.circle,
                           border: Border.all(
                             color: COLOR_WHITE,
                             width: wp(0.5, context),
-                          ),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(20),
                           ),
                           color: COLOR_PRIMARY,
                         ),

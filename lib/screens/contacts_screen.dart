@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:vcard/screens/contect_visiting_card.dart';
 import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
-import 'package:vcard/widget/text_widget.dart';
 import '../model/data_controllers.dart';
 import '../utils/constants.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_no_data_widget.dart';
-import 'menu_screen.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -99,131 +99,106 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   itemBuilder: (BuildContext context, int index) {
                     return InkWell(
                       onTap: () async {
-                        setState(() {
-                          cardindex = index;
-                        });
-                        showModalBottomSheet(
-                          backgroundColor: COLOR_WHITE,
-                          elevation: 0.0,
-                          context: context,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0)),
-                          ),
-                          builder: (BuildContext context) => Menuscreen(
-                            contectid: cardindex,
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Contectvisitingcard(
+                              contectid: index,
+                            ),
                           ),
                         );
                       },
                       child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: wp(4, context),
-                            vertical: hp(2, context),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: wp(4, context),
+                          vertical: hp(2, context),
+                        ),
+                        margin: EdgeInsets.symmetric(
+                          vertical: hp(1, context),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(16),
                           ),
-                          margin: EdgeInsets.symmetric(
-                            vertical: hp(1, context),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(16),
+                          color: COLOR_WHITE,
+                          boxShadow: [
+                            BoxShadow(
+                              color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                              blurRadius: 1.0,
+                              offset: const Offset(1, -1),
                             ),
-                            color: COLOR_WHITE,
-                            boxShadow: [
-                              BoxShadow(
-                                color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
-                                blurRadius: 1.0,
-                                offset: const Offset(1, -1),
-                              ),
-                              BoxShadow(
-                                color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
-                                blurRadius: 1.0,
-                                offset: const Offset(-1, 1),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(10)),
-                                child: CachedNetworkImage(
-                                  placeholder: (context, url) => Container(
+                            BoxShadow(
+                              color: COLOR_PRIMARY_LIGHT.withOpacity(0.5),
+                              blurRadius: 1.0,
+                              offset: const Offset(-1, 1),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              child: CachedNetworkImage(
+                                placeholder: (context, url) => Container(
+                                  color: COLOR_PRIMARY,
+                                  child: const Icon(
+                                    Icons.image,
+                                    size: 40,
+                                    color: COLOR_WHITE,
+                                  ),
+                                ),
+                                imageUrl:
+                                    "${Staticmenbers.cardUsers[index].image}",
+                                width: wp(16, context),
+                                height: hp(8, context),
+                                fit: BoxFit.fill,
+                                errorWidget: (context, url, error) {
+                                  return Container(
                                     color: COLOR_PRIMARY,
                                     child: const Icon(
                                       Icons.image,
                                       size: 40,
                                       color: COLOR_WHITE,
                                     ),
+                                  );
+                                },
+                              ),
+                            ),
+                            SizedBox(
+                              width: wp(4, context),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  Staticmenbers.cardUsers[index].name ?? "",
+                                  style: textMediumTextStyle.copyWith(
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  imageUrl:
-                                      "${Staticmenbers.cardUsers[index].image}",
-                                  width: wp(16, context),
-                                  height: hp(8, context),
-                                  fit: BoxFit.fill,
-                                  errorWidget: (context, url, error) {
-                                    return Container(
-                                      color: COLOR_PRIMARY,
-                                      child: const Icon(
-                                        Icons.image,
-                                        size: 40,
-                                        color: COLOR_WHITE,
-                                      ),
-                                    );
-                                  },
                                 ),
-                              ),
-                              SizedBox(
-                                width: wp(4, context),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Textwidget(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.start,
-                                    width: wp(50, context),
-                                    text: Staticmenbers.cardUsers[index].name ??
-                                        "",
-                                    fontSize: 20,
-                                    selectionColor: COLOR_PRIMARY_DARK,
-                                  ),
-                                  SizedBox(
-                                    height: hp(0.5, context),
-                                  ),
-                                  Textwidget(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.start,
-                                    width: wp(50, context),
-                                    text: Staticmenbers.cardUsers[index].type ??
-                                        "",
-                                    fontSize: 14,
-                                    selectionColor: COLOR_PRIMARY_LIGHT,
-                                  ),
-                                  SizedBox(
-                                    height: hp(0.5, context),
-                                  ),
-                                  Textwidget(
-                                    maxLines: 1,
-                                    textAlign: TextAlign.start,
-                                    width: wp(50, context),
-                                    text: Staticmenbers
-                                            .cardUsers[index].department ??
-                                        "",
-                                    fontSize: 14,
-                                    selectionColor: COLOR_PRIMARY_LIGHT,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              const Icon(
-                                Icons.more_horiz,
-                                size: 30,
-                                color: COLOR_PRIMARY_DARK,
-                              ),
-                            ],
-                          )),
+                                SizedBox(
+                                  height: hp(0.5, context),
+                                ),
+                                Text(
+                                  Staticmenbers.cardUsers[index].type ?? "",
+                                  style: textSmallTextStyle,
+                                ),
+                                SizedBox(
+                                  height: hp(0.5, context),
+                                ),
+                                Text(
+                                  Staticmenbers.cardUsers[index].department ??
+                                      "",
+                                  style: textSmallTextStyle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
                     );
                   })
               // no deta screen

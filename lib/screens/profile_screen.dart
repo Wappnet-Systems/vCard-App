@@ -247,17 +247,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Center(
                       child: Stack(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: COLOR_PRIMARY,
-                                width: wp(1, context),
-                              ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(100),
-                              ),
-                            ),
-                            // profile image add
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Theme.of(context).primaryColor,
                             child: ClipOval(
                               child: imagePicker == null
                                   ? CachedNetworkImage(
@@ -267,7 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       imageUrl: "$images",
                                       placeholder: (context, url) {
                                         return Container(
-                                          color: COLOR_PRIMARY,
+                                          color: Theme.of(context).primaryColor,
                                           child: const Icon(
                                             Icons.image,
                                             size: 50,
@@ -278,22 +270,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       errorWidget: (context, url, error) {
                                         return Image.asset(
                                           "assets/images/splash1.png",
-                                          width: wp(31, context),
-                                          height: hp(15, context),
                                           fit: BoxFit.cover,
                                         );
                                       },
                                     )
                                   : Image.file(
                                       imagePicker!,
-                                      width: wp(31, context),
-                                      height: hp(15, context),
                                       fit: BoxFit.fill,
                                     ),
                             ),
                           ),
                           Positioned(
-                              top: hp(11, context),
+                              top: hp(10, context),
                               right: wp(0, context),
                               child: InkWell(
                                 onTap: () {

@@ -38,13 +38,9 @@ class TextButtomWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: isLoading == true
-            ? SizedBox(
-                height: hp(3, context),
-                width: wp(7, context),
-                child: const CircularProgressIndicator(
-                  color: COLOR_WHITE,
-                  strokeWidth: 3,
-                ),
+            ? const CircularProgressIndicator(
+                color: COLOR_WHITE,
+                strokeWidth: 3,
               )
             : Text(
                 "$title",

@@ -240,7 +240,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                   child: Container(
                     height: hp(30, context),
                     padding: EdgeInsets.only(
-                        left: wp(2, context), bottom: hp(0.5, context)),
+                        left: wp(0, context), bottom: hp(0.5, context)),
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(16),
@@ -255,7 +255,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: hp(9, context),
+                          height: hp(8.3, context),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -267,7 +267,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.all(
-                                  wp(1, context),
+                                  wp(0.5, context),
                                 ),
                                 child: Image.asset(
                                   "assets/icon/call.png",
@@ -300,7 +300,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.all(
-                                  wp(1, context),
+                                  wp(0.5, context),
                                 ),
                                 child: Image.asset(
                                   "assets/icon/email.png",
@@ -312,12 +312,14 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                             SizedBox(
                               width: wp(1, context),
                             ),
-                            Text(
-                              "${Staticmenbers.cardUsers[contactcardindex!].email}",
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              style:
-                                  smallTextStyle.copyWith(color: COLOR_WHITE),
+                            Flexible(
+                              child: Text(
+                                "${Staticmenbers.cardUsers[contactcardindex!].email}",
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                style:
+                                    smallTextStyle.copyWith(color: COLOR_WHITE),
+                              ),
                             ),
                           ],
                         ),
