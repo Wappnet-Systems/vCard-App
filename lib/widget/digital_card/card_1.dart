@@ -38,7 +38,7 @@ class _Cardtheme1State extends State<Cardtheme1> {
         children: [
           Container(
             padding: EdgeInsets.symmetric(
-              vertical: hp(1, context),
+              vertical: hp(1.5, context),
             ),
             margin: EdgeInsets.symmetric(
               horizontal: wp(2, context),
@@ -62,7 +62,8 @@ class _Cardtheme1State extends State<Cardtheme1> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Expanded(
+                SizedBox(
+                  width: wp(40, context),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -270,10 +271,8 @@ class _Cardtheme1State extends State<Cardtheme1> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: hp(1, context),
-                    ),
                     Container(
+                      width: wp(51.1, context),
                       alignment: Alignment.center,
                       padding: EdgeInsets.symmetric(
                         horizontal: wp(2, context),
@@ -338,10 +337,13 @@ class _Cardtheme1State extends State<Cardtheme1> {
                               SizedBox(
                                 width: wp(2, context),
                               ),
-                              Text(
-                                "${Staticmenbers.listofUsers[cardindex!].email}",
-                                style: smallTextStyle.copyWith(
-                                  color: COLOR_WHITE,
+                              Flexible(
+                                child: Text(
+                                  "${Staticmenbers.listofUsers[cardindex!].email}",
+                                  maxLines: 2,
+                                  style: smallTextStyle.copyWith(
+                                    color: COLOR_WHITE,
+                                  ),
                                 ),
                               ),
                             ],
@@ -387,11 +389,11 @@ class _Cardtheme1State extends State<Cardtheme1> {
                               SizedBox(
                                 width: wp(2, context),
                               ),
-                              SizedBox(
-                                width: wp(40, context),
+                              Flexible(
                                 child: Text(
                                   "${Staticmenbers.listofUsers[cardindex!].address}",
                                   maxLines: 4,
+                                  overflow: TextOverflow.ellipsis,
                                   style: smallTextStyle.copyWith(
                                     fontSize: 10,
                                     color: COLOR_WHITE,

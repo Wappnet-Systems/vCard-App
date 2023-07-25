@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:developer';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,7 +18,6 @@ import 'package:vcard/screens/preview_card_screen.dart';
 import 'package:vcard/utils/helper.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/textStyle.dart';
-import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import 'package:vcard/widget/phone_field_widget.dart';
 import '../model/data_controllers.dart';
@@ -31,7 +29,6 @@ import '../widget/address_textfield.dart';
 import '../widget/custom_textformfield_widget.dart';
 import '../widget/upload_image.dart';
 import 'more_textfield_screen.dart';
-import '../widget/text_button_widget.dart';
 
 class Updatecardscreen extends StatefulWidget {
   final String? id;
@@ -285,92 +282,96 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
               child: Form(
                 key: _formfield,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
-                      children: [
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Theme.of(context).primaryColor,
-                          child: imageurl == null || imageurl == ""
-                              ? ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
-                                  child: Image(
-                                    image: const AssetImage(
-                                        "assets/images/splash1.png"),
-                                    width: wp(31, context),
-                                    height: hp(15, context),
-                                    fit: BoxFit.fill,
-                                  ),
-                                )
-                              : ClipRRect(
-                                  borderRadius: const BorderRadius.all(
-                                    Radius.circular(100),
-                                  ),
-                                  child: CachedNetworkImage(
-                                    placeholder: (context, url) => const Center(
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 70,
-                                        color: COLOR_WHITE,
-                                      ),
+                    Center(
+                      child: Stack(
+                        children: [
+                          CircleAvatar(
+                            radius: 60,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            child: imageurl == null || imageurl == ""
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(100),
                                     ),
-                                    errorWidget: (context, url, error) {
-                                      return const Center(
+                                    child: Image(
+                                      image: const AssetImage(
+                                          "assets/images/splash1.png"),
+                                      width: wp(31, context),
+                                      height: hp(15, context),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(100),
+                                    ),
+                                    child: CachedNetworkImage(
+                                      placeholder: (context, url) =>
+                                          const Center(
                                         child: Icon(
                                           Icons.person,
                                           size: 70,
                                           color: COLOR_WHITE,
                                         ),
-                                      );
-                                    },
-                                    imageUrl: "$imageurl",
-                                    fit: BoxFit.cover,
+                                      ),
+                                      errorWidget: (context, url, error) {
+                                        return const Center(
+                                          child: Icon(
+                                            Icons.person,
+                                            size: 70,
+                                            color: COLOR_WHITE,
+                                          ),
+                                        );
+                                      },
+                                      imageUrl: "$imageurl",
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
+                          ),
+                          Positioned(
+                            top: hp(10, context),
+                            right: wp(0, context),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isphotoloading = true;
+                                });
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => Uploadimage(
+                                    onTapCamera: () {
+                                      pickImage(ImageSource.camera);
+                                      Navigator.pop(context);
+                                    },
+                                    onTapGallery: () {
+                                      pickImage(ImageSource.gallery);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: COLOR_WHITE,
+                                    width: wp(0.5, context),
+                                  ),
+                                  color: COLOR_PRIMARY,
                                 ),
-                        ),
-                        Positioned(
-                          top: hp(10, context),
-                          right: wp(0, context),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                isphotoloading = true;
-                              });
-                              showDialog(
-                                context: context,
-                                builder: (ctx) => Uploadimage(
-                                  onTapCamera: () {
-                                    pickImage(ImageSource.camera);
-                                    Navigator.pop(context);
-                                  },
-                                  onTapGallery: () {
-                                    pickImage(ImageSource.gallery);
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
+                                child: const Icon(
+                                  Icons.camera,
+                                  size: 25,
                                   color: COLOR_WHITE,
-                                  width: wp(0.5, context),
                                 ),
-                                color: COLOR_PRIMARY,
-                              ),
-                              child: const Icon(
-                                Icons.camera,
-                                size: 25,
-                                color: COLOR_WHITE,
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: hp(3, context),
@@ -438,9 +439,7 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       invalidNumberMessage: "Phone Number is required.",
                       controller: numbercontroller,
                       initialCountryCode: Countryshortcode,
-                      onChanged: (phone) {
-                        log(phone.completeNumber);
-                      },
+                      onChanged: (phone) {},
                       onCountryChanged: (countryCode) {
                         selectedCountryCode = countryCode.dialCode;
                       },
@@ -460,6 +459,19 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                       validationfunction: emailValidator,
                     ),
                     SizedBox(height: hp(2, context)),
+                    Addresstextfield(
+                      textEditingController: addresscontroller,
+                      itmClick: (Prediction prediction) {
+                        addresscontroller.text = prediction.description!;
+
+                        addresscontroller.selection =
+                            TextSelection.fromPosition(TextPosition(
+                                offset: prediction.description!.length));
+                      },
+                    ),
+                    websitecontroller.text != ""
+                        ? SizedBox(height: hp(2, context))
+                        : const SizedBox.shrink(),
                     websitecontroller.text != ""
                         ? CustomTextFormField(
                             textCapitalization: TextCapitalization.none,
@@ -549,106 +561,123 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                     telegramcontroller.text != ""
                         ? SizedBox(height: hp(2, context))
                         : const SizedBox.shrink(),
-                    Addresstextfield(
-                      textEditingController: addresscontroller,
-                      itmClick: (Prediction prediction) {
-                        addresscontroller.text = prediction.description!;
-
-                        addresscontroller.selection =
-                            TextSelection.fromPosition(TextPosition(
-                                offset: prediction.description!.length));
-                      },
-                    ),
-                    SizedBox(height: hp(1, context)),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: wp(10, context)),
-                            child: _selectedIndex != null
-                                ? SizedBox(
-                                    height: hp(10, context),
-                                    width: wp(30, context),
-                                    child: Image.asset(
-                                      cardList[_selectedIndex ?? 0],
-                                    ),
-                                  )
-                                : const SizedBox.shrink(),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: wp(8, context)),
-                            child: _selectcolor != null
-                                ? CircleAvatar(
-                                    radius: 35,
-                                    backgroundColor:
-                                        colorList[_selectcolor ?? 0],
-                                  )
-                                : const SizedBox.shrink(),
-                          ),
-                        ]),
-                    SizedBox(height: hp(1, context)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              showimagelist();
-                            });
-                          },
-                          child: Container(
-                            width: wp(40, context),
-                            height: hp(7, context),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: wp(3, context),
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: COLOR_PRIMARY_LIGHT),
-                            ),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text("Select Theme",
-                                      style: textSmallTextStyle),
-                                ),
-                                const Icon(Icons.arrow_drop_down_sharp)
-                              ],
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              showcolorlist();
-                            });
-                          },
-                          child: Container(
-                            width: wp(40, context),
-                            height: hp(7, context),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: wp(3, context),
-                            ),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all(color: COLOR_PRIMARY_LIGHT)),
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text("Select Color",
-                                      style: textSmallTextStyle),
-                                ),
-                                const Icon(Icons.arrow_drop_down_sharp)
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
                     SizedBox(height: hp(2, context)),
+                    ismoreadddata
+                        ? MoreTextfieldscreen(
+                            isUpdate: true,
+                            websitecontroller: websitecontroller,
+                            telegramcontroller: telegramcontroller,
+                            facebookcontroller: facebookcontroller,
+                            linkdinController: linkdinController,
+                            whatsappcontroller: whatsappcontroller,
+                          )
+                        : const SizedBox.shrink(),
+                    ismoreadddata
+                        ? SizedBox(
+                            height: hp(1, context),
+                          )
+                        : const SizedBox.shrink(),
+                    Text("Select Theme",
+                        style: textMediumTextStyle.copyWith(
+                            color: Theme.of(context).primaryColorLight)),
+                    SizedBox(
+                      height: hp(1.5, context),
+                    ),
+                    SizedBox(
+                      height: hp(10, context),
+                      width: wp(90, context),
+                      child: GridView.builder(
+                        itemCount: imageList.length,
+                        scrollDirection: Axis.vertical,
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                _selectedIndex = index;
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                vertical: hp(1, context),
+                              ),
+                              padding: EdgeInsets.all(
+                                wp(2, context),
+                              ),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: _selectedIndex == index
+                                      ? COLOR_PRIMARY_DARK
+                                      : Colors.transparent,
+                                  width: 3,
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Image(
+                                image: AssetImage(imageList[index]),
+                                width: wp(50, context),
+                              ),
+                            ),
+                          );
+                        },
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 4,
+                          mainAxisSpacing: hp(1, context),
+                          crossAxisSpacing: wp(2, context),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      "Select Color",
+                      style: textMediumTextStyle.copyWith(
+                        color: Theme.of(context).primaryColorLight,
+                      ),
+                      textAlign: TextAlign.start,
+                    ),
+                    SizedBox(
+                      height: hp(1.5, context),
+                    ),
+                    SizedBox(
+                      height: hp(25, context),
+                      width: wp(90, context),
+                      child: GridView.builder(
+                        itemCount: colorList.length,
+                        scrollDirection: Axis.vertical,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                _selectcolor = index;
+                              });
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(wp(2, context)),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: _selectcolor == index
+                                      ? COLOR_PRIMARY_DARK
+                                      : COLOR_PRIMARY_LIGHT,
+                                  width: _selectcolor == index ? 3 : 2,
+                                ),
+                                color: colorList[index],
+                              ),
+                            ),
+                          );
+                        },
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 5,
+                          mainAxisSpacing: hp(0, context),
+                          crossAxisSpacing: wp(0, context),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: hp(3, context),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -701,173 +730,16 @@ class _UpdatecardscreenState extends State<Updatecardscreen> {
                                           style: TextStyle(
                                               color: COLOR_PRIMARY,
                                               fontWeight: FontWeight.bold),
-                                        )),
+                                        ),
+                                      ),
                               ),
                       ],
                     ),
-                    SizedBox(height: hp(4, context)),
-                    (ismoreadddata)
-                        ? MoreTextfieldscreen(
-                            websitecontroller: websitecontroller,
-                            telegramcontroller: telegramcontroller,
-                            facebookcontroller: facebookcontroller,
-                            linkdinController: linkdinController,
-                            whatsappcontroller: whatsappcontroller,
-                          )
-                        : const SizedBox.shrink(),
                   ],
                 ),
               ),
             ),
     );
-  }
-
-  // update card theme
-  //select card
-  showimagelist() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CustomAlartDialog(
-            title: Text(
-              "Card's",
-              style: smalltitleTextStyle,
-              textAlign: TextAlign.left,
-            ),
-            onPressedNo: () {},
-            onPressedYes: () {},
-            content: StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-              return SizedBox(
-                height: hp(35, context),
-                width: wp(80, context),
-                child: GridView.builder(
-                  itemCount: imageList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: hp(1, context),
-                        ),
-                        padding: EdgeInsets.all(
-                          wp(2, context),
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _selectedIndex == index
-                                ? COLOR_PRIMARY_DARK
-                                : Colors.transparent,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Image(
-                          image: AssetImage(imageList[index]),
-                          height: hp(15, context),
-                        ),
-                      ),
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: hp(1, context),
-                    crossAxisSpacing: wp(2, context),
-                  ),
-                ),
-              );
-            }),
-            actions: [
-              TextButtomWidget(
-                width: wp(30, context),
-                color: COLOR_PRIMARY_DARK,
-                height: hp(6, context),
-                fontSize: 16,
-                onPressed: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                },
-                title: 'OK',
-              )
-            ],
-          );
-        });
-  }
-
-  // select coler
-  showcolorlist() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomAlartDialog(
-            title: Text(
-              "Colors",
-              style: smalltitleTextStyle,
-              textAlign: TextAlign.left,
-            ),
-            onPressedNo: () {},
-            onPressedYes: () {},
-            content: StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-              return SizedBox(
-                height: hp(35, context),
-                width: wp(80, context),
-                child: GridView.builder(
-                  itemCount: colorList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectcolor = index;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: _selectcolor == index
-                                ? COLOR_PRIMARY_DARK
-                                : COLOR_PRIMARY,
-                            width: 3,
-                          ),
-                          color: colorList[index],
-                        ),
-                      ),
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: hp(1, context),
-                    crossAxisSpacing: wp(2, context),
-                  ),
-                ),
-              );
-            }),
-            actions: [
-              TextButtomWidget(
-                width: wp(30, context),
-                color: COLOR_PRIMARY_DARK,
-                height: hp(6, context),
-                fontSize: 16,
-                onPressed: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                },
-                title: 'OK',
-              )
-            ],
-          );
-        });
   }
 
   displayCustomToast() {

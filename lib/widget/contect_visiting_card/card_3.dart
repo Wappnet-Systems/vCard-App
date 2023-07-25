@@ -240,7 +240,9 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                   child: Container(
                     height: hp(30, context),
                     padding: EdgeInsets.only(
-                        left: wp(0, context), bottom: hp(0.5, context)),
+                        left: wp(1, context),
+                        bottom: hp(0.5, context),
+                        right: wp(1, context)),
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
                         bottomRight: Radius.circular(16),
@@ -267,7 +269,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.all(
-                                  wp(0.5, context),
+                                  wp(1, context),
                                 ),
                                 child: Image.asset(
                                   "assets/icon/call.png",
@@ -300,7 +302,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                               },
                               child: Padding(
                                 padding: EdgeInsets.all(
-                                  wp(0.5, context),
+                                  wp(1, context),
                                 ),
                                 child: Image.asset(
                                   "assets/icon/email.png",
@@ -367,7 +369,9 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                             Flexible(
                               child: Text(
                                 "${Staticmenbers.cardUsers[contactcardindex!].address}",
+                                maxLines: 3,
                                 textAlign: TextAlign.start,
+                                overflow: TextOverflow.ellipsis,
                                 style: smallTextStyle.copyWith(
                                     color: COLOR_WHITE, fontSize: 9),
                               ),
@@ -375,7 +379,7 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                           ],
                         ),
                         SizedBox(
-                          height: hp(2, context),
+                          height: hp(1.5, context),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -419,9 +423,13 @@ class _Contectcardtheme3State extends State<Contectcardtheme3> {
                       color: COLOR_PRIMARY_DARK.withOpacity(1),
                     ),
                     child: Text(
-                      "${Staticmenbers.cardUsers[contactcardindex!].compeny} private limited.",
+                      "${Staticmenbers.cardUsers[contactcardindex!].compeny}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: textMediumTextStyle.copyWith(
-                          color: COLOR_WHITE, fontSize: 12),
+                          fontWeight: FontWeight.bold,
+                          color: COLOR_WHITE,
+                          fontSize: 12),
                     ),
                   ),
                 ],

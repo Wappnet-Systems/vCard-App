@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vcard/screens/dashboard_screen.dart';
@@ -16,18 +15,15 @@ import 'package:vcard/utils/helper.dart';
 import 'package:vcard/utils/responsive.dart';
 import 'package:vcard/utils/style.dart';
 import 'package:vcard/utils/textStyle.dart';
-import 'package:vcard/widget/custom_alartdialog.dart';
 import 'package:vcard/widget/custom_appbar_widget.dart';
 import 'package:vcard/widget/phone_field_widget.dart';
 import 'package:vcard/widget/upload_image.dart';
 import '../utils/constants.dart';
-import '../utils/formatters.dart';
 import '../utils/validator.dart';
 import '../widget/address_textfield.dart';
 import '../widget/custom_textformfield_widget.dart';
 import '../widget/custom_toast.dart';
 import 'more_textfield_screen.dart';
-import '../widget/text_button_widget.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class Createcardscreen extends StatefulWidget {
@@ -216,74 +212,79 @@ class _CreatecardscreenState extends State<Createcardscreen> {
         child: Form(
           key: _formfield,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  CircleAvatar(
-                    radius: 60,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(100),
+              Center(
+                child: Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(100),
+                        ),
+                        child: Imagepicker == null
+                            ? Image.asset(
+                                "assets/images/splash1.png",
+                                fit: BoxFit.cover,
+                              )
+                            : Image.file(
+                                Imagepicker!,
+                                fit: BoxFit.cover,
+                              ),
                       ),
-                      child: Imagepicker == null
-                          ? Image.asset(
-                              "assets/images/splash1.png",
-                              fit: BoxFit.cover,
-                            )
-                          : Image.file(
-                              Imagepicker!,
-                              fit: BoxFit.cover,
+                    ),
+                    Positioned(
+                      top: hp(10, context),
+                      right: wp(0, context),
+                      child: InkWell(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => Uploadimage(
+                              onTapCamera: () {
+                                pickImage(ImageSource.camera);
+                                Navigator.pop(context);
+                              },
+                              onTapGallery: () {
+                                pickImage(ImageSource.gallery);
+                                Navigator.pop(context);
+                              },
                             ),
-                    ),
-                  ),
-                  Positioned(
-                    top: hp(10, context),
-                    right: wp(0, context),
-                    child: InkWell(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (ctx) => Uploadimage(
-                            onTapCamera: () {
-                              pickImage(ImageSource.camera);
-                              Navigator.pop(context);
-                            },
-                            onTapGallery: () {
-                              pickImage(ImageSource.gallery);
-                              Navigator.pop(context);
-                            },
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: COLOR_WHITE,
+                              width: wp(0.5, context),
+                            ),
+                            color: COLOR_PRIMARY,
                           ),
-                        );
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
+                          child: const Icon(
+                            Icons.camera,
+                            size: 25,
                             color: COLOR_WHITE,
-                            width: wp(0.5, context),
                           ),
-                          color: COLOR_PRIMARY,
-                        ),
-                        child: const Icon(
-                          Icons.camera,
-                          size: 25,
-                          color: COLOR_WHITE,
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(
-                height: hp(0.5, context),
+                height: hp(1, context),
               ),
               isprofile
-                  ? Text(
-                      "Profile Image cant't be Empty",
-                      style: smallTextStyle.copyWith(color: Colors.red),
-                      textAlign: TextAlign.center,
+                  ? Center(
+                      child: Text(
+                        "Profile Image cant't be Empty",
+                        style: smallTextStyle.copyWith(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
                     )
                   : const SizedBox.shrink(),
               //card Type
@@ -373,99 +374,9 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                 ),
                 validationfunction: emailValidator,
               ),
-              SizedBox(height: hp(2, context)),
-              websitecontroller.text != ""
-                  ? CustomTextFormField(
-                      textCapitalization: TextCapitalization.none,
-                      labelText: "Website",
-                      inputFormatters: null,
-                      textInputType: TextInputType.text,
-                      textEditingController: websitecontroller,
-                      texteditinghinttext: 'Website',
-                      customobscuretext: true,
-                      customsuffixIcon: null,
-                      customprefixicon: const Icon(
-                        Icons.web,
-                        color: COLOR_PRIMARY_LIGHT,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              websitecontroller.text != ""
-                  ? SizedBox(
-                      height: hp(2, context),
-                    )
-                  : const SizedBox.shrink(),
-              whatsappcontroller.text != ""
-                  ? CustomTextFormField(
-                      textCapitalization: TextCapitalization.none,
-                      labelText: "WhatsApp",
-                      inputFormatters: [maskFormatter],
-                      textInputType: TextInputType.number,
-                      textEditingController: whatsappcontroller,
-                      texteditinghinttext: 'WhatsApp',
-                      customobscuretext: true,
-                      customprefixicon: const Icon(
-                        FontAwesomeIcons.whatsapp,
-                        color: COLOR_PRIMARY_LIGHT,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              whatsappcontroller.text != ""
-                  ? SizedBox(height: hp(2, context))
-                  : const SizedBox.shrink(),
-              linkdinController.text != ""
-                  ? CustomTextFormField(
-                      textCapitalization: TextCapitalization.none,
-                      labelText: "Linkdin",
-                      textInputType: TextInputType.text,
-                      textEditingController: linkdinController,
-                      texteditinghinttext: 'Linkdin',
-                      customobscuretext: true,
-                      customprefixicon: const Icon(
-                        Icons.link,
-                        color: COLOR_PRIMARY_LIGHT,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              linkdinController.text != ""
-                  ? SizedBox(height: hp(2, context))
-                  : const SizedBox.shrink(),
-              facebookcontroller.text != ""
-                  ? CustomTextFormField(
-                      textCapitalization: TextCapitalization.none,
-                      labelText: "Facebook",
-                      textInputType: TextInputType.text,
-                      textEditingController: facebookcontroller,
-                      texteditinghinttext: 'Facebook',
-                      customobscuretext: true,
-                      customprefixicon: const Icon(
-                        Icons.facebook,
-                        color: COLOR_PRIMARY_LIGHT,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              facebookcontroller.text != ""
-                  ? SizedBox(height: hp(2, context))
-                  : const SizedBox.shrink(),
-              telegramcontroller.text != ""
-                  ? CustomTextFormField(
-                      textCapitalization: TextCapitalization.none,
-                      labelText: "Telegram",
-                      inputFormatters: [maskFormatter],
-                      textInputType: TextInputType.number,
-                      textEditingController: telegramcontroller,
-                      texteditinghinttext: 'Telegram',
-                      customobscuretext: true,
-                      customprefixicon: const Icon(
-                        Icons.telegram,
-                        color: COLOR_PRIMARY_LIGHT,
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-              telegramcontroller.text != ""
-                  ? SizedBox(height: hp(2, context))
-                  : const SizedBox.shrink(),
-
+              SizedBox(
+                height: hp(2, context),
+              ),
               Addresstextfield(
                 textEditingController: addresscontroller,
                 itmClick: (Prediction prediction) {
@@ -474,93 +385,133 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                       TextPosition(offset: prediction.description!.length));
                 },
               ),
-              SizedBox(height: hp(1, context)),
-              Row(children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: wp(8, context),
-                  ),
-                  child: _selectedIndex != null
-                      ? SizedBox(
-                          height: hp(10, context),
-                          width: wp(30, context),
-                          child: Image.asset(imageList[_selectedIndex ?? 0]))
-                      : const SizedBox.shrink(),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: wp(15, context),
-                  ),
-                  child: _selectcolor != null
-                      ? CircleAvatar(
-                          radius: 35,
-                          backgroundColor: colorList[_selectcolor ?? 0],
-                        )
-                      : const SizedBox.shrink(),
-                ),
-              ]),
-              SizedBox(height: hp(1, context)),
-              // card theme set
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        showimagelist();
-                      });
-                    },
-                    child: Container(
-                      width: wp(40, context),
-                      height: hp(7, context),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: wp(3, context),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: COLOR_PRIMARY_LIGHT),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Select Theme", style: textSmallTextStyle),
-                          const Icon(Icons.arrow_drop_down_sharp)
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        showcolorlist();
-                      });
-                    },
-                    child: Container(
-                      width: wp(40, context),
-                      height: hp(7, context),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: wp(3, context),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: COLOR_PRIMARY_LIGHT),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Select Color",
-                            style: textSmallTextStyle,
-                          ),
-                          const Icon(Icons.arrow_drop_down_sharp)
-                        ],
-                      ),
-                    ),
-                  )
-                ],
+              SizedBox(
+                height: hp(2, context),
               ),
+              (ismoreadddata)
+                  ? MoreTextfieldscreen(
+                      isUpdate: false,
+                      websitecontroller: websitecontroller,
+                      telegramcontroller: telegramcontroller,
+                      facebookcontroller: facebookcontroller,
+                      linkdinController: linkdinController,
+                      whatsappcontroller: whatsappcontroller,
+                    )
+                  : const SizedBox.shrink(),
               SizedBox(height: hp(2, context)),
+              Text(
+                "Select Theme",
+                style: textMediumTextStyle.copyWith(
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                textAlign: TextAlign.start,
+              ),
+
+              SizedBox(
+                height: hp(1.5, context),
+              ),
+              // card theme set
+              SizedBox(
+                height: hp(10, context),
+                width: wp(90, context),
+                child: GridView.builder(
+                  itemCount: imageList.length,
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                          selectedIndex = true;
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: hp(1, context),
+                        ),
+                        padding: EdgeInsets.all(
+                          wp(2, context),
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: _selectedIndex == index
+                                ? COLOR_PRIMARY_DARK
+                                : Colors.transparent,
+                            width: 3,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Image(
+                          image: AssetImage(imageList[index]),
+                          width: wp(50, context),
+                        ),
+                      ),
+                    );
+                  },
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    mainAxisSpacing: hp(0, context),
+                    crossAxisSpacing: wp(0, context),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: hp(2, context),
+              ),
+              Text(
+                "Select Color",
+                style: textMediumTextStyle.copyWith(
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                textAlign: TextAlign.start,
+              ),
+
+              SizedBox(
+                height: hp(1.5, context),
+              ),
+              SizedBox(
+                height: hp(25, context),
+                width: wp(90, context),
+                child: GridView.builder(
+                  itemCount: colorList.length,
+                  scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectcolor = true;
+                          _selectcolor = index;
+                        });
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(wp(2, context)),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: _selectcolor == index
+                                ? COLOR_PRIMARY_DARK
+                                : COLOR_PRIMARY_LIGHT,
+                            width: _selectcolor == index ? 3 : 2,
+                          ),
+                          color: colorList[index],
+                        ),
+                      ),
+                    );
+                  },
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    mainAxisSpacing: hp(0, context),
+                    crossAxisSpacing: wp(0, context),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: hp(3, context),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -615,170 +566,11 @@ class _CreatecardscreenState extends State<Createcardscreen> {
                   ),
                 ],
               ),
-              SizedBox(height: hp(4, context)),
-              (ismoreadddata)
-                  ? MoreTextfieldscreen(
-                      websitecontroller: websitecontroller,
-                      telegramcontroller: telegramcontroller,
-                      facebookcontroller: facebookcontroller,
-                      linkdinController: linkdinController,
-                      whatsappcontroller: whatsappcontroller,
-                    )
-                  : const SizedBox.shrink(),
             ],
           ),
         ),
       ),
     );
-  }
-
-  //select card
-  showimagelist() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return CustomAlartDialog(
-            title: Text(
-              "Card's",
-              style: smalltitleTextStyle,
-              textAlign: TextAlign.left,
-            ),
-            onPressedNo: () {},
-            onPressedYes: () {},
-            content: StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-              return SizedBox(
-                height: hp(35, context),
-                width: wp(80, context),
-                child: GridView.builder(
-                  itemCount: imageList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                          selectedIndex = true;
-                        });
-                      },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: hp(1, context),
-                        ),
-                        padding: EdgeInsets.all(
-                          wp(2, context),
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: _selectedIndex == index
-                                ? COLOR_PRIMARY_DARK
-                                : Colors.transparent,
-                            width: 3,
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Image(
-                          image: AssetImage(imageList[index]),
-                          height: hp(15, context),
-                        ),
-                      ),
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: hp(1, context),
-                    crossAxisSpacing: wp(2, context),
-                  ),
-                ),
-              );
-            }),
-            actions: [
-              TextButtomWidget(
-                width: wp(30, context),
-                color: COLOR_PRIMARY_DARK,
-                height: hp(6, context),
-                fontSize: 16,
-                onPressed: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                },
-                title: 'OK',
-              )
-            ],
-          );
-        });
-  }
-
-  // select coler
-  showcolorlist() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return CustomAlartDialog(
-            title: Text(
-              "Colors",
-              style: smalltitleTextStyle,
-              textAlign: TextAlign.left,
-            ),
-            onPressedNo: () {},
-            onPressedYes: () {},
-            content: StatefulBuilder(
-                builder: (BuildContext context, StateSetter setState) {
-              return SizedBox(
-                height: hp(35, context),
-                width: wp(80, context),
-                child: GridView.builder(
-                  itemCount: colorList.length,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectcolor = true;
-                          _selectcolor = index;
-                        });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: _selectcolor == index
-                                ? COLOR_PRIMARY_DARK
-                                : COLOR_PRIMARY,
-                            width: 3,
-                          ),
-                          color: colorList[index],
-                        ),
-                      ),
-                    );
-                  },
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: hp(1, context),
-                    crossAxisSpacing: wp(2, context),
-                  ),
-                ),
-              );
-            }),
-            actions: [
-              TextButtomWidget(
-                width: wp(30, context),
-                color: COLOR_PRIMARY_DARK,
-                height: hp(6, context),
-                fontSize: 16,
-                onPressed: () {
-                  setState(() {});
-                  Navigator.pop(context);
-                },
-                title: 'OK',
-              )
-            ],
-          );
-        });
   }
 
   // address toast

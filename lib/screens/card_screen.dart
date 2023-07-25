@@ -78,6 +78,9 @@ class _CardscreenState extends State<Cardscreen> {
     setState(() {
       value = true;
       Staticmenbers.listofUsers = userData;
+      Staticmenbers.listofUsers.sort(
+        (a, b) => a.name!.compareTo(b.name!),
+      );
       isLoading = false;
     });
   }
@@ -234,8 +237,8 @@ class _CardscreenState extends State<Cardscreen> {
                                         style: textSmallTextStyle),
                                   ]),
                               const Spacer(),
-                              IconButton(
-                                onPressed: () {
+                              InkWell(
+                                onTap: () {
                                   showDialog(
                                     context: context,
                                     builder: (ctx) => Cardsherescreen(
@@ -245,11 +248,16 @@ class _CardscreenState extends State<Cardscreen> {
                                     ),
                                   );
                                 },
-                                icon: Icon(
-                                  Icons.share,
-                                  color: Theme.of(context)
-                                      .primaryColorDark
-                                      .withOpacity(0.8),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(wp(1, context)),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Theme.of(context).primaryColor),
+                                  child: const Icon(
+                                    Icons.share,
+                                    color: COLOR_WHITE,
+                                  ),
                                 ),
                               ),
                             ],

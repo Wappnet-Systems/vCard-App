@@ -5,12 +5,13 @@ import 'package:vcard/utils/style.dart';
 import '../utils/responsive.dart';
 import '../widget/custom_textformfield_widget.dart';
 
-class MoreTextfieldscreen extends StatefulWidget {
+class MoreTextfieldscreen extends StatelessWidget {
   final TextEditingController? websitecontroller;
   final TextEditingController? facebookcontroller;
   final TextEditingController? telegramcontroller;
   final TextEditingController? linkdinController;
   final TextEditingController? whatsappcontroller;
+  final bool isUpdate;
 
   const MoreTextfieldscreen(
       {required this.linkdinController,
@@ -18,102 +19,102 @@ class MoreTextfieldscreen extends StatefulWidget {
       required this.telegramcontroller,
       required this.websitecontroller,
       required this.whatsappcontroller,
+      this.isUpdate = false,
       super.key});
   @override
-  State<MoreTextfieldscreen> createState() => _MoreTextfieldscreenState();
-}
-
-class _MoreTextfieldscreenState extends State<MoreTextfieldscreen> {
-  @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      widget.websitecontroller!.text != ""
-          ? const SizedBox.shrink()
-          : CustomTextFormField(
-              textCapitalization: TextCapitalization.none,
-              labelText: "Website",
-              inputFormatters: null,
-              textInputType: TextInputType.text,
-              textEditingController: widget.websitecontroller!,
-              texteditinghinttext: 'Website',
-              customobscuretext: true,
-              customsuffixIcon: null,
-              customprefixicon: const Icon(
-                Icons.web,
-                color: COLOR_PRIMARY_LIGHT,
+    return Column(
+      children: [
+        isUpdate == true && websitecontroller!.text != ""
+            ? const SizedBox.shrink()
+            : CustomTextFormField(
+                textCapitalization: TextCapitalization.none,
+                labelText: "Website",
+                inputFormatters: null,
+                textInputType: TextInputType.text,
+                textEditingController: websitecontroller!,
+                texteditinghinttext: 'Website',
+                customobscuretext: true,
+                customsuffixIcon: null,
+                customprefixicon: const Icon(
+                  Icons.web,
+                  color: COLOR_PRIMARY_LIGHT,
+                ),
               ),
-            ),
-      widget.websitecontroller!.text != ""
-          ? const SizedBox.shrink()
-          : SizedBox(height: hp(2, context)),
-      widget.whatsappcontroller!.text != ""
-          ? const SizedBox.shrink()
-          : CustomTextFormField(
-              textCapitalization: TextCapitalization.none,
-              labelText: "WhatsApp",
-              inputFormatters: [maskFormatter],
-              textInputType: TextInputType.number,
-              textEditingController: widget.whatsappcontroller!,
-              texteditinghinttext: 'WhatsApp',
-              customobscuretext: true,
-              customprefixicon: const Icon(
-                FontAwesomeIcons.whatsapp,
-                color: COLOR_PRIMARY_LIGHT,
+        isUpdate == true && websitecontroller!.text != ""
+            ? const SizedBox.shrink()
+            : SizedBox(height: hp(2, context)),
+        isUpdate == true && whatsappcontroller!.text != ""
+            ? const SizedBox.shrink()
+            : CustomTextFormField(
+                textCapitalization: TextCapitalization.none,
+                labelText: "WhatsApp",
+                inputFormatters: [maskFormatter],
+                textInputType: TextInputType.number,
+                textEditingController: whatsappcontroller!,
+                texteditinghinttext: 'WhatsApp',
+                customobscuretext: true,
+                customprefixicon: const Icon(
+                  FontAwesomeIcons.whatsapp,
+                  color: COLOR_PRIMARY_LIGHT,
+                ),
               ),
-            ),
-      widget.whatsappcontroller!.text != ""
-          ? const SizedBox.shrink()
-          : SizedBox(height: hp(2, context)),
-      widget.linkdinController!.text != ""
-          ? const SizedBox.shrink()
-          : CustomTextFormField(
-              textCapitalization: TextCapitalization.none,
-              labelText: "Linkdin",
-              textInputType: TextInputType.text,
-              textEditingController: widget.linkdinController!,
-              texteditinghinttext: 'Linkdin',
-              customobscuretext: true,
-              customprefixicon: const Icon(
-                Icons.link,
-                color: COLOR_PRIMARY_LIGHT,
+        isUpdate == true && whatsappcontroller!.text != ""
+            ? const SizedBox.shrink()
+            : SizedBox(height: hp(2, context)),
+        isUpdate == true && linkdinController!.text != ""
+            ? const SizedBox.shrink()
+            : CustomTextFormField(
+                textCapitalization: TextCapitalization.none,
+                labelText: "Linkdin",
+                textInputType: TextInputType.text,
+                textEditingController: linkdinController!,
+                texteditinghinttext: 'Linkdin',
+                customobscuretext: true,
+                customprefixicon: const Icon(
+                  Icons.link,
+                  color: COLOR_PRIMARY_LIGHT,
+                ),
               ),
-            ),
-      widget.linkdinController!.text != ""
-          ? const SizedBox.shrink()
-          : SizedBox(height: hp(2, context)),
-      widget.facebookcontroller!.text != ""
-          ? const SizedBox.shrink()
-          : CustomTextFormField(
-              textCapitalization: TextCapitalization.none,
-              labelText: "Facebook",
-              textInputType: TextInputType.text,
-              textEditingController: widget.facebookcontroller!,
-              texteditinghinttext: 'Facebook',
-              customobscuretext: true,
-              customprefixicon: const Icon(
-                Icons.facebook,
-                color: COLOR_PRIMARY_LIGHT,
+        isUpdate == true && linkdinController!.text != ""
+            ? const SizedBox.shrink()
+            : SizedBox(height: hp(2, context)),
+        isUpdate == true && facebookcontroller!.text != ""
+            ? const SizedBox.shrink()
+            : CustomTextFormField(
+                textCapitalization: TextCapitalization.none,
+                labelText: "Facebook",
+                textInputType: TextInputType.text,
+                textEditingController: facebookcontroller!,
+                texteditinghinttext: 'Facebook',
+                customobscuretext: true,
+                customprefixicon: const Icon(
+                  Icons.facebook,
+                  color: COLOR_PRIMARY_LIGHT,
+                ),
               ),
-            ),
-      widget.facebookcontroller!.text != ""
-          ? const SizedBox.shrink()
-          : SizedBox(height: hp(2, context)),
-      widget.telegramcontroller!.text != ""
-          ? const SizedBox.shrink()
-          : CustomTextFormField(
-              textCapitalization: TextCapitalization.none,
-              labelText: "Telegram",
-              inputFormatters: [maskFormatter],
-              textInputType: TextInputType.number,
-              textEditingController: widget.telegramcontroller!,
-              texteditinghinttext: 'Telegram',
-              customobscuretext: true,
-              customprefixicon: const Icon(
-                Icons.telegram,
-                color: COLOR_PRIMARY_LIGHT,
+        isUpdate == true && facebookcontroller!.text != ""
+            ? const SizedBox.shrink()
+            : SizedBox(height: hp(2, context)),
+        isUpdate == true && telegramcontroller!.text != ""
+            ? const SizedBox.shrink()
+            : CustomTextFormField(
+                textCapitalization: TextCapitalization.none,
+                labelText: "Telegram",
+                inputFormatters: [maskFormatter],
+                textInputType: TextInputType.number,
+                textEditingController: telegramcontroller!,
+                texteditinghinttext: 'Telegram',
+                customobscuretext: true,
+                customprefixicon: const Icon(
+                  Icons.telegram,
+                  color: COLOR_PRIMARY_LIGHT,
+                ),
               ),
-            ),
-      SizedBox(height: hp(2, context)),
-    ]);
+        SizedBox(
+          height: hp(2, context),
+        ),
+      ],
+    );
   }
 }

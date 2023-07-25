@@ -192,6 +192,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       isUpdate = true;
     });
+    String? imgurl;
+    if (imagePicker != null) {
+      imgurl = await uploadImage(imagePicker!);
+    }
     var receivedLoanDataRef = FirebaseFirestore.instance
         .collection("users")
         .doc(FirebaseAuth.instance.currentUser?.uid)
@@ -202,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return receivedLoanDataRef.update({
         'profilename': nameController.text,
         'id': receivedLoanDataRef.id,
-        'images': imgeurl ?? images,
+        'images': imgurl ?? images,
         'dob': professionController.text,
         'profileemail': emailController.text,
         'user': FirebaseAuth.instance.currentUser?.uid,
@@ -212,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
         displayToast(isUpdate: true);
         getSingleUserData();
-        imgeurl == null;
+        imgurl == null;
       }).catchError((error) {
         setState(() {
           isUpdate = false;
@@ -261,8 +265,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         return Container(
                                           color: Theme.of(context).primaryColor,
                                           child: const Icon(
-                                            Icons.image,
-                                            size: 50,
+                                            Icons.person,
+                                            size: 70,
                                             color: COLOR_WHITE,
                                           ),
                                         );
@@ -540,8 +544,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               } else {
                                 updateUser();
                               }
-                            } else {
-                              return;
                             }
                           },
                           height: hp(6.5, context),

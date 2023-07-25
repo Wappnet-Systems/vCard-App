@@ -47,7 +47,7 @@ class _ContectvisitingcardState extends State<Contectvisitingcard> {
     ];
     return Scaffold(
         appBar: Customappbarwidget(
-          title: "${Staticmenbers.cardUsers[widget.contectid!].type}",
+          title: Staticmenbers.cardUsers[widget.contectid!].type ?? "",
           actions: [
             InkWell(
               onTap: () {

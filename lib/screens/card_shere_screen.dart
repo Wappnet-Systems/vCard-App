@@ -39,7 +39,7 @@ class _CardsherescreenState extends State<Cardsherescreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Send Your card",
+                  "Share Your card",
                   style: titleTextStyle,
                 ),
 
