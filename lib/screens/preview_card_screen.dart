@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import 'package:vcard/widget/preview_card/preview_card1.dart';
+import 'package:vcard/widget/preview_card/preview_card2.dart';
+import 'package:vcard/widget/preview_card/Preview_card3.dart';
+import 'package:vcard/widget/preview_card/PreviewCard4.dart';
+import 'package:vcard/widget/preview_card/preview_card_defult_card.dart';
+
+class PreviewCard extends StatefulWidget {
+  final int? cardid;
+  final int? colorid;
+  const PreviewCard({super.key, required this.cardid, required this.colorid});
+
+  @override
+  State<PreviewCard> createState() => _PreviewCardState();
+}
+
+class _PreviewCardState extends State<PreviewCard> {
+  int? previewcard;
+  int? previewcolor;
+  @override
+  void initState() {
+    // Card ID
+    previewcard = widget.cardid;
+    //Color ID
+    previewcolor = widget.colorid;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // preview card list
+    List<Widget> cardList = [
+      PreviewCard1(id: previewcolor),
+      PreviewCard2(id: previewcolor),
+      PreviewCard3(id: previewcolor),
+      PreviewCard4(id: previewcolor),
+      const PreviewDefultCard()
+    ];
+    return Wrap(
+      children: [
+        cardList[previewcard!],
+      ],
+    );
+  }
+}

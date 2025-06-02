@@ -1,0 +1,495 @@
+// ignore_for_file: unrelated_type_equality_checks
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:vcard/screens/dashboard_screen.dart';
+import 'package:vcard/utils/style.dart';
+import 'package:vcard/utils/textStyle.dart';
+import 'package:vcard/widget/custom_appbar_widget.dart';
+import 'package:vcard/widget/text_button_widget.dart';
+import '../model/data_controllers.dart';
+import '../utils/constants.dart';
+import '../utils/responsive.dart';
+import '../utils/validator.dart';
+import '../widget/custom_no_data_widget.dart';
+import '../widget/custom_toast.dart';
+
+class Scannerscreen extends StatefulWidget {
+  const Scannerscreen({super.key});
+
+  @override
+  State<Scannerscreen> createState() => _ScannerscreenState();
+}
+
+class _ScannerscreenState extends State<Scannerscreen> {
+  Users? scancarddata;
+  List<Users> contectData = [];
+  bool value = false;
+  List<String?> connectUserIdList = [];
+  bool isScan = false;
+  int? contectcard;
+  String? cid;
+  String? uid;
+  FToast? fToast;
+  @override
+  void initState() {
+    fToast = FToast();
+    fToast?.init(context);
+    getContectUserData();
+    super.initState();
+  }
+
+  Future<void> getContectUserData() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Frind's card")
+        .get();
+    contectData = snapshot.docs
+        .map(
+          (e) => Users(
+            user: e.data()['user'],
+            name: e.data()['Name'],
+            department: e.data()['Department'],
+            compeny: e.data()['Company'],
+            whatsapp: e.data()['WhatsApp'],
+            telegram: e.data()['Telegram'],
+            website: e.data()['Website'],
+            linkdin: e.data()['Linkdin'],
+            facebook: e.data()['Facebook'],
+            email: e.data()['Email'],
+            phone: e.data()['Phone'],
+            country: e.data()['country'],
+            address: e.data()['Address'],
+            id: e.data()['id'],
+            image: e.data()['images'],
+            type: e.data()['type'],
+            card: e.data()['card'],
+            color: e.data()['color'],
+          ),
+        )
+        .toList();
+
+    setState(() {
+      value = true;
+      for (var element in contectData) {
+        setState(() {
+          connectUserIdList.add(element.id);
+        });
+      }
+      Staticmenbers.cardUsers = contectData;
+    });
+  }
+
+  // another person card display
+  Future<void> getSingleUserData(String cid, String uid) async {
+    List<Users> scanData = [];
+    setState(() {
+      isScan = true;
+    });
+    final snapshot = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(uid)
+        .collection("Carddata")
+        .where('id', isEqualTo: cid)
+        .get();
+
+    for (var element in snapshot.docs) {
+      scanData.add(
+        Users(
+            user: element.data()['user'],
+            name: element.data()['Name'],
+            department: element.data()['Department'],
+            compeny: element.data()['Company'],
+            whatsapp: element.data()['WhatsApp'],
+            telegram: element.data()['Telegram'],
+            website: element.data()['Website'],
+            linkdin: element.data()['Linkdin'],
+            facebook: element.data()['Facebook'],
+            email: element.data()['Email'],
+            phone: element.data()['Phone'],
+            country: element.data()['country'],
+            address: element.data()['Address'],
+            id: element.data()['id'],
+            type: element.data()['type'],
+            image: element.data()['images'],
+            card: element.data()['card'],
+            color: element.data()['color']),
+      );
+    }
+
+    if (connectUserIdList.contains(scanData[0].id) == false) {
+      for (int i = 0; i < scanData.length; i++) {
+        setState(() {
+          scancarddata = Users(
+              user: scanData[i].user,
+              color: scanData[i].color,
+              country: scanData[i].country,
+              name: scanData[i].name,
+              department: scanData[i].department,
+              compeny: scanData[i].compeny,
+              whatsapp: scanData[i].whatsapp,
+              telegram: scanData[i].telegram,
+              website: scanData[i].website,
+              linkdin: scanData[i].linkdin,
+              facebook: scanData[i].facebook,
+              email: scanData[i].email,
+              phone: scanData[i].phone,
+              address: scanData[i].address,
+              id: scanData[i].id,
+              type: scanData[i].type,
+              image: scanData[i].image,
+              card: scanData[i].card);
+
+          isScan = false;
+        });
+      }
+    } else {
+      displayCustomToast2();
+    }
+  }
+
+  // another person card save
+  Future<void> addUser() async {
+    var receivedLoanDataRef = FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("Frind's card")
+        .doc(cid);
+    return receivedLoanDataRef.set({
+      'Name': scancarddata?.name,
+      'Department': scancarddata?.department,
+      'Company': scancarddata?.compeny,
+      'WhatsApp': scancarddata?.whatsapp,
+      'Telegram': scancarddata?.telegram,
+      'Website': scancarddata?.website,
+      'Linkdin': scancarddata?.linkdin,
+      'Facebook': scancarddata?.facebook,
+      'Email': scancarddata?.email,
+      'Phone': scancarddata?.phone,
+      'Address': scancarddata?.address,
+      'id': cid,
+      'country': scancarddata?.country,
+      'images': scancarddata?.image,
+      'type': scancarddata?.type,
+      'user': FirebaseAuth.instance.currentUser?.uid,
+      'card': scancarddata?.card,
+      'color': scancarddata?.color,
+    }).then((value) {
+      Navigator.pushReplacement(
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              const Dashboardscreen(index: 2),
+          reverseTransitionDuration: Duration.zero,
+          transitionDuration: Duration.zero,
+        ),
+      );
+    }).catchError((error) {
+      debugPrint("Failed to add user: $error");
+    });
+  }
+
+  bool isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: COLOR_WHITE,
+      appBar: const Customappbarwidget(
+        title: "QR Scanner",
+        leadingWidth: 0.0,
+        centerTitle: false,
+        leading: SizedBox.shrink(),
+      ),
+      body: scancarddata != null
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // SizedBox(height: hp(17, context)),
+                scancarddata == null
+                    ? Text(
+                        "No data found!!",
+                        style: textMediumTextStyle,
+                      )
+                    : Container(
+                        height: hp(13, context),
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: COLOR_WHITE,
+                              blurRadius: 10.0,
+                            ),
+                            BoxShadow(
+                              color: Color(0xffc1c4be),
+                              blurRadius: 10.0,
+                            ),
+                          ],
+                          color: COLOR_WHITE,
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: wp(5, context),
+                          vertical: hp(2, context),
+                        ),
+                        margin: EdgeInsets.symmetric(
+                          horizontal: wp(8, context),
+                          vertical: hp(2, context),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            scancarddata?.image == ""
+                                ? ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.asset(
+                                      "assets/images/splash1.png",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    child: Image.network(
+                                      "${scancarddata?.image}",
+                                      width: wp(18, context),
+                                      height: hp(10, context),
+                                      fit: BoxFit.fill,
+                                      frameBuilder: (context, child, frame,
+                                          wasSynchronouslyLoaded) {
+                                        return child;
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                              child: Icon(
+                                            Icons.image,
+                                            size: 130,
+                                            color: COLOR_WHITE,
+                                          ));
+                                        }
+                                      },
+                                    ),
+                                  ),
+                            SizedBox(
+                              width: wp(4, context),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${scancarddata?.name}',
+                                  style: textMediumTextStyle,
+                                ),
+                                SizedBox(
+                                  height: hp(0.5, context),
+                                ),
+                                Text(
+                                  '${scancarddata?.type}',
+                                  style: textSmallTextStyle,
+                                ),
+                                SizedBox(
+                                  height: hp(0.5, context),
+                                ),
+                                Text(
+                                  '${scancarddata?.department}',
+                                  style: textSmallTextStyle,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                SizedBox(
+                  height: hp(5, context),
+                ),
+                TextButtomWidget(
+                  width: wp(70, context),
+                  height: hp(6.5, context),
+                  isLoading: isLoading,
+                  onPressed: () async {
+                    if (FirebaseAuth.instance.currentUser?.uid == uid) {
+                      setState(() {
+                        isLoading = false;
+                      });
+                      displayCustomToast();
+                    } else if (cid == Users) {
+                      displayCustomToast2();
+                    } else {
+                      setState(() {
+                        isLoading = true;
+                      });
+                      addUser();
+                    }
+                  },
+                  title: "Connect",
+                  color: COLOR_PRIMARY_DARK,
+                ),
+
+                SizedBox(
+                  height: hp(1, context),
+                ),
+                TextButtomWidget(
+                    width: wp(70, context),
+                    height: hp(6.5, context),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const Dashboardscreen(index: 1),
+                          reverseTransitionDuration: Duration.zero,
+                          transitionDuration: Duration.zero,
+                        ),
+                      );
+                    },
+                    title: "Disconnect",
+                    color: Colors.red),
+              ],
+            )
+          : ListView(
+              padding: EdgeInsets.symmetric(horizontal: wp(5, context)),
+              children: [
+                  SizedBox(height: hp(15, context)),
+                  Center(
+                    child: Text(
+                      "Scan QR Code",
+                      style: titleTextStyle,
+                    ),
+                  ),
+                  SizedBox(height: hp(0.5, context)),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text(
+                      "Get Started by scanning the QR code and get the card.",
+                      textAlign: TextAlign.center,
+                      style: textSmallTextStyle,
+                    ),
+                  ),
+                  SizedBox(
+                    height: hp(5, context),
+                  ),
+                  const CustomNoData(
+                    iconaddress: qrJson,
+                  ),
+                  SizedBox(
+                    height: hp(2, context),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      scanQRCode();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: COLOR_PRIMARY_DARK,
+                        boxShadow: const [
+                          BoxShadow(color: COLOR_PRIMARY_DARK, blurRadius: 0.5)
+                        ],
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      width: wp(50, context),
+                      height: hp(6, context),
+                      margin: EdgeInsets.symmetric(horizontal: wp(20, context)),
+                      child: Center(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.qr_code_scanner,
+                            size: 30,
+                            color: COLOR_WHITE,
+                          ),
+                          SizedBox(width: wp(5, context)),
+                          const Text(
+                            'QR Scan',
+                            style: TextStyle(fontSize: 17, color: COLOR_WHITE),
+                          )
+                        ],
+                      )),
+                    ),
+                  ),
+                ]),
+    );
+  }
+
+  // scanner screen
+  void scanQRCode() async {
+    try {
+      final qrCode = await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      if (!mounted) return;
+
+      setState(() {
+        //user ID
+        uid = qrCode.substring(0, 28);
+        //card ID
+        cid = qrCode.substring(29);
+        bool isValid1 = qrvalidateString(uid!);
+        bool isValid2 = qrvalidateString(cid!);
+
+        if (isValid1 == true && isValid2 == true) {
+          getSingleUserData(cid!, uid!);
+          value = true;
+        } else {
+          displayCustomToast1();
+          value = false;
+        }
+      });
+    } on PlatformException {
+      return;
+    }
+  }
+
+  displayCustomToast() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "You cannot save your own card.",
+        style: TextStyle(color: COLOR_WHITE),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  displayCustomToast1() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "This QR Code is invalid.",
+        style: TextStyle(color: COLOR_WHITE),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 2),
+    );
+  }
+
+  displayCustomToast2() {
+    Widget toast = const CustomToast(
+      child: Text(
+        "This card is already added.",
+        style: TextStyle(color: COLOR_WHITE),
+      ),
+    );
+    fToast?.showToast(
+      child: toast,
+      toastDuration: const Duration(seconds: 5),
+    );
+  }
+}
